@@ -1,0 +1,11 @@
+site_name: Mad-Assembler
+site_author: TeBe
+site_description: "Mad-Assembler Dokumentacja"
+site_keyword: "cross-compiler"
+
+theme:
+    name: readthedocs
+    highlightjs: true
+    hljs_style: dark
+    hljs_languages:
+        - armasm
