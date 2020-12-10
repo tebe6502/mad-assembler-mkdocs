@@ -209,8 +209,7 @@ data dta fcb [1] (0)
                          ;
 .endr
 ```
-                    ;
-- krótsza wersja pętli #WHILE bez wyrażenia, pętla trwa dopóki LABEL <> 0
+- krótsza wersja pętli `#WHILE` bez wyrażenia, pętla trwa dopóki LABEL <> 0
 
 ```
 #while .word label
