@@ -56,7 +56,7 @@ Dzięki darmowemu kompilatorowi **Free Pascal Compiler** (FPC) możliwa jest kom
 .endm
 ```
 
-- poprawione alokowanie danych .ARRAY gdy nie ma określonego rozmiaru, lub jest to tablica inna niż jednowymiarowa
+- poprawione alokowanie danych '.ARRAY' gdy nie ma określonego rozmiaru, lub jest to tablica inna niż jednowymiarowa
 - zwiększona liczba przebiegów dla `.PROC`, w pewnych warunkach dla parametru `xa .reg` parametr był źle interpretowany
 - nowa dyrektywa `.DEFINE` pozwalająca definiować jedno liniowe makra (można definiować wielokrotnie w tym samym przebiegu)
 
@@ -77,15 +77,15 @@ text 'atari'
 ## 2.0.5
 
 - tablice `.ARRAY` w bloku `.PROC` są pomijane jeśli użyto przełącznik `-X` (exclude unreferenced procedure)
-- użycie .ARRAY w bloku .STRUCT nie będzie generować już zer w pliku wynikowym
-- nowa dyrektywa .XGET, pozwalająca wczytać do bufora pamięci **MADS** plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla VBXE)
+- użycie '.ARRAY' w bloku '.STRUCT' nie będzie generować już zer w pliku wynikowym
+- nowa dyrektywa '.XGET', pozwalająca wczytać do bufora pamięci **MADS** plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla VBXE)
 
 ## 2.0.4
 
 - usunięty błąd powodujący błędny zapis bloku aktualizacji dla starszego bajtu adresu w bloku `.RELOC`
 - `.DB` `.DW` usunięte
 - `.DBYTE` (MSB/LSB) odkłada słowo w odwrotnej kolejności (starszy/młodszy)
-- dodane dyrektywy `.WGET` (WORD), `.LGET` (LONG), `.DGET` (DWORD)
+- dodane dyrektywy `.WGET` (**WORD**), `.LGET` (**LONG**), `.DGET` (**DWORD**)
 - poprawione działanie makro rozkazków `ADW` `SBW`, np.:
 
 ```
@@ -111,14 +111,14 @@ adw (tmp),y ptr2 ptr4
 
 ## 1.9.7
 
-- dyrektywa .DEF definiuje etykiety o zasiegu lokalnym, jeśli poprzedzić ją znakiem ':' to globalne
+- dyrektywa '.DEF' definiuje etykiety o zasiegu lokalnym, jeśli poprzedzić ją znakiem ':' to globalne
 - poprawki dla liczb zmiennoprzecinkowych .FL, poprawione kodowane zera, dokonywane zaokrąglenie do 10 miejsc po przecinku
 - dla bloków Sparta DOS X 'blk reloc' i 'blk empty' dodana możliwość określenia innego typu pamięci niż $00 (main), $02 (extended), np.:
 
     blk reloc $40
 
-- poprawka umożliwiająca użycie dyrektywy .PRINT po 'blk empty'
-- dodana możliwość definiowania wielowymiarowych tablic .ARRAY, np.:
+- poprawka umożliwiająca użycie dyrektywy '.PRINT' po 'blk empty'
+- dodana możliwość definiowania wielowymiarowych tablic '.ARRAY', np.:
 
 ```
 .array scr [24][40]
@@ -128,16 +128,16 @@ adw (tmp),y ptr2 ptr4
   mva #"!" scr[11][22]
 ```
 
-- dodana możliwość definiowania tablicy .ARRAY poprzez dyrektywę .DS, np.:
+- dodana możliwość definiowania tablicy '.ARRAY' poprzez dyrektywę '.DS', np.:
 
     tmp .ds .array [5][12][4] .word
 
-- dodana możliwość definiowania tablicy .ARRAY poprzez pseudorozkaz EQU (=), np.:
+- dodana możliwość definiowania tablicy '.ARRAY' poprzez pseudorozkaz 'EQU' (=), np.:
 
     fnt = $e000 .array [128] [8] .byte
 
-- naprawione działanie makrorozkazu ADW w połączeniu z makrorozkazem SCC itp.
-- poprawki dla .REPT, m.in. komentarz wieloliniowy `/* */` jest teraz właściwie rozpoznawany
+- naprawione działanie makrorozkazu ADW w połączeniu z makrorozkazem 'SCC' itp.
+- poprawki dla '.REPT', m.in. komentarz wieloliniowy `/* */` jest teraz właściwie rozpoznawany
 
 ## 1.9.6
 
@@ -152,17 +152,17 @@ adw (tmp),y ptr2 ptr4
 
 - dodany pseudo rozkaz `COS` (centre,amp,size[,first,last]) generujący wartości dla funkcji cosinus
 - dodany komunikat błędu **Improper syntax** w przypadku użycia dyrektywy `.DS` w bloku `.STRUCT`
-- naprawione działanie pseudo rozkazu ORG, np.:
+- naprawione działanie pseudo rozkazu 'ORG', np.:
 
 ```
 opt h-
 ORG [a($ffff),d'atari',c'ble',20,30,40],$8000,$a000
 ```
 
-- addytywne bloki .LOCAL otrzymują kolejne adresy, poprzednio adres ustalany był na podstawie pierwszego wystąpienia takiego bloku
+- addytywne bloki '.LOCAL' otrzymują kolejne adresy, poprzednio adres ustalany był na podstawie pierwszego wystąpienia takiego bloku
 - dodany komunikat ostrzeżenia w przypadku stworzenia kolejnego addytywnego bloku .LOCAL o tej samej nazwie "Ambiguous label LOCAL_NAME"
-- dodane mnemoniki PER (PEA rell), PEI (PEA (zp)) dla 65816
-- dodane nowy typ danych M (najstarszy bajt LONG) i G (najstarszy bajt DWORD) dla pseudorozkazu DTA, np.:
+- dodane mnemoniki PER (PEA rell), 'PEI' (PEA (zp)) dla 65816
+- dodane nowy typ danych M (najstarszy bajt **LONG**) i G (najstarszy bajt **DWORD**) dla pseudorozkazu DTA, np.:
 
 ```
 dta m($44556677)   ; -> $55
