@@ -161,7 +161,7 @@ ORG [a($ffff),d'atari',c'ble',20,30,40],$8000,$a000
 
 - addytywne bloki '.LOCAL' otrzymują kolejne adresy, poprzednio adres ustalany był na podstawie pierwszego wystąpienia takiego bloku
 - dodany komunikat ostrzeżenia w przypadku stworzenia kolejnego addytywnego bloku .LOCAL o tej samej nazwie "Ambiguous label LOCAL_NAME"
-- dodane mnemoniki PER (PEA rell), 'PEI' (PEA (zp)) dla 65816
+- dodane mnemoniki `PER` (PEA rell), 'PEI' (PEA (zp)) dla 65816
 - dodane nowy typ danych M (najstarszy bajt **LONG**) i G (najstarszy bajt **DWORD**) dla pseudorozkazu DTA, np.:
 
 ```
@@ -182,7 +182,7 @@ free_ptr_t dta free_ptr_struct [3]
 .print .sizeof(free_ptr_t)    ; free_ptr_struct [0..3] = 16 bytes
 ```
 
-- zmiany dla operacji odczytu plików poprzez ICL, INS itp. plik do odczytu/zapisu będzie poszukiwany najpierw w ścieżce, która prowadzi do obecnie otwartego pliku, następnie ze ścieżki z której został uruchomiony główny asemblowany plik i na końcu ze ścieżek podanych parametrem -i (additional include directories)
+- zmiany dla operacji odczytu plików poprzez `ICL`, `INS` itp. plik do odczytu/zapisu będzie poszukiwany najpierw w ścieżce, która prowadzi do obecnie otwartego pliku, następnie ze ścieżki z której został uruchomiony główny asemblowany plik i na końcu ze ścieżek podanych parametrem -i (additional include directories)
 - poprawione rozpoznawanie wielkości znaków gdy aktywowany jest przełącznik -c (char sensitive) dla struktur, np.:
 
 ```
@@ -196,7 +196,7 @@ data dta fcb [1] (0)
 ```
 
 
-- rozszerzone działanie dyrektywy .REPT o możliwość jej zagnieżdżania np.:
+- rozszerzone działanie dyrektywy `.REPT` o możliwość jej zagnieżdżania np.:
 
 ```
 .rept 2,#*2              ;  1 - $0000
@@ -318,7 +318,7 @@ hadr :4 dta h(line:1)
 ## 1.9.3
 
 - poprawione przetwarzanie bloków `.PROC`, które w pewnych okolicznościach mogły zostać pominięte podczas asemblacji
-- poprawiony zapis BLK EMPTY dla plików SDX jeśli zastosowaliśmy deklarację takiego bloku przez `.DS`
+- poprawiony zapis `BLK EMPTY` dla plików SDX jeśli zastosowaliśmy deklarację takiego bloku przez `.DS`
 - poprawki dotyczące testowania końca linii
 - dodane dyrektywy `.FILESIZE`, `.SIZEOF` jako odpowiednik dotychczasowej dyrektywy `.LEN`
 - rozszerzona składnia dla pól struktury `.STRUCT`, np.:
@@ -395,7 +395,7 @@ blk update extrn
 ## 1.8.6 - 1.8.7
 
 - usprawnione rozpoznawanie komentarzy `/* */` w wyrażeniach
-- domyślny adres dla .ZPVAR ustawiony na `$0080`, poprzednio `$0000`
+- domyślny adres dla `.ZPVAR` ustawiony na `$0080`, poprzednio `$0000`
 - dodana nowa dyrektywa `.ELIF` jako krótszy odpowiednik dyrektywy `.ELSEIF`
 - rozszerzone działanie dyrektywy `.LEN` o możliwość podania jako parametru nazwy pliku, zwracana jest wówczas długość takiego pliku
 - usprawnione działanie dyrektywy `.DEF` w wyrażeniach warunku `.IF` `.IFDEF` `IFNDEF`
@@ -614,9 +614,9 @@ ad  sta $bc40
 
 ## 1.8.2
 
-- zniesione ograniczenie długości pliku dla pseudo rozkazu INS (poprzednio długość wczytywanego pliku ograniczona była do 65536 bajtów)
+- zniesione ograniczenie długości pliku dla pseudo rozkazu `INS` (poprzednio długość wczytywanego pliku ograniczona była do 65536 bajtów)
 - dodany komunikat błędu **The referenced label ... has not previously been defined properly** w przypadku etykiet, które nie zostały zdefiniowane do końca, np. tylko w pierwszym przebiegu wartością nieokreśloną
-- dodana nowa dyrektywa `.ECHO` jako odpowiednik dyrektywy .PRINT, dodatkowo informacje generowane przez .PRINT (.ECHO) zapisywane są teraz także w listingu *.LST
+- dodana nowa dyrektywa `.ECHO` jako odpowiednik dyrektywy .PRINT, dodatkowo informacje generowane przez `.PRINT` (`.ECHO`) zapisywane są teraz także w listingu *.LST
 - dodana nowa dyrektywa `.ALIGN` pozwalająca na wyrównanie do zadanego zakresu pamięci, dodatkowo można określić wartość jaką wypełnić pamięć
 
 ```
@@ -719,7 +719,7 @@ mva #0 $81  ->  sta $80   ->  sta $80
 ```
 .def label = 1
 ```
-- rozszerzona funkcjonalność dyrektywy .DEF o możliwość zdefiniowania etykiety globalnej niezależnie od aktulnego obszaru lokalnego, np.:
+- rozszerzona funkcjonalność dyrektywy `.DEF` o możliwość zdefiniowania etykiety globalnej niezależnie od aktulnego obszaru lokalnego, np.:
 
 ```
 .def :label
@@ -746,7 +746,7 @@ mva #0 $81  ->  sta $80   ->  sta $80
 ## 1.7.8
 
 - dodane dyrektywy `.MEND` `.PGEND` `.REND` jako odpowiedniki `.ENDM` `.ENDPG` `.ENDR`
-- obecnie deklaracja makra musi kończyć się dyrektywą .ENDM lub .MEND (poprzednio dopuszczalne było użycie dyrektywy .END)
+- obecnie deklaracja makra musi kończyć się dyrektywą `.ENDM` lub `.MEND` (poprzednio dopuszczalne było użycie dyrektywy `.END`)
 - poprawiony sposób wykonywania makr dzięki czemu umożliwione zostało wykonanie dyrektywy .ENDL z poziomu wykonywanego makra
 - poprawione zauważone błędy dotyczące starszych bajtów relokowanego adresu oraz bloku aktualizacji symboli publicznych
 - dodana nowa dyrektywa `.USING` `.USE` pozwalająca określić ścieżkę poszukiwań dla nazw etykiet
@@ -880,7 +880,7 @@ PHR -> PHA         PLR -> PLA
        PHA                PLA
 ```
 
-- dodane nowe makro rozkazy ADB, SBB realizujące dodawanie i odejmowanie wartości typu .BYTE, np.:
+- dodane nowe makro rozkazy `ADB`, `SBB` realizujące dodawanie i odejmowanie wartości typu `.BYTE`, np.:
 
 ```
 ADB $80 #12 $b000  ->  lda $80
@@ -920,7 +920,7 @@ adw hlp #20 pom    ; pom=hlp+20
 ## 1.7.4
 
 - naprawione działanie dyrektywy `.PRINT`, dotąd mogła nie wyświetlić wartości etykiet zaczynającej się na literę 'A','B','C','D','E','F','G','H','L','T','V'
-- zablokowane działanie dyrektywy `.DS` w blokach `.RELOC` `SDX` oraz naprawione jej działanie z instrukcją warunkową `.IF` (IFT)
+- zablokowane działanie dyrektywy `.DS` w blokach `.RELOC` `SDX` oraz naprawione jej działanie z instrukcją warunkową `.IF` (`IFT`)
 - usprawnione przeszukiwanie ścieżek dostępu `-i:path` (można odwoływać się do podkatalogów tam zawartych)
 - w przypadku wystąpienia błędów podczas asemblacji wyświetlane są one wszystkie a nie tylko pierwszy z błędów
 - poprawione zauważone błędy, m.in. użycie makra w pliku `.RELO`C mogło spowodować w pewnych sytuacjach zapis błędnej informacji o relokownych adresach
@@ -1013,10 +1013,10 @@ adw hlp #20 pom    ; pom=hlp+20
 - dodany pseudo rozkaz `EXT` pozwalający na deklaracje etykiety external
 - dodane makra `JEQ` `JNE` `JPL` `JMI` `JCC` `JCS`
 - dodane dyrektywy `.PAGES` `.ENDPG`
-- dodana dyrektywa `.END` zastepujaca inne dyrektywy .END?
+- dodana dyrektywa `.END` zastepujaca inne dyrektywy `.END?`
 - przełącznik `-H` zastąpiony został przez `-HC` (generuje plik nagłówkowy dla **CC65**)
 - dodany nowy przełącznik `-HM` generujący plik nagłówkowy dla **MADS** z sortowaniem na etykiety typu `CONSTANTS` `VARIABLES` `PROCEDURES`
-- dodana nowa dyrektywa .RELOC generująca kod relokowalny w formacie **MADS**
+- dodana nowa dyrektywa `.RELOC` generująca kod relokowalny w formacie **MADS**
 
 ## 1.6.8
 
