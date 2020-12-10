@@ -83,7 +83,7 @@ text 'atari'
 ## 2.0.4
 
 - usunięty błąd powodujący błędny zapis bloku aktualizacji dla starszego bajtu adresu w bloku `.RELOC`
-- `.DB` i `.DW` usunięte
+- `.DB` `.DW` usunięte
 - `.DBYTE` (MSB/LSB) odkłada słowo w odwrotnej kolejności (starszy/młodszy)
 - dodane dyrektywy `.WGET` (WORD), `.LGET` (LONG), `.DGET` (DWORD)
 - poprawione działanie makro rozkazków `ADW` `SBW`, np.:
@@ -387,7 +387,7 @@ blk update extrn
 
 - uaktualniony silnik duchów programowych `..\EXAMPLES\SPRITES\CHARS` o duchy 8x24
 - w przypadku braku podania rozszerzenia pliku i braku istnienia takiego pliku dla ICL 'filename' zostanie domyślnie przyjęte rozszerzenie `*.ASM` ICL 'filename.asm'
-- poprawione działanie komentarzy `/* */` w blokach `.MACRO` i `.REPT`
+- poprawione działanie komentarzy `/* */` w blokach `.MACRO` `.REPT`
 - usunięty błąd uniemożliwiający poprawną asemblację bloku `#IF` `#WHILE` dla wyrażeń łączonych przez `.OR` `.AND`
 - przełączniki w linii komend mogą być poprzedzone tylko znakiem `-`, poprzednio także `/` jednak były problemy z działaniem tego znaku na MacOSX
 - poprawiony zakres działania dyrektywy `.USING`, dla aktualnej przestrzeni nazw i kolejnych zawierających się w tej przestrzeni nazw
@@ -405,7 +405,7 @@ blk update extrn
 - dodane makro relokujące moduły **RMT** `...\EXAMPLES\MSX\RMT_PLAYER_RELOCATOR\`
 - dodany test składni dla nie asemblowanych procedur .PROC gdy aktywny jest przełącznik `-x` **Exclude unreferenced procedures**
 - poprawione działanie przełącznika `-d:label[=value]`, podanie wartości dla etykiety jest teraz opcjonalne, domyślnie mads przypisze wartość 1
-- dyrektywy `.DS` i `.ALIGN` nie spowodują alokacji zmiennych zdefiniowanych przez `.VAR`
+- dyrektywy `.DS` `.ALIGN` nie spowodują alokacji zmiennych zdefiniowanych przez `.VAR`
 - alokacja zmiennych `.VAR` przed nowym blokiem `ORG` nie nastąpi jeśli blok `ORG` znajduje się w bloku `.LOCAL` lub `.PROC`
 - poprawione łamanie wierszy znakiem `\` w ciągach ograniczonych nawiasami `()`
 - usunięty błąd powodujący relokowanie adresu dla wyrażenia dyrektywy `.ERROR` `ERT`
@@ -450,7 +450,7 @@ blk update extrn
 .enda                   ; 18 elementów, TEMP [0..17]
 ```
 
-- dodana możliwość alokacji zmiennej typu strukturalnego przy pomocy dyrektyw `.VAR` i `.ZPVAR`, np.:
+- dodana możliwość alokacji zmiennej typu strukturalnego przy pomocy dyrektyw `.VAR` `.ZPVAR`, np.:
 
 ```
 .struct Point
@@ -462,7 +462,7 @@ blk update extrn
  .zpvar Point f,g,i
 
 ```
-- dodana możliwość alokacji zmiennej typu wyliczeniowego przy pomocy dyrektyw `.VAR` i `.ZPVAR`, np.:
+- dodana możliwość alokacji zmiennej typu wyliczeniowego przy pomocy dyrektyw `.VAR` `.ZPVAR`, np.:
 
 ```
 .enum Boolean
@@ -559,7 +559,7 @@ dst sta $ffff,y
   copySrc #$a360
 ```
 
-- dodane nowe dyrektywy `.ENUM` i `.ENDE` `.EEND`
+- dodane nowe dyrektywy `.ENUM` `.ENDE` `.EEND`
 
 ```
 .enum dni_tygodnia
@@ -648,7 +648,7 @@ lda\
 - poprawione rozpoznawanie dyrektyw przy włączonym przełączniku -C (Case sensitive)
 - usprawniony odczyt bloków `.REPT` (wskazanie prawidłowej linii z błędem) i `.MACRO`
 - zablokowane użycie `.VAR` w bloku `.REPT`
-- umożliwione zagnieżdżanie oraz wielokrotne uruchamianie (poprzez makra) pętli `.REPT` i `:repeat` (poprzednio występował komunikat **Use .REPT directive**)
+- umożliwione zagnieżdżanie oraz wielokrotne uruchamianie (poprzez makra) pętli `.REPT` `:repeat` (poprzednio występował komunikat **Use .REPT directive**)
 - umożliwione przekazywanie parametrów do bloku .REPT, np.
 
 ```
@@ -687,22 +687,22 @@ label:1           ; LABEL0, LABEL1, LABEL2 ... LABEL9
                       ->       jmp wait
 ```
 
-- dyrektywy `#IF` i `#WHILE` akceptują dwa dodatkowe operatory `==` i `!=`
+- dyrektywy `#IF` `#WHILE` akceptują dwa dodatkowe operatory `==` `!=`
 - dodana dyrektywa `.EXITM` jako odpowiednik `.EXIT`
 - dodana dyrektywa `.FI` jako odpowiednik `.ENDIF`
 - dodana dyrektywa `.IFDEF` jako krótszy odpowiednik dyrektyw `.IF` `.DEF`
 - dodana dyrektywa `.IFNDEF` jako krótszy odpowiednik dyrektyw `.IF` `.NOT` `.DEF`
-- umożliwione zostało definiowanie makr w obszarze procedury `.PROC`, podsumowując aktualnie dopuszczalne jest zdefiniowanie makra w obszarze `.LOCAL` i `.PROC`
+- umożliwione zostało definiowanie makr w obszarze procedury `.PROC`, podsumowując aktualnie dopuszczalne jest zdefiniowanie makra w obszarze `.LOCAL` `.PROC`
 - wystąpienie jakiegokolwiek ostrzeżenia podczas asemblacji nie zmieni kodu wyjścia (exit_code=0), zmiana podyktowana potrzebą kompatybilności z linuxowym makefile
 - ujednolicony sposób deklaracji etykiet lokalnych i globalnych, "białe znaki" przed nazwą etykiety nie wymuszą zdefiniowania takiej etykiety jako globalnej, umożliwi to tylko dyrektywa `.DEF :LABEL`
-- poprawione makra `@CALL.MAC` i `@CALL_2.MAC`, zmienna tymczasowa globalna `?@stack_offset` modyfikowana jest teraz przez dyrektywę `.DEF`
+- poprawione makra `@CALL.MAC` `@CALL_2.MAC`, zmienna tymczasowa globalna `?@stack_offset` modyfikowana jest teraz przez dyrektywę `.DEF`
 - rezygnacja z opcji `-E` (Eat White spaces), aktualnie jest ta opcja zawsze włączona
 - poprawione wyświetlanie numeru linii z błędem w aktualnie wykonywanym makrze
 - skrócone nazwy etykiet tworzonych podczas wykonywania makr (łatwiejsza ich identyfikacja w pliku `*.LAB`)
 - poprawione działanie opcji `OPT H-`
 - dodane nowe makro rozkazy `INL` (increse LONG), `IND` (increse DWORD), `DEL` (decrese LONG), `DED` (decrese DWORD)
 - dodane nowe makro rozkazy `CPB` (compare BYTE), `CPW` (compare WORD), `CPL` (compare LONG), `CPD` (compare DWORD)
-- usprawnione i rozszerzone działanie dyrektyw `#TEST` i `#WHILE` w oparciu o kod generowany przez makro rozkazy `CPB` `CPW` `CPL` `CPD`, dyrektywy `#TEST` i `#WHILE` dla wyrażeń `=#0` i `<>#0` generują najkrótszy kod wynikowy
+- usprawnione i rozszerzone działanie dyrektyw `#TEST` `#WHILE` w oparciu o kod generowany przez makro rozkazy `CPB` `CPW` `CPL` `CPD`, dyrektywy `#TEST` `#WHILE` dla wyrażeń `=#0` `<>#0` generują najkrótszy kod wynikowy
 - dodana optymalizacja długości generowanego kodu dla makro rozkazów `MWA` `MWX` `MWY`
 - dodana nowa opcja OPT R optymalizująca kod makro rozkazów `MWA` `MWX` `MWY` `MVA` `MVX` `MVY` ze względu na zawartość rejestrów, np.:
 
@@ -774,7 +774,7 @@ mva #0 $81  ->  sta $80   ->  sta $80
 
 - dodany nowy przełącznik `-B:ADDRESS` umożliwiający asemblacje od zadanego adresu
 - dodany nowa opcja `OPT F+-` pozwalająca tworzyć bloki ciągłej pamięci (przydatne dla cartów)
-- dodana obsługa parametrów typu `.LONG` i `.DWORD` przekazywanych do procedur `.PROC` typu `.VAR` (poprzednio akceptowanymi typami parametrów był tylko `.BYTE` i `.WORD`)
+- dodana obsługa parametrów typu `.LONG` `.DWORD` przekazywanych do procedur `.PROC` typu `.VAR` (poprzednio akceptowanymi typami parametrów był tylko `.BYTE` `.WORD`)
 - dodana nowa dyrektywa `.FL` realizująca zapis liczb rzeczywistych `REAL` w formacie **FP Atari**, np.:
 
 ```
@@ -806,10 +806,10 @@ temp .long $aabbcc
 - błąd **Addres relocation overload** wystąpi teraz tylko gdy wyrażenie będzie dotyczyć więcej niż jednej etykiety relokowalnej, poprzednio każde wyrażenie z udziałem etykiety relokowalnej powodowało wyświetlenie tego komunikatu błędu
 - blok aktualizacji symboli plublicznych rozszerzony został o możliwość przekazywania stałych różnych typów B-YTE, W-ORD, L-ONG, D-WORD, poprzednio przekazywanym typem był tylko W-ORD
 - zmienione działanie dyrektywy `.VAR` w blokach `.LOCAL` znajdujących się w bloku `.PROC`, zmienne takie zawsze odkładane są na końcu bloku przed dyrektywą `.ENDP`, w pozostałych przypadkach na końcu bloku `.LOCAL` przed dyrektywą `.ENDL`
-- umożliwiona została relokowalność kodu generowanego przez dyrektywy `.WHILE` i `.TEST`
-- poprawione działanie testowania wartości typu `.WORD` w kodzie generowanym przez dyrektywy `.WHILE` i `.TEST`
+- umożliwiona została relokowalność kodu generowanego przez dyrektywy `.WHILE` `.TEST`
+- poprawione działanie testowania wartości typu `.WORD` w kodzie generowanym przez dyrektywy `.WHILE` `.TEST`
 - dodana nowa dyrektywa `.ADR` zwracająca adres etykiety przed zmianą adresu asemblacji
-- dodana nowa dyrektywa `.LEN` zwracająca długość bloków zdefiniowanych przez `.PROC` i `.ARRAY`
+- dodana nowa dyrektywa `.LEN` zwracająca długość bloków zdefiniowanych przez `.PROC` `.ARRAY`
 - poprawione działanie operacji dzielenia, mnożenia i modulo, poprzednio błędnie był interpretowany piorytet dla tych operacji
 - komentarze z końca linii nie poprzedzone znakiem komentarza będą powodować wystąpienie błędu **Unexpected end of line**
 - dodana możliwość przypisania zmiennej pól zdefiniowanych przez strukture, np.:
@@ -920,7 +920,7 @@ adw hlp #20 pom    ; pom=hlp+20
 ## 1.7.4
 
 - naprawione działanie dyrektywy `.PRINT`, dotąd mogła nie wyświetlić wartości etykiet zaczynającej się na literę 'A','B','C','D','E','F','G','H','L','T','V'
-- zablokowane działanie dyrektywy `.DS` w blokach `.RELOC` i `SDX` oraz naprawione jej działanie z instrukcją warunkową `.IF` (IFT)
+- zablokowane działanie dyrektywy `.DS` w blokach `.RELOC` `SDX` oraz naprawione jej działanie z instrukcją warunkową `.IF` (IFT)
 - usprawnione przeszukiwanie ścieżek dostępu `-i:path` (można odwoływać się do podkatalogów tam zawartych)
 - w przypadku wystąpienia błędów podczas asemblacji wyświetlane są one wszystkie a nie tylko pierwszy z błędów
 - poprawione zauważone błędy, m.in. użycie makra w pliku `.RELO`C mogło spowodować w pewnych sytuacjach zapis błędnej informacji o relokownych adresach
@@ -930,7 +930,7 @@ adw hlp #20 pom    ; pom=hlp+20
 - dodane nowe dyrektywy `.BY` `.WO` `.HE` `.EN` `.SB` (zapożyczone z **MAE**)
 - dodany nowy przełącznik `OPT ?-` (domyślnie) etykiety ze znakiem zapytania (?labels) traktowane są jako etykiety tymczasowe, `OPT ?+` etykiety ze znakiem zapytania (?labels) traktowane są jako lokalne i tymczasowe, nazwą obszaru lokalnego jest ostatnio użyta etykieta bez znaku zapytania
 - dodane dyrektywy `.LEND` `.PEND` `.AEND` `.WEND` `.TEND` `.SEND` jako odpowiedniki dyrektyw `.ENDL` `.ENDP` `.ENDW` `ENDW` `.ENDT` `.ENDS`
-- dodane nowe dyrektywy `.GLOBAL` i `.GLOBL` jako odpowiednik (zamiennik) dyrektywy `.PUBLIC`
+- dodane nowe dyrektywy `.GLOBAL` `.GLOBL` jako odpowiednik (zamiennik) dyrektywy `.PUBLIC`
 - dodana optymalizacja skoków warunkowych `JEQ` `JNE` `JPL` `JMI` `JCC` `JCS` `JVC` `JVS` jeśli jest taka możliwość wybierany jest skok krótki typu `BEQ` `BNE` `BPL` `BMI` `BCC` `BCS` `BVC` `BVS`
 - dodany nowy domyślny separator znak spacji dla przekazywanych parametrów do `.PROC` `.MACRO` dotąd był to tylko znak przecinka
 - usprawnienia dotyczące przekazywania parametrów do makr i procedur, np. paramatrem makra może być dyrektywa zwracająca wartość wyrażenia lub symbol licznika pętli `#`
@@ -1012,7 +1012,7 @@ adw hlp #20 pom    ; pom=hlp+20
 - rozszerzona składnia dla `.ARRAY` `.PUT`
 - dodany pseudo rozkaz `EXT` pozwalający na deklaracje etykiety external
 - dodane makra `JEQ` `JNE` `JPL` `JMI` `JCC` `JCS`
-- dodane dyrektywy `.PAGES` i `.ENDPG`
+- dodane dyrektywy `.PAGES` `.ENDPG`
 - dodana dyrektywa `.END` zastepujaca inne dyrektywy .END?
 - przełącznik `-H` zastąpiony został przez `-HC` (generuje plik nagłówkowy dla **CC65**)
 - dodany nowy przełącznik `-HM` generujący plik nagłówkowy dla **MADS** z sortowaniem na etykiety typu `CONSTANTS` `VARIABLES` `PROCEDURES`
