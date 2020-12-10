@@ -677,7 +677,7 @@ label:1           ; LABEL0, LABEL1, LABEL2 ... LABEL9
        #if .word j = #12
        #end
  # end
- ```
+```
 
 - dyrektywa generująca kod **6502** dla iteracji `.WHILE` zastąpiona została przez dyrektywę `#WHILE`, dyrektywa `.ENDW` przez `#END`, np.:
 
