@@ -31,7 +31,7 @@ Dzięki darmowemu kompilatorowi **Free Pascal Compiler** (FPC) możliwa jest kom
 
 - krótszy kod dla `#CYCLE`
 - poprawki dla `.BY` `.WO` `.HE` `.SB` `.CB` `.FL`
-- komunikat błędu 'Improper syntax' w przypadku użycia `.BY` `.WO` `.HE` `.SB` `.CB` `.FL` w bloku `.STRUCT`
+- komunikat błędu **Improper syntax** w przypadku użycia `.BY` `.WO` `.HE` `.SB` `.CB` `.FL` w bloku `.STRUCT`
 - dodane nowe dyrektywy dla **65816** `.LONGA ON|OFF` `.LONGI ON|OFF`
 - poprawione działanie śledzenia rozmiaru rejestrów **65816** gdy `OPT T+`
 - dodany przełącznik -FV:VALUE pozwalający ustalić wartość wypełnienia pamięci gdy `OPT F+`
@@ -113,13 +113,12 @@ adw (tmp),y ptr2 ptr4
 
 - dyrektywa `.DEF` definiuje etykiety o zasiegu lokalnym, jeśli poprzedzić ją znakiem `:` to globalne
 - poprawki dla liczb zmiennoprzecinkowych .FL, poprawione kodowane zera, dokonywane zaokrąglenie do 10 miejsc po przecinku
-- dla bloków Sparta DOS X 'blk reloc' i 'blk empty' dodana możliwość określenia innego typu pamięci niż `$00` (main), `$02` (extended), np.:
+- dla bloków **Sparta DOS X** `blk reloc` i `blk empty` dodana możliwość określenia innego typu pamięci niż `$00` (main), `$02` (extended), np.:
 
 ```
 blk reloc $40
 ```
-
-- poprawka umożliwiająca użycie dyrektywy `.PRINT` po 'blk empty'
+- poprawka umożliwiająca użycie dyrektywy `.PRINT` po `blk empty`
 - dodana możliwość definiowania wielowymiarowych tablic `.ARRAY`, np.:
 
 ```
@@ -236,7 +235,7 @@ temp set 23
      lda #temp
 ```
 
-- dodana możliwość wymuszenia trybu adresowania w stylu **XASM** ('a:', 'z:'), np.:
+- dodana możliwość wymuszenia trybu adresowania w stylu **XASM** `'a:', 'z:'`, np.:
 
 ```
 XASM        MADS
@@ -636,7 +635,7 @@ ad  sta $bc40
 
 ## 1.8.1
 
-- rozszerzone działanie znaku backslash `\'`, umieszczenie go na końcu wiersza oznacza kontynuację aktualnego wiersza od nowego wiersza, np.:
+- rozszerzone działanie znaku backslash `\`, umieszczenie go na końcu wiersza oznacza kontynuację aktualnego wiersza od nowego wiersza, np.:
 
 ```
 macro_temp \
@@ -931,7 +930,7 @@ adw hlp #20 pom    ; pom=hlp+20
 
 ## 1.7.4
 
-- naprawione działanie dyrektywy `.PRINT`, dotąd mogła nie wyświetlić wartości etykiet zaczynającej się na literę 'A','B','C','D','E','F','G','H','L','T','V'
+- naprawione działanie dyrektywy `.PRINT`, dotąd mogła nie wyświetlić wartości etykiet zaczynającej się na literę `A` `B` `C` `D` `E` `F` `G` `H` `L` `T` `V`
 - zablokowane działanie dyrektywy `.DS` w blokach `.RELOC` **SDX** oraz naprawione jej działanie z instrukcją warunkową `.IF` `IFT`
 - usprawnione przeszukiwanie ścieżek dostępu `-i:path` (można odwoływać się do podkatalogów tam zawartych)
 - w przypadku wystąpienia błędów podczas asemblacji wyświetlane są one wszystkie a nie tylko pierwszy z błędów
