@@ -2,7 +2,7 @@
 
 **Mad-Assembler** (MADS) jest aplikacją 32 bitową, napisaną w **Delphi**. Większość asemblerów napisano w **C**, więc żeby się nie powtarzać użyłem **Delphi 7.0** ;)
 
-W założeniu **MADS** skierowany jest do użytkowników **QA**, **XASM**, **FA**. Z **QA** zapożyczona została składnia, z **XASM** niektóre makro rozkazy i zmiany składni, z **FA** obsługa składni **Sparta DOS X** (SDX). Umożliwione zostało użycie dodatkowych znaków w nazwach etykiet. Poza tym dodana została obsługa **CPU 65816**, makr, procedur, podziału pamięci na wirtualne banki, wielowymiarowych nazw etykiet.
+W założeniu **MADS** skierowany jest do użytkowników **QA**, **XASM**, **FA**. Z **QA** zapożyczona została składnia, z **XASM** niektóre makro rozkazy i zmiany składni, z **FA** obsługa składni **Sparta DOS X** **SDX**. Umożliwione zostało użycie dodatkowych znaków w nazwach etykiet. Poza tym dodana została obsługa **CPU 65816**, makr, procedur, podziału pamięci na wirtualne banki, wielowymiarowych nazw etykiet.
 
 Maksymalna liczba etykiet i makr ograniczona jest ilością pamięci komputera *PC*. Konkretnie można dokonać **2147483647** `INTEGER` wpisów do tablic dynamicznych. Jestem pewien że taka ilość jest wystarczająca :)
 
@@ -42,7 +42,7 @@ Dzięki darmowemu kompilatorowi **Free Pascal Compiler** (FPC) możliwa jest kom
 - poprawione generowanie kodu wynikowego dla nielegali `DOP`, `SHA`
 - dodane nowe dyrektywy **65816** `.A8` `.A16` `.I8` `.I16` `.AI8` `.IA8` `.AI16` `.IA16` pozwalające ustawić rozmiar rejestrów `AXY`
 - dodane nowe dyrektywy **65816** `.ASIZE` `.ISIZE` zwracające aktualnie ustawiony rozmiar rejestrów `AXY`
-- rozkaz `JMP` zmieniany jest na `JML` (65816) tylko gdy skok dotyczy innego 64KB banku niż obecny
+- rozkaz `JMP` zmieniany jest na `JML` **65816** tylko gdy skok dotyczy innego 64KB banku niż obecny
 - dodany nowy przełącznik `-ml:value` (margin-left property), który umożliwia zmianę lewego marginesu generowanego listingu w zakresie od 32 do 128 znaków
 
 ## 2.0.6
@@ -56,7 +56,7 @@ Dzięki darmowemu kompilatorowi **Free Pascal Compiler** (FPC) możliwa jest kom
 .endm
 ```
 
-- poprawione alokowanie danych .ARRAY gdy nie ma określonego rozmiaru, lub jest to tablica inna niż jednowymiarowa
+- poprawione alokowanie danych `.ARRAY` gdy nie ma określonego rozmiaru, lub jest to tablica inna niż jednowymiarowa
 - zwiększona liczba przebiegów dla `.PROC`, w pewnych warunkach dla parametru `xa .reg` parametr był źle interpretowany
 - nowa dyrektywa `.DEFINE` pozwalająca definiować jedno liniowe makra (można definiować wielokrotnie w tym samym przebiegu)
 
@@ -77,15 +77,15 @@ text 'atari'
 ## 2.0.5
 
 - tablice `.ARRAY` w bloku `.PROC` są pomijane jeśli użyto przełącznik `-X` (exclude unreferenced procedure)
-- użycie .ARRAY w bloku .STRUCT nie będzie generować już zer w pliku wynikowym
-- nowa dyrektywa .XGET, pozwalająca wczytać do bufora pamięci **MADS** plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla VBXE)
+- użycie `.ARRAY` w bloku `.STRUCT` nie będzie generować już zer w pliku wynikowym
+- nowa dyrektywa `.XGET`, pozwalająca wczytać do bufora pamięci **MADS** plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla **VBXE**)
 
 ## 2.0.4
 
 - usunięty błąd powodujący błędny zapis bloku aktualizacji dla starszego bajtu adresu w bloku `.RELOC`
 - `.DB` `.DW` usunięte
 - `.DBYTE` (MSB/LSB) odkłada słowo w odwrotnej kolejności (starszy/młodszy)
-- dodane dyrektywy `.WGET` (WORD), `.LGET` (LONG), `.DGET` (DWORD)
+- dodane dyrektywy `.WGET` **WORD**, `.LGET` **LONG**, `.DGET` **DWORD**
 - poprawione działanie makro rozkazków `ADW` `SBW`, np.:
 
 ```
@@ -102,7 +102,7 @@ adw (tmp),y ptr2 ptr4
 - poprawione alokowanie danych dla `.ARRAY` gdy typ większy od `.BYTE`
 - `.SIZEOF` zwraca rozmiar dla wbudowanych typów `.BYTE` `.WORD` `.LONG` `.DWORD`
 - dodana relokowalna wersja playera **MPT** `examples\players\mpt_player_reloc.asm`
-- poprawione działanie dyrektywy `.DS` w blokach SDX (blk sparta $xxx) które nie są relokowalne
+- poprawione działanie dyrektywy `.DS` w blokach **SDX** `blk sparta $xxx` które nie są relokowalne
 
 ## 1.9.8
 
@@ -111,14 +111,16 @@ adw (tmp),y ptr2 ptr4
 
 ## 1.9.7
 
-- dyrektywa .DEF definiuje etykiety o zasiegu lokalnym, jeśli poprzedzić ją znakiem ':' to globalne
+- dyrektywa `.DEF` definiuje etykiety o zasiegu lokalnym, jeśli poprzedzić ją znakiem `:` to globalne
 - poprawki dla liczb zmiennoprzecinkowych .FL, poprawione kodowane zera, dokonywane zaokrąglenie do 10 miejsc po przecinku
-- dla bloków Sparta DOS X 'blk reloc' i 'blk empty' dodana możliwość określenia innego typu pamięci niż $00 (main), $02 (extended), np.:
+- dla bloków Sparta DOS X 'blk reloc' i 'blk empty' dodana możliwość określenia innego typu pamięci niż `$00` (main), `$02` (extended), np.:
 
-    blk reloc $40
+```
+blk reloc $40
+```
 
-- poprawka umożliwiająca użycie dyrektywy .PRINT po 'blk empty'
-- dodana możliwość definiowania wielowymiarowych tablic .ARRAY, np.:
+- poprawka umożliwiająca użycie dyrektywy `.PRINT` po 'blk empty'
+- dodana możliwość definiowania wielowymiarowych tablic `.ARRAY`, np.:
 
 ```
 .array scr [24][40]
@@ -128,16 +130,20 @@ adw (tmp),y ptr2 ptr4
   mva #"!" scr[11][22]
 ```
 
-- dodana możliwość definiowania tablicy .ARRAY poprzez dyrektywę .DS, np.:
+- dodana możliwość definiowania tablicy `.ARRAY` poprzez dyrektywę `.DS`, np.:
 
-    tmp .ds .array [5][12][4] .word
+```
+tmp .ds .array [5][12][4] .word
+```
 
-- dodana możliwość definiowania tablicy .ARRAY poprzez pseudorozkaz EQU (=), np.:
+- dodana możliwość definiowania tablicy `.ARRAY` poprzez pseudorozkaz `EQU` (=), np.:
 
-    fnt = $e000 .array [128] [8] .byte
+```
+fnt = $e000 .array [128] [8] .byte
+```
 
-- naprawione działanie makrorozkazu ADW w połączeniu z makrorozkazem SCC itp.
-- poprawki dla .REPT, m.in. komentarz wieloliniowy `/* */` jest teraz właściwie rozpoznawany
+- naprawione działanie makrorozkazu `ADW` w połączeniu z makrorozkazem `SCC` itp.
+- poprawki dla `.REPT`, m.in. komentarz wieloliniowy `/* */` jest teraz właściwie rozpoznawany
 
 ## 1.9.6
 
@@ -152,24 +158,24 @@ adw (tmp),y ptr2 ptr4
 
 - dodany pseudo rozkaz `COS` (centre,amp,size[,first,last]) generujący wartości dla funkcji cosinus
 - dodany komunikat błędu **Improper syntax** w przypadku użycia dyrektywy `.DS` w bloku `.STRUCT`
-- naprawione działanie pseudo rozkazu ORG, np.:
+- naprawione działanie pseudo rozkazu `ORG`, np.:
 
 ```
 opt h-
 ORG [a($ffff),d'atari',c'ble',20,30,40],$8000,$a000
 ```
 
-- addytywne bloki .LOCAL otrzymują kolejne adresy, poprzednio adres ustalany był na podstawie pierwszego wystąpienia takiego bloku
-- dodany komunikat ostrzeżenia w przypadku stworzenia kolejnego addytywnego bloku .LOCAL o tej samej nazwie "Ambiguous label LOCAL_NAME"
-- dodane mnemoniki PER (PEA rell), PEI (PEA (zp)) dla 65816
-- dodane nowy typ danych M (najstarszy bajt LONG) i G (najstarszy bajt DWORD) dla pseudorozkazu DTA, np.:
+- addytywne bloki `.LOCAL` otrzymują kolejne adresy, poprzednio adres ustalany był na podstawie pierwszego wystąpienia takiego bloku
+- dodany komunikat ostrzeżenia w przypadku stworzenia kolejnego addytywnego bloku `.LOCAL` o tej samej nazwie **Ambiguous label LOCAL_NAME**
+- dodane mnemoniki `PER` (PEA rell), `PEI` (PEA (zp)) dla **65816**
+- dodane nowy typ danych M (najstarszy bajt **LONG**) i G (najstarszy bajt **DWORD**) dla pseudorozkazu `DTA`, np.:
 
 ```
 dta m($44556677)   ; -> $55
 dta g($44556677)   ; -> $44
 ```
 
-- dyrektywa `.LEN` `.SIZEOF` rozszerzona o obsługę danych alokowanych poprzez DTA STRUCT_NAME, np.:
+- dyrektywa `.LEN` `.SIZEOF` rozszerzona o obsługę danych alokowanych poprzez `DTA STRUCT_NAME`, np.:
 
 ```
 .STRUCT free_ptr_struct
@@ -182,8 +188,8 @@ free_ptr_t dta free_ptr_struct [3]
 .print .sizeof(free_ptr_t)    ; free_ptr_struct [0..3] = 16 bytes
 ```
 
-- zmiany dla operacji odczytu plików poprzez ICL, INS itp. plik do odczytu/zapisu będzie poszukiwany najpierw w ścieżce, która prowadzi do obecnie otwartego pliku, następnie ze ścieżki z której został uruchomiony główny asemblowany plik i na końcu ze ścieżek podanych parametrem -i (additional include directories)
-- poprawione rozpoznawanie wielkości znaków gdy aktywowany jest przełącznik -c (char sensitive) dla struktur, np.:
+- zmiany dla operacji odczytu plików poprzez `ICL`, `INS` itp. plik do odczytu/zapisu będzie poszukiwany najpierw w ścieżce, która prowadzi do obecnie otwartego pliku, następnie ze ścieżki z której został uruchomiony główny asemblowany plik i na końcu ze ścieżek podanych parametrem -i (additional include directories)
+- poprawione rozpoznawanie wielkości znaków gdy aktywowany jest przełącznik `-c` (char sensitive) dla struktur, np.:
 
 ```
 .struct fcb
@@ -196,7 +202,7 @@ data dta fcb [1] (0)
 ```
 
 
-- rozszerzone działanie dyrektywy .REPT o możliwość jej zagnieżdżania np.:
+- rozszerzone działanie dyrektywy `.REPT` o możliwość jej zagnieżdżania np.:
 
 ```
 .rept 2,#*2              ;  1 - $0000
@@ -209,7 +215,7 @@ data dta fcb [1] (0)
                          ;
 .endr
 ```
-- krótsza wersja pętli `#WHILE` bez wyrażenia, pętla trwa dopóki LABEL <> 0
+- krótsza wersja pętli `#WHILE` bez wyrażenia, pętla trwa dopóki `LABEL <> 0`
 
 ```
 #while .word label
@@ -245,8 +251,8 @@ XASM        MADS
 org r:$40   org $40,*
 ```
 
-- poprawione działanie parametru '-x Exclude unreferenced procedures', zmienne .VAR nie są alokowane gdy procedura jest nieużywana
-- rozszerzona składnia dla jednoliniowych pętli :rept, możliwe wykorzystanie licznika pętli jako parametru `:1` (%%1), np.:
+- poprawione działanie parametru `-x` **Exclude unreferenced procedures**, zmienne `.VAR` nie są alokowane gdy procedura jest nieużywana
+- rozszerzona składnia dla jednoliniowych pętli `:rept`, możliwe wykorzystanie licznika pętli jako parametru `:1` (%%1), np.:
 
 ```
 line0
@@ -259,7 +265,7 @@ hadr :4 dta h(line:1)
 ```
 
 - dodany komunikat ostrzeżenia w przypadku użycia nielegalnych niestabilnych rozkazów **CPU6502**, np. `CIM`
-- dodana nowa funkcjonalność dla pseudorozkazów `RUN` `INI`, które teraz zachowują adres asemblacji, poprzednio przestawiały adres asemblacji na $2E0 (RUN), $2E2 (INI)
+- dodana nowa funkcjonalność dla pseudorozkazów `RUN` `INI`, które teraz zachowują adres asemblacji, poprzednio przestawiały adres asemblacji na `$2E0` (RUN), `$2E2` (INI)
 - dodana obsługa etykiet anonimowych **anonymous labels** `@` `@+[1..9]` (forward) `@-[1..9]` (backward), w celu zapewnienia przejrzystości kodu ograniczone jest używania takich etykiet tylko dla skoków warunkowych oraz do 10 wystąpień w przód/tył, np.:
 
 ```
@@ -313,12 +319,14 @@ hadr :4 dta h(line:1)
 
 - naprawione definiowanie etykiet dla n/w sytuacji, pierwsza etykieta nie zostanie zignorowana
 
-    temp  label = 100
+```
+temp  label = 100
+```
 
 ## 1.9.3
 
 - poprawione przetwarzanie bloków `.PROC`, które w pewnych okolicznościach mogły zostać pominięte podczas asemblacji
-- poprawiony zapis BLK EMPTY dla plików SDX jeśli zastosowaliśmy deklarację takiego bloku przez `.DS`
+- poprawiony zapis `BLK EMPTY` dla plików **SDX** jeśli zastosowaliśmy deklarację takiego bloku przez `.DS`
 - poprawki dotyczące testowania końca linii
 - dodane dyrektywy `.FILESIZE`, `.SIZEOF` jako odpowiednik dotychczasowej dyrektywy `.LEN`
 - rozszerzona składnia dla pól struktury `.STRUCT`, np.:
@@ -386,16 +394,16 @@ blk update extrn
 ## 1.8.8 - 1.8.9
 
 - uaktualniony silnik duchów programowych `..\EXAMPLES\SPRITES\CHARS` o duchy 8x24
-- w przypadku braku podania rozszerzenia pliku i braku istnienia takiego pliku dla ICL 'filename' zostanie domyślnie przyjęte rozszerzenie `*.ASM` ICL 'filename.asm'
+- w przypadku braku podania rozszerzenia pliku i braku istnienia takiego pliku dla `ICL 'filename'` zostanie domyślnie przyjęte rozszerzenie `*.ASM` `ICL 'filename.asm'`
 - poprawione działanie komentarzy `/* */` w blokach `.MACRO` `.REPT`
 - usunięty błąd uniemożliwiający poprawną asemblację bloku `#IF` `#WHILE` dla wyrażeń łączonych przez `.OR` `.AND`
-- przełączniki w linii komend mogą być poprzedzone tylko znakiem `-`, poprzednio także `/` jednak były problemy z działaniem tego znaku na MacOSX
+- przełączniki w linii komend mogą być poprzedzone tylko znakiem `-`, poprzednio także `/` jednak były problemy z działaniem tego znaku na **MacOSX**
 - poprawiony zakres działania dyrektywy `.USING`, dla aktualnej przestrzeni nazw i kolejnych zawierających się w tej przestrzeni nazw
 
 ## 1.8.6 - 1.8.7
 
 - usprawnione rozpoznawanie komentarzy `/* */` w wyrażeniach
-- domyślny adres dla .ZPVAR ustawiony na `$0080`, poprzednio `$0000`
+- domyślny adres dla `.ZPVAR` ustawiony na `$0080`, poprzednio `$0000`
 - dodana nowa dyrektywa `.ELIF` jako krótszy odpowiednik dyrektywy `.ELSEIF`
 - rozszerzone działanie dyrektywy `.LEN` o możliwość podania jako parametru nazwy pliku, zwracana jest wówczas długość takiego pliku
 - usprawnione działanie dyrektywy `.DEF` w wyrażeniach warunku `.IF` `.IFDEF` `IFNDEF`
@@ -428,7 +436,7 @@ blk update extrn
  lda #typ(val0|val2)  ; == "lda #typ.val0|typ.val2"
 ```
 
-- rozszerzona składnia dyrektywy .SAV, np.:
+- rozszerzona składnia dyrektywy `.SAV`, np.:
 
 ```
 .sav 'filename',offset,length
@@ -521,7 +529,7 @@ pointB  @point    ; pointB dta @point [0] <=> pointB dta @point
 points  dta @point [100]
 ```
 
-- dodana nowa dyrektywa .ZPVAR umożliwiająca automatyczne przydzielenie miejsca zmiennym na stronie zerowej
+- dodana nowa dyrektywa `.ZPVAR` umożliwiająca automatyczne przydzielenie miejsca zmiennym na stronie zerowej
 
 ```
  .ZPVAR TYPE label1, label2 label3 = $80  ; LABEL1=$80, LABEL2=LABEL1+TYPE, LABEL3=LABEL2+TYPE
@@ -614,9 +622,9 @@ ad  sta $bc40
 
 ## 1.8.2
 
-- zniesione ograniczenie długości pliku dla pseudo rozkazu INS (poprzednio długość wczytywanego pliku ograniczona była do 65536 bajtów)
+- zniesione ograniczenie długości pliku dla pseudo rozkazu `INS` (poprzednio długość wczytywanego pliku ograniczona była do 65536 bajtów)
 - dodany komunikat błędu **The referenced label ... has not previously been defined properly** w przypadku etykiet, które nie zostały zdefiniowane do końca, np. tylko w pierwszym przebiegu wartością nieokreśloną
-- dodana nowa dyrektywa `.ECHO` jako odpowiednik dyrektywy .PRINT, dodatkowo informacje generowane przez .PRINT (.ECHO) zapisywane są teraz także w listingu *.LST
+- dodana nowa dyrektywa `.ECHO` jako odpowiednik dyrektywy .PRINT, dodatkowo informacje generowane przez `.PRINT` `.ECHO` zapisywane są teraz także w listingu `*.LST`
 - dodana nowa dyrektywa `.ALIGN` pozwalająca na wyrównanie do zadanego zakresu pamięci, dodatkowo można określić wartość jaką wypełnić pamięć
 
 ```
@@ -719,7 +727,7 @@ mva #0 $81  ->  sta $80   ->  sta $80
 ```
 .def label = 1
 ```
-- rozszerzona funkcjonalność dyrektywy .DEF o możliwość zdefiniowania etykiety globalnej niezależnie od aktulnego obszaru lokalnego, np.:
+- rozszerzona funkcjonalność dyrektywy `.DEF` o możliwość zdefiniowania etykiety globalnej niezależnie od aktulnego obszaru lokalnego, np.:
 
 ```
 .def :label
@@ -746,8 +754,8 @@ mva #0 $81  ->  sta $80   ->  sta $80
 ## 1.7.8
 
 - dodane dyrektywy `.MEND` `.PGEND` `.REND` jako odpowiedniki `.ENDM` `.ENDPG` `.ENDR`
-- obecnie deklaracja makra musi kończyć się dyrektywą .ENDM lub .MEND (poprzednio dopuszczalne było użycie dyrektywy .END)
-- poprawiony sposób wykonywania makr dzięki czemu umożliwione zostało wykonanie dyrektywy .ENDL z poziomu wykonywanego makra
+- obecnie deklaracja makra musi kończyć się dyrektywą `.ENDM` lub `.MEND` (poprzednio dopuszczalne było użycie dyrektywy `.END`)
+- poprawiony sposób wykonywania makr dzięki czemu umożliwione zostało wykonanie dyrektywy `.ENDL` z poziomu wykonywanego makra
 - poprawione zauważone błędy dotyczące starszych bajtów relokowanego adresu oraz bloku aktualizacji symboli publicznych
 - dodana nowa dyrektywa `.USING` `.USE` pozwalająca określić ścieżkę poszukiwań dla nazw etykiet
 - poprawione działanie dyrektyw `.LOCAL` `.DEF`, których błędne działanie objawiało się w szczególnych przypadkach
@@ -783,8 +791,8 @@ tb .fl 0.5 12.34 -2.30 0.00002
 tb .fl 0.5, 12.34, -2.30, 0.00002
 ```
 
-- umożliwiony został zapis wartości innych typów niż tylko .BYTE w bloku .ARRAY
-- dodana obsługa typów wielokrotnych dla .STRUCT, poprzednio takie typy były akceptowane jednak pamięć nie była właściwie dla nich rezerwowana, np.:
+- umożliwiony został zapis wartości innych typów niż tylko `.BYTE` w bloku `.ARRAY`
+- dodana obsługa typów wielokrotnych dla `.STRUCT`, poprzednio takie typy były akceptowane jednak pamięć nie była właściwie dla nich rezerwowana, np.:
 
 ```
 .struct test
@@ -794,7 +802,7 @@ tb .fl 0.5, 12.34, -2.30, 0.00002
 
 buf dta test [0]
 ```
-- poprawione błędy dotyczące generowania kodu relokowalnego zauważone przez Laoo, np.:
+- poprawione błędy dotyczące generowania kodu relokowalnego zauważone przez **Laoo**, np.:
 
 ```
     .reloc
@@ -845,13 +853,17 @@ mwa $bc40,y ($f0),y
 mwa ($80),y ($82),y
 ```
 
-- rozszerzona składnia dyrektywy .EXTRN, obecnie możliwe jest zapowiedzenie większej ilości etykiet różnych typów w jednym wierszu, zapowiedzenie procedury .PROC w takim wierszu musi znajdować się na jego końcu, np.:
+- rozszerzona składnia dyrektywy `.EXTRN`, obecnie możliwe jest zapowiedzenie większej ilości etykiet różnych typów w jednym wierszu, zapowiedzenie procedury `.PROC` w takim wierszu musi znajdować się na jego końcu, np.:
 
-    .extrn a,b,c,d .byte  x y z .word  line .proc(.byte x,y) .reg
+```
+.extrn a,b,c,d .byte  x y z .word  line .proc(.byte x,y) .reg
+```
 
 - rozszerzona składnia dyrektywy `.VAR`, obecnie możliwe jest zadeklarowanie większej ilości etykiet różnych typów w jednym wierszu oraz przypisanie im adresu od którego zostaną odłożone w pamięci, np.:
 
-    .var x y z .byte bit :2 .dword = $80
+```
+.var x y z .byte bit :2 .dword = $80
+```
 
 - rozszerzona składnia dla parametrów procedur przekazywanych przez zmienne `.VAR`, możliwe jest podanie przesunięcia np.:
 
@@ -880,7 +892,7 @@ PHR -> PHA         PLR -> PLA
        PHA                PLA
 ```
 
-- dodane nowe makro rozkazy ADB, SBB realizujące dodawanie i odejmowanie wartości typu .BYTE, np.:
+- dodane nowe makro rozkazy `ADB`, `SBB` realizujące dodawanie i odejmowanie wartości typu `.BYTE`, np.:
 
 ```
 ADB $80 #12 $b000  ->  lda $80
@@ -904,7 +916,7 @@ temp = 0x8000
 
 ## 1.7.5
 
-- dyrektywa `.DS` w blokach relokowalnych SDX RELOC i MADS RELOC deklaruje od teraz pusty blok
+- dyrektywa `.DS` w blokach relokowalnych **SDX** `RELOC` i **MADS** `RELOC` deklaruje od teraz pusty blok
 - dodany nowy przełącznik -F, który umożliwia umieszczanie rozkazów CPU i pseudo rozkazów od pierwszej kolumny w wierszu
 - przepisane od nowa procedury odczytu bloków `.MACRO` `.REPT` oraz procedura realizująca dzielenie wiersza przy pomocy znaku `\`
 - dodane nowe pseudo rozkazy `ADW`, `SBW` realizujące dodawanie i odejmowanie wartości typu `WORD` dla **CPU6502**, np.:
@@ -920,15 +932,15 @@ adw hlp #20 pom    ; pom=hlp+20
 ## 1.7.4
 
 - naprawione działanie dyrektywy `.PRINT`, dotąd mogła nie wyświetlić wartości etykiet zaczynającej się na literę 'A','B','C','D','E','F','G','H','L','T','V'
-- zablokowane działanie dyrektywy `.DS` w blokach `.RELOC` `SDX` oraz naprawione jej działanie z instrukcją warunkową `.IF` (IFT)
+- zablokowane działanie dyrektywy `.DS` w blokach `.RELOC` **SDX** oraz naprawione jej działanie z instrukcją warunkową `.IF` `IFT`
 - usprawnione przeszukiwanie ścieżek dostępu `-i:path` (można odwoływać się do podkatalogów tam zawartych)
 - w przypadku wystąpienia błędów podczas asemblacji wyświetlane są one wszystkie a nie tylko pierwszy z błędów
 - poprawione zauważone błędy, m.in. użycie makra w pliku `.RELO`C mogło spowodować w pewnych sytuacjach zapis błędnej informacji o relokownych adresach
 - uproszczony został sposób kończenia procedur wykorzystujących stos programowy **MADS**, nie ma potrzeby używania dyrektywy `.EXIT`, a dyrektywa `.ENDP` nie powoduje już dodatkowych działań na stosie programowym
-- dodana nowa dyrektywa `.SYMBOL` jako odpowiednik bloku aktualizacji BLK UPDATE NEW SYMBOL 'SYMBOL', dyrektywę `.SYMBOL` można użyć w dowolnym miejscu programu
-- dodane automatyczne wywoływanie bloków aktualizacji (ADDRESS, EXTERNAL, PUBLIC, SYMBOL) dla `.RELOC` i SDX
+- dodana nowa dyrektywa `.SYMBOL` jako odpowiednik bloku aktualizacji `BLK UPDATE NEW SYMBOL 'SYMBOL'`, dyrektywę `.SYMBOL` można użyć w dowolnym miejscu programu
+- dodane automatyczne wywoływanie bloków aktualizacji `ADDRESS` `EXTERNAL` `PUBLIC` `SYMBOL` dla `.RELOC` i **SDX**
 - dodane nowe dyrektywy `.BY` `.WO` `.HE` `.EN` `.SB` (zapożyczone z **MAE**)
-- dodany nowy przełącznik `OPT ?-` (domyślnie) etykiety ze znakiem zapytania (?labels) traktowane są jako etykiety tymczasowe, `OPT ?+` etykiety ze znakiem zapytania (?labels) traktowane są jako lokalne i tymczasowe, nazwą obszaru lokalnego jest ostatnio użyta etykieta bez znaku zapytania
+- dodany nowy przełącznik `OPT ?-` (domyślnie) etykiety ze znakiem zapytania (?labels) traktowane są jako etykiety tymczasowe, `OPT ?+` etykiety ze znakiem zapytania `?labels` traktowane są jako lokalne i tymczasowe, nazwą obszaru lokalnego jest ostatnio użyta etykieta bez znaku zapytania
 - dodane dyrektywy `.LEND` `.PEND` `.AEND` `.WEND` `.TEND` `.SEND` jako odpowiedniki dyrektyw `.ENDL` `.ENDP` `.ENDW` `ENDW` `.ENDT` `.ENDS`
 - dodane nowe dyrektywy `.GLOBAL` `.GLOBL` jako odpowiednik (zamiennik) dyrektywy `.PUBLIC`
 - dodana optymalizacja skoków warunkowych `JEQ` `JNE` `JPL` `JMI` `JCC` `JCS` `JVC` `JVS` jeśli jest taka możliwość wybierany jest skok krótki typu `BEQ` `BNE` `BPL` `BMI` `BCC` `BCS` `BVC` `BVS`
@@ -954,7 +966,7 @@ adw hlp #20 pom    ; pom=hlp+20
 .var a , b = 2 .byte
 ```
 
-- dodane nowe dyrektywy `.WHILE` `.ENDW` pozwalające na automatyczne wygenerowanie kodu dla pętli WHILE, np.:
+- dodane nowe dyrektywy `.WHILE` `.ENDW` pozwalające na automatyczne wygenerowanie kodu dla pętli `WHILE`, np.:
 
 ```
         ldx #$ff
@@ -1013,10 +1025,10 @@ adw hlp #20 pom    ; pom=hlp+20
 - dodany pseudo rozkaz `EXT` pozwalający na deklaracje etykiety external
 - dodane makra `JEQ` `JNE` `JPL` `JMI` `JCC` `JCS`
 - dodane dyrektywy `.PAGES` `.ENDPG`
-- dodana dyrektywa `.END` zastepujaca inne dyrektywy .END?
+- dodana dyrektywa `.END` zastepujaca inne dyrektywy `.END?`
 - przełącznik `-H` zastąpiony został przez `-HC` (generuje plik nagłówkowy dla **CC65**)
 - dodany nowy przełącznik `-HM` generujący plik nagłówkowy dla **MADS** z sortowaniem na etykiety typu `CONSTANTS` `VARIABLES` `PROCEDURES`
-- dodana nowa dyrektywa .RELOC generująca kod relokowalny w formacie **MADS**
+- dodana nowa dyrektywa `.RELOC` generująca kod relokowalny w formacie **MADS**
 
 ## 1.6.8
 
@@ -1043,7 +1055,7 @@ ldx:ldy:lda:iny label
 - brak ograniczeń w liczbie parametrów przekazywanych do procedur, jedynym ograniczeniem jest dostępna pamięć
 - dodany nowy przełącznik `/d:label=value` pozwalający zdefiniować nową etykietę **MADS** z poziomu linii poleceń
 - dodany nowy przełącznik `/x` **Exclude unreferenced procedures** pozwalający pominąć podczas asemblacji nie używane w programie procedury zadeklarowane dyrektywą `.PROC`
-- nowa opcja `OPT T+` (track sep, rep) śledząca zmiany rozmiaru rejestrów A,X,Y dokonywane przez rozkazy `SEP`, `REP` (CPU 65816)
+- nowa opcja `OPT T+` (track sep, rep) śledząca zmiany rozmiaru rejestrów `A` `X` `Y` dokonywane przez rozkazy `SEP`, `REP` **CPU 65816**
 - nowe biblioteki w katalogu `..\EXAMPLES\LIBRARIES`
 - w deklaracji obszaru lokalnego `.LOCAL` nie jest wymagane podanie nazwy obszaru
 - nowe operatory `-=` `+=` `++` `--` pozwalające zmniejszyć/zwiększyć wartość etykiety tymczasowej, np.:
