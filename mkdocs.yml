@@ -3,6 +3,8 @@ site_author: TeBe
 site_description: "Mad-Assembler Dokumentacja"
 site_keyword: "cross-compiler"
 
+repo_url: https://github.com/tebe6502/Mad-Assembler
+
 theme:
     name: readthedocs
     highlightjs: true
