@@ -11,3 +11,16 @@ theme:
     hljs_style: dark
     hljs_languages:
         - armasm
+
+nav:
+    - Wprowadzenie: wprowadzenie.md
+    - Sposób użycia: sposob-uzycia.md
+    - Sparta DOS X: sparta-dos.md
+    - Mnemoniki: mnemoniki.md
+    - Detekcja CPU: detekcja-cpu.md
+    - Banki pamięci: banki-pamieci.md
+    - Kod relokowalny: kod-relokowalny.md
+    - Typy: typy.md
+    - Składnia: skladnia.md
+    - Przykłady: przyklady.md
+    - Projekty: projekty.md
