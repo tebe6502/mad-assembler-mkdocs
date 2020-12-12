@@ -41,11 +41,11 @@ W porównaniu z kompilatorem **Delphi**, kod wygenerowany przez **FPC** jest dł
 
 ### Różnice i nowe możliwości
 
-* mała różnica w `OR`G, np. `ORG [[expression]]adres[,adres2]`
+* mała różnica w `ORG`, np.: `ORG [[expression]]adres[,adres2]`
 * **XASM** nie lubi *białych spacji*, **MADS** toleruje je i akceptuje dla wyrażeń logicznych, arytmetycznych, definicji stałych i zmiennych
 * **MADS** pozwala na umieszczanie wyrażeń pomiędzy nawiasami `()` `[]`, **XASM** tylko pomiędzy `[]`
 * **MADS** udostępnia definicje stałych i zmiennych lokalne, globalne, tymczasowe, **XASM** tylko globalne
-* **MADS** nie akceptuje `ORG a:adres` i `ORG f:adres`
+* **MADS** nie akceptuje `ORG a:adres` `ORG f:adres`
 * **MADS** udostępnia zapis liczb rzeczywistych poprzez dyrektywę `.FL` `.FL real`, **XASM** poprzez pseudo rozkaz `DTA R` `DTA R(real)`
 * **MADS** oferuje bardziej rozbudowaną obsługę pseudo rozkazu `INS`
 * **MADS** nie akceptuje składni typu `lda (203),0`
