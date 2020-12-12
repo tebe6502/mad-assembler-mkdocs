@@ -1,8 +1,8 @@
 #
 
 ## Komentarze
-## Łączenie wielu wierszy w jeden wiersz
-## Łączenie wielu mnemoników
+## Łączenie wierszy
+## Łączenie mnemoników
 ## Wyrażenia
 ### Liczby
 ### Operatory
@@ -23,13 +23,13 @@
 ### Definiowanie symbolu SDX
 ### Definiowanie danych
 ## Dyrektywy
-### Definiowanie powtórzeń (.REPT)
-### Definiowanie symbolu SDX (.SYMBOL)
-### Definiowanie tablic (.ARRAY)
-### Definiowanie segmentów (.SEGDEF)
+### Definiowanie powtórzeń `.REPT`
+### Definiowanie symbolu SDX `.SYMBOL`
+### Definiowanie tablic `.ARRAY`
+### Definiowanie segmentów `.SEGDEF`
 ## Dyrektywy generujące kod 6502
-### Definiowanie iteracji (#WHILE)
-### Definiowanie decyzji (#IF)
+### Definiowanie iteracji `#WHILE`
+### Definiowanie decyzji `#IF`
 ### #CYCLE
 ## Tablice
 ### Deklaracja tablicy
