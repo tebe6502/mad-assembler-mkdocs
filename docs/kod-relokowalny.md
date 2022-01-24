@@ -2,16 +2,16 @@
 
 ## Wstęp
 
-Kod relokowalny to taki kod, który nie ma z góry określonego adresu ładowania do pamięci komputera, kod taki musi zadziałać niezależnie od adresu załadowania. W **Atari XE/XL** kod relokowalny udostępnia system **Sparta DOS X** (SDX), więcej na ten temat można przeczytać w rozdziale *Sparta DOS X - Programowanie*.
+Kod relokowalny to taki kod, który nie ma z góry określonego adresu ładowania do pamięci komputera, kod taki musi zadziałać niezależnie od adresu załadowania. W **Atari XE/XL** kod relokowalny udostępnia system **Sparta DOS X** (**SDX**), więcej na ten temat można przeczytać w rozdziale *Sparta DOS X - Programowanie*.
 
-Kod relokowalny dla **SDX** posiada podstawowe ograniczenie jakim jest relokowanie tylko adresów typu `WORD`, nie ma także obsługi rozkazów **CPU 65816**. **MADS** udostępnia możliwość generowania kodu relokowalnego w formacie **SDX** jak i swoim własnym niekompatybilnym z **SDX**, który znosi wcześniej wymienione ograniczenia.
+Kod relokowalny dla **SDX** posiada podstawowe ograniczenie jakim jest relokowanie tylko adresów typu `WORD`, nie ma także obsługi rozkazów *CPU 65816*. **MADS** udostępnia możliwość generowania kodu relokowalnego w formacie **SDX** jak i swoim własnym niekompatybilnym z **SDX**, który znosi wcześniej wymienione ograniczenia.
 
 Format zapisu pliku z kodem relokowalnym **MADS** jest podobny do tego znanego z **SDX**, podobnie występuje tutaj blok główny i bloki dodatkowe z informacją o adresach które należy poddać relokacji. MADS stosuje prostszy zapis bloków aktualizacji, bez *kompresji* jaką stosuje **SDX**.
 
 Zalety kodu relokowalnego **MADS**:
 
-* uwzględnia rozmiar argumentów dla **CPU 6502**, **65816**
-* można używać wszystkie rozkazy **CPU**, bez ograniczeń
+* uwzględnia rozmiar argumentów dla *CPU 6502*, *65816*
+* można używać wszystkie rozkazy *CPU*, bez ograniczeń
 * pozwala na relokacje młodszych i starszych bajtów adresu
 
 Ograniczenia kodu relokowalnego **MADS**:
@@ -21,9 +21,9 @@ Ograniczenia kodu relokowalnego **MADS**:
 * nie można używać pseudo rozkazów `ORG` `RMB` `LMB` `NMB` oraz dyrektywy `.DS`
 * nie można relokować najstarszego bajtu ze słowa 24bit, np. `lda ^$121416`
 
-Przykładem tego jak prosto można stworzyć kod relokowalny jest plik `..\EXAMPLES\TETRIS_RELOC.ASM`, który od strony użytej listy rozkazów **CPU** i pseudo rozkazów definiujących dane niczym nie różni się od wersji nierelokowalnej `..\EXAMPLES\TETRIS.ASM`.
+Przykładem tego jak prosto można stworzyć kod relokowalny jest plik `..\EXAMPLES\TETRIS_RELOC.ASM`, który od strony użytej listy rozkazów *CPU* i pseudo rozkazów definiujących dane niczym nie różni się od wersji nierelokowalnej `..\EXAMPLES\TETRIS.ASM`.
 
-## Blok relokowalny `.RELOC`
+## Blok relokowalny .RELOC
 
 Blok relokowalny **MADS** zostanie wygenerowany po użyciu dyrektywy:
 
@@ -65,7 +65,7 @@ Wykorzystany jest obecnie tylko `bit0` tego bajtu, `bit0=0` oznacza blok relokow
 
 Ostatnie 6 bajtów zawiera informację o wartościach etykiet potrzebnych do działania stosu programowego `@STACK_POINTER`, `@STACK_ADDRESS`, `@PROC_VARS_ADR` jeśli zostały użyte podczas asemblacji bloków relokowalnych. Jeśli poszczególne bloki `.RELOC` zostały zasemblowane z różnymi wartościami tych etykiet i są one linkowane wystąpi wówczas komunikat ostrzeżenia **Incompatible stack parameters**. Jeśli stos programowy nie został użyty wartościami tych etykiet są zera.
 
-Pseudo rozkaz `.RELOC` powoduje przełączenie **MADS** w tryb generowania kodu relokowalnego z uwzględnianiem rozmiaru argumentów rozkazów **CPU 6502**, **65816**. W obszarze takiego kodu niemożliwe jest używanie pseudo rozkazów `ORG` `LMB` `NMB` `RMB` oraz dyrektywy `.DS`. Niemożliwy jest powrót **MADS** do trybu generowania kodu nie relokowalnego, możliwe jest wygenerowanie więcej niż jednego bloku `.RELOC`.
+Pseudo rozkaz `.RELOC` powoduje przełączenie **MADS** w tryb generowania kodu relokowalnego z uwzględnianiem rozmiaru argumentów rozkazów *CPU 6502*, *65816*. W obszarze takiego kodu niemożliwe jest używanie pseudo rozkazów `ORG` `LMB` `NMB` `RMB` oraz dyrektywy `.DS`. Niemożliwy jest powrót **MADS** do trybu generowania kodu nie relokowalnego, możliwe jest wygenerowanie więcej niż jednego bloku `.RELOC`.
 
 Użycie dyrektywy `.RELOC` powoduje dodatkowo zwiększenie licznika wirtualnych banków **MADS** przez co taki obszar staje się lokalny i niewidoczny dla innych bloków. Więcej informacji na temat wirtualnych banków w rozdziale Wirtualne banki pamięci `OPT B-`.
 
@@ -102,7 +102,8 @@ Wyjątek stanowi blok aktualizacji dla starszych bajtów adresów `>`, dla takie
 
 Symbole zewnętrzne informują, że zmienne i procedury które reprezentują będą znajdowały się gdzieś na zewnątrz, poza aktualnym programem. Nie musimy określać gdzie. Musimy jedynie podać ich nazwy oraz typy. W zależności od typu danych jakie reprezentuje symbol instrukcje asemblera tłumaczone są na odpowiednie kody maszynowe, asembler musi znać rozmiar używanych danych.
 
-**UWAGA:** Aktualnie nie istnieje możliwość dokonywania operacji na symbolach external typu `^` (najstarszy bajt).
+> **UWAGA:**
+> _Aktualnie nie istnieje możliwość dokonywania operacji na symbolach external typu `^` (najstarszy bajt)._
 
 Symbole zewnętrzne mogą być używane w blokach relokowalnych `.RELOC` jak i w zwykłych blokach **DOS**.
 
@@ -118,7 +119,8 @@ Blok aktualizacji dla symboli **external** wywołujemy używając pseudo rozkazu
 
     BLK UPDATE EXTERNAL
 
-**UWAGA:** Zostaną zapisane symbole, które zostały użyte w programie.
+> **UWAGA:**
+> _Zostaną zapisane symbole, które zostały użyte w programie._
 
 Symbole external nie mają zdefiniowanej wartości tylko typ `.BYTE` `.WORD` `.LONG` `.DWORD` np.:
 
@@ -301,7 +303,7 @@ Adres przypisany symbolowi w bloku relokowalnym `.RELOC`. Ta wartość zostaje p
 
 * `PROC_CPU_REG`
 
-Informacja o kolejności użycia rejestrów CPU dla procedury typu `.REG`
+Informacja o kolejności użycia rejestrów *CPU* dla procedury typu `.REG`
 
 * `PROC_TYPE`
     * **D**-EFAULT domyślny typ wykorzystujący do przekazywania parametrów stos programowy **MADS**
@@ -335,7 +337,7 @@ Nazwa parametru w kodach ATASCII `.VAR`.
 
 * Dyrektywa `.LONGI` informuje assembler o rozmiarze rejestrów indeksowych `XY`, 16bit gdy ON, 8bit gdy OFF.
 
-* Dyrektywy wpływają na rozmiar argumentu przy adresowaniu absolutnym **CPU 65816**.
+* Dyrektywy wpływają na rozmiar argumentu przy adresowaniu absolutnym *CPU 65816*.
 
 ## Linkowanie `.LINK`
 

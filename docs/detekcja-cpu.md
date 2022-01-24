@@ -2,7 +2,7 @@
 
 ## Detekcja CPU6502, CPU65816
 
-Przykład zaczerpnięty ze [tej](http://www.s-direktnet.de/homepages/k_nadj/cputest.html) strony. Program potrafi zdiagnozować obecność jednego z mikroprocesorów: **6502**, **65C02**, **65816**.
+Przykład zaczerpnięty z [tej](http://www.s-direktnet.de/homepages/k_nadj/cputest.html) strony. Program potrafi zdiagnozować obecność jednego z mikroprocesorów: *6502*, *65C02*, *65816*.
 
 ```
 /*
@@ -70,7 +70,7 @@ _65c02  dta c'65c02',$9b
 _65816  dta c'65816',$9b
 ```
 
-Następny przykład detekcji **CPU**, ogranicza się do określenia obecności mikroprocesora **6502** lub **65816**. Program po disasemblacji inaczej wygląda dla **6502**, inaczej dla **65816**. **6502** rozkaz `inc @` uzna za `nop`, rozkaz `xba` uzna za `sbc #`. Dzięki takiej *przezroczystości* możemy być pewni że program nie wykona żadnej nielegalnej operacji i uczciwie rozpozna właściwy **CPU**. Pomysłodawcą tego zwięzłego i jakże sprytnego testu jest **Ullrich von Bassewitz**.
+Następny przykład detekcji *CPU*, ogranicza się do określenia obecności mikroprocesora *6502* lub *65816*. Program po disasemblacji inaczej wygląda dla **6502**, inaczej dla **65816**. **6502** rozkaz `inc @` uzna za `nop`, rozkaz `xba` uzna za `sbc #`. Dzięki takiej *przezroczystości* możemy być pewni że program nie wykona żadnej nielegalnej operacji i uczciwie rozpozna właściwy *CPU*. Pomysłodawcą tego zwięzłego i jakże sprytnego testu jest **Ullrich von Bassewitz**.
 
 ```
  org $2000

@@ -36,7 +36,7 @@ SHS   SHX   SHY   NPO   CIM
 
 ## Dostępne rozkazy 65816
 
-Oczywiście dostępne są rozkazy 6502, a oprócz nich:
+Oczywiście dostępne są rozkazy *6502*, a oprócz nich:
 
 ```
 STZ   SEP   REP   TRB   TSB   BRA   COP   MVN
@@ -76,7 +76,7 @@ Wyjątki stanowią rozkazy n/w, którym nie można zmienić rozmiaru rejestru w 
 
 * `#$xxxx` dla `PEA`
 
-Innym wyjątkiem jest tryb adresowania pośredni długi, który reprezentowany jest przez nawiasy kwadratowe `[]`. Jak wiemy tego typu nawiasy wykorzystywane są też do obliczania wyrażeń, jednak jeśli asembler napotka pierwszy znak `[` uzna to za tryb adresowania pośredni długi i jeśli nie zasygnalizowaliśmy chęci używania **65816** wystąpi błąd z komunikatem **Illegal adressing mode**. Aby *oszukać* assembler wystarczy dać przed kwadratowym nawiasem otwierającym `[` znak `+`.
+Innym wyjątkiem jest tryb adresowania pośredni długi, który reprezentowany jest przez nawiasy kwadratowe `[]`. Jak wiemy tego typu nawiasy wykorzystywane są też do obliczania wyrażeń, jednak jeśli asembler napotka pierwszy znak `[` uzna to za tryb adresowania pośredni długi i jeśli nie zasygnalizowaliśmy chęci używania *65816* wystąpi błąd z komunikatem **Illegal adressing mode**. Aby *oszukać* assembler wystarczy dać przed kwadratowym nawiasem otwierającym `[` znak `+`.
 
 ```
 lda [2+4]     ; lda [6]

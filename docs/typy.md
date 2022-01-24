@@ -39,7 +39,7 @@ Przykład deklaracji struktury:
 .ENDS          ; lda #name   = 14 (length)
 ```
 
-Pola struktury definiujemy przez podanie nazwy i typu pola `.BYTE` `.WORD` `.LONG` `.DWORD`. Nazwa pola może być poprzedzona *białymi spacjami*. W obszarze ograniczonym dyrektywami `.STRUCT` i `.ENDS` nie ma możliwości używania mnemoników **CPU**, jeśli je użyjemy lub użyjemy innych niedozwolonych znaków wystąpi błąd z komunikatem **Improper syntax lub Illegal instruction**.
+Pola struktury definiujemy przez podanie nazwy i typu pola `.BYTE` `.WORD` `.LONG` `.DWORD`. Nazwa pola może być poprzedzona *białymi spacjami*. W obszarze ograniczonym dyrektywami `.STRUCT` i `.ENDS` nie ma możliwości używania mnemoników *CPU*, jeśli je użyjemy lub użyjemy innych niedozwolonych znaków wystąpi błąd z komunikatem **Improper syntax lub Illegal instruction**.
 
 Podsumowując, etykieta name zawiera informację o całkowitej długości struktury (w bajtach). Pozostałe etykiety opisujące pola zawierają informację o ofsecie do początku struktury.
 Deklaracji struktur nie można zagnieżdżać, można zagnieżdżać wcześniej zadeklarowane struktury (kolejność wystąpienia w programie nie ma znaczenia), np.:

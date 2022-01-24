@@ -4,7 +4,7 @@
 
 Pewnie każdemu, kto miał do czynienia z architekturą małego **Atari**, pojęcie *bank pamięci* kojarzy się z pamięcią rozszerzoną, podzieloną na banki wielkości **16kb**, przełączane w obszar `$4000..$7FFF`.
 
-MADS też może to rozumieć w ten sposób (opcja OPT B+, Sprzętowe banki pamięci), jednak domyślnie rozumie to w sposób bardziej wirtualny (opcja OPT B-, Wirtualne banki pamięci).
+**MADS** też może to rozumieć w ten sposób (opcja `OPT B+`, [Sprzętowe banki pamięci](#sprzetowe-banki-pamieci-opt-b)), jednak domyślnie rozumie to w sposób bardziej wirtualny (opcja `OPT B-`, [Wirtualne banki pamięci](#wirtualne-banki-pamieci-opt-b-)).
 
 Banków dotyczą n/w pseudo rozkazy:
 
@@ -26,7 +26,7 @@ lmb #5 , $6500      ; tylko gdy OPT B+
 
 * `NMB` Next Memory Bank
 
-Zwiększamy o 1 licznik banków MADS-a (BANK = BANK + 1).
+Zwiększamy o 1 licznik banków **MADS**-a (BANK = BANK + 1).
 
 ```
 nmb
@@ -35,7 +35,7 @@ nmb  $6500          ; tylko gdy OPT B+
 
 * `RMB` Reset Memory Bank
 
-Zerujemy licznik banków MADS-a (BANK = 0).
+Zerujemy licznik banków **MADS**-a (BANK = 0).
 
 ```
 rmb
@@ -64,7 +64,7 @@ label
  ldx #=label
 ```
 
-W w/w przykładzie do rejestru `X` **CPU** zapisaliśmy wartość licznika banków pamięci **MADS** przypisany etykiecie `LABEL`.
+W w/w przykładzie do rejestru `X` *CPU* zapisaliśmy wartość licznika banków pamięci **MADS** przypisany etykiecie `LABEL`.
 
 Innym przydatnym operatorem może być znak dwukropka `:` umieszczony na początku nazwy etykiety. Spowoduje to że **MADS** odczyta wartość takiej etykiety pomijając ograniczenia zasięgu, które wprowadza licznik banków **MADS**. Niekiedy może spowodować to komplikacje, np. jeśli wystąpiło więcej etykiet o tej samej nazwie ale w różnych obszarach lokalnych albo w obszarach o różnych wartościach licznika wirtualnych banków.
 

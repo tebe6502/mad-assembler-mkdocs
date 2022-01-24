@@ -60,7 +60,7 @@ Użycie przełącznika `-b` pozwala nadać nowy adres asemblacji dla pliku w kt�
 
 ### `c`
 
-Użycie przełącznika `-c` spowoduje rozróżnianie wielkości liter w nazwach etykiet, zmiennych, stałych. Dyrektywy assemblera i rozkazy **CPU 6502**, **65816** są zawsze rozpoznawane bez względu na wielkość liter.
+Użycie przełącznika `-c` spowoduje rozróżnianie wielkości liter w nazwach etykiet, zmiennych, stałych. Dyrektywy assemblera i rozkazy *CPU 6502*, *65816* są zawsze rozpoznawane bez względu na wielkość liter.
 
 ### `d:label=value`
 
@@ -68,7 +68,7 @@ Użycie przełącznika `-d` pozwala na wprowadzenie nowej etykiety do pamięci *
 
 ### `f`
 
-Użycie przełącznika -f umożliwia umieszczanie rozkazów **CPU** od pierwszej kolumny wiersza i ich poprawne rozpoznawanie przez asembler jako rozkazy a nie tylko jako etykiety.
+Użycie przełącznika -f umożliwia umieszczanie rozkazów *CPU* od pierwszej kolumny wiersza i ich poprawne rozpoznawanie przez asembler jako rozkazy a nie tylko jako etykiety.
 
 ### `fv:value`
 
