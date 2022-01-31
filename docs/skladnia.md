@@ -126,7 +126,7 @@ Wartościowanie wyrażenia przebiega w porządku, określonym pierwszeństwem op
     "."*
 ```
 
-Tylko pierwszy znak ciągu ATASCII, INTERNAL jest znaczący. Znak `*` za apostrofem zamykającym powoduje `invers` znaku.
+Tylko pierwszy znak ciągu *ATASCII*, *INTERNAL* jest znaczący. Znak `*` za apostrofem zamykającym powoduje `invers` znaku.
 
 ---
 
@@ -245,7 +245,7 @@ Dla etykiet anonimowych został zarezerwowany znak `@`, po takim znaku musi wyst
 
 ### Lokalne
 
-Każda definicja etykiety w obrębie makra .MACRO, procedury .PROC czy obszaru lokalnego `.LOCAL` domyślnie jest zasięgu lokalnego, innymi słowy jest lokalna. Takich etykiet użytkownik nie musi dodatkowo oznaczać.
+Każda definicja etykiety w obrębie makra `.MACRO`, procedury `.PROC` czy obszaru lokalnego `.LOCAL` domyślnie jest zasięgu lokalnego, innymi słowy jest lokalna. Takich etykiet użytkownik nie musi dodatkowo oznaczać.
 
 Etykiety lokalne definiujemy używając n/w równoważnych pseudo rozkazów:
 
@@ -287,12 +287,15 @@ Etykiety globalne definiujemy używając n/w równoważnych pseudo rozkazów:
 
 lub dyrektywy `.DEF` o składni:
 
+```
     .DEF :label [= expression]
+```
 
 Dyrektywa `.DEF` umożliwia zdefiniowanie etykiety w aktualnym obszarze lokalnym, znak `:` na początku etykiety sygnalizuje etykietę globalną. Użycie dyrektywy o składni `.DEF :label` pozwala na zdefiniowanie etykiety globalnej z pominięciem aktualnego poziomu lokalności.
+
 Znak dwukropka `:` na początku etykiety ma specjalne znaczenie, informuje że odwołujemy się do etykiety globalnej, czyli etykiety z głównego bloku programu z pominięciem wszystkich poziomów lokalności.
 
-Więcej informacji na temat użycia dyrektywy `.DEF` w rozdziale *Dyrektywa .DEF*
+Więcej informacji na temat użycia dyrektywy `.DEF` w rozdziale [Dyrektywa .DEF](#def)
 
 Przykład definicji etykiet globalnych:
 
@@ -404,9 +407,9 @@ local2 ldx #7
 
 ### [Zmiana opcji asemblacji](#opt)
 
-### [Asemblacja warunkowa](#d_if)
+### [Asemblacja warunkowa](#if_else)
 
-### [Przerwanie asemblacji](#d_ert)
+### [Przerwanie asemblacji](#error)
 
 ### Asemblacja na stronie zerowej
 
@@ -470,22 +473,22 @@ Asembluj od adresu `adres1`, umieść w pamięci od adresu `adres2`. Taki `ORG` 
 
 Jeśli nie zależy nam na nowym adresie umiejscowienia danych w pamięci, adresem umiejscowienia danych ma być aktualny adres wówczas możemy skorzystać z właściwości bloków `.LOCAL` i `.PROC`, bajty nagłówka nie będą w takim przypadku zapisywane, np.:
 
-```
+```none
      1
-     2 					org $2000
+     2                                  org $2000
      3
-     4 FFFF> 2000-200D> A9 00		lda #0
-     5 2002 EA				nop
+     4 FFFF> 2000-200D> A9 00           lda #0
+     5 2002 EA                          nop
      6
-     7 0060			.local	temp, $60
+     7 0060                     .local  temp, $60
      8
-     9 0060 BD FF FF			lda $ffff,x
-    10 0063 BE FF FF			ldx $ffff,y
+     9 0060 BD FF FF                    lda $ffff,x
+    10 0063 BE FF FF                    ldx $ffff,y
     11
-    12 				.endl
+    12                          .endl
     13
-    14 2009 A5 60			lda temp
-    15 200B AD 03 20			lda .adr temp
+    14 2009 A5 60                       lda temp
+    15 200B AD 03 20                    lda .adr temp
     16
 ```
 
@@ -803,7 +806,7 @@ Więcej informacji na temat bloków w plikach **Sparta DOS X** w rozdziale [Budo
 <a name="set"></a>
 ### label SET expression
 
-Pseudorozkaz `SET` pozwala redefiniować etykietę, ma podobne działanie jak etykiety tymczasowe zaczynające się znakiem `'?'`, np.:
+Pseudorozkaz `SET` pozwala redefiniować etykietę, ma podobne działanie jak etykiety tymczasowe zaczynające się znakiem `?`, np.:
 
 ```
 temp set 12
@@ -862,8 +865,8 @@ ladr :4 dta l(line:1)
 hadr :4 dta h(line:1)
 ```
 
-Znak ':' określa liczbę powtórzeń linii (w przypadku makr określa numer parametru pod warunkiem że wartość liczbowa zapisana została w systemie decymalnym). Liczba powtórzeń powinna być z zakresu `<0..2147483647>`. W powtarzanej linii `:repeat` możliwe jest skorzystanie z licznika pętli - znaku hash `'#'` lub z parametru `:1`.
-Jeśli użyjemy znaku ':' w makrze w znaczeniu liczby powtórzeń linii, np.:
+Znak `:` określa liczbę powtórzeń linii (w przypadku makr określa numer parametru pod warunkiem że wartość liczbowa zapisana została w systemie decymalnym). Liczba powtórzeń powinna być z zakresu `<0..2147483647>`. W powtarzanej linii `:repeat` możliwe jest skorzystanie z licznika pętli - znaku hash `#` lub z parametru `:1`.
+Jeśli użyjemy znaku `:` w makrze w znaczeniu liczby powtórzeń linii, np.:
 
 ```
 .macro test
@@ -871,7 +874,7 @@ Jeśli użyjemy znaku ':' w makrze w znaczeniu liczby powtórzeń linii, np.:
 .endm
 ```
 
-Wówczas dla w/w przykładu znak ':' zostanie zinterpretowany jako drugi parametr makra. Aby zapobiec takiej interpretacji przez **MADS**, należy po znaku dwukropka ':' umieścić znak który nic nie robi, np. znak plusa '+'.
+Wówczas dla w/w przykładu znak `:` zostanie zinterpretowany jako drugi parametr makra. Aby zapobiec takiej interpretacji przez **MADS**, należy po znaku dwukropka `:` umieścić znak który nic nie robi, np. znak plusa '+'.
 
 ```
 .macro test
@@ -879,7 +882,7 @@ Wówczas dla w/w przykładu znak ':' zostanie zinterpretowany jako drugi paramet
 .endm
 ```
 
-Teraz znak dwukropka ':' zostanie prawidłowo zinterpretowany jako `:repeat`
+Teraz znak dwukropka `:` zostanie prawidłowo zinterpretowany jako `:repeat`
 
 ### OPT
 
@@ -925,7 +928,7 @@ Jeśli używamy **CodeGenie** lub **NotePad++** możemy użyć `OPT S+`, dzięki
 
 ### ORG
 
-Pseudo rozkaz `ORG` ustawia nowy adres asemblacji, a więc i lokalizację zasemblowanych danych w pamięci **RAM**.
+Pseudo rozkaz `ORG` ustawia nowy adres asemblacji, a więc i lokalizację zasemblowanych danych w pamięci *RAM*.
 
 ```
  adr                 asembluj od adresu ADR, ustaw adres w nagłówku pliku na ADR
@@ -941,7 +944,7 @@ Pseudo rozkaz `ORG` ustawia nowy adres asemblacji, a więc i lokalizację zasemb
  ORG [a($ffff),d'atari',c'ble',20,30,40],adr,adr2
 ```
 
-Nawiasy kwadratowe [ ] służą określeniu nowego nagłówka, który może być dowolnej długości. Pozostałe wartości za zamykającym nawiasem kwadratowym ']', rozdzielone znakiem przecinka ',' oznaczają odpowiednio: adres asemblacji, adres w nagłówku pliku.
+Nawiasy kwadratowe `[ ]` służą określeniu nowego nagłówka, który może być dowolnej długości. Pozostałe wartości za zamykającym nawiasem kwadratowym `]`, rozdzielone znakiem przecinka `,` oznaczają odpowiednio: adres asemblacji, adres w nagłówku pliku.
 
 Przykład nagłówka dla pliku w postaci jednego bloku, asemblowanego od adresu $2000, w nagłówku podany adres początkowy i adres końcowy bloku.
 
@@ -1012,7 +1015,7 @@ Pseudo rozkaz `DTA` służy do definicji danych określonego typu. Jeśli typ ni
 ```
 
 <a name="sin"></a>
-### SIN(centre,amp,size[,first,last])
+### SIN (centre,amp,size[,first,last])
 
 ```
 centre     is a number which is added to every sine value
@@ -1029,7 +1032,7 @@ defines table of 64 words representing a quarter of sine with amplitude of 1000.
 
 
 <a name="cos"></a>
-### COS(centre,amp,size[,first,last])
+### COS (centre,amp,size[,first,last])
 
 ```
 centre     is a number which is added to every cosine value
@@ -1046,7 +1049,7 @@ defines table of 64 words representing a quarter of cosine with amplitude of 100
 
 
 <a name="rnd"></a>
-### RND(min,max,length)
+### RND (min,max,length)
 Ten pseudo rozkaz umożliwia wygenerowanie LENGTH losowych wartości z przedziału <MIN..MAX>.
 
 ```
@@ -1156,7 +1159,7 @@ Wersja krótka pętli `#WHILE`, trwa dopóki `LABEL<>0`
 
 Dyrektywa `#CYCLE` pozwala wygenerować kod *6502* o zadanej liczbie cykli. Wygenerowany kod nie modyfikuje żadnej komórki pamięci, ani rejestru *CPU*, co najwyżej znaczniki.
 
-```
+```JavaScript
 #cycle #17  ; pha      3 cycle
             ; pla      4 cycle
             ; pha      3 cycle
@@ -1183,7 +1186,7 @@ Dostępne typy danych to `.BYTE`, `.WORD`, `.LONG`, `.DWORD`. W przypadku braku 
 
 W obszarze ograniczonym dyrektywami `.ARRAY` i `.ENDA` nie ma możliwości używania mnemoników *CPU*, jeśli je użyjemy lub użyjemy innych niedozwolonych znaków wówczas wystąpi błąd z komunikatem _**Improper syntax**_.
 
-Dopuszczalne jest określenie indeksu od jakiego będziemy wpisywali wartości dla kolejnych pól tablicy. Nową wartość takiego indeksu określamy umieszczając na początku nowego wiersza w nawiasach kwadratowych wyrażenie `[expression]`. Możliwe jest określenie większej ilości indeksów, w tym celu rozdzielamy kolejne indeksy znakiem dwukropka `':'`. Następnie wprowadzamy wartości dla pól tablicy po znaku równości `'='`, np.:
+Dopuszczalne jest określenie indeksu od jakiego będziemy wpisywali wartości dla kolejnych pól tablicy. Nową wartość takiego indeksu określamy umieszczając na początku nowego wiersza w nawiasach kwadratowych wyrażenie `[expression]`. Możliwe jest określenie większej ilości indeksów, w tym celu rozdzielamy kolejne indeksy znakiem dwukropka `:`. Następnie wprowadzamy wartości dla pól tablicy po znaku równości `=`, np.:
 
 ```JavaScript
 .array tab .word      ; tablica TAB o nieokreślonej z góry liczbie pól typu .WORD
@@ -1236,7 +1239,7 @@ Przykład tablicy tłumaczącej kod naciśniętego klawisza na kod INTERNAL.
 
 W w/w przykładzie stworzyliśmy tablicę `TAB` o rozmiarze 256 bajtów `[0..255]`, typie danych `.BYTE` i wypełniliśmy pola wartością `= $FF`, dodatkowo zapisaliśmy wartości kodów literowych `INTERNAL` na pozycjach (indeksach tablicy) równych kodowi naciśnięcia klawisza (bez SHIFT-a i z SHIFT-em, czyli duże i małe litery).
 
-Znak dwukropka ':' rozdziela poszczególne indeksy tablicy.
+Znak dwukropka `:` rozdziela poszczególne indeksy tablicy.
 
 Przykład procedury detekcji ruchu joysticka, np.:
 
@@ -1339,7 +1342,7 @@ Dopuszczalna jest lista z etykietami nazw argumentów jakie będą przekazywane 
 ```
 
 Na końcu deklaracji makra może wystąpić deklaracja separatora i zarazem trybu przekazywania parametrów do makra (pojedyńczy apostrof bez zmian, podwójny apostrof z rozbijaniem parametrów na tryb adresacji i argument).
-Domyślnym separatorem, rozdzielającym parametry przekazywane do makra jest znak przecinka `','` oraz spacji `' '`.
+Domyślnym separatorem, rozdzielającym parametry przekazywane do makra jest znak przecinka `,` oraz spacji `' '`.
 
 ```
 name .MACRO 'separator'
@@ -1370,9 +1373,9 @@ Makro `TEST` ma zadeklarowany separator-spację przy użyciu apostrofu `"`, czyl
  test '#' 12 ' ' 200 '#' 0
 ```
 
-UAWAGA #1: Parametry ze znakiem operatora '<', '>' zostają obliczone i dopiero ich wynik jest przekazywany do makra (podstawiany pod parametr).
+UAWAGA #1: Parametry ze znakiem operatora `<`, `>` zostają obliczone i dopiero ich wynik jest przekazywany do makra (podstawiany pod parametr).
 
-UAWAGA #2: Jeśli parametrem makra jest licznik pętli '#', '.R' (!!! pojedyńczy znak '#' lub dyrektywa '.R' a nie wyrażenie z udziałem tego znaku, tej dyrektywy !!!) wówczas do makra przekazywana jest wartość licznika pętli (podstawiana pod parametr).
+UAWAGA #2: Jeśli parametrem makra jest licznik pętli `#`, `.R` (!!! pojedyńczy znak `#` lub dyrektywa `.R` a nie wyrażenie z udziałem tego znaku, tej dyrektywy !!!) wówczas do makra przekazywana jest wartość licznika pętli (podstawiana pod parametr).
 
 Tą właściwość możemy wykorzystać do stworzenia "samopiszącego" się kodu, kiedy potrzebujemy tworzyć nowe etykiety typu "label0", "label1", "label2", "label3" ... itd. , np.:
 
@@ -1393,11 +1396,11 @@ W/w przykład zapisuje adres etykiety pod warunkiem że taka etykiety istnieje (
 Zakończenie działania makra. Powoduje bezwzględne zakończenie działania makra.
 
 #### .ENDM [.MEND]
-Przy pomocy dyrektywy `.ENDM` lub `.MEND` kończymy deklarację aktualnego makra. Nie ma możliwości użycia dyrektywy .END jak ma to miejsce dla innych obszarów deklarowanych przez dyrektywy `.LOCAL`, `.PROC`, `.ARRAY`, `.STRUCT`, `.REPT`
+Przy pomocy dyrektywy `.ENDM` lub `.MEND` kończymy deklarację aktualnego makra. Nie ma możliwości użycia dyrektywy `.END` jak ma to miejsce dla innych obszarów deklarowanych przez dyrektywy `.LOCAL`, `.PROC`, `.ARRAY`, `.STRUCT`, `.REPT`
 
 #### :[%%]parameter
 
-Parametr jest liczbą decymalną dodatnią (`>=0`), poprzedzoną znakiem dwukropka `':'` lub dwoma znakami procentu `'%%'`. Jeśli w makrze chcemy aby znak `':'` określał liczbę powtórzeń a nie numer parametru wystarczy że następny znak po dwukropku nie będzie z przedziału `'0'..'9'`, tylko np:
+Parametr jest liczbą decymalną dodatnią (`>=0`), poprzedzoną znakiem dwukropka `:` lub dwoma znakami procentu `%%`. Jeśli w makrze chcemy aby znak `:` określał liczbę powtórzeń a nie numer parametru wystarczy że następny znak po dwukropku nie będzie z przedziału `'0'..'9'`, tylko np:
 
 ```
  :$2 nop
@@ -1439,9 +1442,9 @@ Przykład makra:
 
 ### Wywołanie makra
 
-Makro wywołujemy poprzez jego nazwę, po niej mogą wystąpić parametry makra, rozdzielone separatorem którym jest domyślnie znak przecinka `','` lub spacji `' '`.
+Makro wywołujemy poprzez jego nazwę, po niej mogą wystąpić parametry makra, rozdzielone separatorem którym jest domyślnie znak przecinka `,` lub spacji `' '`.
 
-Liczba parametrów uzależniona jest od wolnej pamięci komputera `PC`. Jeśli przekazana liczba parametrów jest mniejsza od liczby parametrów używanych w danym makrze, wówczas pod brakujące parametry zostanie podstawiona wartość `-1` (`$FFFFFFFF`). Tą właściwość można wykorzystać do sprawdzenia czy został przekazany parametr czy też nie, łatwiej jednak tego dokonać za pomocą parametru zerowego `%%0`.
+Liczba parametrów uzależniona jest od wolnej pamięci komputera *PC*. Jeśli przekazana liczba parametrów jest mniejsza od liczby parametrów używanych w danym makrze, wówczas pod brakujące parametry zostanie podstawiona wartość `-1` (`$FFFFFFFF`). Tą właściwość można wykorzystać do sprawdzenia czy został przekazany parametr czy też nie, łatwiej jednak tego dokonać za pomocą parametru zerowego `%%0`.
 
 ```
  macro_name [Par1, Par2, Par3, 'Par4', "string1", "string2" ...]
@@ -1578,9 +1581,38 @@ Wszelkie etykiety zdefiniowane w obszarze lokalnym `.LOCAL` są zasięgu lokalne
 
 Obszary lokalne są addytywne tzn. że może być wiele bloków `.LOCAL` o tej samej nazwie, nie zostanie wygenerowany komunikat błędu _**Label ... declared twice**_.
 
+Addytywność obszarów lokalnych odbywa się na aktualnym poziomie przestrzeni nazw, jeśli chcemy połączyć się z wybranym obszarem lokalnym w innej przestrzeni nazw, poprzedzamy pełną nazwę prowadzącą do takiego obszaru znakiem `+`, np.:
+
+```
+  .local lvl
+
+tmp = 3
+
+  .endl
+
+
+
+  .local temp
+
+tmp = 7
+
+
+    .local +lvl
+
+      .print tmp
+
+    .endl
+
+
+  .endl
+
+```
+
+Dla w/w przykładu zostanie wyświetlona wartość etykiety `TMP` z obszaru lokalnego `LVL` o wartości `3`. Gdyby zabrakło znaku `+` w `.LOCAL +LVL` wówczas wartość `TMP` jaka zostanie wyświetlona to `7`.
+
 W obszarze lokalnym `.LOCAL` istnieje możliwość zdefiniowania etykiet o zasięgu globalnym (patrz rozdział [Etykiety globalne](#globalne)).
 
-Jeśli poszukiwana przez assembler etykieta nie wystąpiła w obszarze lokalnym `.LOCAL`, wówczas **MADS** będzie poszukiwał ją w obszarze niższym aż dojdzie do obszaru globalnego. Aby odczytać natychmiastowo wartość etykiety globalnej z poziomu obszaru lokalnego `.LOCAL` (czy też innego obszaru lokalnego) poprzedzamy nazwę etykiety znakiem dwukropka `':'`.
+Jeśli poszukiwana przez assembler etykieta nie wystąpiła w obszarze lokalnym `.LOCAL`, wówczas **MADS** będzie poszukiwał ją w obszarze niższym aż dojdzie do obszaru globalnego. Aby odczytać natychmiastowo wartość etykiety globalnej z poziomu obszaru lokalnego `.LOCAL` (czy też innego obszaru lokalnego) poprzedzamy nazwę etykiety znakiem dwukropka `:`.
 
 Obszarów lokalnych dotyczą n/w dyrektywy:
 
@@ -1610,7 +1642,7 @@ label .local,$4000
 .endl
 ```
 
-Wszelkie definicje etykiet w obszarze `.LOCAL` są typu lokalnego. Aby odwołać się do etykiety globalnej o tej samej nazwie co etykieta lokalna należy poprzedzić ją znakiem dwukropka `':'`, np.:
+Wszelkie definicje etykiet w obszarze `.LOCAL` są typu lokalnego. Aby odwołać się do etykiety globalnej o tej samej nazwie co etykieta lokalna należy poprzedzić ją znakiem dwukropka `:`, np.:
 
 ```
 lab equ 1
@@ -1625,7 +1657,7 @@ lab equ 2
 .endl
 ```
 
-W w/w przykładzie do rejestru `A` zostanie załadowana wartość 2, natomiast do rejestru `X` wartość 1.
+W w/w przykładzie do rejestru `A` zostanie załadowana wartość `2`, natomiast do rejestru `X` wartość `1`.
 
 Jeśli poszukiwana przez assembler etykieta nie wystąpiła w obszarze `.LOCAL`, wówczas nastąpi jej szukanie w obszarze makra (jeśli jest aktualnie przetwarzane), potem w procedurze (jeśli procedura jest aktualnie przetwarzana), na końcu w głównym programie.
 
@@ -1643,11 +1675,11 @@ lab2 = 2
 .endl
 ```
 
-W adresowaniu takiej struktury `.LOCAL` używamy znaku kropki `'.'`.
+W adresowaniu takiej struktury `.LOCAL` używamy znaku kropki `.`.
 
-Obszary lokalne możemy zagnieżdżać, możemy je umieszczać w ciele procedur zadeklarowanych przez dyrektywę .PROC. Obszary lokalne są addytywne, tzn. może istnieć wiele obszarów lokalnych o tej samej nazwie, wszystkie symbole występujące w tych obszarach należeć będą do wspólnej przestrzeni nazw.
+Obszary lokalne możemy zagnieżdżać, możemy je umieszczać w ciele procedur zadeklarowanych przez dyrektywę `.PROC`. Obszary lokalne są addytywne, tzn. może istnieć wiele obszarów lokalnych o tej samej nazwie, wszystkie symbole występujące w tych obszarach należeć będą do wspólnej przestrzeni nazw.
 
-Długość wygenerowanego kodu w bloku LOCAL można sprawdzić przy pomocy dyrektywy `.LEN` (`.SIZEOF`).
+Długość wygenerowanego kodu w bloku `.LOCAL` można sprawdzić przy pomocy dyrektywy `.LEN` (`.SIZEOF`).
 
 ### .ENDL
 Dyrektywa `.ENDL` kończy deklarację obszaru lokalnego.
@@ -1831,7 +1863,7 @@ Domyślne wartości to: `N=$0100`, `FILL=0`.
 ### .REPT expression [,parameter1, parameter2, ...]
 Dyrektywa `.REPT` jest rozwinięciem `:repeat` z tą różnicą, że nie jest powtarzana jedna linia, tylko zaznaczony blok programu. Początek bloku definiowany jest dyrektywą `.REPT`, po niej musi wystąpić wartość lub wyrażenie arytmetyczne określające liczbę powtórzeń z zakresu <0..2147483647>, po liczbie powtórzeń opcjonalnie mogą wystąpić parametry. W przeciwieństwie do makr parametry dla `.REPT` zawsze są najpierw obliczane i dopiero ich wynik jest podstawiany (tą właściwość można wykorzystać do definiowania nowych etykiet). Z parametrów w bloku `.REPT` korzystamy podobnie jak z parametrów w bloku `.MACRO`. Koniec bloku `.REPT` definiuje dyrektywa `.ENDR`, przed którą nie powinna znajdować się żadna etykieta.
 
-Dodatkowo w obszarze bloku oznaczonego przez `.REPT` i `.ENDR` mamy możliwość skorzystania ze znaku hash `'#'` (lub dyrektywy `.R`), który zwraca aktualną wartość licznika pętli `.REPT` (podobnie jak dla `:repeat`).
+Dodatkowo w obszarze bloku oznaczonego przez `.REPT` i `.ENDR` mamy możliwość skorzystania ze znaku hash `#` (lub dyrektywy `.R`), który zwraca aktualną wartość licznika pętli `.REPT` (podobnie jak dla `:repeat`).
 
 ```
  .rept 12, #*2, #*3        ; bloki .REPT możemy łączyć z :rept
@@ -2041,7 +2073,7 @@ Using `.DS expression` is exactly equivalent of using `ORG *+expression`. That i
 ### .BY [+byte] bytes and/or ASCII
 Store byte values in memory. *ASCII* strings can be specified by enclosing the string in either single or double quotes.
 
-If the first character of the operand field is a `'+'`, then the following byte will be used as a constant and added to all remaining bytes of the instruction.
+If the first character of the operand field is a `+`, then the following byte will be used as a constant and added to all remaining bytes of the instruction.
 
 ```
       .BY +$80 1 10 $10 'Hello' $9B
@@ -2148,7 +2180,7 @@ Dyrektywa `.FILEEXISTS` zwraca `'1'` gdy plik `'filename'` istnieje w przeciwnym
 
 <a name="define"></a>
 ### .DEFINE macro_name expression
-Dyrektywa `.DEFINE` pozwala zdefiniować jedno-liniowe makro `MACRO_NAME`. Dopuszczalnych jest dziewięć parametrów `%%1.%%9` (`:1..:9`) reprezentowanych w ten sam sposób jak dla makr `.MACRO`, poprzez znaki `'%%'` lub znak `':'`. Nazwy literowe parametrów nie są akceptowane, nie ma możliwości użycia znaku podziału linii `'\'`.
+Dyrektywa `.DEFINE` pozwala zdefiniować jedno-liniowe makro `MACRO_NAME`. Dopuszczalnych jest dziewięć parametrów `%%1.%%9` (`:1..:9`) reprezentowanych w ten sam sposób jak dla makr `.MACRO`, poprzez znaki `%%` lub znak `:`. Nazwy literowe parametrów nie są akceptowane, nie ma możliwości użycia znaku podziału linii `\`.
 
 ```
  .define poke mva #%%2 %%1
@@ -2188,7 +2220,7 @@ Dyrektywa `.DEF` pozwala sprawdzić obecność definicji etykiety `LABEL` lub j�
  eif
 ```
 
-Definiowane etykiety są zasięgu aktualnego obszaru lokalnego, jeśli chcemy zdefiniować etykiety globalne stawiamy przed etykietą znak `':'`, np.
+Definiowane etykiety są zasięgu aktualnego obszaru lokalnego, jeśli chcemy zdefiniować etykiety globalne stawiamy przed etykietą znak `:`, np.
 
 ```
 .local test
@@ -2331,7 +2363,7 @@ W/w dyrektywy to odpowiedniki operatorów logicznych `||` (`.OR`), `&&` (`.AND`)
 
 <a name="lohi"></a>
 ### .LO (expression), .HI (expression)
-W/w dyrektywy to odpowiedniki operatorów odpowiednio '<' (młodszy bajt) i '>' (starszy bajt).
+W/w dyrektywy to odpowiedniki operatorów odpowiednio `<` (młodszy bajt) i `>` (starszy bajt).
 
 <a name="if_else"></a>
 ### .IF, .ELSE, .ELSEIF, .ENDIF
@@ -2543,7 +2575,7 @@ Do makra `@CALL` **MADS** przekazuje parametry wyliczone na podstawie deklaracji
 
 Makro `@CALL` odłoży na stos zawartość akumulatora, następnie wartość $166 (358 dec), następnie wartość spod adresu $A400. Więcej informacji na temat sposobu przekazywania parametrów do makr (znaczenia apostrofów `' '` i `" "`) w rozdziale [Wywołanie makra](../skladnia/#wywoanie-makra).
 
-Parametr przekazywany przez akumulator `'@'` powinien być zawsze pierwszym parametrem przekazywanym do procedury, jeśli wystąpi w innym miejscu zawartość akumulatora zostanie zmodyfikowana (domyślne makro `@CALL` nakłada takie ograniczenie). Oczywiście użytkownik może to zmienić pisząc swoją wersję makra `@CALL`. W przypadku procedur `.REG` lub `.VAR` kolejność wystąpienia parametru `'@'` nie ma znaczenia.
+Parametr przekazywany przez akumulator `@` powinien być zawsze pierwszym parametrem przekazywanym do procedury, jeśli wystąpi w innym miejscu zawartość akumulatora zostanie zmodyfikowana (domyślne makro `@CALL` nakłada takie ograniczenie). Oczywiście użytkownik może to zmienić pisząc swoją wersję makra `@CALL`. W przypadku procedur `.REG` lub `.VAR` kolejność wystąpienia parametru `@` nie ma znaczenia.
 
 Wyjście z procedury `.PROC` następuje poprzez rozkaz `RTS`. Po powrocie z procedury **MADS** wywołuje makro `@EXIT` które zawiera program modyfikujący wartość wskaźnika stosu `@STACK_POINTER`, jest to niezbędne w celu prawidłowego działania stosu programowego. Od wskaźnika stosu odejmowana jest liczba bajtów które zostały przekazane do procedury, liczba bajtów przekazywana jest do makra jako parametr.
 

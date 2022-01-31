@@ -12,23 +12,9 @@ TXA   TYA   TXS   TAY   TAX   TSX   NOP   BPL
 BMI   BNE   BCC   BCS   BEQ   BVC   BVS   BIT
 ```
 
-Możliwe jest użycie rozszerzenia mnemonika po znaku kropki `.` dla rozkazów typu `LDA` `LDX` `LDY` `STA` `STX` `STY`:
-
-```
-.b lub .z          BYTE
-.a lub .w lub .q   WORD
-```
-
-np.
-
-```
-lda.w $80   ; AD 80 00
-lda   $80   ; A5 80
-```
-
 ## Dostępne nielegalne rozkazy 6502
 
-```
+```none
 ASO   RLN   LSE   RRD   SAX   LAX   DCP   ISB
 ANC   ALR   ARR   ANE   ANX   SBX   LAS   SHA
 SHS   SHX   SHY   NPO   CIM
@@ -38,13 +24,16 @@ SHS   SHX   SHY   NPO   CIM
 
 Oczywiście dostępne są rozkazy *6502*, a oprócz nich:
 
-```
+```none
 STZ   SEP   REP   TRB   TSB   BRA   COP   MVN
 MVP   PEA   PHB   PHD   PHK   PHX   PHY   PLB
 PLD   PLX   PLY   RTL   STP   TCD   TCS   TDC
 TSC   TXY   TYX   WAI   WDM   XBA   XCE   INA
 DEA   BRL   JSL   JML
 ```
+
+## Rozszerzenie mnemonika
+
 Możliwe jest użycie rozszerzenia mnemonika w stylu **XASM** `a:` `z:` `r:` np.:
 
 ```
