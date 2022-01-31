@@ -32,7 +32,7 @@ TSC   TXY   TYX   WAI   WDM   XBA   XCE   INA
 DEA   BRL   JSL   JML
 ```
 
-## Rozszerzenie mnemonika
+## Rozszerzanie mnemonika
 
 Możliwe jest użycie rozszerzenia mnemonika w stylu **XASM** `a:` `z:` `r:` np.:
 
@@ -57,6 +57,7 @@ np.
 ```
 lda.w #$00   ; A9 00 00
 lda   #$80   ; A9 80
+stx.w $f2    ; 8E F2 00
 ```
 
 Wyjątki stanowią rozkazy n/w, którym nie można zmienić rozmiaru rejestru w adresowaniu absolutnym (niektóre assemblery nie wymagają dla tych rozkazów podania znaku `#`, jednak **MADS** wymaga tego):

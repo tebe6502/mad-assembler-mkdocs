@@ -195,8 +195,8 @@ Dodatkowo możliwe są jeszcze dwie operacje `+` `-` dla ciągów znakowych, kt�
 
 * zasięg lokalny etykiety oznacza, że jest ona widoczna tylko w konkretnie zdefiniowanym obszarze, np. przez dyrektywy: `.MACRO`, `.PROC`, `.LOCAL`.
 
-* etykiety muszą zaczynać się znakiem `['A'..'Z','a'..'z','_','?','@']`
-* pozostałe dopuszczalne znaki etykiety to `['A'..'Z','a'..'z','0'..'9','_','?','@']`
+* etykiety muszą zaczynać się znakiem `'A'..'Z','a'..'z','_','?','@'`
+* pozostałe dopuszczalne znaki etykiety to `'A'..'Z','a'..'z','0'..'9','_','?','@'`
 * etykiety występują zawsze na początku wiersza
 * etykiety poprzedzone "białymi znakami" powinny kończyć się znakiem `:` aby uniknąć błędnej interpretacji takiej etykiety jako makra
 * w adresowaniu etykieta może być poprzedzona znakiem `:` informuje to asembler że odwołujemy się do etykiety w bloku głównym programu (odwołujemy się do etykiety globalnej)
@@ -343,6 +343,8 @@ Definicja etykiety tymczasowej posiada tą właściwość, że jej wartość mo�
 
 Zasięg etykiet tymczasowych uzależniony jest od obszaru w jakim etykieta została zdefiniowana. Etykiety tymczasowe mogą posiadać zasięg lokalny ([Etykiety lokalne](#lokalne)) lub globalny ([Etykiety globalne](#globalne)).
 
+#### ?label
+
 Etykietę tymczasową definiuje użytkownik poprzez umieszczenie na początku nazwy etykiety znaku zapytania `?`, np.:
 
     ?label
@@ -380,6 +382,55 @@ Przykład użycia etykiet tymczasowych:
 
      lda ?loc
 ```
+
+#### label SET value
+
+Pseudorozkaz [SET](#set) umożliwia redefinicję etykiety `LABEL`, działa ze zwykłymi etykietami tzn. takimi które nie mają pierwszego znaku w nazwie `?`. Etykiet zdefiniowanych przez `SET` nie można później definiować inaczej niż przez `SET`.
+
+```
+ tmp set 1
+
+ tmp = 2
+```
+
+Dla w/w przykładu powstanie nieskończona pętla **Infinite loop**, prawidłowo powinno być :
+
+```
+ tmp set 1
+
+ tmp set 2
+```
+
+
+### Automodyfikacji
+
+Etykieta umieszczona po mnemoniku i zakończona znakiem `:` definiuje adres automodyfikacji kodu.
+
+```
+  lda label:#$00
+
+  add plus:#$00
+
+  lda src:$ff00,y
+  sta dst:$ff00,y
+```
+
+W/w przykłady są odpowiednikiem kodu:
+
+```
+  lda #$00
+label equ *-1
+
+  add #$00
+plus equ *-1
+
+  lda $ff00,y
+src equ *-2
+
+  sta $ff00,y
+dst equ *-2
+```
+
 
 ### Lokalne w stylu MAE
 
