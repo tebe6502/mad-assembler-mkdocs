@@ -15,6 +15,23 @@ Dzięki darmowemu kompilatorowi **Free Pascal Compiler** (FPC) możliwa jest kom
 
 # Historia
 
+## [v2.1.5](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.5)
+
+- poprawione działanie `.UNDEF`, `.IFDEF`
+- poprawione wykonywanie zagnieżdżonych pętli `.REPT`
+- dodana możliwość łączenia obszarów lokalnych, `.LOCAL +full_path_to_local`
+- dodanie kolorowania komunikatów konsoli
+- etykiety automodyfikacji kodu, np.:
+```
+    lda label:  #$40
+```
+
+## [v2.1.3](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.3)
+
+- nowa dyrektywa `.RND` zwracająca wartość losową z zakresu 0..255
+- dodany komunikat ostrzeżenia **'Register A is changed'** dla pseudo rozkazów `DEW`, `DEL`, `DED`
+- nowy przełącznik `-bc` **'Branch condition test'**, powoduje wygenerowanie komunikatów ostrzeżenia w przypadku kiedy skok jest poza zakres lub przekracza stronę pamięci
+
 ## [v2.1.0](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.0)
 
 - dodany komunikat ostrzeżenia **Buggy indirect jump** w przypadku użycia rozkazu `JMP(ABS)`
