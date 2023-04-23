@@ -1,0 +1,36 @@
+site_name: Mad-Assembler
+site_author: TeBe
+site_description: "Mad-Assembler Dokumentacja"
+site_keyword: "cross-compiler"
+
+repo_url: https://github.com/tebe6502/mad-assembler-mkdocs
+
+theme:
+    name: readthedocs
+    highlightjs: true
+    hljs_style: dark
+    hljs_languages:
+        - armasm
+
+nav:
+    - Wprowadzenie: wprowadzenie.md
+    - Sposób użycia: sposob-uzycia.md
+    - Kontrola asemblacji: kontrola.md
+    - Sparta DOS X: sparta-dos.md
+    - Składnia: skladnia.md
+    - Etykiety: etykiety.md
+    - Mnemoniki: mnemoniki.md
+    - Makro rozkazy: makro-rozkazy.md
+    - Pseudo rozkazy: pseudo-rozkazy.md
+    - Dyrektywy: dyrektywy.md 
+    - Obszar lokalny: lokal.md
+    - Procedury: procedury.md
+    - Makra: makra.md
+    - Dyrektywy generujące kod: dyrektywy-kodu.md
+    - Tablice: tablice.md
+    - Typy danych: typy.md
+    - Detekcja CPU: detekcja-cpu.md
+    - Banki pamięci: banki-pamieci.md
+    - Kod relokowalny: kod-relokowalny.md
+    - Przykłady: przyklady.md
+    - Projekty: projekty.md
