@@ -16,21 +16,21 @@ nav:
     - Introduction: introduction.md
     - Usage: usage.md
     - Assembly control: control.md
-    - Sparta DOS X: spartados.md
+    - Sparta DOS X: spartadosx.md
     - Syntax: syntax.md
     - Labels: labels.md
     - Mnemonics: mnemonics.md
-    - Macro commands: macrocommands.md
-    - Pseudo-commands: pseudocommands.md
+    - Macro commands: macro-commands.md
+    - Pseudo-commands: pseudo-commands.md
     - Directives: directives.md
-    - Local area: local.md
+    - Local area: local-areas.md
     - Procedures: procedures.md
     - Macros: macros.md
-    - Directives that generate code: directivescode.md
+    - Directives that generate code: code-generation-directives.md
     - Arrays: arrays.md
-    - Data types: types.md
-    - CPU detection: detectioncpu.md
-    - Memory banks: memorybanks.md
-    - Relocatable code: coderelocatable.md
+    - Data types: data-types.md
+    - CPU detection: cpu-detection.md
+    - Memory banks: memory-banks.md
+    - Relocatable code: relocatable-code.md
     - Examples: examples.md
     - Projects: projects.md
