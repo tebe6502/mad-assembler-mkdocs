@@ -1,82 +1,70 @@
-#
+## Introduction
 
-## Wstęp
+**Mad-Assembler (MADS)** is a 32-bit Windows application written in **Delphi**. Most assemblers are written in **C**, so to be different I used **Delphi 7.0** ;-).
 
-**Mad-Assembler** (MADS) jest aplikacją 32 bitową, napisaną w **Delphi**. Większość asemblerów napisano w **C**, więc żeby się nie powtarzać użyłem **Delphi 7.0** ;)
+**MADS** is oriented towards users of **QA**, **XASM**, **FA**. The syntax is borrowed from **QA**, some macro commands and syntax come from **XASM** and **Sparta DOS X (SDX)** is inherited from **FA**. Additional characters are allowed label names. Besides, support for the *WDC 65816 CPU*, macros, procedures, memory partitioning into virtual memory banks and nested label names have been added.
 
-W założeniu **MADS** skierowany jest do użytkowników **QA**, **XASM**, **FA**. Z **QA** zapożyczona została składnia, z **XASM** niektóre makro rozkazy i zmiany składni, z **FA** obsługa składni **Sparta DOS X** (SDX). Umożliwione zostało użycie dodatkowych znaków w nazwach etykiet. Poza tym dodana została obsługa *CPU 65816*, makr, procedur, podziału pamięci na wirtualne banki, wielowymiarowych nazw etykiet.
+The maximum number of labels and macros is only limited by the amount memory on your *PC*. Specifically, you can have **2147483647** `INTEGER` entries in dynamic arrays. I am sure that this amount is sufficient :-).
 
-Maksymalna liczba etykiet i makr ograniczona jest ilością pamięci komputera *PC*. Konkretnie można dokonać **2147483647** `INTEGER` wpisów do tablic dynamicznych. Jestem pewien że taka ilość jest wystarczająca :)
+Arithmetic operations are performed with values of type `INT64` (signed 64-bit), with the result represented as value of type `CARDINAL` (unsigned 32-bit).
+One line can be up to **65535** bytes long, which is also the length limit for label names. However, I did not have the opportunity to check such long labels and lines :-).
 
-Operacje arytmetyczne dokonywane są na wartościach typu `INT64` (signed 64 bit), wynik reprezentowany jest na wartościach typu `CARDINAL` (unsigned 32 bit).
-Jeden wiersz może mieć długość **65535** bajtów, takiej długości może być też nazwa etykiety. Nie miałem jednak okazji sprawdzić tak długich etykiet i wierszy :)
+Thanks to the free **Free Pascal Compiler (FPC)** it is possible to compile **MADS** also for other operating system platforms, such as **Linux**, **macOS** and more.
 
-Dzięki darmowemu kompilatorowi **Free Pascal Compiler** (FPC) możliwa jest kompilacja **MADS** dla innych platform systemowych, np. **Linux**, **Mac**, **OS/2** itp.
+The latested sources are available on [GitHub](https://github.com/tebe6502/Mad-Assembler) along with the [releases](https://github.com/tebe6502/Mad-Assembler/releases) for Windows. Releases for other operating systems platform are published periodically as part of the [WUDSN IDE Tools](https://github.com/peterdell/wudsn-ide-tools/tree/main/ASM/MADS).
 
-Źrodła dostępne na [GitHub](https://github.com/tebe6502/Mad-Assembler) wraz z [release](https://github.com/tebe6502/Mad-Assembler/releases) dla systemu Windows.
+## Compilation
 
-## Kompilacja
+To compile the **MADS** source, you can use the **Delphi** compiler if you have **Delphi 7.0** or later installed.
 
-Aby skompilować źródło **MADS**, można użyć kompilatora z **Delphi**, jeśli ktoś ma akurat zainstalowane środowisko **Delphi 7.0** lub nowsze.
+Another, more multi-platform way, is to use the compiler from the **Free Pascal Compiler (FPC)** package, which can be downloaded from [Free Pascal site](https://www.freepascal.org/).
 
-Innym sposobem, bardziej multi platformowym jest użycie kompilatora z pakietu **Free Pascal Compiler** (FPC), który można pobrać ze tej [strony](http://www.freepascal.org/).
-
-Uruchamiamy instalator, wybieramy katalog w którym zostanie zainstalowany **FP**. Ważne jest aby nie używać w nazwie katalogu znaku wykrzyknika `!` czy innych nie standardowych znaków. Jeśli nie uda nam się skompilować żadnego pliku, najpewniej winna jest nie standardowa nazwa ścieżki. Linia komend uruchamiająca kompilację może wyglądać następująco (wielkość liter w nazwach parametrów ma znaczenie):
+When you run the installer, you select the directory where **FPC** will be installed. It is important not to use the exclamation mark `!` or other non-standard characters in the directory path. If the compiler fails to compile any file, the reason is most likely a non-standard directory path. Use the following command line to compile MADS. Note that option names are case sensitive:
 
     fpc -Mdelphi -v mads.pas
 
-* `-Mdelphi`     pozwala kompilować plik w formacie Delphi
-* `-v`           wyświetla wszystkie komunikaty błędów i ostrzeżeń
-* `-O3`          dokonuje optymalizacji kodu
+* `-Mdelphi`     compile in Delphi mode
+* `-v`           show all error and warning messages
+* `-O3`          enable code optimizations
 
-W porównaniu z kompilatorem **Delphi**, kod wygenerowany przez **FPC** jest dłuższy, za to prędkość działania skompilowanego nim **MADS** znacznie większa, nawet o kilka sekund. Załączony plik `MADS.EXE` jest kompilowany przy użyciu **FPC**.
+ Compared to the **Delphi** compiler, the code generated by **FPC** is longer. But the speed of the **MADS** compiled with it is much higher, up to several seconds per run. The attached `mads.exe` file is compiled using **FPC**.
 
-## **XASM** / **MADS**
+## **MADS** vs. **XASM**
 
-### Podobieństwa
+### Similarities
 
-* ta sama składnia
-* te same kody wyjścia
-* te same makro rozkazy
+* same syntax
+* same exit codes
+* same macro commands
 
-### Różnice i nowe możliwości
+### Differences and Additions
 
-* mała różnica w `ORG`, np.: `ORG [[expression]]adres[,adres2]`
-* **XASM** nie lubi *białych spacji*, **MADS** toleruje je i akceptuje dla wyrażeń logicznych, arytmetycznych, definicji stałych i zmiennych
-* **MADS** pozwala na umieszczanie wyrażeń pomiędzy nawiasami `()` `[]`, **XASM** tylko pomiędzy `[]`
-* **MADS** udostępnia definicje stałych i zmiennych lokalne, globalne, tymczasowe, **XASM** tylko globalne
-* **MADS** nie akceptuje `ORG a:adres` `ORG f:adres`
-* **MADS** udostępnia zapis liczb rzeczywistych poprzez dyrektywę `.FL` `.FL real`, **XASM** poprzez pseudo rozkaz `DTA R` `DTA R(real)`
-* **MADS** oferuje bardziej rozbudowaną obsługę pseudo rozkazu `INS`
-* **MADS** nie akceptuje składni typu `lda (203),0`
-* **MADS** umożliwia pisanie programów dla Sparta DOS X
-* **MADS** umożliwia generowanie kodu relokowalnego w swoim własnym formacie
-jeśli użyjemy podczas adresowania wartości znakowej, np.:
-
+* **MADS** supportes small additions to `ORG`, e.g. `ORG [[expression]]address[,address2]`.
+* **MADS** does not accept `ORG a:address` nor `ORG f:address`.
+* **MADS** tolerates *white spaces* and accepts them for logical expressions, arithmetic, definitions of constants and variables.  **XASM** does not like white spaces.
+* **MADS** allows expressions to be placed between parentheses `()` `[]`. **XASM** only allows them between `[]`.
+* **MADS** supports definitions of constants and variables with local, global and temporary scope. **XASM** only supports global scope.
+* **MADS** supports defining real numbers via  the `.FL` `.FL real` directive. **XASM** via the `DTA R`, `DTA R(real)` pseudo command.
+* **MADS** offers more extensive support for the pseudo command `INS`.
+* **MADS** does not accept the `lda (203),0` syntax.
+* **MADS** supports writing programs for Sparta DOS X.
+* **MADS** supports the generation of relocatable code in its own format.
+* **MADS** distinguishes between single quotes `lda #' '` (ATASCII encoding) and double quotes `lda #" "` (INTERNAL encoding) for characters and strings. **XASM** treats both forms the same (ATASCII encoding). Of course, for `DTA` data, quotes are not distinguished by **MADS**.
+* **MADS** supports the `+` addition to increase and the `-` addition to decrease the index register in indexed addressing modes, e.g.:
 ```
-lda #' '
-lda #" "
+  lda $2000,x+    ->    lda $2000,x
+                        inx
 ```
-
-**MADS** będzie rozróżniał apostrof pojedyńczy (kod ATASCII) i apostrof podwójny (kod INTERNAL), **XASM** oba rodzaje apostrofów potraktuje jednakowo (kod ATASCII). Oczywiście dla danych `DTA` apostrofy nie są rozróżniane przez **MADS**.
-
-* w trybach indeksowych znak `+` lub `-` zwiększa lub zmniejsza rejestr, np.:
-
+* **MADS** supports the `+<offset>` addition to increase and the `-<offset>` addition to decrease the address of the main operand in absolute indexed addressing modes, e.g.:
 ```
-lda $2000,x+    ->    lda $2000,x
-                      inx
+  lda $2000,x+2   ->    lda $2002,x
 ```
 
-* jeśli jednak umieścimy wartość za znakiem `+` lub `-` wówczas zmienimy o tą wartość główny argument (działa tylko w trybie absolutnym indeksowym), np.:
+## Links
 
-```
-lda $2000,x+2   ->    lda $2002,x
-```
-
-## Linki
-
-* [Strona domowa **XASM**](http://atariarea.histeria.pl/x-asm/)
-* Wątki dotyczące **MADS**:
-    * [Atari Area](http://www.atari.org.pl/forum/viewtopic.php?id=8450)
-    * [Atari Age](http://atariage.com/forums/topic/114443-mad-assembler-mads/)
-    * [Kolorowanie składni](http://www.atari.org.pl/forum/viewtopic.php?id=13407)
+* **MADS**
+    * [Atari Area Thread](http://www.atari.org.pl/forum/viewtopic.php?id=8450)
+    * [Atari Age Thread](https://forums.atariage.com/topic/114443-mad-assembler-mads/)
+    * [Syntax Highlighting](http://www.atari.org.pl/forum/viewtopic.php?pid=210234)
+* **XASM**
+    * [Homepage](https://github.com/pfusik/xasm)

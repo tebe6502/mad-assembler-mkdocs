@@ -3,7 +3,7 @@ site_author: TeBe
 site_description: "Mad-Assembler Documentation"
 site_keyword: "cross-compiler"
 
-repo_url: https://github.com/tebe6502/mad-assembler-en-mkdocs/
+repo_url: https://github.com/tebe6502/mad-assembler-mkdocs/
 
 theme:
     name: readthedocs
@@ -20,17 +20,17 @@ nav:
     - Syntax: syntax.md
     - Labels: labels.md
     - Mnemonics: mnemonics.md
-    - Macro commands: macro-commands.md
-    - Pseudo-commands: pseudo-commands.md
+    - Macro Commands: macro-commands.md
+    - Pseudo Commands: pseudo-commands.md
     - Directives: directives.md
-    - Local area: local-areas.md
+    - Local Areas: local-areas.md
     - Procedures: procedures.md
     - Macros: macros.md
-    - Directives that generate code: code-generation-directives.md
+    - Code Generation Directives: code-generation-directives.md
     - Arrays: arrays.md
-    - Data types: data-types.md
-    - CPU detection: cpu-detection.md
-    - Memory banks: memory-banks.md
-    - Relocatable code: relocatable-code.md
+    - Data Types: data-types.md
+    - CPU Detection: cpu-detection.md
+    - Memory Banks: memory-banks.md
+    - Relocatable Code: relocatable-code.md
     - Examples: examples.md
     - Projects: projects.md
