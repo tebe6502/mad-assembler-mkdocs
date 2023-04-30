@@ -2,7 +2,7 @@
 
 ## Wstęp
 
-**Mad-Assembler** (MADS) jest aplikacją 32 bitową, napisaną w **Delphi**. Większość asemblerów napisano w **C**, więc żeby się nie powtarzać użyłem **Delphi 7.0** ;)
+**Mad-Assembler (MADS)** jest aplikacją Windows 32 bitową, napisaną w **Delphi**. Większość asemblerów napisano w **C**, więc żeby się nie powtarzać użyłem **Delphi 7.0** ;)
 
 W założeniu **MADS** skierowany jest do użytkowników **QA**, **XASM**, **FA**. Z **QA** zapożyczona została składnia, z **XASM** niektóre makro rozkazy i zmiany składni, z **FA** obsługa składni **Sparta DOS X** (SDX). Umożliwione zostało użycie dodatkowych znaków w nazwach etykiet. Poza tym dodana została obsługa *CPU 65816*, makr, procedur, podziału pamięci na wirtualne banki, wielowymiarowych nazw etykiet.
 
@@ -11,7 +11,7 @@ Maksymalna liczba etykiet i makr ograniczona jest ilością pamięci komputera *
 Operacje arytmetyczne dokonywane są na wartościach typu `INT64` (signed 64 bit), wynik reprezentowany jest na wartościach typu `CARDINAL` (unsigned 32 bit).
 Jeden wiersz może mieć długość **65535** bajtów, takiej długości może być też nazwa etykiety. Nie miałem jednak okazji sprawdzić tak długich etykiet i wierszy :)
 
-Dzięki darmowemu kompilatorowi **Free Pascal Compiler** (FPC) możliwa jest kompilacja **MADS** dla innych platform systemowych, np. **Linux**, **Mac**, **OS/2** itp.
+Dzięki darmowemu kompilatorowi **Free Pascal Compiler (FPC)** możliwa jest kompilacja **MADS** dla innych platform systemowych, np. **Linux**, **macOS** itp.
 
 Źrodła dostępne na [GitHub](https://github.com/tebe6502/Mad-Assembler) wraz z [release](https://github.com/tebe6502/Mad-Assembler/releases) dla systemu Windows.
 
@@ -19,7 +19,7 @@ Dzięki darmowemu kompilatorowi **Free Pascal Compiler** (FPC) możliwa jest kom
 
 Aby skompilować źródło **MADS**, można użyć kompilatora z **Delphi**, jeśli ktoś ma akurat zainstalowane środowisko **Delphi 7.0** lub nowsze.
 
-Innym sposobem, bardziej multi platformowym jest użycie kompilatora z pakietu **Free Pascal Compiler** (FPC), który można pobrać ze tej [strony](http://www.freepascal.org/).
+Innym sposobem, bardziej multi platformowym jest użycie kompilatora z pakietu **Free Pascal Compiler** (FPC), który można pobrać ze tej [strony](https://www.freepascal.org/).
 
 Uruchamiamy instalator, wybieramy katalog w którym zostanie zainstalowany **FP**. Ważne jest aby nie używać w nazwie katalogu znaku wykrzyknika `!` czy innych nie standardowych znaków. Jeśli nie uda nam się skompilować żadnego pliku, najpewniej winna jest nie standardowa nazwa ścieżki. Linia komend uruchamiająca kompilację może wyglądać następująco (wielkość liter w nazwach parametrów ma znaczenie):
 
@@ -75,8 +75,8 @@ lda $2000,x+2   ->    lda $2002,x
 
 ## Linki
 
-* [Strona domowa **XASM**](http://atariarea.histeria.pl/x-asm/)
+* [Strona domowa **XASM**](https://github.com/pfusik/xasm)
 * Wątki dotyczące **MADS**:
     * [Atari Area](http://www.atari.org.pl/forum/viewtopic.php?id=8450)
-    * [Atari Age](http://atariage.com/forums/topic/114443-mad-assembler-mads/)
+    * [Atari Age](https://forums.atariage.com/topic/114443-mad-assembler-mads/)
     * [Kolorowanie składni](http://www.atari.org.pl/forum/viewtopic.php?id=13407)
