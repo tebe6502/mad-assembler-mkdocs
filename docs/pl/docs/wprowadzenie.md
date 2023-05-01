@@ -1,27 +1,24 @@
 ## Wstęp
 
-**Mad-Assembler (MADS)** jest aplikacją Windows 32 bitową, napisaną w **Delphi**. Większość asemblerów napisano w **C**, więc żeby się nie powtarzać użyłem **Delphi 7.0** ;)
-
 W założeniu **MADS** skierowany jest do użytkowników **QA**, **XASM**, **FA**. Z **QA** zapożyczona została składnia, z **XASM** niektóre makro rozkazy i zmiany składni, z **FA** obsługa składni **Sparta DOS X** (SDX). Umożliwione zostało użycie dodatkowych znaków w nazwach etykiet. Poza tym dodana została obsługa *CPU WDC 65816*, makr, procedur, podziału pamięci na wirtualne banki, wielowymiarowych nazw etykiet.
 
-Maksymalna liczba etykiet i makr ograniczona jest ilością pamięci komputera *PC*. Konkretnie można dokonać **2147483647** `INTEGER` wpisów do tablic dynamicznych. Jestem pewien że taka ilość jest wystarczająca :)
+Maksymalna liczba etykiet i makr ograniczona jest ilością pamięci komputera *PC*. Konkretnie można dokonać **2147483647** `INTEGER` wpisów do tablic dynamicznych. Jestem pewien że taka ilość jest wystarczająca :-).
 
 Operacje arytmetyczne dokonywane są na wartościach typu `INT64` (signed 64 bit), wynik reprezentowany jest na wartościach typu `CARDINAL` (unsigned 32 bit).
-Jeden wiersz może mieć długość **65535** bajtów, takiej długości może być też nazwa etykiety. Nie miałem jednak okazji sprawdzić tak długich etykiet i wierszy :)
-
-Dzięki darmowemu kompilatorowi **Free Pascal Compiler (FPC)** możliwa jest kompilacja **MADS** dla innych platform systemowych, np. **Linux**, **macOS** itp.
-
-Źrodła dostępne na [GitHub](https://github.com/tebe6502/Mad-Assembler) wraz z [releases](https://github.com/tebe6502/Mad-Assembler/releases) dla systemu Windows. Wersje dla innych platform systemów operacyjnych są okresowo publikowane w ramach [WUDSN IDE Tools](https://github.com/peterdell/wudsn-ide-tools/tree/main/ASM/MADS).
+Jeden wiersz może mieć długość **65535** bajtów, takiej długości może być też nazwa etykiety. Nie miałem jednak okazji sprawdzić tak długich etykiet i wierszy :-).
 
 ## Kompilacja
 
-Aby skompilować źródło **MADS**, można użyć kompilatora z **Delphi**, jeśli ktoś ma akurat zainstalowane środowisko **Delphi 7.0** lub nowsze.
+**Mad-Assembler (MADS)** jest aplikacją Windows 32 bitową, napisaną w **Delphi**. Większość asemblerów napisano w **C**, więc żeby się nie powtarzać użyłem **Delphi 7.0** ;-).  Najnowsze źródła są dostępne na [GitHub](https://github.com/tebe6502/Mad-Assembler).
 
-Innym sposobem, bardziej multi platformowym jest użycie kompilatora z pakietu **Free Pascal Compiler (FPC)**, który można pobrać ze [Free Pascal strony](https://www.freepascal.org/).
+Aby je skompilować, można użyć kompilatora **Delphi**, jeśli mamy zainstalowane **Delphi 7.0** lub nowsze. Dzięki darmowemu kompilatorowi **Free Pascal Compiler (FPC)** możliwa jest kompilacja **MADS** dla innych platform systemowych, np. **Linux**, **macOS** itp.
+Pobierz pakiet **Free Pascal Compiler (FPC)** z [witryny Free Pascal](https://www.freepascal.org/) i uruchom instalator.
 
 Uruchamiamy instalator, wybieramy katalog w którym zostanie zainstalowany **FPC**. Ważne jest aby nie używać w nazwie katalogu znaku wykrzyknika `!` czy innych nie standardowych znaków. Jeśli nie uda nam się skompilować żadnego pliku, najpewniej winna jest nie standardowa nazwa ścieżki. Linia komend uruchamiająca kompilację może wyglądać następująco (wielkość liter w nazwach parametrów ma znaczenie):
 
-    fpc -Mdelphi -v mads.pas
+```
+fpc -Mdelphi -v mads.pas
+```
 
 * `-Mdelphi`     pozwala kompilować plik w formacie Delphi
 * `-v`           wyświetla wszystkie komunikaty błędów i ostrzeżeń
@@ -80,8 +77,8 @@ lda #" "
 ## Linki
 
 * **MADS**
-   * [Wątek Atari Area](http://www.atari.org.pl/forum/viewtopic.php?id=8450)
    * [Wątek Atari Age Wątek](https://forums.atariage.com/topic/114443-mad-assembler-mads)
+   * [Wątek Atari Area](http://www.atari.org.pl/forum/viewtopic.php?id=8450)
    * [Kolorowanie](http://www.atari.org.pl/forum/viewtopic.php?pid=210234)
 * **XASM**
     *[Strona domowa](https://github.com/pfusik/xasm)
