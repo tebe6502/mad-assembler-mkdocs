@@ -1,4 +1,4 @@
-# [Mad-Pascal](https://github.com/tebe6502/Mad-Pascal) [MkDocs](https://www.mkdocs.org/)
+# [Mad-Assembler](https://github.com/tebe6502/Mad-Assembler) [MkDocs](https://www.mkdocs.org/)
 
 ```
 mkdocs serve
