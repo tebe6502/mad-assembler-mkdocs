@@ -1,7 +1,8 @@
 #
 
 ## Przełączniki assemblera
-
+<!-- TODO: Use "options" instead of "switches", also adapt MADS  -->
+<!-- TODO: Use active form  -->
 ```none
 Syntax: mads source [switches]
 
