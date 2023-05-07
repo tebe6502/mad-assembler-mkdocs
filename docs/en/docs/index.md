@@ -97,21 +97,20 @@ adw (tmp),y #1 posx
 adw (tmp),y ptr2 ptr4
 ```
 
-<!-- TODO Continue from here -->
 ## 2.0.2 <a name="2.0.2"></a>
-<!-- TODO "Fixed" or "improved"?-->
 - fixed data allocation for `.SB [+<byte>],<bytes|string|char>`
 
 ## 2.0.1 <a name="2.0.1"></a>
 
-- poprawione alokowanie danych dla `.ARRAY` gdy typ większy od `.BYTE`
-- `.SIZEOF` zwraca rozmiar dla wbudowanych typów `.BYTE` `.WORD` `.LONG` `.DWORD`
-- dodana relokowalna wersja playera **MPT** `examples\players\mpt_player_reloc.asm`
-- poprawione działanie dyrektywy `.DS` w blokach **SDX** `blk sparta $xxx` które nie są relokowalne
+- fixed data allocation for `.ARRAY` when type is larger than `.BYTE`
+- directive `.SIZEOF` now also returns the size for built-in types `.BYTE` `.WORD` `.LONG` `.DWORD`
+- added relocatable version of **MPT** player `examples_players_player_reloc.asm`
+- fixed implementation of `.DS` directive in **SDX** `blk sparta $xxx` blocks that are not relocatable
 
+<!-- TODO Continue from here -->
 ## 1.9.8 <a name="1.9.8"></a>
 
-- naprawione działanie rozkazów **65816** `PEA` `PEI` `PER`
+- naprawione działanie rozkazów **WDC 65816** `PEA` `PEI` `PER`
 - dodana możliwość podania kodu dla `.RELOC` [.BYTE|WORD] [TYPE]
 
 ## 1.9.7 <a name="1.9.7"></a>
@@ -171,7 +170,7 @@ ORG [a($ffff),d'atari',c'ble',20,30,40],$8000,$a000
 
 - addytywne bloki `.LOCAL` otrzymują kolejne adresy, poprzednio adres ustalany był na podstawie pierwszego wystąpienia takiego bloku
 - dodany komunikat ostrzeżenia w przypadku stworzenia kolejnego addytywnego bloku `.LOCAL` o tej samej nazwie **Ambiguous label LOCAL_NAME**
-- dodane mnemoniki `PER` (PEA rell), `PEI` (PEA (zp)) dla **65816**
+- dodane mnemoniki `PER` (PEA rell), `PEI` (PEA (zp)) dla **WDC 65816**
 - dodane nowy typ danych M (najstarszy bajt **LONG**) i G (najstarszy bajt **DWORD**) dla pseudorozkazu `DTA`, np.:
 
 ```
@@ -507,8 +506,8 @@ blk update extrn
 
 - nowy silnik duchów programowych z minimalnymi wymaganiami pamięci, bez dodatkowych buforów pamięci obrazu `...EXAMPLES\SPRITES\CHARS_NG`
 - nowa wersja pakera **Huffmana** (kompatybilna z **Free Pascal Compiler-em**, `fpc -MDelphi sqz15.pas`) i dekompresora **Huffmana** SQZ15 `...EXAMPLES\COMPRESSION\SQUASH`
-- poprawiony kod generowany dla rozkazów `MVP` `MVN` `PEA` `BRA` (CPU 65816)
-- dodane nowe rozkazy `BRL` `JSL` `JML` (CPU 65816), jako odpowiedniki rozkazów długich skoków `BRA` `JSR` `JMP`
+- poprawiony kod generowany dla rozkazów `MVP` `MVN` `PEA` `BRA` (**WDC 65816**)
+- dodane nowe rozkazy `BRL` `JSL` `JML` (**WDC 65816**), jako odpowiedniki rozkazów długich skoków `BRA` `JSR` `JMP`
 - blok aktualizacji etykiet zewnętrznych (external) został rozszerzony o zapis młodszego i starszego bajtu adresu takiej etykiety
 - poprawione działanie dyrektywy `.USE` `.USING`, działa niezależnie od przestrzeni nazw w której zostanie użyta
 - usunięty błąd, który powodował w pewnych sytuacjach pomijanie asemblacji bloku `#IF` `#WHILE`
@@ -1010,13 +1009,13 @@ adw hlp #20 pom    ; pom=hlp+20
 
 - przepisana na nowo obsługa pseudo rozkazów `REQ` `RNE` `RPL` `RMI` `RCC` `RCS` `RVC` `RVS` `SEQ` `SNE` `SPL` `SMI` `SCC` `SCS` `SVC` `SVS`
 - poprawione działanie dyrektywy `.LINK` dla bloków o stałych adresach
-- poprawione testowanie słów zarezerwowanych (można używać nazw zarezerwowanych dla `65816` gdy używamy tylko `6502`)
+- poprawione testowanie słów zarezerwowanych (można używać nazw zarezerwowanych dla **WDC 65816** gdy używamy tylko **6502**)
 - zmiany w listingu, wyświetla informacje o numerze banku tylko gdy bank > 0
 - dodana obsługa makro rozkazów `MWA` `MWX` `MWY` `MVA` `MVX` `MVY` `ADD` `SUB` `INW` `DEW` (do ich obsługi nie są już potrzebne makra)
 
 ## 1.7.1 <a name="1.7.1"></a>
 
-- dodana możliwość używania nazw mnemoników `65816` w trybie pracy `6502`, w trybie `65816` wystąpi już błąd **Reserved word**
+- dodana możliwość używania nazw mnemoników **WDC 65816** w trybie pracy **6502**, w trybie **WDC 65816** wystąpi już błąd **Reserved word**
 - poprawione działanie pseudo rozkazów skoków `SCC` `RNE` itp. w makrach
 - usprawnione wykonywanie wielu makr rozdzielonych znakiem dwukropka `:`
 
@@ -1061,7 +1060,7 @@ ldx:ldy:lda:iny label
 - brak ograniczeń w liczbie parametrów przekazywanych do procedur, jedynym ograniczeniem jest dostępna pamięć
 - dodany nowy przełącznik `/d:label=value` pozwalający zdefiniować nową etykietę **MADS** z poziomu linii poleceń
 - dodany nowy przełącznik `/x` **Exclude unreferenced procedures** pozwalający pominąć podczas asemblacji nie używane w programie procedury zadeklarowane dyrektywą `.PROC`
-- nowa opcja `OPT T+` (track sep, rep) śledząca zmiany rozmiaru rejestrów `A` `X` `Y` dokonywane przez rozkazy `SEP`, `REP` **CPU 65816**
+- nowa opcja `OPT T+` (track sep, rep) śledząca zmiany rozmiaru rejestrów `A` `X` `Y` dokonywane przez rozkazy `SEP`, `REP` **WDC 65816**
 - nowe biblioteki w katalogu `..\EXAMPLES\LIBRARIES`
 - w deklaracji obszaru lokalnego `.LOCAL` nie jest wymagane podanie nazwy obszaru
 - nowe operatory `-=` `+=` `++` `--` pozwalające zmniejszyć/zwiększyć wartość etykiety tymczasowej, np.:
