@@ -45,7 +45,7 @@ Najnowsze wydania dla systemu Windows są dostępne na [Github](https://github.c
 
 ## 2.0.7
 
-- poprawione generowanie kodu wynikowego dla nielegali `DOP`, `SHA`
+- poprawione generowanie kodu wynikowego dla nielegali `DOP` i `SHA`
 - dodane dyrektywy **WDC 65816** `.A8` `.A16` `.I8` `.I16` `.AI8` `.IA8` `.AI16` `.IA16` pozwalające ustawić rozmiar rejestrów `AXY`
 - dodane dyrektywy **WDC 65816** `.ASIZE` `.ISIZE` zwracające aktualnie ustawiony rozmiar rejestrów `AXY`
 - rozkaz `JMP` zmieniany jest na `JML` **65816** tylko gdy skok dotyczy innego 64KB banku niż obecny
@@ -99,7 +99,7 @@ adw (tmp),y ptr2 ptr4
 
 ## 2.0.2
 
-- poprawione alokowanie danych dla `.SB` [+<byte>],<bytes|string|char>
+- poprawione alokowanie danych dla `.SB [+<byte>],<bytes|string|char>`
 
 ## 2.0.1
 
@@ -255,7 +255,7 @@ org r:$40   org $40,*
 ```
 
 - poprawione działanie parametru `-x` **Exclude unreferenced procedures**, zmienne `.VAR` nie są alokowane gdy procedura jest nieużywana
-- rozszerzona składnia dla jednoliniowych pętli `:rept`, możliwe wykorzystanie licznika pętli jako parametru `:1` (%%1), np.:
+- rozszerzona składnia dla jednoliniowych pętli `:rept`, możliwe wykorzystanie licznika pętli jako parametru `:1` lub `%%1`, np.:
 
 ```
 line0
@@ -263,9 +263,11 @@ line1
 line2
 line3
 
-ladr :4 dta l(line:1)
-hadr :4 dta h(line:1)
-```
+ladr1 :4 dta l(line:1)
+hadr1 :4 dta h(line:1)
+
+ladr2 :4 dta l(line%%1)
+hadr
 
 - dodany komunikat ostrzeżenia w przypadku użycia nielegalnych niestabilnych rozkazów **6502**, np. `CIM`
 - dodany komunikat ostrzeżenia w przypadku użycia nielegalnych niestabilnych rozkazów **6502**, np. `CIM`
