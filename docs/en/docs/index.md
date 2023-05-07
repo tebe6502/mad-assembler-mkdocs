@@ -1,70 +1,59 @@
 # Mad-Assembler
 
-**Mad-Assembler** (MADS) jest aplikacją 32 bitową, napisaną w **Delphi**. Większość asemblerów napisano w **C**, więc żeby się nie powtarzać użyłem **Delphi 7.0** ;)
+**Mad-Assembler (MADS)** is a MOS 6502/MOS 65C02/WDC 65816 cross-assembler by [Tomazs Biela (tebe)](https://github.com/tebe6502).
 
-W założeniu **MADS** skierowany jest do użytkowników **QA**, **XASM**, **FA**. Z **QA** zapożyczona została składnia, z **XASM** niektóre makro rozkazy i zmiany składni, z **FA** obsługa składni **Sparta DOS X** (SDX). Umożliwione zostało użycie dodatkowych znaków w nazwach etykiet. Poza tym dodana została obsługa **CPU 65816**, makr, procedur, podziału pamięci na wirtualne banki, wielowymiarowych nazw etykiet.
+The latest releases for Windows is available on [Github](https://github.com/tebe6502/Mad-Assembler/releases). Releases for other operating systems platform are published periodically as part of the [WUDSN IDE Tools](https://github.com/peterdell/wudsn-ide-tools/tree/main/ASM/MADS).
 
-Maksymalna liczba etykiet i makr ograniczona jest ilością pamięci komputera *PC*. Konkretnie można dokonać **2147483647** `INTEGER` wpisów do tablic dynamicznych. Jestem pewien że taka ilość jest wystarczająca :)
+# Change Log
 
-Operacje arytmetyczne dokonywane są na wartościach typu `INT64` (signed 64 bit), wynik reprezentowany jest na wartościach typu `CARDINAL` (unsigned 32 bit).
-Jeden wiersz może mieć długość **65535** bajtów, takiej długości może być też nazwa etykiety. Nie miałem jednak okazji sprawdzić tak długich etykiet i wierszy :)
+## [2.1.5](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.5)
 
-Dzięki darmowemu kompilatorowi **Free Pascal Compiler** (FPC) możliwa jest kompilacja **MADS** dla innych platform systemowych, np. **Linux**, **Mac**, **OS/2** itp.
+- improved performance of `.UNDEF`, `.IFDEF`
+- improved execution of nested `.REPT` loops
+- added ability to combine local areas, `.LOCAL +full_path_to_local`
+- added coloring of console messages
+- added labels for self-modifying code, e.g. `lda label:#$40`
 
-Źrodła dostępne na [GitHub](https://github.com/tebe6502/Mad-Assembler) wraz z [release](https://github.com/tebe6502/Mad-Assembler/releases) dla systemu Windows.
+## [2.1.3](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.3)
 
-# Historia
+- added directive `.RND` returning a random value in the range 0..255
+- added warning message **'Register A is changed'** for pseudo commands `DEW`, `DEL`, `DED`
+- added command line option `-bc` for **'Branch condition test'**. It activates warning messages in case the branch target is out of range or exceeds a memory page boundary
 
-## [v2.1.5](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.5)
+## [2.1.0](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.0)
 
-- poprawione działanie `.UNDEF`, `.IFDEF`
-- poprawione wykonywanie zagnieżdżonych pętli `.REPT`
-- dodana możliwość łączenia obszarów lokalnych, `.LOCAL +full_path_to_local`
-- dodanie kolorowania komunikatów konsoli
-- etykiety automodyfikacji kodu, np.:
-```
-    lda label:  #$40
-```
-
-## [v2.1.3](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.3)
-
-- nowa dyrektywa `.RND` zwracająca wartość losową z zakresu 0..255
-- dodany komunikat ostrzeżenia **'Register A is changed'** dla pseudo rozkazów `DEW`, `DEL`, `DED`
-- nowy przełącznik `-bc` **'Branch condition test'**, powoduje wygenerowanie komunikatów ostrzeżenia w przypadku kiedy skok jest poza zakres lub przekracza stronę pamięci
-
-## [v2.1.0](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.0)
-
-- dodany komunikat ostrzeżenia **Buggy indirect jump** w przypadku użycia rozkazu `JMP(ABS)`
-- dodana dyrektywa `.FILEEXISTS('filename')` zwracajaca 1 gdy plik w podanej ścieżce istnije, 0 gdy nie istnieje
-- rozszerzony komunikat **Value out of range (VALUE must be between X and Y)**
+- added warning message **'Buggy indirect jump'** when using the command `JMP(ABS)`
+- added directive `.FILEEXISTS('filename')` returning 1 if file in specified path exists, 0 if it does not exist
+- extended message **'Value out of range (VALUE must be between X and Y)'**
 
 ## 2.0.9
 
-- `.cbm 'text'` konwersja na znaki ekranowe Commodore C64
-- usunięty błąd kiedy procedura `.PROC` znajdująca się w bloku `.LOCAL` nie została oznaczona jako "do asemblacji" mimo tego że było do niej odwołanie z poziomu makra `.MACRO` w bloku `.LOCAL`
-- usunięty błąd, etykiety tymczasowe `?label` były oznaczane "do relokacji"
+- added `.CBM 'text'` directive to define text in Commodore C64 screen code
+- fixed an error when a `.PROC` procedure located in a `.LOCAL` block was not marked 'for assembly' even though it was referenced from a `.MACRO` macro in a `.LOCAL` block
+- fixed that temporary labels `?label` were marked 'for relocation'
 
 ## 2.0.8
 
-- krótszy kod dla `#CYCLE`
-- poprawki dla `.BY` `.WO` `.HE` `.SB` `.CB` `.FL`
-- komunikat błędu **Improper syntax** w przypadku użycia `.BY` `.WO` `.HE` `.SB` `.CB` `.FL` w bloku `.STRUCT`
-- dodane nowe dyrektywy dla **65816** `.LONGA ON|OFF` `.LONGI ON|OFF`
-- poprawione działanie śledzenia rozmiaru rejestrów **65816** gdy `OPT T+`
-- dodany przełącznik -FV:VALUE pozwalający ustalić wartość wypełnienia pamięci gdy `OPT F+`
-- dodana możliwość podania argumentu jako ciągu dwóch znaków (poprzednio tylko 1 znak) np. `lda #'AB'` , `mwa #'XY' $80`
+- generate shorter object code for `#CYCLE`
+- fixes for `.BY` `.WO` `.HE` `.SB` `.CB` `.FL`
+- added error message **'Improper syntax'** when using `.BY` `.WO` `.HE` `.SB` `.CB` `.FL` in a `.STRUCT` block
+- added directives `.LONGA ON|OFF` `.LONGI ON|OFF` for **WDC 65816** 
+- improved performance of register size tracking for **WDC 65816** when `OPT T+` is set
+- added command line option `-fv:value` to set the memory fill value when `OPT F+` is set.
+- added option to specify an immediate argument as a string of two characters (previously only 1 character), e.g. `lda #'AB'` , `mwa #'XY' $80`
 
 ## 2.0.7
 
-- poprawione generowanie kodu wynikowego dla nielegali `DOP`, `SHA`
-- dodane nowe dyrektywy **65816** `.A8` `.A16` `.I8` `.I16` `.AI8` `.IA8` `.AI16` `.IA16` pozwalające ustawić rozmiar rejestrów `AXY`
-- dodane nowe dyrektywy **65816** `.ASIZE` `.ISIZE` zwracające aktualnie ustawiony rozmiar rejestrów `AXY`
-- rozkaz `JMP` zmieniany jest na `JML` **65816** tylko gdy skok dotyczy innego 64KB banku niż obecny
-- dodany nowy przełącznik `-ml:value` (margin-left property), który umożliwia zmianę lewego marginesu generowanego listingu w zakresie od 32 do 128 znaków
+- improved object code generation for illegal `DOP`, `SHA`
+- added **WDC 65816** directives `.A8` `.A16` `.I8` `.I16` `.AI8` `.IA8` `.AI16` `.IA16` to set the size of `AXY` registers
+- added **WDC 65816** directives `.ASIZE` `.ISIZE` returning the current size of `AXY` registers
+- in **WDC 65816** mode, the command `JMP` is changed to `JML` only when the jump concerns a different 64KB bank than the current one
+<!-- TODO Should be 'Set left margin'-->
+- added command line option `-ml:value` for **'margin-left property'** to change the left margin of the generated listing to a value in the range of 32 to 128 characters
 
 ## 2.0.6
 
-- poprawione parsowanie parametrów makra zapisanych przy pomocy etykiet
+- improved parsing of macro parameters used in labels
 
 ```
 .macro test currentRow, previousRow
@@ -73,24 +62,23 @@ Dzięki darmowemu kompilatorowi **Free Pascal Compiler** (FPC) możliwa jest kom
 .endm
 ```
 
-- poprawione alokowanie danych `.ARRAY` gdy nie ma określonego rozmiaru, lub jest to tablica inna niż jednowymiarowa
-- zwiększona liczba przebiegów dla `.PROC`, w pewnych warunkach dla parametru `xa .reg` parametr był źle interpretowany
-- nowa dyrektywa `.DEFINE` pozwalająca definiować jedno liniowe makra (można definiować wielokrotnie w tym samym przebiegu)
+- fixed the `.ARRAY` memory allocation in case there is no size specified or it is a multi-dimensional array
+- increased number of passes for `.PROC` to prevent that for `xa .reg` the parameter is misinterpreted under certain conditions
+- added directive `.DEFINE` to define sinlge-line macros (can be defined multiple times in the same pass)
 
 ```
-.DEFINE MACRO_NAME expression
+.DEFINE macro_name expression
 
-.DEFINE pisz .print %%1+%%2
+.DEFINE write .print %%1+%%2
+write (5,12)
 
-pisz (5,12)
-
-.define text .sb
-
+.DEFINE text .sb
 text 'atari'
 ```
 
-- nowa dyrektywa `.UNDEF MACRO_NAME`, usuwa definicję jedno liniowego makra `MACRO_NAME`
+- added directive `.UNDEF macro_name` to remove the definition of the single-line macro `macro_name`.
 
+<!-- TODO Continue from here -->
 ## 2.0.5
 
 - tablice `.ARRAY` w bloku `.PROC` są pomijane jeśli użyto przełącznik `-X` (exclude unreferenced procedure)
