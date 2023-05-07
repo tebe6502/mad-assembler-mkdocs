@@ -679,7 +679,7 @@ label:1           ; LABEL0, LABEL1, LABEL2 ... LABEL9
 
 ## 1.7.9 - 1.8.0
 
-- poprawiony błąd w opisie przełącznika `-F`, poprzednio **Label at first column**, prawidłowy opis to **CPU command at first column**
+- poprawiony błąd w opisie przełącznika `-f`, poprzednio **Label at first column**, prawidłowy opis to **CPU command at first column**
 - przepisana od nowa obsługa dyrektywy `.DS` i opcji `OPT F+` (dodana możliwość użycia bloków RUN i INI)
 - przepisana od nowa obsługa opcji `OPT ?+` (etykiety lokalne w standardzie **MAE**)
 - dodana możliwość upublicznienia w blokach PUBLIC tablic zadeklarowanych przez .ARRAY oraz deklaracji struktur `.STRUCT`
