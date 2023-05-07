@@ -6,7 +6,7 @@ The latest releases for Windows is available on [Github](https://github.com/tebe
 
 # Change Log
 
-## [2.1.5](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.5)
+## [2.1.5](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.5)  <a name="2.1.5"></a> 
 
 - improved performance of `.UNDEF`, `.IFDEF`
 - improved execution of nested `.REPT` loops
@@ -14,25 +14,25 @@ The latest releases for Windows is available on [Github](https://github.com/tebe
 - added coloring of console messages
 - added labels for self-modifying code, e.g. `lda label:#$40`
 
-## [2.1.3](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.3)
+## [2.1.3](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.3)  <a name="2.1.3"></a> 
 
 - added directive `.RND` returning a random value in the range 0..255
 - added warning message **'Register A is changed'** for pseudo commands `DEW`, `DEL`, `DED`
 - added command line option `-bc` for **'Branch condition test'**. It activates warning messages in case the branch target is out of range or exceeds a memory page boundary
 
-## [2.1.0](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.0)
+## [2.1.0](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.0)  <a name="2.1.0"></a> 
 
 - added warning message **'Buggy indirect jump'** when using the command `JMP(ABS)`
 - added directive `.FILEEXISTS('filename')` returning 1 if file in specified path exists, 0 if it does not exist
 - extended message **'Value out of range (VALUE must be between X and Y)'**
 
-## 2.0.9
+## 2.0.9  <a name="2.0.9"></a> 
 
 - added `.CBM 'text'` directive to define text in Commodore C64 screen code
 - fixed an error when a `.PROC` procedure located in a `.LOCAL` block was not marked 'for assembly' even though it was referenced from a `.MACRO` macro in a `.LOCAL` block
 - fixed that temporary labels `?label` were marked 'for relocation'
 
-## 2.0.8
+## 2.0.8 <a name="2.0.8"></a> 
 
 - generate shorter object code for `#CYCLE`
 - fixes for `.BY` `.WO` `.HE` `.SB` `.CB` `.FL`
@@ -42,7 +42,7 @@ The latest releases for Windows is available on [Github](https://github.com/tebe
 - added command line option `-fv:value` to set the memory fill value when `OPT F+` is set.
 - added option to specify an immediate argument as a string of two characters (previously only 1 character), e.g. `lda #'AB'` , `mwa #'XY' $80`
 
-## 2.0.7
+## 2.0.7 <a name="2.0.7"></a> 
 
 - improved object code generation for illegal `DOP`, `SHA`
 - added **WDC 65816** directives `.A8` `.A16` `.I8` `.I16` `.AI8` `.IA8` `.AI16` `.IA16` to set the size of `AXY` registers
@@ -51,7 +51,7 @@ The latest releases for Windows is available on [Github](https://github.com/tebe
 <!-- TODO Should be 'Set left margin'-->
 - added command line option `-ml:value` for **'margin-left property'** to change the left margin of the generated listing to a value in the range of 32 to 128 characters
 
-## 2.0.6
+## 2.0.6 <a name="2.0.6"></a> 
 
 - improved parsing of macro parameters used in labels
 
@@ -78,26 +78,26 @@ text 'atari'
 
 - added directive `.UNDEF macro_name` to remove the definition of the single-line macro `macro_name`.
 
-<!-- TODO Continue from here -->
-## 2.0.5
+## 2.0.5 <a name="2.0.5"></a> 
 
-- tablice `.ARRAY` w bloku `.PROC` są pomijane jeśli użyto przełącznik `-X` (exclude unreferenced procedure)
-- użycie `.ARRAY` w bloku `.STRUCT` nie będzie generować już zer w pliku wynikowym
-- nowa dyrektywa `.XGET`, pozwalająca wczytać do bufora pamięci **MADS** plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla **VBXE**)
+- array definitions with `.ARRAY` in unused `.PROC` block are omitted if the `-x` **Exclude unreferenced procedures** option is specified
+- using `.ARRAY` in `.STRUCT` blocks will no longer generate zeros in the resulting file
+- added directive `.XGET` to read a file into the **MADS** memory buffer and further modify its bytes provided they are different from zero (useful for **VBXE**)
 
-## 2.0.4
+## 2.0.4 <a name="2.0.4"></a> 
 
-- usunięty błąd powodujący błędny zapis bloku aktualizacji dla starszego bajtu adresu w bloku `.RELOC`
-- `.DB` `.DW` usunięte
-- `.DBYTE` (MSB/LSB) odkłada słowo w odwrotnej kolejności (starszy/młodszy)
-- dodane dyrektywy `.WGET` **WORD**, `.LGET` **LONG**, `.DGET` **DWORD**
-- poprawione działanie makro rozkazków `ADW` `SBW`, np.:
+- fixed bug causing incorrect writing of the update block for the high byte of the address in a `.RELOC` block
+- removed directives `.DB`  and `.DW`
+- added directive `.DBYTE <word>` which stores the bytes of a word in high / low order (MSB/LSB)
+- added direcvivs `.WGET` to read **WORD** values, `.LGET` to read **LONG** values and `.DGET` to read **DWORD** values from **MADS** memory buffer
+- improved operation of `ADW` and `SBW` macro commands, e.g.:
 
 ```
 adw (tmp),y #1 posx
 adw (tmp),y ptr2 ptr4
 ```
 
+<!-- TODO Continue from here -->
 ## 2.0.2
 
 - poprawione alokowanie danych dla `.SB` [+<byte>],<bytes|string|char>
@@ -228,19 +228,17 @@ data dta fcb [1] (0)
 
 ## 1.9.5
 
-- dodany pseudorozkaz `SET` pozwalający redefiniować etykietę, podobne działanie jak etykiety tymczasowe zaczynające się znakiem `?`, np.:
+- added pseudo-command `SET` to redefine a label, similar action to temporary labels starting with `?`, e.g.:
 
 ```
 temp set 12
-
      lda #temp
 
 temp set 23
-
      lda #temp
 ```
 
-- dodana możliwość wymuszenia trybu adresowania w stylu **XASM** `'a:', 'z:'`, np.:
+- added ability to force **XASM** style addressing mode `a:` and `z:`, e.g.:
 
 ```
 XASM        MADS
@@ -248,15 +246,17 @@ lda a:0     lda.a 0
 ldx z:0     lda.z 0
 ```
 
-- dodana możliwość określenia nowego adresu relokacji kodu w stylu **XASM** `r:`, np.:
+- added ability to specify a new code relocation address in  **XASM** style `r:`, e.g.:
 
 ```
 XASM        MADS
 org r:$40   org $40,*
 ```
 
-- poprawione działanie parametru `-x` **Exclude unreferenced procedures**, zmienne `.VAR` nie są alokowane gdy procedura jest nieużywana
-- rozszerzona składnia dla jednoliniowych pętli `:rept`, możliwe wykorzystanie licznika pętli jako parametru `:1` (%%1), np.:
+- improved implementation of the `-x` option **Exclude unreferenced procedures**, so `.VAR` variables are not allocated when the procedure is not used
+
+<!-- TODO What does (%%1) mean here? -->
+- added extended syntax for single-line `:rept` loops, so it is now possible use of loop counter as `:1` (%%1) parameter, e.g.:
 
 ```
 line0
@@ -268,28 +268,28 @@ ladr :4 dta l(line:1)
 hadr :4 dta h(line:1)
 ```
 
-- dodany komunikat ostrzeżenia w przypadku użycia nielegalnych niestabilnych rozkazów **CPU6502**, np. `CIM`
-- dodana nowa funkcjonalność dla pseudorozkazów `RUN` `INI`, które teraz zachowują adres asemblacji, poprzednio przestawiały adres asemblacji na `$2E0` (RUN), `$2E2` (INI)
-- dodana obsługa etykiet anonimowych **anonymous labels** `@` `@+[1..9]` (forward) `@-[1..9]` (backward), w celu zapewnienia przejrzystości kodu ograniczone jest używania takich etykiet tylko dla skoków warunkowych oraz do 10 wystąpień w przód/tył, np.:
+- added warning message when using unstable illegal **6502** opcodes like `CIM`
+- added new functionality for `RUN` and `INI` pseudo-commands, so they now retain the current assembly address. Previously they switched the assembly address to `$2E0` (RUN) or `$2E2` (INI)
+- added support for **anonymous labels** `@` `@+[1..9]` (forward) `@-[1..9]` (backward), in the interest of code clarity use such labels is restricted to conditional branches and up to 10 forward/backward occurrences, e.g..:
 
 ```
-@ dex   ---- -------
-  bne @+   |  --   |
+@ dex   <------+---+
+  bne @+ --+   |   |
   stx $80  |   |   |
-@ lda #0   |  --   |
-  bne @- ---       |
-  bne @-1  ---------
+@ lda #0 <-+   |   |
+  bne @- ------+   |
+  bne @-1  --------+
 ```
 
-- rozszerzone działanie dyrektyw `#IF` `#WHILE` o zmienne deklarowane przez `.VAR`, dotychczas wymagane było podanie typu zmiennej, np.:
+- extended directives `#IF` and `#WHILE` to include variables declared by `.VAR`, previously it was required to specify the type of the variable, e.g.:
 
 ```
  .var temp .word
 
- #if temp>#2100
+ #if temp>#2100       ;Now
  #end
 
- #if .word temp>#2100
+ #if .word temp>#2100 ;Before
  #end
 ```
 

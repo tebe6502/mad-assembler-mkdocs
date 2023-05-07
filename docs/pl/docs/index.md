@@ -80,7 +80,7 @@ text 'atari'
 
 ## 2.0.5
 
-- tablice `.ARRAY` w bloku `.PROC` są pomijane jeśli użyto przełącznik `-X` (exclude unreferenced procedure)
+- tablice `.ARRAY` w bloku `.PROC` są pomijane jeśli użyto przełącznik `-x` **Exclude unreferenced procedures**
 - użycie `.ARRAY` w bloku `.STRUCT` nie będzie generować już zer w pliku wynikowym
 - nowa dyrektywa `.XGET`, pozwalająca wczytać do bufora pamięci **MADS** plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla **VBXE**)
 
@@ -90,7 +90,7 @@ text 'atari'
 - `.DB` `.DW` usunięte
 - `.DBYTE` (MSB/LSB) odkłada słowo w odwrotnej kolejności (starszy/młodszy)
 - dodane dyrektywy `.WGET` **WORD**, `.LGET` **LONG**, `.DGET` **DWORD**
-- poprawione działanie makro rozkazków `ADW` `SBW`, np.:
+- poprawione działanie makro rozkazków `ADW` i `SBW`, np.:
 
 ```
 adw (tmp),y #1 posx
@@ -239,7 +239,7 @@ temp set 23
      lda #temp
 ```
 
-- dodana możliwość wymuszenia trybu adresowania w stylu **XASM** `'a:', 'z:'`, np.:
+- dodana możliwość wymuszenia trybu adresowania w stylu **XASM** `a:` i `z:`, np.:
 
 ```
 XASM        MADS
@@ -267,28 +267,29 @@ ladr :4 dta l(line:1)
 hadr :4 dta h(line:1)
 ```
 
-- dodany komunikat ostrzeżenia w przypadku użycia nielegalnych niestabilnych rozkazów **CPU6502**, np. `CIM`
-- dodana nowa funkcjonalność dla pseudorozkazów `RUN` `INI`, które teraz zachowują adres asemblacji, poprzednio przestawiały adres asemblacji na `$2E0` (RUN), `$2E2` (INI)
+- dodany komunikat ostrzeżenia w przypadku użycia nielegalnych niestabilnych rozkazów **6502**, np. `CIM`
+- dodany komunikat ostrzeżenia w przypadku użycia nielegalnych niestabilnych rozkazów **6502**, np. `CIM`
+- dodana nowa funkcjonalność dla pseudorozkazów `RUN` i `INI`, które teraz zachowują adres asemblacji, poprzednio przestawiały adres asemblacji na `$2E0` (RUN), `$2E2` (INI)
 - dodana obsługa etykiet anonimowych **anonymous labels** `@` `@+[1..9]` (forward) `@-[1..9]` (backward), w celu zapewnienia przejrzystości kodu ograniczone jest używania takich etykiet tylko dla skoków warunkowych oraz do 10 wystąpień w przód/tył, np.:
 
 ```
-@ dex   ---- -------
-  bne @+   |  --   |
+@ dex   <------+---+
+  bne @+ --+   |   |
   stx $80  |   |   |
-@ lda #0   |  --   |
-  bne @- ---       |
-  bne @-1  ---------
+@ lda #0 <-+   |   |
+  bne @- ------+   |
+  bne @-1  --------+
 ```
 
-- rozszerzone działanie dyrektyw `#IF` `#WHILE` o zmienne deklarowane przez `.VAR`, dotychczas wymagane było podanie typu zmiennej, np.:
+- rozszerzone działanie dyrektyw `#IF` i `#WHILE` o zmienne deklarowane przez `.VAR`, dotychczas wymagane było podanie typu zmiennej, np.:
 
 ```
  .var temp .word
 
- #if temp>#2100
+ #if temp>#2100       ;Now
  #end
 
- #if .word temp>#2100
+ #if .word temp>#2100 ;Before
  #end
 ```
 
