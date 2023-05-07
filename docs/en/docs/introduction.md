@@ -1,6 +1,6 @@
 ## Introduction
 
-**MADS** is oriented towards users of **QA**, **XASM**, **FA**. The syntax is borrowed from **QA**, some macro commands and syntax come from **XASM** and **Sparta DOS X (SDX)** is inherited from **FA**. Additional characters are allowed label names. Besides, support for the *WDC 65816 CPU*, macros, procedures, memory partitioning into virtual memory banks and nested label names have been added.
+**MADS** is oriented towards users of **QA**, **XASM**, and **FA**. The syntax is borrowed from **QA**, some macro commands and syntax come from **XASM** and **Sparta DOS X (SDX)** support is inherited from **FA**. Additional characters are allowed in label names. Support has been added for the *WDC 65816* CPU, macros, procedures, memory partitioning into virtual memory banks and nested label names.
 
 The maximum number of labels and macros is only limited by the amount memory on your *PC*. Specifically, you can have **2147483647** `INTEGER` entries in dynamic arrays. I am sure that this amount is sufficient :-).
 
@@ -9,7 +9,7 @@ One line can be up to **65535** bytes long, which is also the length limit for l
 
 ## Compilation
 
-**Mad-Assembler (MADS)** is a 32-bit Windows application written in **Delphi**. Most cross-assemblers are written in **C**, so to be different I used **Delphi 7.0** ;-). The latested sources are available on [GitHub](https://github.com/tebe6502/Mad-Assembler).
+**Mad-Assembler (MADS)** is a 32-bit Windows application written in **Delphi**. Most cross-assemblers are written in **C**, so to be different I used **Delphi 7.0** ;-). The latest sources are available on [GitHub](https://github.com/tebe6502/Mad-Assembler).
 
 To compile them, you can use the **Delphi** compiler if you have **Delphi 7.0** or later installed. Thanks to the free **Free Pascal Compiler (FPC)** it is possible to compile **MADS** also for other operating system platforms, such as **Linux**, **macOS** and more.
 
@@ -37,7 +37,7 @@ fpc -Mdelphi -v mads.pas
 
 ### Differences and Additions
 
-* **MADS** supportes small additions to `ORG`, e.g. `ORG [[expression]]address[,address2]`.
+* **MADS** supports small additions to `ORG`, e.g. `ORG [[expression]]address[,address2]`.
 * **MADS** does not accept `ORG a:address` nor `ORG f:address`.
 * **MADS** tolerates *white spaces* and accepts them for logical expressions, arithmetic, definitions of constants and variables.  **XASM** does not like white spaces.
 * **MADS** allows expressions to be placed between parentheses `()` `[]`. **XASM** only allows them between `[]`.
