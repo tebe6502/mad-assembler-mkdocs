@@ -1036,7 +1036,7 @@ adw hlp #20 pom    ; pom=hlp+20
 - dodany nowy przełącznik `-HM` generujący plik nagłówkowy dla **MADS** z sortowaniem na etykiety typu `CONSTANTS` `VARIABLES` `PROCEDURES`
 - dodana nowa dyrektywa `.RELOC` generująca kod relokowalny w formacie **MADS**
 
-## 1.6.8
+## 1.6.8 <a name="1.6.8"></a>
 
 - dodana nowa dyrektywa `.PUT` oraz rozszerzona składnia dla dyrektywy `.GET` (../EXAMPLES/MSX/MPT_PLAYER/MPT_RELOCATOR.MAC , ../EXAMPLES/MSX/TMC_PLAYER/TMC_RELOCATOR.MAC)
 - dodana obsługa pseudo rozkazów **XASM** `REQ` `RNE` `RPL` `RMI` `RCC` `RCS` `RVC` `RVS` `SEQ` `SNE` `SPL` `SMI` `SCC` `SCS` `SVC` `SVS`
@@ -1047,7 +1047,7 @@ lda:cmp:req 20
 ldx:ldy:lda:iny label
 ```
 
-## 1.6.6 - 1.6.7
+## 1.6.6 - 1.6.7 <a name="1.6.6_1.6.7"></a>
 
 - źródło **MADS** kompatybilne z **Free Pascal Compiler**, po kompilacji możliwe jest jego używanie na innych platformach systemowych, jak np. **Linux**, **Mac OS**, **OS/2** itp.
 - od teraz **MADS** sam dobiera odpowiednią liczbę przebiegów asemblacji, przełącznik `/3` nie jest już potrzebny
