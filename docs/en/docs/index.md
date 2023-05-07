@@ -1,70 +1,59 @@
 # Mad-Assembler
 
-**Mad-Assembler** (MADS) jest aplikacją 32 bitową, napisaną w **Delphi**. Większość asemblerów napisano w **C**, więc żeby się nie powtarzać użyłem **Delphi 7.0** ;)
+**Mad-Assembler (MADS)** is a MOS 6502/MOS 65C02/WDC 65816 cross-assembler by [Tomazs Biela (tebe)](https://github.com/tebe6502).
 
-W założeniu **MADS** skierowany jest do użytkowników **QA**, **XASM**, **FA**. Z **QA** zapożyczona została składnia, z **XASM** niektóre makro rozkazy i zmiany składni, z **FA** obsługa składni **Sparta DOS X** (SDX). Umożliwione zostało użycie dodatkowych znaków w nazwach etykiet. Poza tym dodana została obsługa **CPU 65816**, makr, procedur, podziału pamięci na wirtualne banki, wielowymiarowych nazw etykiet.
+The latest releases for Windows is available on [Github](https://github.com/tebe6502/Mad-Assembler/releases). Releases for other operating systems platform are published periodically as part of the [WUDSN IDE Tools](https://github.com/peterdell/wudsn-ide-tools/tree/main/ASM/MADS).
 
-Maksymalna liczba etykiet i makr ograniczona jest ilością pamięci komputera *PC*. Konkretnie można dokonać **2147483647** `INTEGER` wpisów do tablic dynamicznych. Jestem pewien że taka ilość jest wystarczająca :)
+# Change Log
 
-Operacje arytmetyczne dokonywane są na wartościach typu `INT64` (signed 64 bit), wynik reprezentowany jest na wartościach typu `CARDINAL` (unsigned 32 bit).
-Jeden wiersz może mieć długość **65535** bajtów, takiej długości może być też nazwa etykiety. Nie miałem jednak okazji sprawdzić tak długich etykiet i wierszy :)
+## [2.1.5](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.5)  <a name="2.1.5"></a> 
 
-Dzięki darmowemu kompilatorowi **Free Pascal Compiler** (FPC) możliwa jest kompilacja **MADS** dla innych platform systemowych, np. **Linux**, **Mac**, **OS/2** itp.
+- fixed implementation of `.UNDEF` and `.IFDEF`
+- fixed implementation of nested `.REPT` loops
+- added ability to combine local areas, `.LOCAL +full_path_to_local`
+- added coloring of console messages
+- added labels for self-modifying code, e.g. `lda label:#$40`
 
-Źrodła dostępne na [GitHub](https://github.com/tebe6502/Mad-Assembler) wraz z [release](https://github.com/tebe6502/Mad-Assembler/releases) dla systemu Windows.
+## [2.1.3](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.3)  <a name="2.1.3"></a> 
 
-# Historia
+- added directive `.RND` returning a random value in the range 0..255
+- added warning message **'Register A is changed'** for pseudo commands `DEW`, `DEL`, `DED`
+- added command line option `-bc` for **'Branch condition test'**. It activates warning messages in case the branch target is out of range or exceeds a memory page boundary
 
-## [v2.1.5](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.5)
+## [2.1.0](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.0)  <a name="2.1.0"></a> 
 
-- poprawione działanie `.UNDEF`, `.IFDEF`
-- poprawione wykonywanie zagnieżdżonych pętli `.REPT`
-- dodana możliwość łączenia obszarów lokalnych, `.LOCAL +full_path_to_local`
-- dodanie kolorowania komunikatów konsoli
-- etykiety automodyfikacji kodu, np.:
-```
-    lda label:  #$40
-```
+- added warning message **'Buggy indirect jump'** when using the command `JMP(ABS)`
+- added directive `.FILEEXISTS('filename')` returning 1 if file in specified path exists, 0 if it does not exist
+- extended message **'Value out of range (VALUE must be between X and Y)'**
 
-## [v2.1.3](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.3)
+## 2.0.9  <a name="2.0.9"></a> 
 
-- nowa dyrektywa `.RND` zwracająca wartość losową z zakresu 0..255
-- dodany komunikat ostrzeżenia **'Register A is changed'** dla pseudo rozkazów `DEW`, `DEL`, `DED`
-- nowy przełącznik `-bc` **'Branch condition test'**, powoduje wygenerowanie komunikatów ostrzeżenia w przypadku kiedy skok jest poza zakres lub przekracza stronę pamięci
+- added `.CBM 'text'` directive to define text in Commodore C64 screen code
+- fixed an error when a `.PROC` procedure located in a `.LOCAL` block was not marked 'for assembly' even though it was referenced from a `.MACRO` macro in a `.LOCAL` block
+- fixed that temporary labels `?label` were marked 'for relocation'
 
-## [v2.1.0](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.0)
+## 2.0.8 <a name="2.0.8"></a> 
 
-- dodany komunikat ostrzeżenia **Buggy indirect jump** w przypadku użycia rozkazu `JMP(ABS)`
-- dodana dyrektywa `.FILEEXISTS('filename')` zwracajaca 1 gdy plik w podanej ścieżce istnije, 0 gdy nie istnieje
-- rozszerzony komunikat **Value out of range (VALUE must be between X and Y)**
+- generate shorter object code for `#CYCLE`
+- fixes for `.BY` `.WO` `.HE` `.SB` `.CB` `.FL`
+- added error message **'Improper syntax'** when using `.BY` `.WO` `.HE` `.SB` `.CB` `.FL` in a `.STRUCT` block
+- added directives `.LONGA ON|OFF` `.LONGI ON|OFF` for **WDC 65816** 
+- fixed register size tracking for **WDC 65816** when `OPT T+` is set
+- added command line option `-fv:value` to set the memory fill value when `OPT F+` is set.
+- added option to specify an immediate argument as a string of two characters (previously only 1 character), e.g. `lda #'AB'` , `mwa #'XY' $80`
 
-## 2.0.9
+## 2.0.7 <a name="2.0.7"></a> 
 
-- `.cbm 'text'` konwersja na znaki ekranowe Commodore C64
-- usunięty błąd kiedy procedura `.PROC` znajdująca się w bloku `.LOCAL` nie została oznaczona jako "do asemblacji" mimo tego że było do niej odwołanie z poziomu makra `.MACRO` w bloku `.LOCAL`
-- usunięty błąd, etykiety tymczasowe `?label` były oznaczane "do relokacji"
+- fixed object code generation for illegal opcodes `DOP` and `SHA`
+- added **WDC 65816** directives `.A8` `.A16` `.I8` `.I16` `.AI8` `.IA8` `.AI16` `.IA16` to set the size of `AXY` registers
+- added **WDC 65816** directives `.ASIZE` `.ISIZE` returning the current size of `AXY` registers
+- in **WDC 65816** mode, the command `JMP` is changed to `JML` only when the jump concerns a different 64KB bank than the current one
+<!-- TODO Should be 'Set left margin'-->
+- added command line option `-ml:value` for **'margin-left property'** to change the left margin of the generated listing to a value in the range of 32 to 128 characters
 
-## 2.0.8
+## 2.0.6 <a name="2.0.6"></a> 
 
-- krótszy kod dla `#CYCLE`
-- poprawki dla `.BY` `.WO` `.HE` `.SB` `.CB` `.FL`
-- komunikat błędu **Improper syntax** w przypadku użycia `.BY` `.WO` `.HE` `.SB` `.CB` `.FL` w bloku `.STRUCT`
-- dodane nowe dyrektywy dla **65816** `.LONGA ON|OFF` `.LONGI ON|OFF`
-- poprawione działanie śledzenia rozmiaru rejestrów **65816** gdy `OPT T+`
-- dodany przełącznik -FV:VALUE pozwalający ustalić wartość wypełnienia pamięci gdy `OPT F+`
-- dodana możliwość podania argumentu jako ciągu dwóch znaków (poprzednio tylko 1 znak) np. `lda #'AB'` , `mwa #'XY' $80`
-
-## 2.0.7
-
-- poprawione generowanie kodu wynikowego dla nielegali `DOP`, `SHA`
-- dodane nowe dyrektywy **65816** `.A8` `.A16` `.I8` `.I16` `.AI8` `.IA8` `.AI16` `.IA16` pozwalające ustawić rozmiar rejestrów `AXY`
-- dodane nowe dyrektywy **65816** `.ASIZE` `.ISIZE` zwracające aktualnie ustawiony rozmiar rejestrów `AXY`
-- rozkaz `JMP` zmieniany jest na `JML` **65816** tylko gdy skok dotyczy innego 64KB banku niż obecny
-- dodany nowy przełącznik `-ml:value` (margin-left property), który umożliwia zmianę lewego marginesu generowanego listingu w zakresie od 32 do 128 znaków
-
-## 2.0.6
-
-- poprawione parsowanie parametrów makra zapisanych przy pomocy etykiet
+- fixed parsing of macro parameters used in labels
 
 ```
 .macro test currentRow, previousRow
@@ -73,60 +62,58 @@ Dzięki darmowemu kompilatorowi **Free Pascal Compiler** (FPC) możliwa jest kom
 .endm
 ```
 
-- poprawione alokowanie danych `.ARRAY` gdy nie ma określonego rozmiaru, lub jest to tablica inna niż jednowymiarowa
-- zwiększona liczba przebiegów dla `.PROC`, w pewnych warunkach dla parametru `xa .reg` parametr był źle interpretowany
-- nowa dyrektywa `.DEFINE` pozwalająca definiować jedno liniowe makra (można definiować wielokrotnie w tym samym przebiegu)
+- fixed the `.ARRAY` memory allocation in case there is no size specified or it is a multi-dimensional array
+- increased number of passes for `.PROC` to prevent that for `xa .reg` the parameter is misinterpreted under certain conditions
+- added directive `.DEFINE` to define sinlge-line macros (can be defined multiple times in the same pass)
 
 ```
-.DEFINE MACRO_NAME expression
+.DEFINE macro_name expression
 
-.DEFINE pisz .print %%1+%%2
+.DEFINE write .print %%1+%%2
+write (5,12)
 
-pisz (5,12)
-
-.define text .sb
-
+.DEFINE text .sb
 text 'atari'
 ```
 
-- nowa dyrektywa `.UNDEF MACRO_NAME`, usuwa definicję jedno liniowego makra `MACRO_NAME`
+- added directive `.UNDEF macro_name` to remove the definition of the single-line macro `macro_name`.
 
-## 2.0.5
+## 2.0.5 <a name="2.0.5"></a> 
 
-- tablice `.ARRAY` w bloku `.PROC` są pomijane jeśli użyto przełącznik `-X` (exclude unreferenced procedure)
-- użycie `.ARRAY` w bloku `.STRUCT` nie będzie generować już zer w pliku wynikowym
-- nowa dyrektywa `.XGET`, pozwalająca wczytać do bufora pamięci **MADS** plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla **VBXE**)
+- array definitions with `.ARRAY` in unused `.PROC` block are omitted if the `-x` **Exclude unreferenced procedures** option is specified
+- using `.ARRAY` in `.STRUCT` blocks will no longer generate zeros in the resulting file
+- added directive `.XGET` to read a file into the **MADS** memory buffer and further modify its bytes provided they are different from zero (useful for **VBXE**)
 
-## 2.0.4
+## 2.0.4 <a name="2.0.4"></a> 
 
-- usunięty błąd powodujący błędny zapis bloku aktualizacji dla starszego bajtu adresu w bloku `.RELOC`
-- `.DB` `.DW` usunięte
-- `.DBYTE` (MSB/LSB) odkłada słowo w odwrotnej kolejności (starszy/młodszy)
-- dodane dyrektywy `.WGET` **WORD**, `.LGET` **LONG**, `.DGET` **DWORD**
-- poprawione działanie makro rozkazków `ADW` `SBW`, np.:
+- fixed bug causing incorrect writing of the update block for the high byte of the address in a `.RELOC` block
+- removed directives `.DB`  and `.DW`
+- added directive `.DBYTE <word>` which stores the bytes of a word in high / low order (MSB/LSB)
+- added direcvivs `.WGET` to read **WORD** values, `.LGET` to read **LONG** values and `.DGET` to read **DWORD** values from **MADS** memory buffer
+- fixed implementation of `ADW` and `SBW` macro commands, e.g.:
 
 ```
 adw (tmp),y #1 posx
 adw (tmp),y ptr2 ptr4
 ```
 
-## 2.0.2
+## 2.0.2 <a name="2.0.2"></a>
+- fixed data allocation for `.SB [+<byte>],<bytes|string|char>`
 
-- poprawione alokowanie danych dla `.SB` [+<byte>],<bytes|string|char>
+## 2.0.1 <a name="2.0.1"></a>
 
-## 2.0.1
+- fixed data allocation for `.ARRAY` when type is larger than `.BYTE`
+- directive `.SIZEOF` now also returns the size for built-in types `.BYTE` `.WORD` `.LONG` `.DWORD`
+- added relocatable version of **MPT** player `examples_players_player_reloc.asm`
+- fixed implementation of `.DS` directive in **SDX** `blk sparta $xxx` blocks that are not relocatable
 
-- poprawione alokowanie danych dla `.ARRAY` gdy typ większy od `.BYTE`
-- `.SIZEOF` zwraca rozmiar dla wbudowanych typów `.BYTE` `.WORD` `.LONG` `.DWORD`
-- dodana relokowalna wersja playera **MPT** `examples\players\mpt_player_reloc.asm`
-- poprawione działanie dyrektywy `.DS` w blokach **SDX** `blk sparta $xxx` które nie są relokowalne
+<!-- TODO Continue from here -->
+## 1.9.8 <a name="1.9.8"></a>
 
-## 1.9.8
-
-- naprawione działanie rozkazów **65816** `PEA` `PEI` `PER`
+- naprawione działanie rozkazów **WDC 65816** `PEA` `PEI` `PER`
 - dodana możliwość podania kodu dla `.RELOC` [.BYTE|WORD] [TYPE]
 
-## 1.9.7
+## 1.9.7 <a name="1.9.7"></a>
 
 - dyrektywa `.DEF` definiuje etykiety o zasiegu lokalnym, jeśli poprzedzić ją znakiem `:` to globalne
 - poprawki dla liczb zmiennoprzecinkowych .FL, poprawione kodowane zera, dokonywane zaokrąglenie do 10 miejsc po przecinku
@@ -161,7 +148,7 @@ fnt = $e000 .array [128] [8] .byte
 - naprawione działanie makrorozkazu `ADW` w połączeniu z makrorozkazem `SCC` itp.
 - poprawki dla `.REPT`, m.in. komentarz wieloliniowy `/* */` jest teraz właściwie rozpoznawany
 
-## 1.9.6
+## 1.9.6 <a name="1.9.6"></a>
 
 - poprawione działanie etykiet anonimowych dla mnemoników łączonych znakiem `:`, np.:
 
@@ -183,7 +170,7 @@ ORG [a($ffff),d'atari',c'ble',20,30,40],$8000,$a000
 
 - addytywne bloki `.LOCAL` otrzymują kolejne adresy, poprzednio adres ustalany był na podstawie pierwszego wystąpienia takiego bloku
 - dodany komunikat ostrzeżenia w przypadku stworzenia kolejnego addytywnego bloku `.LOCAL` o tej samej nazwie **Ambiguous label LOCAL_NAME**
-- dodane mnemoniki `PER` (PEA rell), `PEI` (PEA (zp)) dla **65816**
+- dodane mnemoniki `PER` (PEA rell), `PEI` (PEA (zp)) dla **WDC 65816**
 - dodane nowy typ danych M (najstarszy bajt **LONG**) i G (najstarszy bajt **DWORD**) dla pseudorozkazu `DTA`, np.:
 
 ```
@@ -238,21 +225,19 @@ data dta fcb [1] (0)
 #end
 ```
 
-## 1.9.5
+## 1.9.5 <a name="1.9.5"></a>
 
-- dodany pseudorozkaz `SET` pozwalający redefiniować etykietę, podobne działanie jak etykiety tymczasowe zaczynające się znakiem `?`, np.:
+- added pseudo command `SET` to redefine a label, similar action to temporary labels starting with `?`, e.g.:
 
 ```
 temp set 12
-
      lda #temp
 
 temp set 23
-
      lda #temp
 ```
 
-- dodana możliwość wymuszenia trybu adresowania w stylu **XASM** `'a:', 'z:'`, np.:
+- added ability to force **XASM** style addressing mode `a:` and `z:`, e.g.:
 
 ```
 XASM        MADS
@@ -260,15 +245,16 @@ lda a:0     lda.a 0
 ldx z:0     lda.z 0
 ```
 
-- dodana możliwość określenia nowego adresu relokacji kodu w stylu **XASM** `r:`, np.:
+- added ability to specify a new code relocation address in  **XASM** style `r:`, e.g.:
 
 ```
 XASM        MADS
 org r:$40   org $40,*
 ```
 
-- poprawione działanie parametru `-x` **Exclude unreferenced procedures**, zmienne `.VAR` nie są alokowane gdy procedura jest nieużywana
-- rozszerzona składnia dla jednoliniowych pętli `:rept`, możliwe wykorzystanie licznika pętli jako parametru `:1` (%%1), np.:
+- fixed implementation of the `-x` option **Exclude unreferenced procedures**, so `.VAR` variables are not allocated when the procedure is not used
+
+- added extended syntax for single-line `:rept` loops, so it is now possible use of loop counter as `:1` or `%%1` parameter, e.g.:
 
 ```
 line0
@@ -276,36 +262,39 @@ line1
 line2
 line3
 
-ladr :4 dta l(line:1)
-hadr :4 dta h(line:1)
+ladr1 :4 dta l(line:1)
+hadr1 :4 dta h(line:1)
+
+ladr2 :4 dta l(line%%1)
+hadr2 :4 dta h(line%%1)
 ```
 
-- dodany komunikat ostrzeżenia w przypadku użycia nielegalnych niestabilnych rozkazów **CPU6502**, np. `CIM`
-- dodana nowa funkcjonalność dla pseudorozkazów `RUN` `INI`, które teraz zachowują adres asemblacji, poprzednio przestawiały adres asemblacji na `$2E0` (RUN), `$2E2` (INI)
-- dodana obsługa etykiet anonimowych **anonymous labels** `@` `@+[1..9]` (forward) `@-[1..9]` (backward), w celu zapewnienia przejrzystości kodu ograniczone jest używania takich etykiet tylko dla skoków warunkowych oraz do 10 wystąpień w przód/tył, np.:
+- added warning message when using unstable illegal **6502** opcodes like `CIM`
+- added new functionality for `RUN` and `INI` pseudo commands, so they now retain the current assembly address. Previously they switched the assembly address to `$2E0` (RUN) or `$2E2` (INI)
+- added support for **anonymous labels** `@` `@+[1..9]` (forward) `@-[1..9]` (backward), in the interest of code clarity use such labels is restricted to conditional branches and up to 10 forward/backward occurrences, e.g..:
 
 ```
-@ dex   ---- -------
-  bne @+   |  --   |
+@ dex   <------+---+
+  bne @+ --+   |   |
   stx $80  |   |   |
-@ lda #0   |  --   |
-  bne @- ---       |
-  bne @-1  ---------
+@ lda #0 <-+   |   |
+  bne @- ------+   |
+  bne @-1  --------+
 ```
 
-- rozszerzone działanie dyrektyw `#IF` `#WHILE` o zmienne deklarowane przez `.VAR`, dotychczas wymagane było podanie typu zmiennej, np.:
+- extended directives `#IF` and `#WHILE` to include variables declared by `.VAR`, previously it was required to specify the type of the variable, e.g.:
 
 ```
  .var temp .word
 
- #if temp>#2100
+ #if temp>#2100       ;Now
  #end
 
- #if .word temp>#2100
+ #if .word temp>#2100 ;Before
  #end
 ```
 
-## 1.9.4
+## 1.9.4 <a name="1.9.4"></a>
 
 - dodana normalizacja ścieżek dla plików, tak aby działały pod **Unixami**, znaki `\` zamieniane są na `/`
 - poprawione przekazywanie dyrektyw jako parametrów do procedur i makr, dyrektywy nie były rozpoznawane przy włączonym przełączniku `-c` (case sensitive)
@@ -339,7 +328,7 @@ hadr :4 dta h(line:1)
 temp  label = 100
 ```
 
-## 1.9.3
+## 1.9.3 <a name="1.9.3"></a>
 
 - poprawione przetwarzanie bloków `.PROC`, które w pewnych okolicznościach mogły zostać pominięte podczas asemblacji
 - poprawiony zapis `BLK EMPTY` dla plików **SDX** jeśli zastosowaliśmy deklarację takiego bloku przez `.DS`
@@ -356,7 +345,7 @@ temp  label = 100
 .ends
 ```
 
-## 1.9.2
+## 1.9.2 <a name="1.9.2"></a>
 
 - możliwość określenia adresu dla `.ZPVAR = $XX`
 - usprawnione odwołania do etykiet wyliczeniowych `.ENUM`, np. `enum_label(field0, field1)`
@@ -398,7 +387,7 @@ blk update extrn
 ```
 
 
-## 1.9.0
+## 1.9.0 <a name="1.9.0"></a>
 
 - naprawiony zapis linii z komentarzem `/* */` do pliku listingu `*.LST`, poprzednio takie linie nie były zapisywane
 - poprawka dla etykiet deklarowanych z linii komend `-d:label`, poprzednio takie etykiety widziane były tylko w pierwszym przebiegu
@@ -407,7 +396,7 @@ blk update extrn
 - poprawka odczytu dla pustego pliku relokowalnego, poprzednio występował błąd **Value out of range**
 - poprawki dla `.USING` `.USE`
 
-## 1.8.8 - 1.8.9
+## 1.8.8 - 1.8.9 <a name="1.8.8_1.8.9"></a>
 
 - uaktualniony silnik duchów programowych `..\EXAMPLES\SPRITES\CHARS` o duchy 8x24
 - w przypadku braku podania rozszerzenia pliku i braku istnienia takiego pliku dla `ICL 'filename'` zostanie domyślnie przyjęte rozszerzenie `*.ASM` `ICL 'filename.asm'`
@@ -416,7 +405,7 @@ blk update extrn
 - przełączniki w linii komend mogą być poprzedzone tylko znakiem `-`, poprzednio także `/` jednak były problemy z działaniem tego znaku na **MacOSX**
 - poprawiony zakres działania dyrektywy `.USING`, dla aktualnej przestrzeni nazw i kolejnych zawierających się w tej przestrzeni nazw
 
-## 1.8.6 - 1.8.7
+## 1.8.6 - 1.8.7 <a name="1.8.6_1.8.7"></a>
 
 - usprawnione rozpoznawanie komentarzy `/* */` w wyrażeniach
 - domyślny adres dla `.ZPVAR` ustawiony na `$0080`, poprzednio `$0000`
@@ -424,7 +413,7 @@ blk update extrn
 - rozszerzone działanie dyrektywy `.LEN` o możliwość podania jako parametru nazwy pliku, zwracana jest wówczas długość takiego pliku
 - usprawnione działanie dyrektywy `.DEF` w wyrażeniach warunku `.IF` `.IFDEF` `IFNDEF`
 
-## 1.8.5
+## 1.8.5 <a name="1.8.5"></a>
 
 - dodane makro relokujące moduły **RMT** `...\EXAMPLES\MSX\RMT_PLAYER_RELOCATOR\`
 - dodany test składni dla nie asemblowanych procedur .PROC gdy aktywny jest przełącznik `-x` **Exclude unreferenced procedures**
@@ -513,12 +502,12 @@ blk update extrn
 .ends
 ```
 
-## 1.8.3 - 1.8.4
+## 1.8.3 - 1.8.4 <a name="1.8.3_1.8.4"></a>
 
 - nowy silnik duchów programowych z minimalnymi wymaganiami pamięci, bez dodatkowych buforów pamięci obrazu `...EXAMPLES\SPRITES\CHARS_NG`
 - nowa wersja pakera **Huffmana** (kompatybilna z **Free Pascal Compiler-em**, `fpc -MDelphi sqz15.pas`) i dekompresora **Huffmana** SQZ15 `...EXAMPLES\COMPRESSION\SQUASH`
-- poprawiony kod generowany dla rozkazów `MVP` `MVN` `PEA` `BRA` (CPU 65816)
-- dodane nowe rozkazy `BRL` `JSL` `JML` (CPU 65816), jako odpowiedniki rozkazów długich skoków `BRA` `JSR` `JMP`
+- poprawiony kod generowany dla rozkazów `MVP` `MVN` `PEA` `BRA` (**WDC 65816**)
+- dodane nowe rozkazy `BRL` `JSL` `JML` (**WDC 65816**), jako odpowiedniki rozkazów długich skoków `BRA` `JSR` `JMP`
 - blok aktualizacji etykiet zewnętrznych (external) został rozszerzony o zapis młodszego i starszego bajtu adresu takiej etykiety
 - poprawione działanie dyrektywy `.USE` `.USING`, działa niezależnie od przestrzeni nazw w której zostanie użyta
 - usunięty błąd, który powodował w pewnych sytuacjach pomijanie asemblacji bloku `#IF` `#WHILE`
@@ -636,7 +625,7 @@ ad  sta $bc40
 }
 ```
 
-## 1.8.2
+## 1.8.2 <a name="1.8.2"></a>
 
 - zniesione ograniczenie długości pliku dla pseudo rozkazu `INS` (poprzednio długość wczytywanego pliku ograniczona była do 65536 bajtów)
 - dodany komunikat błędu **The referenced label ... has not previously been defined properly** w przypadku etykiet, które nie zostały zdefiniowane do końca, np. tylko w pierwszym przebiegu wartością nieokreśloną
@@ -650,7 +639,7 @@ ad  sta $bc40
 - dodany nowy przełącznik `-U` (Warn of unused labels)
 
 
-## 1.8.1
+## 1.8.1 <a name="1.8.1"></a>
 
 - rozszerzone działanie znaku backslash `\`, umieszczenie go na końcu wiersza oznacza kontynuację aktualnego wiersza od nowego wiersza, np.:
 
@@ -686,9 +675,8 @@ label:1           ; LABEL0, LABEL1, LABEL2 ... LABEL9
 .ENDR
 ```
 
-## 1.7.9 - 1.8.0
-
-- poprawiony błąd w opisie przełącznika `-F`, poprzednio **Label at first column**, prawidłowy opis to **CPU command at first column**
+## 1.7.9 - 1.8.0 <a name="1.7.9_1.8.0"></a>
+- fixed error in `-f` option description, previously **Label at first column**, correct description is **CPU command at first column**
 - przepisana od nowa obsługa dyrektywy `.DS` i opcji `OPT F+` (dodana możliwość użycia bloków RUN i INI)
 - przepisana od nowa obsługa opcji `OPT ?+` (etykiety lokalne w standardzie **MAE**)
 - dodana możliwość upublicznienia w blokach PUBLIC tablic zadeklarowanych przez .ARRAY oraz deklaracji struktur `.STRUCT`
@@ -767,7 +755,7 @@ mva #0 $81  ->  sta $80   ->  sta $80
 .endl
 ```
 
-## 1.7.8
+## 1.7.8 <a name="1.7.8"></a>
 
 - dodane dyrektywy `.MEND` `.PGEND` `.REND` jako odpowiedniki `.ENDM` `.ENDPG` `.ENDR`
 - obecnie deklaracja makra musi kończyć się dyrektywą `.ENDM` lub `.MEND` (poprzednio dopuszczalne było użycie dyrektywy `.END`)
@@ -794,7 +782,7 @@ mva #0 $81  ->  sta $80   ->  sta $80
 .endw
 ```
 
-## 1.7.6 - 1.7.7
+## 1.7.6 - 1.7.7 <a name="1.7.6_1.7.7"></a>
 
 - dodany nowy przełącznik `-B:ADDRESS` umożliwiający asemblacje od zadanego adresu
 - dodany nowa opcja `OPT F+-` pozwalająca tworzyć bloki ciągłej pamięci (przydatne dla cartów)
@@ -930,7 +918,7 @@ ldx #0x12
 temp = 0x8000
 ```
 
-## 1.7.5
+## 1.7.5 <a name="1.7.5"></a>
 
 - dyrektywa `.DS` w blokach relokowalnych **SDX** `RELOC` i **MADS** `RELOC` deklaruje od teraz pusty blok
 - dodany nowy przełącznik -F, który umożliwia umieszczanie rozkazów CPU i pseudo rozkazów od pierwszej kolumny w wierszu
@@ -945,7 +933,7 @@ adw hlp #20 pom    ; pom=hlp+20
 - rozszerzone działanie dyrektywy `.DEF` o możliwość zdefiniowania etykiety, np.: `.DEF label`
 - zwiększona liczba przebiegów dla deklaracji etykiet przez EQU dla pewnych szczególnych przypadków
 
-## 1.7.4
+## 1.7.4 <a name="1.7.4"></a>
 
 - naprawione działanie dyrektywy `.PRINT`, dotąd mogła nie wyświetlić wartości etykiet zaczynającej się na literę `A` `B` `C` `D` `E` `F` `G` `H` `L` `T` `V`
 - zablokowane działanie dyrektywy `.DS` w blokach `.RELOC` **SDX** oraz naprawione jej działanie z instrukcją warunkową `.IF` `IFT`
@@ -1003,7 +991,7 @@ adw hlp #20 pom    ; pom=hlp+20
 .endt
 ```
 
-## 1.7.3
+## 1.7.3 <a name="1.7.3"></a>
 
 - dodana możliwość zmiany adresu asemblacji `.PROC` lub `.LOCAL` bez zmiany adresu ładowania
 - usunięto optymalizację kodu dla makro rozkazów `MWA` itp., która mogła powodować w szczególnych przypadkach zapętlenie się **MADS**
@@ -1016,26 +1004,26 @@ adw hlp #20 pom    ; pom=hlp+20
 - dodana obsługa symboli publicznych dla stałych `CONSTANT` w blokach `PUBLIC`
 - poprawiona relokowalnosc dla tablic `.ARRAY`, danych stworzonych przez `.STRUCT`, parametrów przekazywanych do procedur przez stała `#`
 
-## 1.7.2
+## 1.7.2 <a name="1.7.2"></a>
 
 - przepisana na nowo obsługa pseudo rozkazów `REQ` `RNE` `RPL` `RMI` `RCC` `RCS` `RVC` `RVS` `SEQ` `SNE` `SPL` `SMI` `SCC` `SCS` `SVC` `SVS`
 - poprawione działanie dyrektywy `.LINK` dla bloków o stałych adresach
-- poprawione testowanie słów zarezerwowanych (można używać nazw zarezerwowanych dla `65816` gdy używamy tylko `6502`)
+- poprawione testowanie słów zarezerwowanych (można używać nazw zarezerwowanych dla **WDC 65816** gdy używamy tylko **6502**)
 - zmiany w listingu, wyświetla informacje o numerze banku tylko gdy bank > 0
 - dodana obsługa makro rozkazów `MWA` `MWX` `MWY` `MVA` `MVX` `MVY` `ADD` `SUB` `INW` `DEW` (do ich obsługi nie są już potrzebne makra)
 
-## 1.7.1
+## 1.7.1 <a name="1.7.1"></a>
 
-- dodana możliwość używania nazw mnemoników `65816` w trybie pracy `6502`, w trybie `65816` wystąpi już błąd **Reserved word**
+- dodana możliwość używania nazw mnemoników **WDC 65816** w trybie pracy **6502**, w trybie **WDC 65816** wystąpi już błąd **Reserved word**
 - poprawione działanie pseudo rozkazów skoków `SCC` `RNE` itp. w makrach
 - usprawnione wykonywanie wielu makr rozdzielonych znakiem dwukropka `:`
 
-## 1.7.0
+## 1.7.0 <a name="1.7.0"></a>
 
 - usunięty błąd, który powodował zbyt mała liczbę przebiegów asemblacji
 - dodana obsługa pseudo rozkazów `JEQ` `JNE` `JPL` `JMI` `JCC` `JCS` `JVC` `JVS` (makra nie są już potrzebne do ich obsługi)
 
-## 1.6.9
+## 1.6.9 <a name="1.6.9"></a>
 
 - rozszerzona składnia dla `.ARRAY` `.PUT`
 - dodany pseudo rozkaz `EXT` pozwalający na deklaracje etykiety external
@@ -1046,7 +1034,7 @@ adw hlp #20 pom    ; pom=hlp+20
 - dodany nowy przełącznik `-HM` generujący plik nagłówkowy dla **MADS** z sortowaniem na etykiety typu `CONSTANTS` `VARIABLES` `PROCEDURES`
 - dodana nowa dyrektywa `.RELOC` generująca kod relokowalny w formacie **MADS**
 
-## 1.6.8
+## 1.6.8 <a name="1.6.8"></a>
 
 - dodana nowa dyrektywa `.PUT` oraz rozszerzona składnia dla dyrektywy `.GET` (../EXAMPLES/MSX/MPT_PLAYER/MPT_RELOCATOR.MAC , ../EXAMPLES/MSX/TMC_PLAYER/TMC_RELOCATOR.MAC)
 - dodana obsługa pseudo rozkazów **XASM** `REQ` `RNE` `RPL` `RMI` `RCC` `RCS` `RVC` `RVS` `SEQ` `SNE` `SPL` `SMI` `SCC` `SCS` `SVC` `SVS`
@@ -1057,7 +1045,7 @@ lda:cmp:req 20
 ldx:ldy:lda:iny label
 ```
 
-## 1.6.6 - 1.6.7
+## 1.6.6 - 1.6.7 <a name="1.6.6_1.6.7"></a>
 
 - źródło **MADS** kompatybilne z **Free Pascal Compiler**, po kompilacji możliwe jest jego używanie na innych platformach systemowych, jak np. **Linux**, **Mac OS**, **OS/2** itp.
 - od teraz **MADS** sam dobiera odpowiednią liczbę przebiegów asemblacji, przełącznik `/3` nie jest już potrzebny
@@ -1071,7 +1059,7 @@ ldx:ldy:lda:iny label
 - brak ograniczeń w liczbie parametrów przekazywanych do procedur, jedynym ograniczeniem jest dostępna pamięć
 - dodany nowy przełącznik `/d:label=value` pozwalający zdefiniować nową etykietę **MADS** z poziomu linii poleceń
 - dodany nowy przełącznik `/x` **Exclude unreferenced procedures** pozwalający pominąć podczas asemblacji nie używane w programie procedury zadeklarowane dyrektywą `.PROC`
-- nowa opcja `OPT T+` (track sep, rep) śledząca zmiany rozmiaru rejestrów `A` `X` `Y` dokonywane przez rozkazy `SEP`, `REP` **CPU 65816**
+- nowa opcja `OPT T+` (track sep, rep) śledząca zmiany rozmiaru rejestrów `A` `X` `Y` dokonywane przez rozkazy `SEP`, `REP` **WDC 65816**
 - nowe biblioteki w katalogu `..\EXAMPLES\LIBRARIES`
 - w deklaracji obszaru lokalnego `.LOCAL` nie jest wymagane podanie nazwy obszaru
 - nowe operatory `-=` `+=` `++` `--` pozwalające zmniejszyć/zwiększyć wartość etykiety tymczasowej, np.:

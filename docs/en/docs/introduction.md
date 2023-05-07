@@ -1,27 +1,25 @@
 ## Introduction
 
-**Mad-Assembler (MADS)** is a 32-bit Windows application written in **Delphi**. Most assemblers are written in **C**, so to be different I used **Delphi 7.0** ;-).
-
-**MADS** is oriented towards users of **QA**, **XASM**, **FA**. The syntax is borrowed from **QA**, some macro commands and syntax come from **XASM** and **Sparta DOS X (SDX)** is inherited from **FA**. Additional characters are allowed label names. Besides, support for the *WDC 65816 CPU*, macros, procedures, memory partitioning into virtual memory banks and nested label names have been added.
+**MADS** is oriented towards users of **QA**, **XASM**, and **FA**. The syntax is borrowed from **QA**, some macro commands and syntax come from **XASM** and **Sparta DOS X (SDX)** support is inherited from **FA**. Additional characters are allowed in label names. Support has been added for the *WDC 65816* CPU, macros, procedures, memory partitioning into virtual memory banks and nested label names.
 
 The maximum number of labels and macros is only limited by the amount memory on your *PC*. Specifically, you can have **2147483647** `INTEGER` entries in dynamic arrays. I am sure that this amount is sufficient :-).
 
 Arithmetic operations are performed with values of type `INT64` (signed 64-bit), with the result represented as value of type `CARDINAL` (unsigned 32-bit).
 One line can be up to **65535** bytes long, which is also the length limit for label names. However, I did not have the opportunity to check such long labels and lines :-).
 
-Thanks to the free **Free Pascal Compiler (FPC)** it is possible to compile **MADS** also for other operating system platforms, such as **Linux**, **macOS** and more.
-
-The latested sources are available on [GitHub](https://github.com/tebe6502/Mad-Assembler) along with the [releases](https://github.com/tebe6502/Mad-Assembler/releases) for Windows. Releases for other operating systems platform are published periodically as part of the [WUDSN IDE Tools](https://github.com/peterdell/wudsn-ide-tools/tree/main/ASM/MADS).
-
 ## Compilation
 
-To compile the **MADS** source, you can use the **Delphi** compiler if you have **Delphi 7.0** or later installed.
+**Mad-Assembler (MADS)** is a 32-bit Windows application written in **Delphi**. Most cross-assemblers are written in **C**, so to be different I used **Delphi 7.0** ;-). The latest sources are available on [GitHub](https://github.com/tebe6502/Mad-Assembler).
 
-Another, more multi-platform way, is to use the compiler from the **Free Pascal Compiler (FPC)** package, which can be downloaded from [Free Pascal site](https://www.freepascal.org/).
+To compile them, you can use the **Delphi** compiler if you have **Delphi 7.0** or later installed. Thanks to the free **Free Pascal Compiler (FPC)** it is possible to compile **MADS** also for other operating system platforms, such as **Linux**, **macOS** and more.
 
-When you run the installer, you select the directory where **FPC** will be installed. It is important not to use the exclamation mark `!` or other non-standard characters in the directory path. If the compiler fails to compile any file, the reason is most likely a non-standard directory path. Use the following command line to compile MADS. Note that option names are case sensitive:
+Download the **Free Pascal Compiler (FPC)** package from the [Free Pascal site](https://www.freepascal.org/) and run the installer.
 
-    fpc -Mdelphi -v mads.pas
+When you run the installer, you select the directory where **FPC** will be installed. It is important not to use the exclamation mark `!` or other non-standard characters in the directory path. If the compiler fails to compile any file, the reason is most likely a non-standard directory path. Use the following command line to compile **MADS**. Note that option names are case sensitive:
+
+```
+fpc -Mdelphi -v mads.pas
+```
 
 * `-Mdelphi`     compile in Delphi mode
 * `-v`           show all error and warning messages
@@ -39,7 +37,7 @@ When you run the installer, you select the directory where **FPC** will be insta
 
 ### Differences and Additions
 
-* **MADS** supportes small additions to `ORG`, e.g. `ORG [[expression]]address[,address2]`.
+* **MADS** supports small additions to `ORG`, e.g. `ORG [[expression]]address[,address2]`.
 * **MADS** does not accept `ORG a:address` nor `ORG f:address`.
 * **MADS** tolerates *white spaces* and accepts them for logical expressions, arithmetic, definitions of constants and variables.  **XASM** does not like white spaces.
 * **MADS** allows expressions to be placed between parentheses `()` `[]`. **XASM** only allows them between `[]`.
@@ -63,8 +61,8 @@ When you run the installer, you select the directory where **FPC** will be insta
 ## Links
 
 * **MADS**
-    * [Atari Area Thread](http://www.atari.org.pl/forum/viewtopic.php?id=8450)
     * [Atari Age Thread](https://forums.atariage.com/topic/114443-mad-assembler-mads/)
+    * [Atari Area Thread](http://www.atari.org.pl/forum/viewtopic.php?id=8450)
     * [Syntax Highlighting](http://www.atari.org.pl/forum/viewtopic.php?pid=210234)
 * **XASM**
     * [Homepage](https://github.com/pfusik/xasm)
