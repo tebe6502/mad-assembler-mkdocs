@@ -98,7 +98,7 @@ To właściwy ciąg danych służących modyfikacji głównego bloku relokowalne
 
 Wyjątek stanowi blok aktualizacji dla starszych bajtów adresów `>`, dla takiego bloku w `DATA` zapisywany jest jeszcze dodatkowy bajt `BYTE` (młodszy bajt modyfikowanego adresu). Aby dokonać aktualizacji starszych bajtów, musimy odczytać bajt spod adresu `WORD` w `DATA`, dodać go do aktualnego adresu relokacji i dodać jeszcze młodszy bajt z `BYTE` w `DATA`. Tak nowo obliczony starszy bajt umieszczamy pod adresem `WORD` z `DATA`.
 
-## Symbole zewnętrzne
+## Symbole zewnętrzne .EXTRN
 
 Symbole zewnętrzne informują, że zmienne i procedury które reprezentują będą znajdowały się gdzieś na zewnątrz, poza aktualnym programem. Nie musimy określać gdzie. Musimy jedynie podać ich nazwy oraz typy. W zależności od typu danych jakie reprezentuje symbol instrukcje asemblera tłumaczone są na odpowiednie kody maszynowe, asembler musi znać rozmiar używanych danych.
 
@@ -111,8 +111,12 @@ Symbole zewnętrzne **external** deklarujemy używając pseudo rozkazu `EXT` lub
 
 ```
 label EXT type
+
 label .EXTRN type
+
 .EXTRN label1,label2,label3... type
+
+.extrn PlaySfx .proc (.byte PlaySfx.note, PlaySfx.fx) .var
 ```
 
 Blok aktualizacji dla symboli **external** wywołujemy używając pseudo rozkazu `BLK`:
@@ -181,7 +185,7 @@ Właściwy ciąg danych służących modyfikacji głównego bloku relokowalnego.
 
 Przykładem zastosowania symboli **external** i struktur `.STRUCT` jest przykładowa biblioteka prymitywów graficznych `PLOT` `LINE` `CIRCLE` z katalogu `..\EXAMPLES\LIBRARIES\GRAPHICS\LIB`. Poszczególne moduły wykorzystują tutaj dość sporą liczbę zmiennych na stronie zerowej, jeśli chcemy aby adresy tych zmiennych były relokowalne musielibyśmy każdą z osobna zmienną zadeklarować jako symbol zewnętrzny przez `EXT` `.EXTRN`. Możemy to uprościć wykorzystując tylko jeden symbol zewnętrzny i strukturę danych `.STRUCT`. Za pomocą struktur definiujemy *mapę* zmiennych `ZP`, potem jeden symbol external `ZPAGE` typu `.BYTE` bo chcemy aby zmienne były na stronie zerowej. Teraz odwołując się do zmiennej musimy zapisać to w sposób wymuszający relokowalność np. `ZPAGE+ZP.DX` i tak powstał moduł całkowicie relokowalny z możliwością zmiany adresu zmiennych w przestrzeni strony zerowej.
 
-## Symbole publiczne
+## Symbole publiczne .PUBLIC
 
 Symbole publiczne udostępniają zmienne i procedury występujące w bloku relokowalnym pozostałej części asemblowanego programu. Dzięki symbolom publicznym możemy odwoływać się do zmiennych i procedur *zaszytych* np. w bibliotekach.
 
