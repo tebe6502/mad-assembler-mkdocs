@@ -215,7 +215,7 @@ Dla w/w przykładu powstanie nieskończona pętla **Infinite loop**, prawidłowo
 
 ### Automodyfikacji
 
-Etykieta umieszczona po mnemoniku i zakończona znakiem `:` definiuje adres automodyfikacji kodu.
+Etykieta dłuższa niż 1 znak, umieszczona po mnemoniku i zakończona znakiem `:` definiuje adres automodyfikacji kodu.
 
 ```
   lda label:#$00
