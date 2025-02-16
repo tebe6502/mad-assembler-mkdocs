@@ -1,9 +1,9 @@
 site_name: Mad-Assembler
 site_author: TeBe
 site_description: "Mad-Assembler Dokumentacja"
-site_keyword: "cross-compiler"
 
 repo_url: https://github.com/tebe6502/mad-assembler-mkdocs
+edit_uri: ""
 
 theme:
     name: readthedocs
