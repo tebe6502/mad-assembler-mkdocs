@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Sparta DOS X - Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Sparta DOS X";
+    var mkdocs_page_input_path = "sparta-dos.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sposob-uzycia/">Sposób użycia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kontrola/">Kontrola asemblacji</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Sparta DOS X</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#budowa-plikow">Budowa plików</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#blok-nierelokowalny">Blok nierelokowalny</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#blok-relokowalny">Blok relokowalny</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#blk_num">blk_num</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#blk_id">blk_id</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#blk_off">blk_off</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#blk_len">blk_len</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#blok-aktualizacji-relokacja">Blok aktualizacji (relokacja)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#blk_num_1">blk_num</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#blk_len_1">blk_len</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#blok-aktualizacji-symbole">Blok aktualizacji (symbole)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#mb_name">MB_NAME</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#blk_len_2">blk_len</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#blok-definicji">Blok definicji</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#blk_num_2">blk_num</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#smb_off">smb_off</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#programowanie">Programowanie</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makro-rozkazy/">Makro rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy/">Dyrektywy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../lokal/">Obszar lokalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../procedury/">Procedury</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makra/">Makra</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tablice/">Tablice</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../typy/">Typy danych</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../banki-pamieci/">Banki pamięci</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kod-relokowalny/">Kod relokowalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Sparta DOS X</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/sparta-dos.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1"></h1>
+<h2 id="budowa-plikow">Budowa plików</h2>
+<p>Przedruk z <strong>Serious Magazine</strong>, autor: <strong>Qcyk/Dial</strong>.</p>
+<p>Plik sam w sobie jest tylko niewiele wartym zbiorem bajtów. Mnóstwo liczb, które mogą oznaczać wszystko, a zarazem nic, jeśli nie wiadomo jak je zinterpretować. Większość plików wyposaża się z tego powodu w różnorodne nagłówki, w których pamiętane są informacje o tym co plik zawiera, ew. jak go potem traktować przy odczycie. Do takich należą również pliki wykonywalne, binarne, czy po prostu: przeznaczone do załadowania z poziomu <strong>DOS</strong>, wszak <strong>DOS</strong> to też program i jak każdy inny ma prawo oczekiwać danych o określonej, znanej mu strukturze.</p>
+<p>Tradycyjne pliki binarne, rozpoznawane przez wszystkie <strong>DOS'y</strong> dla komputerów <strong>Atari XL/XE</strong>, mają budowę blokową, gdzie każdy blok posiada swój nagłówek. Istnieją dwa rodzaje nagłówków:</p>
+<ol>
+<li>
+<p><code>dta a($ffff),a(str_adr),a(end_adr)</code></p>
+</li>
+<li>
+<p><code>dta a(str_adr),a(end_adr)</code></p>
+</li>
+</ol>
+<p><code>str_adr</code> - adres, pod który zostanie załadowany pierwszy bajt danych</p>
+<p><code>end_adr</code> - adres, pod który zostanie załadowany ostatni bajt</p>
+<p>Pierwszy blok w pliku musi mieć nagłówek typu <code>$ffff</code>, pozostałe bloki dowolnie. Za nagłówkiem oczywiście powinny znaleźć się dane w ilości:</p>
+<pre><code>(end_adr-str_adr)+1
+</code></pre>
+<p>Tyle tytułem przypomnienia. Twórcy systemu <strong>Sparta DOS X</strong> zachowali powyższy standard, dodając jednocześnie kilka nowych typów nagłówków. Ciągle więc mamy do czynienia z plikiem podzielonym na bloki, z tym że rodzajów bloków jest teraz dużo więcej. Oto one:</p>
+<h3 id="blok-nierelokowalny">Blok nierelokowalny</h3>
+<pre><code>dta a($fffa),a(str_adr),a(end_adr)
+</code></pre>
+<p>Blok nierelokowalny (ładowany pod stały adres w pamięci). Jest to to samo co blok <code>$ffff</code> - nie ma znaczenia, który zostanie użyty. <code>$fffa</code> będzie jednak wyraźnie wskazywać, że program jest przeznaczony dla SDX - inny DOS takiego pliku nie odczyta.</p>
+<h3 id="blok-relokowalny">Blok relokowalny</h3>
+<pre><code>dta a($fffe),b(blk_num),b(blk_id)
+dta a(blk_off),a(blk_len)
+</code></pre>
+<p>Blok relokowalny (ładowany pod MEMLO we wskazany rodzaj pamięci).</p>
+<h4 id="blk_num"><code>blk_num</code></h4>
+<p>Numer bloku w pliku. Każdy blok relokowalny powinien posiadać swój własny numer. Ponieważ adresy ładowania bloków nie są znane, bloki identyfikowane są właśnie poprzez swoje numery. Mogą one przyjmować wartości z zakresu <code>0-7</code>, z tym że w praktyce stosuje się zwykle numerację od 1 w górę.</p>
+<h4 id="blk_id"><code>blk_id</code></h4>
+<p>Bity <code>1-5</code> stanowią indeks pamięci, do której blok ma zostać załadowany. Spotkałem się z dwoma wartościami:</p>
+<pre><code>$00 - pamięć podstawowa
+$02 - pamięć rozszerzona
+</code></pre>
+<p>Ustawienie dodatkowo bitu <code>7</code> oznacza brak bloku danych. <strong>SDX</strong> nic wtedy nie ładuje, ale rezerwuje pamięć.</p>
+<h4 id="blk_off"><code>blk_off</code></h4>
+<p>Tzw. przesunięcie adresów w bloku, czyli po prostu adres, pod który był assemblowany kod. Jest to potrzebne przy uaktualnianiu adresów odwołujących się do zawartości bloku.</p>
+<h4 id="blk_len"><code>blk_len</code></h4>
+<p>Długość bloku. Tyle danych powinno być za nagłówkiem chyba, że jest to blok rezerwujący pamięć wtedy danych nie ma.</p>
+<p>Pisząc kod relokowalny trzeba mieć na uwadze kilka ograniczeń jakie narzuca idea <em>przemieszczalnego</em> kodu. Wszystkie adresy odwołujące się do obszaru takiego programu muszą zostać uaktualnione podczas ładowania, w związku z tym nie można używać sekwencji takich jak np.:</p>
+<pre><code>lda coś
+...
+coś equ *
+...
+</code></pre>
+<p>Zamiast tego, pozostaje np.:</p>
+<pre><code>lda _coś
+ldx _coś+1
+...
+_coś dta a(coś)
+...
+coś equ *
+</code></pre>
+<h3 id="blok-aktualizacji-relokacja">Blok aktualizacji (relokacja)</h3>
+<pre><code>dta a($fffd),b(blk_num),a(blk_len)
+</code></pre>
+<p>Blok aktualizacji adresów odnoszących się do bloku relokowalnego</p>
+<h4 id="blk_num_1"><code>blk_num</code></h4>
+<p>Numer bloku, do którego odnoszą się uaktualniane adresy.</p>
+<h4 id="blk_len_1"><code>blk_len</code></h4>
+<p>Długość bloku aktualizacji (bez nagłówka). Jest ona ignorowana.</p>
+<p>Adresy są uaktualniane poprzez dodanie do adresu istniejącego różnicy pomiędzy adresem, pod który został załadowany wskazany blok relokowalny, a wartością <code>blk_off</code> (adresem asemblacji) tego bloku. Można to przedstawić wzorem:</p>
+<pre><code>ADR=ADR+(blk_adr-blk_off)
+</code></pre>
+<p><em>Ciało</em> bloku aktualizacji stanowią wskaźniki do poprawianych adresów oraz rozkazy specjalne. Wskaźnik jest liczbą z zakresu <code>$00-$fb</code> i oznacza przesunięcie względem miejsca poprzedniej aktualizacji. Miejsce to jest pamiętane przez program ładujący jako bezpośredni adres, nazwijmy go licznikiem aktualizacji. Licznik ten można zainicjować za pomocą funkcji specjalnych, którymi są liczby większe od <code>$fb</code>:</p>
+<ul>
+<li>
+<p><code>$fc</code> oznacza koniec bloku aktualizacji,</p>
+</li>
+<li>
+<p><code>$fd,a(ADDR)</code> następuje aktualizacja adresu wskazanego bezpośrednio przez <code>ADDR</code>. Tym samym wartość <code>ADDR</code> jest wpisywana do licznika aktualizacji i od niej będą liczone kolejne przesunięcia,</p>
+</li>
+<li>
+<p><code>$fe,b(blk_num)</code> do licznika aktualizacji wstawiany jest adres bloku wskazanego przez <code>blk_num</code>, czyli kolejne aktualizacje będą się odnosiły do kodu zawartego w tym bloku,</p>
+</li>
+<li>
+<p><code>$ff</code> licznik aktualizacji zwiększany jest o <code>$fa</code> (bez aktualizacji adresu).</p>
+</li>
+</ul>
+<h3 id="blok-aktualizacji-symbole">Blok aktualizacji (symbole)</h3>
+<pre><code>dta a($fffb),c'SMB_NAME',a(blk_len)
+</code></pre>
+<p>Blok aktualizacji adresów procedur zdefiniowanych symbolami.</p>
+<h4 id="mb_name"><code>MB_NAME</code></h4>
+<p>Symboliczna nazwa procedury (lub tablicy, rejestru systemowego itp.) Osiem znaków w kodzie ATASCII</p>
+<h4 id="blk_len_2"><code>blk_len</code></h4>
+<p>Jak w bloku <code>$fffd</code>.</p>
+<p>Po nagłówku występuje ciąg wskaźników określających położenie adresów do zaktualizowania - identycznie jak w bloku <code>$fffd</code>. Adresy są zmieniane poprzez dodanie do istniejącego adresu, adresu procedury określonej symbolem. Pozwala to na wykorzystywanie w programach procedur, których adresów nie znamy, np. procedur dodawanych przez inne programy uruchamiane w środowisku SDX. Także procedury systemowe powinny być wykorzystywane w ten sposób, przecież mogą one mieć różne adresy w różnych wersjach <strong>Sparty</strong>.</p>
+<h3 id="blok-definicji">Blok definicji</h3>
+<pre><code>dta a($fffc),b(blk_num),a(smb_off)
+dta c'SMB_NAME'
+</code></pre>
+<p>Blok definicji nowych symboli.</p>
+<h4 id="blk_num_2"><code>blk_num</code></h4>
+<p>Numer bloku, w którym znajduje się definiowana procedura. Wynika z tego, że procedura musi być załadowana jako blok relokowalny.</p>
+<h4 id="smb_off"><code>smb_off</code></h4>
+<p>Przesunięcie adresu procedury w bloku, czyli offset procedury względem początku bloku (pierwszy bajt ma numer 0) powiększony o wartość <code>blk_off</code> tego bloku. Inaczej jest to adres pod jaki procedura została zassemblowana, <code>SMB_NAME</code> - symboliczna nazwa definiowanej procedury.</p>
+<p>Bloki typu <code>$fffb</code> <code>$fffc</code> <code>$fffd</code> nie są na stałe zatrzymywane w pamięci. System wykorzystuje je tylko podczas ładowania programu.</p>
+<h2 id="programowanie">Programowanie</h2>
+<p>Składnia dotycząca obsługi <strong>Sparta DOS X</strong>, zaczerpnięta została z <strong>FastAssembler</strong> autorstwa <strong>Marka Goderskiego</strong>, poniżej cytat z instrukcji dołączonej do <strong>FA</strong>. Pliki źródłowe <code>*.FAS</code> można obecnie bez większych problemów asemblować za pomocą <strong>MADS</strong>. Rozkazy relokowalne mają zawsze 2 bajtowy argument, nie ma możliwości relokowania 3 bajtowych argumentów (<em>65816</em>).</p>
+<p>Najważniejszą nowością w <strong>SDX</strong> dla programisty jest możliwość prostego pisania programów relokowalnych. Ponieważ procesor <em>MOS 6502</em> nie posiada adresowania względnego, (prócz krótkich skoków warunkowych) programiści z <strong>ICD</strong> zastosowali specjalne mechanizmy ładowania bloków programu. Cały proces polega na załadowaniu bloku, a następnie specjalnego bloku aktualizacji adresów. Wszystkie adresy w bloku programu są liczone od zera. Wystarczy więc dodać do nich wartość <code>memlo</code> aby otrzymać adres właściwy. Które adresy zwiększyć, a które pozostawić? Właśnie po to jest specjalny blok aktualizacji który zawiera wskaźniki (specjalnie kodowane) do tychże adresów. Tak więc po bloku lub blokach <code>RELOC</code> obowiązkowe jest wykonanie <code>UPDATE ADRESS</code> dla poprawnego działania programu. Również po blokach <code>SPARTA</code> w których rozkazy (lub wektory) odwołują się do bloków <code>RELOC</code> lub <code>EMPTY</code> obowiązkowe jest wykonanie <code>UPDATE ADRESS</code>.</p>
+<p>Następną innowacją jest wprowadzenie symboli. Otóż niektóre procedury usługowe <strong>SDX</strong> zostały zdefiniowane za pomocą nazw! Nazwy te maja zawsze 8 liter (podobnie jak nazwy plików). Zamiast korzystać z tablic wektorów lub skoków (jak w <strong>OS</strong>) korzystamy z symboli definiowanych <strong>SMB</strong>. Po wczytaniu bloku lub bloków programu <strong>SDX</strong> ładuje blok aktualizacji symboli i w podobny sposób jak przy blokach relokowalnych zamienia adresy w programie. Symbole mogą być używane dla bloków <code>RELOC</code> i <code>SPARTA</code>.</p>
+<p>Programista może zdefiniować własne symbole zastępujące <strong>SDX</strong> lub zupełnie nowe dla wykorzystania przez inne programy. Robi się to poprzez blok <code>UPDATE NEW</code>. Trzeba jednak wiedzieć że nowy symbol musi być zawarty w bloku <code>RELOC</code>.</p>
+<p>Liczba bloków <code>RELOC</code> i <code>EMPTY</code> jest ograniczona do 7 przez <strong>SDX</strong>.</p>
+<p>Bloki takie można łączyć w łańcuchy np:</p>
+<pre><code>blk sparta $600
+...
+
+blk reloc main
+...
+
+blk empty $100 main
+...
+
+blk reloc extended
+...
+
+blk empty $200 extended
+</code></pre>
+<p>Oznacza to że rozkazy w tych blokach mogą odwoływać się do wszystkich bloków w łańcuchu.</p>
+<p>Łańcuch taki nie jest przerywany przez aktualizację adresów, lub symboli ale jest niszczony przez definicję nowego symbolu, oraz inne bloki, np.: <code>dos</code>.</p>
+<p><strong>UWAGI</strong>:</p>
+<ul>
+<li>
+<p>Łańcuch taki ma sens tylko wtedy gdy wszystkie jego bloki ładują się do tej samej pamięci, lub gdy program przy odpowiednich odwołaniach przełącza pamięć.</p>
+</li>
+<li>
+<p>Rozkazy i wektory w blokach <code>RELOC</code> i <code>EMPTY</code> nie powinny odwoływać się do bloków <code>SPARTA</code>! Może to spowodować błąd gdy użytkownik załaduje program komendą <code>LOAD</code>, a użyje go po dłuższym czasie. O ile bloki <code>RELOC</code> i <code>EMPTY</code> były bezpieczne to nigdy nie wiadomo co jest w pamięci tam gdzie ostatnio był blok <code>SPARTA</code>! Równie niebezpieczne jest używanie odwołań do bloków <code>RELOC</code> i <code>EMPTY</code> przez bloki <code>SPARTA</code> (powód jak wyżej), jednakże podczas instalowania nakładek <code>*.sys</code> z użyciem <code>INSTALL</code> jest to czasem niezbędne, stąd jest dopuszczalne. Można także inicjować blok <code>SPARTA</code> - porzez <code>$2E2</code> - będzie on wtedy zawsze uruchomiony, a potem już zbędny.</p>
+</li>
+<li>
+<p>Pomiędzy blokami <code>SPARTA</code>, a <code>RELOC</code> i <code>EMPTY</code> może dojść do kolizji adresów! <strong>FA</strong> rozpoznaje odwołania do innych bloków poprzez adresy, przyjmując <code>PC</code> dla <code>RELOC</code> i <code>EMPTY</code> od <code>$1000</code>, tak więc gdy mieszamy te bloki należy mieć pewność ze <code>SPARTA</code> leży poniżej <code>$1000</code> (np.: <code>$600</code>) lub powyżej ostatniego bloku relokowalnego, zazwyczaj wystarcza <code>$4000</code>. Błąd taki nie jest przez kompilator wykrywany!</p>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../skladnia/" class="btn btn-neutral float-right" title="Składnia">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../kontrola/" class="btn btn-neutral" title="Kontrola asemblacji"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../kontrola/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../skladnia/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

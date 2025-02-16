@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Kontrola asemblacji - Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Kontrola asemblacji";
+    var mkdocs_page_input_path = "kontrola.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sposob-uzycia/">Sposób użycia</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Kontrola asemblacji</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#zmiana-opcji-asemblacji">Zmiana opcji asemblacji</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#asemblacja-warunkowa">Asemblacja warunkowa</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#przerwanie-asemblacji">Przerwanie asemblacji</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#asemblacja-na-stronie-zerowej">Asemblacja na stronie zerowej</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sparta-dos/">Sparta DOS X</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makro-rozkazy/">Makro rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy/">Dyrektywy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../lokal/">Obszar lokalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../procedury/">Procedury</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makra/">Makra</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tablice/">Tablice</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../typy/">Typy danych</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../banki-pamieci/">Banki pamięci</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kod-relokowalny/">Kod relokowalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Kontrola asemblacji</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/kontrola.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="kontrola-asemblacji">Kontrola asemblacji</h2>
+<h3 id="zmiana-opcji-asemblacji"><a href="../pseudo-rozkazy/#opt">Zmiana opcji asemblacji</a></h3>
+<h3 id="asemblacja-warunkowa"><a href="../dyrektywy/#if_else">Asemblacja warunkowa</a></h3>
+<h3 id="przerwanie-asemblacji"><a href="../dyrektywy/#error">Przerwanie asemblacji</a></h3>
+<h3 id="asemblacja-na-stronie-zerowej">Asemblacja na stronie zerowej</h3>
+<p>W przeciwieństwie do dwu-przebiegowych asemblerów takich jak <strong>QA</strong> i <strong>XASM</strong>, <strong>MADS</strong> jest wielo-przebiegowy. Co to daje ?</p>
+<p>Weźmy sobie taki przykład:</p>
+<pre><code> org $00
+
+ lda tmp+1
+
+tmp lda #$00
+</code></pre>
+<p>Dwu-przebiegowy assembler nie znając wartości etykiety <code>TMP</code> przyjmie domyślnie, że jej wartość będzie dwu-bajtowa, czyli typu <code>WORD</code> i wygeneruje rozkaz <code>LDA W</code>.</p>
+<p>Natomiast <strong>MADS</strong> uprzejmie wygeneruje rozkaz strony zerowej <code>LDA Z</code>. I to właściwie główna i najprostsza do wytłumaczenia właściwość większej liczby przebiegów.</p>
+<p>Teraz ktoś powie, że woli gdy rozkaz odwołujący się do strony zerowej ma postać <code>LDA W</code>. Nie ma sprawy, wystarczy że rozszerzy mnemonik:</p>
+<pre><code> org $00
+
+ lda.w tmp+1
+
+tmp lda #$00
+Są dopuszczalne trzy rozszerzenia mnemonika
+ .b[.z]
+ .w[.a][.q]
+ .l[.t]
+</code></pre>
+<p>czyli odpowiednio <code>BYTE</code>, <code>WORD</code>, <code>LONG</code>. Z czego ostatni generuje 24bitową wartość i odnosi się do <em>65816</em> i pamięci o ciągłym obszarze. Więcej informacji na temat mnemoników <em>CPU 6502</em>, <em>65816</em> oraz ich dopuszczalnych rozszerzeń w rodziale [Mnemoniki].
+Innym sposobem na wymuszenie rozkazu strony zerowej jest użycie nawiasów klamrowych <code>{ }</code> np.</p>
+<pre><code> dta {lda $00},$80    ; lda $80
+</code></pre>
+<p>W <strong>MADS</strong> możemy robić tak samo, ale po co, ostatni przebieg załatwi sprawę za nas :) Problem stanowi teraz umieszczenie takiego fragmentu kodu w pamięci komputera. Możemy spróbować załadować taki program bezpośrednio na stronę zerową i jeśli obszar docelowy mieści się w granicy <code>$80..$FF</code> to pewnie <strong>OS</strong> przeżyje, poniżej tego obszaru będzie trudniej.
+Dlatego <strong>MADS</strong> umożliwia takie coś:</p>
+<pre><code> org $20,$3080
+
+ lda tmp+1
+
+tmp lda #$00
+</code></pre>
+<p>Czyli asembluj od adresu <code>$0020</code>, ale załaduj pod adres <code>$3080</code>. Oczywiście późniejsze przeniesienie kodu pod właściwy adres (w naszym przykładzie <code>$0020</code>) należy już do zadań programisty.</p>
+<p>Podsumowując:</p>
+<pre><code> org adres1,adres2
+</code></pre>
+<p>Asembluj od adresu <code>adres1</code>, umieść w pamięci od adresu <code>adres2</code>. Taki <code>ORG</code> zawsze spowoduje stworzenie nowego bloku w pliku, czyli zostaną zapisane dodatkowe cztery bajty nagłówka nowego bloku.</p>
+<p>Jeśli nie zależy nam na nowym adresie umiejscowienia danych w pamięci, adresem umiejscowienia danych ma być aktualny adres wówczas możemy skorzystać z właściwości bloków <code>.LOCAL</code> i <code>.PROC</code>, bajty nagłówka nie będą w takim przypadku zapisywane, np.:</p>
+<pre><code class="language-none">     1
+     2                                  org $2000
+     3
+     4 FFFF&gt; 2000-200D&gt; A9 00           lda #0
+     5 2002 EA                          nop
+     6
+     7 0060                     .local  temp, $60
+     8
+     9 0060 BD FF FF                    lda $ffff,x
+    10 0063 BE FF FF                    ldx $ffff,y
+    11
+    12                          .endl
+    13
+    14 2009 A5 60                       lda temp
+    15 200B AD 03 20                    lda .adr temp
+    16
+</code></pre>
+<p>Dla w/w przykładu blok programu <code>TEMP</code> zostanie zasemblowany z nowym adresem <code>= $60</code> i umiejscowiony w pamięci pod adresem <code>$2003</code>.</p>
+<p>Po dyrektywie kończącej blok (<code>.ENDL</code>, <code>.ENDP</code>, <code>.END</code>) przywracamy jest adres asemblacji sprzed bloku plus jeszcze długość tak zasemblowanego bloku, w naszym przykładzie adresem od którego będzie kontynuowana asemblacja po zakończeniu bloku <code>.LOCAL</code> będzie adres <code>$2009</code>.
+Następnie wykorzystując dyrektywy <code>.ADR</code> i <code>.LEN</code> można dokonać skopiowania takiego bloku pod właściwy adres, np.:</p>
+<pre><code>      ldy #0
+copy  mva .adr(temp),y temp,y+
+      cpy #.len temp
+      bne copy
+</code></pre>
+<p>Więcej informacji na temat działania dyrektyw <a href="#d_adr">.ADR</a> i <a href="#d_len">.LEN</a>.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../sparta-dos/" class="btn btn-neutral float-right" title="Sparta DOS X">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../sposob-uzycia/" class="btn btn-neutral" title="Sposób użycia"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../sposob-uzycia/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../sparta-dos/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

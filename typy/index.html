@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Typy danych - Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Typy danych";
+    var mkdocs_page_input_path = "typy.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sposob-uzycia/">Sposób użycia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kontrola/">Kontrola asemblacji</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sparta-dos/">Sparta DOS X</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makro-rozkazy/">Makro rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy/">Dyrektywy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../lokal/">Obszar lokalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../procedury/">Procedury</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makra/">Makra</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tablice/">Tablice</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Typy danych</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#struktury">STRUKTURY</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#deklaracja-struct">Deklaracja .STRUCT</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#definicja-odwoania">Definicja (odwołania)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wyliczenia">WYLICZENIA</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../banki-pamieci/">Banki pamięci</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kod-relokowalny/">Kod relokowalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Typy danych</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/typy.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1"></h1>
+<p><strong>MADS</strong> udostępnia możliwość deklaracji dwóch typów danych: strukturalne <code>.STRUCT</code> i wyliczeniowe <code>.ENUM</code>.</p>
+<h2 id="struktury">STRUKTURY</h2>
+<p>Jeśli programowaliście w <strong>C</strong>, to pewnie spotkaliście się już ze strukturami. Ogólnie w <strong>MADS</strong> struktura definiuje tablicę wirtualną, jednowymiarową o polach różnego typu <code>.BYTE</code> <code>.WORD</code> <code>.LONG</code> <code>.DWORD</code> i ich wielokrotności. Wirtualna ponieważ istnieje ona jak na razie tylko w pamięci assemblera.</p>
+<p>Pola takiej struktury zawierają informację o ofsecie do początku struktury.</p>
+<h3 id="deklaracja-struct">Deklaracja <code>.STRUCT</code></h3>
+<p>Struktur dotyczą n/w dyrektywy:</p>
+<pre><code>name .STRUCT
+     .STRUCT name
+     .ENDS [.SEND] [.END]
+</code></pre>
+<ul>
+<li><code>name .STRUCT</code></li>
+</ul>
+<p>Deklaracja struktury name przy użyciu dyrektywy <code>.STRUCT</code>. Nazwa struktury jest wymagana i konieczna, jej brak wygeneruje błąd. Do nazw struktur nie można używać nazw mnemoników i pseudo rozkazów. Jeśli nazwa jest zarezerwowana wystąpi błąd z komunikatem <strong>Reserved word</strong>.</p>
+<hr />
+<p>Przykład deklaracji struktury:</p>
+<pre><code>.STRUCT name
+
+  x .word      ; lda #name.x = 0
+  y .word      ; lda #name.y = 2
+  z .long      ; lda #name.z = 4
+  v .dword     ; lda #name.v = 7
+
+  q :3 .byte   ; lda #name.q = 11
+
+.ENDS          ; lda #name   = 14 (length)
+</code></pre>
+<p>Pola struktury definiujemy przez podanie nazwy i typu pola <code>.BYTE</code> <code>.WORD</code> <code>.LONG</code> <code>.DWORD</code>. Nazwa pola może być poprzedzona <em>białymi spacjami</em>. W obszarze ograniczonym dyrektywami <code>.STRUCT</code> i <code>.ENDS</code> nie ma możliwości używania mnemoników <em>CPU</em>, jeśli je użyjemy lub użyjemy innych niedozwolonych znaków wystąpi błąd z komunikatem <strong>Improper syntax lub Illegal instruction</strong>.</p>
+<p>Podsumowując, etykieta name zawiera informację o całkowitej długości struktury (w bajtach). Pozostałe etykiety opisujące pola zawierają informację o ofsecie do początku struktury.
+Deklaracji struktur nie można zagnieżdżać, można zagnieżdżać wcześniej zadeklarowane struktury (kolejność wystąpienia w programie nie ma znaczenia), np.:</p>
+<pre><code>.STRUCT temp
+
+x .word
+y .word
+v .byte
+z .word
+
+.ENDS
+
+
+.STRUCT test
+
+tmp  temp
+
+.ENDS
+
+ lda #temp.v
+ lda #test.tmp.x
+ lda #test.tmp.z
+</code></pre>
+<p>Do czego może przydać się struktura?</p>
+<p>Przypuśćmy, że mamy jakąś tablicę z polami różnego typu, możemy odczytywać pola takiej tablicy przy pomocy z góry określonych wartości offsetów. Jednak gdy dodamy dodatkowe pole do tablicy, czy też zmodyfikujemy ją w inny sposób, będziemy zmuszeni poprawiać kod programu który posługiwał się z góry określonymi wartościami offsetów. Gdy zdefiniujemy taką tablicę przy pomocy struktury będziemy mogli odczytywać jej pola posługując się offsetami zapisanymi w deklaracji struktury, czyli zawsze odczytamy właściwe pole niezależnie od zmian jakie zaszły w tablicy.</p>
+<p>Inny przykład zastosowania struktur został opisany w rozdziale <em>Symbole zewnętrzne</em>, przykład zastosowania symboli external i struktur <code>.STRUCT</code>.</p>
+<h3 id="definicja-odwoania">Definicja (odwołania)</h3>
+<p>Definiowanie danych strukturalnych polega na przypisaniu nowej etykiecie konkretnej struktury z użyciem pseudo rozkazu <code>DTA</code> lub bez tego pseudo rozkazu. Wynikiem takiego przypisania jest zarezerwowana pamięć, nie jest to już twór wirtualny.</p>
+<pre><code>label DTA struct_name [count] (data1,data2,data3...) (data1,data2,data3...) ...
+
+label struct_name
+</code></pre>
+<p><code>COUNT</code> określa liczbę z przedziału <code>0..COUNT</code>, która definiuje maksymalną wartość indeksu tablicy jednowymiarowej, a przez to także liczbę odłożonych w pamięci danych typu strukturalnego.
+Przykład deklaracji struktury i definicji danych strukturalnych:</p>
+<pre><code>;----------------------;
+; deklaracja struktury ;
+;----------------------;
+.STRUCT temp
+
+x .word
+y .word
+v .byte
+z .word
+
+.ENDS
+
+;---------------------;
+; definiowanie danych ;
+;---------------------;
+
+data dta temp [12] (1,20,200,32000) (19,2,122,42700)
+
+data2 dta temp [0]
+
+data3 temp          // krótszy odpowiednik DATA2
+</code></pre>
+<p>Po nazwie struktury w nawiasie kwadratowym musi znajdować się wartość z przedziału <code>0..2147483647</code>, która definiuje maksymalną wartość indeksu tablicy jednowymiarowej, a jednocześnie liczbę odłożonych w pamięci danych typu strukturalnego.</p>
+<p>Po nawiasie kwadratowym może wystąpić opcjonalnie lista wartości początkowych (ograniczona nawiasami okrągłymi), jeśli nie wystąpi wówczas domyślnymi wartościami pól struktury są zera. Z kolei jeśli lista wartości początkowych jest mniejsza od liczby pól zadeklarowanych, wówczas pozostałe pola inicjowane są ostatnimi wartościami jakie zostały podane, np.</p>
+<pre><code>data dta temp [12] (1,20,200,32000)
+</code></pre>
+<p>Taka deklaracja spowoduje, że wszystkie pola zostaną zaincjowane wartościami <code>1,20,200,32000</code>, a nie tylko pierwsze pole <code>data[0]</code>.</p>
+<p>Jeśli lista wartości początkowych będzie większa lub mniejsza od liczby pól struktury, wówczas wystąpi błąd z komunikatem <strong>Constant expression violates subrange bounds</strong>.</p>
+<p>Aby odwołać się do pól tak nowo powstałych danych należy podać ich nazwę, koniecznie indeks w nawiasie kwadratowym i nazwę pola po kropce, np.:</p>
+<pre><code>lda data[4].y
+ldx #data[0].v
+</code></pre>
+<p>Brak nawiasu kwadratowego z indeksem label[index] zakończy się komunikatem błędu <strong>Undeclared label</strong>.</p>
+<h2 id="wyliczenia">WYLICZENIA</h2>
+<p>Wyliczeń dotyczą n/w dyrektywy:</p>
+<pre><code>name .ENUM
+     .ENDE [.EEND] [.END]
+
+Example:
+
+.enum portb
+ rom_off = $fe
+ rom_on = $ff
+.ende
+
+.enum test
+ a             ; a=0
+ b             ; b=1
+ c = 5         ; c=5
+ d             ; d=6
+.ende
+</code></pre>
+<p>Deklaracja wyliczenia odbywa się przy użyciu dyrektyw <code>.ENUM</code> i <code>.ENDE</code>. Nazwa wyliczenia jest wymagana i konieczna, jej brak wygeneruje błąd. Do nazw wyliczeń nie można używać nazw mnemoników i pseudo rozkazów. Jeśli nazwa jest zarezerwowana wystąpi błąd z komunikatem <strong>Reserved word</strong>.</p>
+<p>Wartości kolejnych etykiet są zwiększane automatycznie o 1 zaczynając od domyślnej wartości <code>0</code>, wartości etykiet można definiować samodzielnie albo pozostawić to automatowi.</p>
+<p>Do etykiet wyliczeniowych odwołujemy się przy pomocy składni:</p>
+<pre><code>enum_name (field)
+</code></pre>
+<p>lub bezpośrednio podobnie jak w przypadku odwołań do bloków <code>.LOCAL</code> <code>.PROC</code> czyli po nazwie typu oddzielone znakiem kropki występują kolejne pola, np.:</p>
+<pre><code>lda #portb(rom_off)
+
+dta portb.rom_on, portb.rom_off
+</code></pre>
+<p>Wyliczeń możemy użyć do deklaracji pól struktury <code>.STRUCT</code>, do alokacji zmiennych dyrektywą <code>.VAR</code>, np.:</p>
+<pre><code>bank portb           // alokacja zmiennej BANK o rozmiarze 1 bajtu
+.var bank portb      // alokacja zmiennej BANK o rozmiarze 1 bajtu
+
+.struct test
+ a portb
+ b portb
+.ends
+</code></pre>
+<p>Rozmiar zmiennej typu wyliczeniowego zależny jest od maksymalnej wartości jakie przyjmują kolejne etykiety wyliczenia, np.:</p>
+<pre><code>.enum EState
+    DONE, DIRECTORY_SEARCH=$ff, INIT_LOADING, LOADING
+.ende
+</code></pre>
+<p>Dla w/w przykładu alokacja zmiennej typu <code>EState</code> będzie miała rozmiar dwóch bajtów <code>WORD</code>.</p>
+<p>Rozmiar możemy sprawdzić przy pomocy dyrektywy <code>.LEN</code> <code>.SIZEOF</code>, wynikiem będą wartości <code>1..4</code> (1 <strong>BYTE</strong>, 2 <strong>WORD</strong>, 3 <strong>LONG</strong>, 4 <strong>DWORD</strong>) np.:</p>
+<pre><code>.print .len EState
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../detekcja-cpu/" class="btn btn-neutral float-right" title="Detekcja CPU">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../tablice/" class="btn btn-neutral" title="Tablice"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../tablice/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../detekcja-cpu/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

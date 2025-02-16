@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Makra - Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Makra";
+    var mkdocs_page_input_path = "makra.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sposob-uzycia/">Sposób użycia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kontrola/">Kontrola asemblacji</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sparta-dos/">Sparta DOS X</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makro-rozkazy/">Makro rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy/">Dyrektywy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../lokal/">Obszar lokalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../procedury/">Procedury</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Makra</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#deklaracja-makra">Deklaracja makra</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#name-macro-arg1-arg2-separator-separator">name .MACRO [(arg1, arg2 ...)] ['separator'] ["separator"]</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exitm-exit">.EXITM [.EXIT]</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#endm-mend">.ENDM [.MEND]</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parameter">:[%%]parameter</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wywoanie-makra">Wywołanie makra</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tablice/">Tablice</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../typy/">Typy danych</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../banki-pamieci/">Banki pamięci</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kod-relokowalny/">Kod relokowalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Makra</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/makra.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="makra">Makra</h2>
+<p>Makra ułatwiają nam wykonywanie powtarzających się czynności, automatyzują je. Istnieją tylko w pamięci assemblera, dopiero w momencie wywołania są asemblowane. Przy ich pomocy <strong>MADS</strong> może odkładać i zdejmować z programowego stosu parametry dla procedur zadeklarowanych dyrektywą <code>.PROC</code> oraz przełączać banki rozszerzonej pamięci w trybie <em>BANK SENSITIVE</em> (<code>OPT B+</code>).</p>
+<blockquote>
+<p><em>Makra czytane są tylko w pierwszym przebiegu assemblacji, dla n/w przykładu makra znajdujące się w pliku dołączanym przez <code>ICL</code> nie zostaną rozpoznane</em>:</p>
+</blockquote>
+<pre><code> .macro test
+   icl 'dodatkowe_makra.mac'
+ .endm
+</code></pre>
+<h3 id="deklaracja-makra">Deklaracja makra</h3>
+<p>Makr dotyczą n/w pseudo rozkazy i dyrektywy:</p>
+<pre><code>name .MACRO [arg1, arg2 ...] ['separator'] [&quot;separator&quot;]
+     .MACRO name [(arg1, arg2 ...)] ['separator'] [&quot;separator&quot;]
+     .EXITM [.EXIT]
+     .ENDM [.MEND]
+     :[%%]parameter
+     :[%%]label
+</code></pre>
+<h4 id="name-macro-arg1-arg2-separator-separator">name .MACRO [(arg1, arg2 ...)] ['separator'] ["separator"]</h4>
+<p>Deklaracja makra o nazwie name za pomocą dyrektywy <code>.MACRO</code>. Nazwa makra jest wymagana i konieczna, jej brak wygeneruje błąd. Do nazw makr nie można używać nazw mnemoników i pseudo rozkazów (błąd <em><strong>Reserved word</strong></em>).</p>
+<p>Dopuszczalna jest lista z etykietami nazw argumentów jakie będą przekazywane do makra, taka lista może być ograniczona dodatkowo nawiasem okrągłym <code>( )</code>. Przedstawianie argumentów w postaci nazw etykiet ma na celu poprawienie przejrzystości kodu makra. W samym ciele makra można używać zamiennie nazw etykiet argumentów lub ich numerycznych odpowiedników.</p>
+<pre><code>.macro SetColor val,reg
+ lda :val
+ sta :reg
+.endm
+</code></pre>
+<p>Na końcu deklaracji makra może wystąpić deklaracja separatora i zarazem trybu przekazywania parametrów do makra (pojedyńczy apostrof bez zmian, podwójny apostrof z rozbijaniem parametrów na tryb adresacji i argument).
+Domyślnym separatorem, rozdzielającym parametry przekazywane do makra jest znak przecinka <code>,</code> oraz spacji <code>' '</code>.</p>
+<pre><code>name .MACRO 'separator'
+</code></pre>
+<p>Pomiędzy pojedyńczymi apostrofami <code>' '</code> możemy umieścić znak separatora, który będzie używany do oddzielenia parametrów przy wywołaniu makra (tylko do tego mogą służyć pojedyńcze apostrofy).</p>
+<pre><code>name .MACRO &quot;separator&quot;
+</code></pre>
+<p>Pomiędzy podwójnymi apostrofami <code>" "</code> możemy także umieścić znak separatora, który będzie używany do oddzielenia parametrów przy wywołaniu makra. Dodatkowo użycie podwójnego apostrofu sygnalizuje <strong>MADS</strong>-owi aby rozkładał przekazywane parametry na dwa elementy: tryb adresacji i argument, np.:</p>
+<pre><code> test #12 200 &lt;30
+
+test .macro &quot; &quot;
+.endm
+</code></pre>
+<p>Makro <code>TEST</code> ma zadeklarowany separator-spację przy użyciu apostrofu <code>"</code>, czyli po wywołaniu makra parametry zostaną rozłożone na dwa elementy: tryb adresacji i argument.</p>
+<pre><code> #12   -&gt;  tryb adresacji '#' argument 12
+ 200   -&gt;  tryb adresacji ' ' argument 200
+ &lt;30   -&gt;  tryb adresacji '#' argument 0   (obliczona wartość wyrażenia &quot;&lt;30&quot;)
+
+ test '#' 12 ' ' 200 '#' 0
+</code></pre>
+<p>UAWAGA #1: Parametry ze znakiem operatora <code>&lt;</code>, <code>&gt;</code> zostają obliczone i dopiero ich wynik jest przekazywany do makra (podstawiany pod parametr).</p>
+<p>UAWAGA #2: Jeśli parametrem makra jest licznik pętli <code>#</code>, <code>.R</code> (!!! pojedyńczy znak <code>#</code> lub dyrektywa <code>.R</code> a nie wyrażenie z udziałem tego znaku, tej dyrektywy !!!) wówczas do makra przekazywana jest wartość licznika pętli (podstawiana pod parametr).</p>
+<p>Tą właściwość możemy wykorzystać do stworzenia "samopiszącego" się kodu, kiedy potrzebujemy tworzyć nowe etykiety typu "label0", "label1", "label2", "label3" ... itd. , np.:</p>
+<pre><code> :32 find #
+
+find .macro
+      ift .def label:1
+      dta a(label:1)
+      eif
+     .endm
+</code></pre>
+<p>W/w przykład zapisuje adres etykiety pod warunkiem że taka etykiety istnieje (została zdefiniowana).</p>
+<h4 id="exitm-exit">.EXITM [.EXIT]</h4>
+<p>Zakończenie działania makra. Powoduje bezwzględne zakończenie działania makra.</p>
+<h4 id="endm-mend">.ENDM [.MEND]</h4>
+<p>Przy pomocy dyrektywy <code>.ENDM</code> lub <code>.MEND</code> kończymy deklarację aktualnego makra. Nie ma możliwości użycia dyrektywy <code>.END</code> jak ma to miejsce dla innych obszarów deklarowanych przez dyrektywy <code>.LOCAL</code>, <code>.PROC</code>, <code>.ARRAY</code>, <code>.STRUCT</code>, <code>.REPT</code></p>
+<h4 id="parameter">:[%%]parameter</h4>
+<p>Parametr jest liczbą decymalną dodatnią (<code>&gt;=0</code>), poprzedzoną znakiem dwukropka <code>:</code> lub dwoma znakami procentu <code>%%</code>. Jeśli w makrze chcemy aby znak <code>:</code> określał liczbę powtórzeń a nie numer parametru wystarczy że następny znak po dwukropku nie będzie z przedziału <code>'0'..'9'</code>, tylko np:</p>
+<pre><code> :$2 nop
+ :+2 nop
+ :%10 nop
+</code></pre>
+<p>Parametr <code>:0</code> (<code>%%0</code>) ma specjalne znaczenie, zawiera liczbę przekazanych parametrów. Z jego pomocą możemy sprawdzić czy wymagana liczba parametrów została przekazana do makra, np.:</p>
+<pre><code>  .IF :0&lt;2 || :0&gt;5
+    .ERROR &quot;Wrong number of arguments&quot;
+  .ENDIF
+
+  IFT %%0&lt;2 .or :0&gt;5
+    ERT &quot;Wrong number of arguments&quot;
+  EIF
+</code></pre>
+<p>Przykład makra:</p>
+<pre><code>.macro load_word
+
+   lda &lt;:1
+   sta :2
+   lda &gt;:1
+   sta :2+1
+ .endm
+
+ test ne
+ test eq
+
+.macro test
+  b%%1 skip
+.endm
+</code></pre>
+<h3 id="wywoanie-makra">Wywołanie makra</h3>
+<p>Makro wywołujemy poprzez jego nazwę, po niej mogą wystąpić parametry makra, rozdzielone separatorem którym jest domyślnie znak przecinka <code>,</code> lub spacji <code>' '</code>.</p>
+<p>Liczba parametrów uzależniona jest od wolnej pamięci komputera <em>PC</em>. Jeśli przekazana liczba parametrów jest mniejsza od liczby parametrów używanych w danym makrze, wówczas pod brakujące parametry zostanie podstawiona wartość <code>-1</code> (<code>$FFFFFFFF</code>). Tą właściwość można wykorzystać do sprawdzenia czy został przekazany parametr czy też nie, łatwiej jednak tego dokonać za pomocą parametru zerowego <code>%%0</code>.</p>
+<pre><code> macro_name [Par1, Par2, Par3, 'Par4', &quot;string1&quot;, &quot;string2&quot; ...]
+</code></pre>
+<p>Parametrem może być wartość, wyrażenie lub ciąg znaków ograniczony apostrofem pojedyńczym <code>' '</code> lub podwójnym <code>" "</code>.</p>
+<ul>
+<li>apostrofy pojedyńcze <code>' '</code> zostaną przekazane do makra razem ze znakami znajdującymi się pomiędzy nimi</li>
+<li>apostrofy podwójne <code>" "</code> oznaczają ciąg znaków i tylko ciąg znaków znajdujący się pomiędzy apostrofami zostanie przekazany do makra</li>
+</ul>
+<p>Wszelkie definicje etykiet w obrębie makra mają zasięg lokalny.</p>
+<p>Jeśli poszukiwana przez assembler etykieta nie wystąpiła w obszarze makra, wówczas nastąpi jej szukanie w obszarze lokalnym (jeśli wystąpiła dyrektywa <code>.LOCAL</code>), następnie w procedurze (jeśli procedura jest aktualnie przetwarzana), na końcu w głównym programie.</p>
+<p>Przykład wywołania makra:</p>
+<pre><code> macro_name 'a',a,&gt;$a000,cmp    ; dla domyślnego separatora ','
+ macro_name 'a'_a_&gt;$a000_cmp    ; dla zadeklarowanego separatora '_'
+ macro_name 'a' a &gt;$a000 cmp    ; dla domyślnego separatora ' '
+</code></pre>
+<p>Możliwe jest wywoływanie makr z poziomu makra, oraz rekurencyjne wywoływanie makr. W tym ostatnim przypadku należy być ostrożnym bo może dojść do przepełnienia stosu <strong>MADS</strong>-a. <strong>MADS</strong> zabezpiecza się przez rekurencją makr bez końca i zatrzymuje asemblacje gdy liczba wywołań makra przekroczy 4095 (błąd <em><strong>Infinite recursion</strong></em>).</p>
+<p>Przykład makra, które spowoduje przepełnienie stosu <strong>MADS</strong>-a:</p>
+<pre><code>jump .macro
+
+      jump
+
+     .endm
+</code></pre>
+<p>Przykład programu, który przekazuje parametry do pseudo procedur ..\EXAMPLES\MACRO.ASM:</p>
+<pre><code> org $2000
+
+ proc PutChar,'a'-64    ; wywołanie makra PROC, jako parametr
+ proc PutChar,'a'-64    ; nazwa procedury która będzie wywołana przez JSR
+ proc PutChar,'r'-64    ; oraz jeden argument (kod znaku INTERNAL)
+ proc PutChar,'e'-64
+ proc PutChar,'a'-64
+
+ proc Kolor,$23         ; wywołanie innej procedurki zmieniającej kolor tła
+
+;---
+
+loop jmp loop           ; pętla bez końca, aby zobaczyć efekt działania
+
+;---
+
+proc .macro             ; deklaracja makra PROC
+ push =:1,:2,:3,:4      ; wywołanie makra PUSH odkładającego na stos argumenty
+                        ; =:1 wylicza bank pamieci
+
+ jsr :1                 ; skok do procedury (nazwa procedury w pierwszym parametrze)
+
+ lmb #0                 ; Load Memory Bank, ustawia bank na wartosc 0
+ .endm                  ; koniec makra PROC
+
+;---
+
+push .macro             ; deklaracja makra PUSH
+
+  lmb #:1               ; ustawia wirtualny bank pamięci
+
+ .if :2&lt;=$FFFF          ; jeśli przekazany argument jest mniejszy równy $FFFF to
+  lda &lt;:2               ; odłóż go na stosie
+  sta stack
+  lda &gt;:2
+  sta stack+1
+ .endif
+
+ .if :3&lt;=$FFFF
+  lda &lt;:3
+  sta stack+2
+  lda &gt;:3
+  sta stack+3
+ .endif
+
+ .if :4&lt;=$FFFF
+  lda &lt;:4
+  sta stack+4
+  lda &gt;:4
+  sta stack+5
+ .endif
+
+ .endm
+
+
+* ------------ *            ; procedura KOLOR
+*  PROC Kolor  *
+* ------------ *
+ lmb #1                     ; ustawienie numeru wirtualnego banku na 1
+                            ; wszystkie definicje etykiet będą teraz należeć do tego banku
+stack org *+256             ; stos dla procedury KOLOR
+color equ stack
+
+Kolor                       ; kod procedury KOLOR
+ lda color
+ sta 712
+ rts
+
+
+* -------------- *          ; procedura PUTCHAR
+*  PROC PutChar  *
+* -------------- *
+ lmb #2                     ; ustawienie numeru wirtualnego banku na 2
+                            ; wszystkie definicje etykiet będą teraz należeć do tego banku
+stack org *+256             ; stos dla procedury PUTCHAR
+char  equ stack
+
+PutChar                     ; kod procedury PUTCHAR
+ lda char
+ sta $bc40
+scr equ *-2
+
+ inc scr
+ rts
+</code></pre>
+<p>Oczywiście stos w tym przykładowym programie jest programowy. W przypadku <em>65816</em> można byłoby użyć stosu sprzętowego. Dzięki temu, że zdefiniowane zmienne przypisywane są do konkretnego numeru banku, można stworzyć strukturę wywołania procedury czy funkcji podobną do tych z języków wyższego poziomu.</p>
+<p>Prościej i efektywniej jednak skorzystać z deklaracji procedury <code>.PROC</code> jaką umożliwia <strong>MADS</strong>. Więcej o deklaracji procedury i operacjach jej dotyczących w rozdziale [Procedury].</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../dyrektywy-kodu/" class="btn btn-neutral float-right" title="Dyrektywy generujące kod">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../procedury/" class="btn btn-neutral" title="Procedury"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../procedury/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../dyrektywy-kodu/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

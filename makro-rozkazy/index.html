@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Makro rozkazy - Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Makro rozkazy";
+    var mkdocs_page_input_path = "makro-rozkazy.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sposob-uzycia/">Sposób użycia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kontrola/">Kontrola asemblacji</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sparta-dos/">Sparta DOS X</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Makro rozkazy</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#req-rne-rpl-rmi-rcc-rcs-rvc-rvs">REQ, RNE, RPL, RMI, RCC, RCS, RVC, RVS</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#seq-sne-spl-smi-scc-scs-svc-svs">SEQ, SNE, SPL, SMI, SCC, SCS, SVC, SVS</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#jeq-jne-jpl-jmi-jcc-jcs-jvc-jvs">JEQ, JNE, JPL, JMI, JCC, JCS, JVC, JVS</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#add-sub">ADD, SUB</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#adb-sbb">ADB, SBB</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#adw-sbw">ADW, SBW</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#phr-plr">PHR, PLR</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#inw-inl-ind-dew-del-ded">INW, INL, IND, DEW, DEL, DED</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mva-mvx-mvy">MVA, MVX, MVY</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mwa-mwx-mwy">MWA, MWX, MWY</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cpb-cpw-cpl-cpd">CPB, CPW, CPL, CPD</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy/">Dyrektywy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../lokal/">Obszar lokalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../procedury/">Procedury</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makra/">Makra</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tablice/">Tablice</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../typy/">Typy danych</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../banki-pamieci/">Banki pamięci</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kod-relokowalny/">Kod relokowalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Makro rozkazy</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/makro-rozkazy.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="makro-rozkazy">Makro rozkazy</h2>
+<p><a href="#req">REQ, RNE, RPL, RMI, RCC, RCS, RVC, RVS</a></p>
+<p><a href="#seq">SEQ, SNE, SPL, SMI, SCC, SCS, SVC, SVS</a></p>
+<p><a href="#jeq">JEQ, JNE, JPL, JMI, JCC, JCS, JVC, JVS</a></p>
+<p><a href="#add">ADD, SUB</a></p>
+<p><a href="#adb">ADB, SBB</a></p>
+<p><a href="#adw">ADW, SBW</a></p>
+<p><a href="#phr">PHR, PLR</a></p>
+<p><a href="#inw">INW, INL, IND, DEW, DEL, DED</a></p>
+<p><a href="#mva">MVA, MVX, MVY</a></p>
+<p><a href="#mwa">MWA, MWX, MWY</a></p>
+<p><a href="#cpb">CPB, CPW, CPL, CPD</a></p>
+<p>Zadaniem makro rozkazów jest skrócenie czasu pisania programu i samego listingu. Makro rozkazy zastępują grupy często powtarzających się mnemoników.</p>
+<p><a name="req"></a></p>
+<h3 id="req-rne-rpl-rmi-rcc-rcs-rvc-rvs">REQ, RNE, RPL, RMI, RCC, RCS, RVC, RVS</h3>
+<p>W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników <em>6502</em>, odpowiednio <code>BEQ</code>, <code>BNE</code>, <code>BPL</code>, <code>BMI</code>, <code>BCC</code>, <code>BCS</code>, <code>BVC</code>, <code>BVS</code>. Posiadają dodatkową właściwość jaką jest skok do poprzednio asemblowanej instrukcji, np.:</p>
+<pre><code>   lda:cmp:req 20           -&gt;      lda 20
+                            -&gt; wait cmp 20
+                            -&gt;      beq wait
+
+   ldx #0                   -&gt;      ldx #0
+   mva:rne $500,x $600,x+   -&gt; loop lda $500,x
+                            -&gt;      sta $600,x
+                            -&gt;      inx
+                            -&gt;      bne loop
+</code></pre>
+<p><a name="seq"></a></p>
+<h3 id="seq-sne-spl-smi-scc-scs-svc-svs">SEQ, SNE, SPL, SMI, SCC, SCS, SVC, SVS</h3>
+<p>W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników <em>6502</em>, odpowiednio <code>BEQ</code>, <code>BNE</code>, <code>BPL</code>, <code>BMI</code>, <code>BCC</code>, <code>BCS</code>, <code>BVC</code>, <code>BVS</code>. Posiadają dodatkową właściwość jaką jest skok do następnej asemblowanej instrukcji, np.:</p>
+<pre><code>   lda #40         -&gt;       lda #40
+   add:sta  $80    -&gt;       clc
+   scc:inc  $81    -&gt;       adc $80
+                   -&gt;       sta $80
+                   -&gt;       bcc skip
+                   -&gt;       inc $81
+                   -&gt;  skip
+</code></pre>
+<p><a name="jeq"></a></p>
+<h3 id="jeq-jne-jpl-jmi-jcc-jcs-jvc-jvs">JEQ, JNE, JPL, JMI, JCC, JCS, JVC, JVS</h3>
+<p>W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników <em>6502</em>, odpowiednio <code>BEQ</code>, <code>BNE</code>, <code>BPL</code>, <code>BMI</code>, <code>BCC</code>, <code>BCS</code>, <code>BVC</code>, <code>BVS</code>. Posiadają dodatkową właściwość jaką jest skok warunkowy pod wskazany adres, z ich pomocą możemy skakać nie tylko w zakresie -128..+127 bajtów ale w całym zakresie <strong>64kB</strong> np.:</p>
+<pre><code> jne dest   -&gt;  beq *+4
+            -&gt;  jmp dest
+</code></pre>
+<p>Jeśli skok jest krótki (zakres -128..+127) wówczas <strong>MADS</strong> użyje krótkiego skoku, odpowiednio <code>BEQ</code>, <code>BNE</code>, <code>BPL</code>, <code>BMI</code>, <code>BCC</code>, <code>BCS</code>, <code>BVC</code>, <code>BVS</code>.</p>
+<p><a name="addq"></a></p>
+<h3 id="add-sub">ADD, SUB</h3>
+<p>W/w makro rozkazy realizują odpowiednio zwiększenie/zmniejszenie bajtu pamięci bez zapisywania wyniku (wynik w akumulatorze <em>CPU</em>).</p>
+<pre><code>  ADD -&gt; CLC         SUB -&gt; SEC
+      -&gt; ADC ...         -&gt; SBC ...
+</code></pre>
+<p><a name="adb"></a></p>
+<h3 id="adb-sbb">ADB, SBB</h3>
+<p>W/w makro rozkazy realizują odpowiednio zwiększenie/zmniejszenie bajtu pamięci z zapisaniem wyniku.</p>
+<pre><code>  ADB SRC #$40 -&gt; LDA SRC       ADB A B C  -&gt; LDA A
+               -&gt; CLC                      -&gt; CLC
+               -&gt; ADC #$40                 -&gt; ADC B
+               -&gt; STA SRC                  -&gt; STA C
+
+  SBB SRC #$80 -&gt; LDA SRC       SBB A B C  -&gt; LDA A
+               -&gt; SEC                      -&gt; SEC
+               -&gt; SBC #$80                 -&gt; SBC B
+               -&gt; STA SRC                  -&gt; STA C
+</code></pre>
+<p><a name="adw"></a></p>
+<h3 id="adw-sbw">ADW, SBW</h3>
+<p>W/w makro rozkazy realizują odpowiednio zwiększenie/zmniejszenie słowa pamięci z zapisaniem wyniku.</p>
+<pre><code>  ADW SRC #$40 -&gt; CLC             ADW A B C  -&gt; CLC
+               -&gt; LDA SRC                    -&gt; LDA A
+               -&gt; ADC #$40                   -&gt; ADC B
+               -&gt; STA SRC                    -&gt; STA C
+               -&gt; SCC                        -&gt; LDA A+1
+               -&gt; INC SRC+1                  -&gt; ADC B+1
+                                             -&gt; STA C+1
+
+  ADW SRC #$40 SRC -&gt; CLC
+                   -&gt; LDA SRC
+                   -&gt; ADC #$40
+                   -&gt; STA SRC
+                   -&gt; LDA SRC+1
+                   -&gt; ADC #$00
+                   -&gt; STA SRC+1
+
+  SBW SRC #$4080 -&gt; SEC           SBW A B C  -&gt; SEC
+                 -&gt; LDA SRC                  -&gt; LDA A
+                 -&gt; SBC &lt;$4080               -&gt; SBC B
+                 -&gt; STA SRC                  -&gt; STA C
+                 -&gt; LDA SRC+1                -&gt; LDA A+1
+                 -&gt; SBC &gt;$4080               -&gt; SBC B+1
+                 -&gt; STA SRC+1                -&gt; STA C+1
+</code></pre>
+<p><a name="phr"></a></p>
+<h3 id="phr-plr">PHR, PLR</h3>
+<p>W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników <em>6502</em>, odpowiednio <code>PHA</code>, <code>PLA</code>, realizują odkładanie na stosie i zdejmowanie ze stosu rejestrów <code>A</code>, <code>X</code>, <code>Y</code>.</p>
+<pre><code>  PHR  -&gt; PHA         PLR  -&gt; PLA
+       -&gt; TXA              -&gt; TAY
+       -&gt; PHA              -&gt; PLA
+       -&gt; TYA              -&gt; TAX
+       -&gt; PHA              -&gt; PLA
+</code></pre>
+<p><a name="inw"></a></p>
+<h3 id="inw-inl-ind-dew-del-ded">INW, INL, IND, DEW, DEL, DED</h3>
+<p>Makro rozkazy <code>INW</code>, <code>INL</code>, <code>IND</code> realizują zwiększenie odpowiednio słowa pamięci (<code>.WORD</code>), długiego słowa pamięci (<code>.LONG</code>), podwójnego słowa pamięci (<code>.DWORD</code>).</p>
+<p>Makro rozkazy <code>DEW</code>, <code>DEL</code>, <code>DED</code> realizują zmniejszenie odpowiednio słowa pamięci (<code>.WORD</code>), długiego słowa pamięci (<code>.LONG</code>), podwójnego słowa pamięci (<code>.DWORD</code>) i wykorzystują w tym celu akumulator <em>CPU</em> (zawartość akumulatora ulega zmianie po wykonaniu makro rozkazów <code>DEW</code>, <code>DEL</code>, <code>DED</code>).</p>
+<pre><code>    inw dest  -&gt;       inc dest    -&gt;   inc dest
+              -&gt;       bne skip    -&gt;   sne
+              -&gt;       inc dest+1  -&gt;   inc dest+1
+              -&gt;  skip             -&gt;
+
+    dew dest  -&gt;       lda dest    -&gt;   lda dest
+              -&gt;       bne skip    -&gt;   sne
+              -&gt;       dec dest+1  -&gt;   dec dest+1
+              -&gt;  skip dec dest    -&gt;   dec dest
+</code></pre>
+<p><a name="mva"></a></p>
+<h3 id="mva-mvx-mvy">MVA, MVX, MVY</h3>
+<p>Makro rozkazy <code>MVA</code>, <code>MVX</code>, <code>MVY</code> służą do przenoszenia bajtów (<code>.BYTE</code>) pamięci przy pomocy rejestrów <em>CPU</em> odpowiednio <code>A</code>, <code>X</code>, <code>Y</code>. Użycie opcji <code>OPT R+</code> pozwala na potencjalne skrócenie kodu wynikowego dla następujących po sobie makro rozkazów <code>MVA</code>, <code>MVX</code>, <code>MVY</code>.</p>
+<pre><code>    lda src    -&gt;  mva src dst
+    sta dst    -&gt;
+
+    ldy $10,x  -&gt;  mvy $10,x $a0,x
+    sty $a0,x  -&gt;
+
+    ldx #$10   -&gt;  mvx #$10 dst
+    stx dst    -&gt;
+</code></pre>
+<p><a name="mwa"></a></p>
+<h3 id="mwa-mwx-mwy">MWA, MWX, MWY</h3>
+<p>Makro rozkazy <code>MWA</code>, <code>MWX</code>, <code>MWY</code> służą do przenoszenia słów (<code>.WORD</code>) pamięci przy pomocy rejestrów <em>CPU</em> odpowiednio <code>A</code>, <code>X</code>, <code>Y</code>. Użycie opcji <code>OPT R+</code> pozwala na potencjalne skrócenie kodu wynikowego dla następujących po sobie makro rozkazów <code>MWA</code>, <code>MWX</code>, <code>MWY</code>.</p>
+<pre><code>    ldx &lt;adr    -&gt;  mwx #adr dst
+    stx dst     -&gt;
+    ldx &gt;adr    -&gt;
+    stx dst+1   -&gt;
+
+    mwa #0 $80  -&gt;  lda #0           mwy #$3040 $80  -&gt;  ldy &lt;$3040
+                -&gt;  sta $80                          -&gt;  sty $80
+                -&gt;  sta $81                          -&gt;  ldy &gt;$3040
+                                                     -&gt;  sty $81
+
+    mwa ($80),y $a000,x  -&gt;  lda ($80),y
+                         -&gt;  sta $a000,x
+                         -&gt;  iny
+                         -&gt;  lda ($80),y
+                         -&gt;  sta $a001,x
+</code></pre>
+<p><a name="cpb"></a></p>
+<h3 id="cpb-cpw-cpl-cpd">CPB, CPW, CPL, CPD</h3>
+<p>Makro rozkazy <code>CPB</code>, <code>CPW</code>, <code>CPL</code>, <code>CPD</code> realizują porównanie wartości odpowiednich typów, odpowiednio <code>.BYTE</code>, <code>.WORD</code>, <code>.LONG</code>, <code>.DWORD</code>.</p>
+<pre><code> cpw temp #$4080
+ bcc skip
+
+ cpd v0 v1
+ beq skip
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pseudo-rozkazy/" class="btn btn-neutral float-right" title="Pseudo rozkazy">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../mnemoniki/" class="btn btn-neutral" title="Mnemoniki"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../mnemoniki/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../pseudo-rozkazy/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

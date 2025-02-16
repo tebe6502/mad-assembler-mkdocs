@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mad-Assembler Dokumentacja">
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Mad-Assembler";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="sposob-uzycia/">Sposób użycia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="kontrola/">Kontrola asemblacji</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="sparta-dos/">Sparta DOS X</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="makro-rozkazy/">Makro rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="dyrektywy/">Dyrektywy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="lokal/">Obszar lokalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="procedury/">Procedury</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="makra/">Makra</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="tablice/">Tablice</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="typy/">Typy danych</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="banki-pamieci/">Banki pamięci</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="kod-relokowalny/">Kod relokowalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Mad-Assembler</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/index.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="mad-assembler">Mad-Assembler</h1>
+<p><strong>Mad-Assembler (MADS)</strong> jest cross-assemblerem MOS 6502/MOS 65C02/WDC 65816 autorstwa <a href="https://github.com/tebe6502">Tomazs Biela (tebe)</a>. </p>
+<p>Najnowsze wydania dla systemu Windows są dostępne na <a href="https://github.com/tebe6502/Mad-Assembler/releases">Github</a>. Wydania dla innych platform systemów operacyjnych są publikowane cyklicznie w ramach <a href="https://github.com/peterdell/wudsn-ide-tools/tree/main/ASM/MADS">WUDSN IDE Tools</a>.</p>
+<h1 id="historia-zmian">Historia Zmian</h1>
+<h2 id="215"><a href="https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.5">2.1.5</a></h2>
+<ul>
+<li>poprawione działanie <code>.UNDEF</code>, <code>.IFDEF</code></li>
+<li>poprawione wykonywanie zagnieżdżonych pętli <code>.REPT</code></li>
+<li>dodana możliwość łączenia obszarów lokalnych, <code>.LOCAL +full_path_to_local</code></li>
+<li>dodanie kolorowania komunikatów konsoli</li>
+<li>etykiety automodyfikacji kodu, np. <code>lda label:  #$40</code></li>
+</ul>
+<h2 id="213"><a href="https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.3">2.1.3</a></h2>
+<ul>
+<li>nowa dyrektywa <code>.RND</code> zwracająca wartość losową z zakresu 0..255</li>
+<li>dodany komunikat ostrzeżenia <strong>'Register A is changed'</strong> dla pseudo rozkazów <code>DEW</code>, <code>DEL</code>, <code>DED</code></li>
+<li>nowy przełącznik <code>-bc</code> <strong>'Branch condition test'</strong>, powoduje wygenerowanie komunikatów ostrzeżenia w przypadku kiedy skok jest poza zakres lub przekracza stronę pamięci</li>
+</ul>
+<h2 id="210"><a href="https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.0">2.1.0</a></h2>
+<ul>
+<li>dodany komunikat ostrzeżenia <strong>'Buggy indirect jump'</strong> w przypadku użycia rozkazu <code>JMP(ABS)</code></li>
+<li>dodana dyrektywa <code>.FILEEXISTS('filename')</code> zwracajaca 1 gdy plik w podanej ścieżce istnije, 0 gdy nie istnieje</li>
+<li>rozszerzony komunikat <strong>Value out of range (VALUE must be between X and Y)</strong></li>
+</ul>
+<h2 id="209">2.0.9</h2>
+<ul>
+<li><code>.CBM 'text'</code> konwersja na znaki ekranowe Commodore C64</li>
+<li>usunięty błąd kiedy procedura <code>.PROC</code> znajdująca się w bloku <code>.LOCAL</code> nie została oznaczona jako 'do asemblacji' mimo tego że było do niej odwołanie z poziomu makra <code>.MACRO</code> w bloku <code>.LOCAL</code></li>
+<li>usunięty błąd, etykiety tymczasowe <code>?label</code> były oznaczane 'do relokacji'</li>
+</ul>
+<h2 id="208">2.0.8</h2>
+<ul>
+<li>krótszy kod dla <code>#CYCLE</code></li>
+<li>poprawki dla <code>.BY</code> <code>.WO</code> <code>.HE</code> <code>.SB</code> <code>.CB</code> <code>.FL</code></li>
+<li>dodano komunikat błędu <strong>'Improper syntax'</strong> w przypadku użycia <code>.BY</code> <code>.WO</code> <code>.HE</code> <code>.SB</code> <code>.CB</code> <code>.FL</code> w bloku <code>.STRUCT</code></li>
+<li>dodane dyrektywy dla <strong>WDC 65816</strong> <code>.LONGA ON|OFF</code> <code>.LONGI ON|OFF</code></li>
+<li>poprawione działanie śledzenia rozmiaru rejestrów <strong>WDC 65816</strong> gdy <code>OPT T+</code></li>
+<li>added command line option <code>-fv:value</code> to set the memory fill value when <code>OPT F+</code>.</li>
+<li>dodany przełącznik <code>-fv:value</code> pozwalający ustalić wartość wypełnienia pamięci gdy <code>OPT F+</code></li>
+<li>dodana możliwość podania argumentu jako ciągu dwóch znaków (poprzednio tylko 1 znak) np. <code>lda #'AB'</code> , <code>mwa #'XY' $80</code></li>
+</ul>
+<h2 id="207">2.0.7</h2>
+<ul>
+<li>poprawione generowanie kodu wynikowego dla nielegali <code>DOP</code> i <code>SHA</code></li>
+<li>dodane dyrektywy <strong>WDC 65816</strong> <code>.A8</code> <code>.A16</code> <code>.I8</code> <code>.I16</code> <code>.AI8</code> <code>.IA8</code> <code>.AI16</code> <code>.IA16</code> pozwalające ustawić rozmiar rejestrów <code>AXY</code></li>
+<li>dodane dyrektywy <strong>WDC 65816</strong> <code>.ASIZE</code> <code>.ISIZE</code> zwracające aktualnie ustawiony rozmiar rejestrów <code>AXY</code></li>
+<li>rozkaz <code>JMP</code> zmieniany jest na <code>JML</code> <strong>WDC 65816</strong> tylko gdy skok dotyczy innego 64KB banku niż obecny</li>
+<li>dodany przełącznik <code>-ml:value</code> (margin-left property), który umożliwia zmianę lewego marginesu generowanego listingu w zakresie od 32 do 128 znaków</li>
+</ul>
+<h2 id="206">2.0.6</h2>
+<ul>
+<li>poprawione parsowanie parametrów makra zapisanych przy pomocy etykiet</li>
+</ul>
+<pre><code>.macro test currentRow, previousRow
+    .print Tmp%%currentRowAllowed
+    .print Tmp%%previousRowAllowed
+.endm
+</code></pre>
+<ul>
+<li>poprawione alokowanie danych <code>.ARRAY</code> gdy nie ma określonego rozmiaru, lub jest to tablica inna niż jednowymiarowa</li>
+<li>zwiększona liczba przebiegów dla <code>.PROC</code>, w pewnych warunkach dla parametru <code>xa .reg</code> parametr był źle interpretowany</li>
+<li>dodana dyrektywa <code>.DEFINE</code> pozwalająca definiować jedno liniowe makra (można definiować wielokrotnie w tym samym przebiegu)</li>
+</ul>
+<pre><code>.DEFINE macro_name expression
+
+.DEFINE write .print %%1+%%2
+write (5,12)
+
+.DEFINE text .sb
+text 'atari'
+</code></pre>
+<ul>
+<li>dodana dyrektywa <code>.UNDEF macro_name</code>, usuwa definicję jedno liniowego makra <code>macro_name</code></li>
+</ul>
+<h2 id="205">2.0.5</h2>
+<ul>
+<li>tablice <code>.ARRAY</code> w bloku <code>.PROC</code> są pomijane jeśli użyto przełącznik <code>-x</code> <strong>Exclude unreferenced procedures</strong></li>
+<li>użycie <code>.ARRAY</code> w bloku <code>.STRUCT</code> nie będzie generować już zer w pliku wynikowym</li>
+<li>nowa dyrektywa <code>.XGET</code>, pozwalająca wczytać do bufora pamięci <strong>MADS</strong> plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla <strong>VBXE</strong>)</li>
+</ul>
+<h2 id="204">2.0.4</h2>
+<ul>
+<li>usunięty błąd powodujący błędny zapis bloku aktualizacji dla starszego bajtu adresu w bloku <code>.RELOC</code></li>
+<li><code>.DB</code> <code>.DW</code> usunięte</li>
+<li><code>.DBYTE</code> (MSB/LSB) odkłada słowo w odwrotnej kolejności (starszy/młodszy)</li>
+<li>dodane dyrektywy <code>.WGET</code> <strong>WORD</strong>, <code>.LGET</code> <strong>LONG</strong>, <code>.DGET</code> <strong>DWORD</strong></li>
+<li>poprawione działanie makro rozkazków <code>ADW</code> i <code>SBW</code>, np.:</li>
+</ul>
+<pre><code>adw (tmp),y #1 posx
+adw (tmp),y ptr2 ptr4
+</code></pre>
+<h2 id="202">2.0.2</h2>
+<ul>
+<li>poprawione alokowanie danych dla <code>.SB [+&lt;byte&gt;],&lt;bytes|string|char&gt;</code></li>
+</ul>
+<h2 id="201">2.0.1</h2>
+<ul>
+<li>poprawione alokowanie danych dla <code>.ARRAY</code> gdy typ większy od <code>.BYTE</code></li>
+<li><code>.SIZEOF</code> zwraca rozmiar dla wbudowanych typów <code>.BYTE</code> <code>.WORD</code> <code>.LONG</code> <code>.DWORD</code></li>
+<li>dodana relokowalna wersja playera <strong>MPT</strong> <code>examples\players\mpt_player_reloc.asm</code></li>
+<li>poprawione działanie dyrektywy <code>.DS</code> w blokach <strong>SDX</strong> <code>blk sparta $xxx</code> które nie są relokowalne</li>
+</ul>
+<h2 id="198">1.9.8</h2>
+<ul>
+<li>naprawione działanie rozkazów <strong>WDC 65816</strong> <code>PEA</code> <code>PEI</code> <code>PER</code></li>
+<li>dodana możliwość podania kodu dla <code>.RELOC</code> [.BYTE|WORD] [TYPE]</li>
+</ul>
+<h2 id="197">1.9.7</h2>
+<ul>
+<li>dyrektywa <code>.DEF</code> definiuje etykiety o zasiegu lokalnym, jeśli poprzedzić ją znakiem <code>:</code> to globalne</li>
+<li>poprawki dla liczb zmiennoprzecinkowych .FL, poprawione kodowane zera, dokonywane zaokrąglenie do 10 miejsc po przecinku</li>
+<li>dla bloków <strong>Sparta DOS X</strong> <code>blk reloc</code> i <code>blk empty</code> dodana możliwość określenia innego typu pamięci niż <code>$00</code> (main), <code>$02</code> (extended), np.:</li>
+</ul>
+<pre><code>blk reloc $40
+</code></pre>
+<ul>
+<li>poprawka umożliwiająca użycie dyrektywy <code>.PRINT</code> po <code>blk empty</code></li>
+<li>dodana możliwość definiowania wielowymiarowych tablic <code>.ARRAY</code>, np.:</li>
+</ul>
+<pre><code>.array scr [24][40]
+  [11][16] = &quot;atari&quot;
+.enda
+
+  mva #&quot;!&quot; scr[11][22]
+</code></pre>
+<ul>
+<li>dodana możliwość definiowania tablicy <code>.ARRAY</code> poprzez dyrektywę <code>.DS</code>, np.:</li>
+</ul>
+<pre><code>tmp .ds .array [5][12][4] .word
+</code></pre>
+<ul>
+<li>dodana możliwość definiowania tablicy <code>.ARRAY</code> poprzez pseudorozkaz <code>EQU</code> (=), np.:</li>
+</ul>
+<pre><code>fnt = $e000 .array [128] [8] .byte
+</code></pre>
+<ul>
+<li>naprawione działanie makrorozkazu <code>ADW</code> w połączeniu z makrorozkazem <code>SCC</code> itp.</li>
+<li>poprawki dla <code>.REPT</code>, m.in. komentarz wieloliniowy <code>/* */</code> jest teraz właściwie rozpoznawany</li>
+</ul>
+<h2 id="196">1.9.6</h2>
+<ul>
+<li>poprawione działanie etykiet anonimowych dla mnemoników łączonych znakiem <code>:</code>, np.:</li>
+</ul>
+<pre><code>       ldx #8
+@      lda:cmp:req 20
+       dex
+       bne @-
+</code></pre>
+<ul>
+<li>dodany pseudo rozkaz <code>COS</code> (centre,amp,size[,first,last]) generujący wartości dla funkcji cosinus</li>
+<li>dodany komunikat błędu <strong>Improper syntax</strong> w przypadku użycia dyrektywy <code>.DS</code> w bloku <code>.STRUCT</code></li>
+<li>naprawione działanie pseudo rozkazu <code>ORG</code>, np.:</li>
+</ul>
+<pre><code>opt h-
+ORG [a($ffff),d'atari',c'ble',20,30,40],$8000,$a000
+</code></pre>
+<ul>
+<li>addytywne bloki <code>.LOCAL</code> otrzymują kolejne adresy, poprzednio adres ustalany był na podstawie pierwszego wystąpienia takiego bloku</li>
+<li>dodany komunikat ostrzeżenia w przypadku stworzenia kolejnego addytywnego bloku <code>.LOCAL</code> o tej samej nazwie <strong>Ambiguous label LOCAL_NAME</strong></li>
+<li>dodane mnemoniki <code>PER</code> (PEA rell), <code>PEI</code> (PEA (zp)) dla <strong>WDC 65816</strong></li>
+<li>dodane nowy typ danych M (najstarszy bajt <strong>LONG</strong>) i G (najstarszy bajt <strong>DWORD</strong>) dla pseudorozkazu <code>DTA</code>, np.:</li>
+</ul>
+<pre><code>dta m($44556677)   ; -&gt; $55
+dta g($44556677)   ; -&gt; $44
+</code></pre>
+<ul>
+<li>dyrektywa <code>.LEN</code> <code>.SIZEOF</code> rozszerzona o obsługę danych alokowanych poprzez <code>DTA STRUCT_NAME</code>, np.:</li>
+</ul>
+<pre><code>.STRUCT free_ptr_struct
+  prev .WORD
+  next .word
+.ENDS
+
+free_ptr_t dta free_ptr_struct [3]
+
+.print .sizeof(free_ptr_t)    ; free_ptr_struct [0..3] = 16 bytes
+</code></pre>
+<ul>
+<li>zmiany dla operacji odczytu plików poprzez <code>ICL</code>, <code>INS</code> itp. plik do odczytu/zapisu będzie poszukiwany najpierw w ścieżce, która prowadzi do obecnie otwartego pliku, następnie ze ścieżki z której został uruchomiony główny asemblowany plik i na końcu ze ścieżek podanych parametrem -i (additional include directories)</li>
+<li>poprawione rozpoznawanie wielkości znaków gdy aktywowany jest przełącznik <code>-c</code> (char sensitive) dla struktur, np.:</li>
+</ul>
+<pre><code>.struct fcb
+sEcbuf  .byte
+.ends
+
+data dta fcb [1] (0)
+
+    lda     data[0].sEcbuf
+</code></pre>
+<ul>
+<li>rozszerzone działanie dyrektywy <code>.REPT</code> o możliwość jej zagnieżdżania np.:</li>
+</ul>
+<pre><code>.rept 2,#*2              ;  1 - $0000
+                         ;  2 - $0000
+.print '1 - ',#          ;  1 - $0001
+                         ;  2 - $0000
+.rept :1                 ;  2 - $0001
+.print '2 - ',.r         ;  2 - $0002
+.endr                    ;
+                         ;
+.endr
+</code></pre>
+<ul>
+<li>krótsza wersja pętli <code>#WHILE</code> bez wyrażenia, pętla trwa dopóki <code>LABEL &lt;&gt; 0</code></li>
+</ul>
+<pre><code>#while .word label
+#end
+</code></pre>
+<h2 id="195">1.9.5</h2>
+<ul>
+<li>dodany pseudorozkaz <code>SET</code> pozwalający redefiniować etykietę, podobne działanie jak etykiety tymczasowe zaczynające się znakiem <code>?</code>, np.:</li>
+</ul>
+<pre><code>temp set 12
+
+     lda #temp
+
+temp set 23
+
+     lda #temp
+</code></pre>
+<ul>
+<li>dodana możliwość wymuszenia trybu adresowania w stylu <strong>XASM</strong> <code>a:</code> i <code>z:</code>, np.:</li>
+</ul>
+<pre><code>XASM        MADS
+lda a:0     lda.a 0
+ldx z:0     lda.z 0
+</code></pre>
+<ul>
+<li>dodana możliwość określenia nowego adresu relokacji kodu w stylu <strong>XASM</strong> <code>r:</code>, np.:</li>
+</ul>
+<pre><code>XASM        MADS
+org r:$40   org $40,*
+</code></pre>
+<ul>
+<li>poprawione działanie parametru <code>-x</code> <strong>Exclude unreferenced procedures</strong>, zmienne <code>.VAR</code> nie są alokowane gdy procedura jest nieużywana</li>
+<li>rozszerzona składnia dla jednoliniowych pętli <code>:rept</code>, możliwe wykorzystanie licznika pętli jako parametru <code>:1</code> lub <code>%%1</code>, np.:</li>
+</ul>
+<pre><code>line0
+line1
+line2
+line3
+
+ladr1 :4 dta l(line:1)
+hadr1 :4 dta h(line:1)
+
+ladr2 :4 dta l(line%%1)
+hadr2 :4 dta h(line%%1)
+</code></pre>
+<ul>
+<li>dodany komunikat ostrzeżenia w przypadku użycia nielegalnych niestabilnych rozkazów <strong>6502</strong>, np. <code>CIM</code></li>
+<li>dodany komunikat ostrzeżenia w przypadku użycia nielegalnych niestabilnych rozkazów <strong>6502</strong>, np. <code>CIM</code></li>
+<li>dodana nowa funkcjonalność dla pseudorozkazów <code>RUN</code> i <code>INI</code>, które teraz zachowują adres asemblacji, poprzednio przestawiały adres asemblacji na <code>$2E0</code> (RUN), <code>$2E2</code> (INI)</li>
+<li>dodana obsługa etykiet anonimowych <strong>anonymous labels</strong> <code>@</code> <code>@+[1..9]</code> (forward) <code>@-[1..9]</code> (backward), w celu zapewnienia przejrzystości kodu ograniczone jest używania takich etykiet tylko dla skoków warunkowych oraz do 10 wystąpień w przód/tył, np.:</li>
+</ul>
+<pre><code>@ dex   &lt;------+---+
+  bne @+ --+   |   |
+  stx $80  |   |   |
+@ lda #0 &lt;-+   |   |
+  bne @- ------+   |
+  bne @-1  --------+
+</code></pre>
+<ul>
+<li>rozszerzone działanie dyrektyw <code>#IF</code> i <code>#WHILE</code> o zmienne deklarowane przez <code>.VAR</code>, dotychczas wymagane było podanie typu zmiennej, np.:</li>
+</ul>
+<pre><code> .var temp .word
+
+ #if temp&gt;#2100       ;Now
+ #end
+
+ #if .word temp&gt;#2100 ;Before
+ #end
+</code></pre>
+<h2 id="194">1.9.4</h2>
+<ul>
+<li>dodana normalizacja ścieżek dla plików, tak aby działały pod <strong>Unixami</strong>, znaki <code>\</code> zamieniane są na <code>/</code></li>
+<li>poprawione przekazywanie dyrektyw jako parametrów do procedur i makr, dyrektywy nie były rozpoznawane przy włączonym przełączniku <code>-c</code> (case sensitive)</li>
+<li>poprawione działanie <code>.USE</code> <code>.USING</code></li>
+<li>dodana informacja w postaci ostrzeżenia <strong>WARNING</strong> o etykiecie powodującej nieskończoną ilość przebiegów asemblacji <strong>INFINITE LOOP</strong></li>
+<li>dodany zapis dwóch bajtów nagłówka <code>FF FF</code> dla pliku zawierającego blok o adresie ładowania <code>$FFFF</code></li>
+<li>komentarze po mnemonikach nie wymagających argumentu zostaną potraktowane jako błąd, wyjątkiem jest łączenie rozkazów w stylu <strong>xasm</strong> poprzez znak <code>:</code>, np.:</li>
+</ul>
+<pre><code> pla $00          -&gt;  ERROR: Extra characters on line
+ pha:pla $00      -&gt;  OK
+</code></pre>
+<ul>
+<li>rozszerzona składnia makr o możliwość używania parametrów w postaci nazw a nie tylko wartości numerycznych-decymalnych, np.:</li>
+</ul>
+<pre><code>.macro SetColor val,reg
+ lda :val
+ sta :reg
+.endm
+
+.macro SetColor2 (arg1, arg2)
+ lda #:arg1
+ sta :arg2
+.endm
+</code></pre>
+<ul>
+<li>naprawione definiowanie etykiet dla n/w sytuacji, pierwsza etykieta nie zostanie zignorowana</li>
+</ul>
+<pre><code>temp  label = 100
+</code></pre>
+<h2 id="193">1.9.3</h2>
+<ul>
+<li>poprawione przetwarzanie bloków <code>.PROC</code>, które w pewnych okolicznościach mogły zostać pominięte podczas asemblacji</li>
+<li>poprawiony zapis <code>BLK EMPTY</code> dla plików <strong>SDX</strong> jeśli zastosowaliśmy deklarację takiego bloku przez <code>.DS</code></li>
+<li>poprawki dotyczące testowania końca linii</li>
+<li>dodane dyrektywy <code>.FILESIZE</code>, <code>.SIZEOF</code> jako odpowiednik dotychczasowej dyrektywy <code>.LEN</code></li>
+<li>rozszerzona składnia dla pól struktury <code>.STRUCT</code>, np.:</li>
+</ul>
+<pre><code>.struct name
+ .byte label0
+ .byte :5 label1
+ label2 .byte
+ label3 :2 .word
+.ends
+</code></pre>
+<h2 id="192">1.9.2</h2>
+<ul>
+<li>możliwość określenia adresu dla <code>.ZPVAR = $XX</code></li>
+<li>usprawnione odwołania do etykiet wyliczeniowych <code>.ENUM</code>, np. <code>enum_label(field0, field1)</code></li>
+<li>dodana możliwość generowania bloku dla symboli zewnętrznych BLK UPDATE EXTRN dla plików <strong>DOS-a</strong>, poprzednio tylko dla plików <code>.RELOC</code>, np.:</li>
+</ul>
+<pre><code>.extrn vbase .word
+org $2000
+lda #$80
+sta vbase+$5d
+
+blk update extrn
+</code></pre>
+<ul>
+<li>dodany komunikat błędu <strong>Could not use NAME in this context</strong> w przypadku rozkazów odwołań do bloków <code>.MACRO</code> <code>.ENUM</code> <code>.STRUCT</code></li>
+<li>poprawiony błąd który uniemożliwiał użycie <code>EQU</code> w nazwie etykiety</li>
+<li>dodana dyrektywa <code>.CB +byte,.....</code>, ostatni bajt ciągu znakowego zapisywany jest w inwersie</li>
+<li>dodana obsługa segmentów poprzez dyrektywy <code>.SEGDEF</code> <code>.SEGMENT</code> <code>.ENDSEG</code></li>
+<li>dodana nowa dyrektywa<code>#CYCLE #N</code> generująca kod <strong>6502</strong> o zadanej liczbie cykli <code>N</code></li>
+<li>dodana obsługa nielegalnych rozkazów <strong>6502</strong>, przykład w pliku <code>.\examples\test6502_illegal.asm</code></li>
+<li>uaktualnione pliki konfiguracyjne dla Notepad++ <code>..\syntax\Notepad++</code></li>
+<li>poprawiony zapis pliku <code>LST</code></li>
+<li>naprawiona alokacja pamięci dla zmiennych strukturalnych, rozszerzona składnia dla <code>.STRUCT</code></li>
+</ul>
+<pre><code>.struct LABEL
+ x,y,z .word     // wiele zmiennych tego samego typu w jednej linii
+ .byte a,b
+.ends
+
+.enum type
+  a=1,b=2
+.ende
+
+.struct label2
+  x type
+  type y
+.ends
+</code></pre>
+<h2 id="190">1.9.0</h2>
+<ul>
+<li>naprawiony zapis linii z komentarzem <code>/* */</code> do pliku listingu <code>*.LST</code>, poprzednio takie linie nie były zapisywane</li>
+<li>poprawka dla etykiet deklarowanych z linii komend <code>-d:label</code>, poprzednio takie etykiety widziane były tylko w pierwszym przebiegu</li>
+<li>w przypadku addytywności bloków <code>.LOCAL</code> tylko pierwszy adres z takich bloków jest zapisywany</li>
+<li>poprawki dotyczące parsowania makr, poprzednio etykiety zaczynające się od <code>END</code> mogły zostać zinterpretowane jako pseudo rozkaz <code>END</code></li>
+<li>poprawka odczytu dla pustego pliku relokowalnego, poprzednio występował błąd <strong>Value out of range</strong></li>
+<li>poprawki dla <code>.USING</code> <code>.USE</code></li>
+</ul>
+<h2 id="188-189">1.8.8 - 1.8.9</h2>
+<ul>
+<li>uaktualniony silnik duchów programowych <code>..\EXAMPLES\SPRITES\CHARS</code> o duchy 8x24</li>
+<li>w przypadku braku podania rozszerzenia pliku i braku istnienia takiego pliku dla <code>ICL 'filename'</code> zostanie domyślnie przyjęte rozszerzenie <code>*.ASM</code> <code>ICL 'filename.asm'</code></li>
+<li>poprawione działanie komentarzy <code>/* */</code> w blokach <code>.MACRO</code> <code>.REPT</code></li>
+<li>usunięty błąd uniemożliwiający poprawną asemblację bloku <code>#IF</code> <code>#WHILE</code> dla wyrażeń łączonych przez <code>.OR</code> <code>.AND</code></li>
+<li>przełączniki w linii komend mogą być poprzedzone tylko znakiem <code>-</code>, poprzednio także <code>/</code> jednak były problemy z działaniem tego znaku na <strong>MacOSX</strong></li>
+<li>poprawiony zakres działania dyrektywy <code>.USING</code>, dla aktualnej przestrzeni nazw i kolejnych zawierających się w tej przestrzeni nazw</li>
+</ul>
+<h2 id="186-187">1.8.6 - 1.8.7</h2>
+<ul>
+<li>usprawnione rozpoznawanie komentarzy <code>/* */</code> w wyrażeniach</li>
+<li>domyślny adres dla <code>.ZPVAR</code> ustawiony na <code>$0080</code>, poprzednio <code>$0000</code></li>
+<li>dodana nowa dyrektywa <code>.ELIF</code> jako krótszy odpowiednik dyrektywy <code>.ELSEIF</code></li>
+<li>rozszerzone działanie dyrektywy <code>.LEN</code> o możliwość podania jako parametru nazwy pliku, zwracana jest wówczas długość takiego pliku</li>
+<li>usprawnione działanie dyrektywy <code>.DEF</code> w wyrażeniach warunku <code>.IF</code> <code>.IFDEF</code> <code>IFNDEF</code></li>
+</ul>
+<h2 id="185">1.8.5</h2>
+<ul>
+<li>dodane makro relokujące moduły <strong>RMT</strong> <code>...\EXAMPLES\MSX\RMT_PLAYER_RELOCATOR\</code></li>
+<li>dodany test składni dla nie asemblowanych procedur .PROC gdy aktywny jest przełącznik <code>-x</code> <strong>Exclude unreferenced procedures</strong></li>
+<li>poprawione działanie przełącznika <code>-d:label[=value]</code>, podanie wartości dla etykiety jest teraz opcjonalne, domyślnie mads przypisze wartość 1</li>
+<li>dyrektywy <code>.DS</code> <code>.ALIGN</code> nie spowodują alokacji zmiennych zdefiniowanych przez <code>.VAR</code></li>
+<li>alokacja zmiennych <code>.VAR</code> przed nowym blokiem <code>ORG</code> nie nastąpi jeśli blok <code>ORG</code> znajduje się w bloku <code>.LOCAL</code> lub <code>.PROC</code></li>
+<li>poprawione łamanie wierszy znakiem <code>\</code> w ciągach ograniczonych nawiasami <code>()</code></li>
+<li>usunięty błąd powodujący relokowanie adresu dla wyrażenia dyrektywy <code>.ERROR</code> <code>ERT</code></li>
+<li>usunięte zauważone błędy przy parsowaniu parametrów linii komend</li>
+<li>usunięte zauważone błędy dotyczące optymalizacji długości kodu makro rozkazów <code>MVA</code> <code>MWA</code> itp.</li>
+<li>poprawiony kod realizujący zagnieżdżanie bloków <code>.PROC</code></li>
+<li>poprawiony kod realizujący działanie pseudo rozkazów warunku <code>IFT ELI ELS EIF</code></li>
+<li>dodany komunikat <strong>'#' is allowed only in repeated lines</strong> dla przypadków użycia licznika pętli <code># (.R)</code> poza pętlą</li>
+<li>usunięty błąd powodujący błędne alokowanie zmiennych zadeklarowanych przez dyrektywę <code>.VAR</code> podczas wykonywania makra</li>
+<li>w celu ujednolicenia składni odwołania do etykiet typów wyliczeniowych możliwe są tylko poprzez znak kropki <code>.</code>, poprzednio także przez <code>::</code></li>
+<li>możliwe krótsze odwołania do typów wyliczeniowych <code>enum_label(fields)</code>, np. :</li>
+</ul>
+<pre><code>.enum typ
+ val0 = 1
+ val1 = 5
+ val2 = 9
+.ende
+
+ lda #typ(val0|val2)  ; == &quot;lda #typ.val0|typ.val2&quot;
+</code></pre>
+<ul>
+<li>rozszerzona składnia dyrektywy <code>.SAV</code>, np.:</li>
+</ul>
+<pre><code>.sav 'filename',offset,length
+.sav 'filenema',length
+.sav [offset] 'filename',offset2,length
+.sav length
+.sav offset,length
+</code></pre>
+<ul>
+<li>rozszerzona składnia dyrektywy <code>.ARRAY</code>, w przypadku braku podania maksymalnego indeksu tablicy zostanie on obliczony na podstawie ilości wprowadzonych elementów, elementy można wprowadzać bez konieczności poprzedzenia ich indeksem [expression], np.:</li>
+</ul>
+<pre><code>.array temp .byte
+ 1,4,6                  ; [0..2]   = 1,4,6
+ [12] = 9,3             ; [12..13] = 9,3
+ [5]:[8] = 10,16        ; [5..6]   = 10,16 ; [8..9] = 10,16
+ 0,0,\                  ; [14..17] = 0,0,1,1
+ 1,1
+.enda                   ; 18 elementów, TEMP [0..17]
+</code></pre>
+<ul>
+<li>dodana możliwość alokacji zmiennej typu strukturalnego przy pomocy dyrektyw <code>.VAR</code> <code>.ZPVAR</code>, np.:</li>
+</ul>
+<pre><code>.struct Point
+ x .byte
+ y .byte
+.ends
+
+ .var a,b,c Point
+ .zpvar Point f,g,i
+
+</code></pre>
+<ul>
+<li>dodana możliwość alokacji zmiennej typu wyliczeniowego przy pomocy dyrektyw <code>.VAR</code> <code>.ZPVAR</code>, np.:</li>
+</ul>
+<pre><code>.enum Boolean
+ false = 0
+ true = 1
+.ende
+
+ .var test Boolean
+ .zpvar Boolean test
+</code></pre>
+<ul>
+<li>dodana możliwość deklaracji pól struktury przy pomocy typów wyliczeniowych, np.:</li>
+</ul>
+<pre><code>.enum EState
+  DONE, DIRECTORY_SEARCH, INIT_LOADING, LOADING
+.ende
+
+.struct SLoader
+    m_file_start .word
+    m_file_length .word
+
+    m_state EState
+.ends
+</code></pre>
+<h2 id="183-184">1.8.3 - 1.8.4</h2>
+<ul>
+<li>nowy silnik duchów programowych z minimalnymi wymaganiami pamięci, bez dodatkowych buforów pamięci obrazu <code>...EXAMPLES\SPRITES\CHARS_NG</code></li>
+<li>nowa wersja pakera <strong>Huffmana</strong> (kompatybilna z <strong>Free Pascal Compiler-em</strong>, <code>fpc -MDelphi sqz15.pas</code>) i dekompresora <strong>Huffmana</strong> SQZ15 <code>...EXAMPLES\COMPRESSION\SQUASH</code></li>
+<li>poprawiony kod generowany dla rozkazów <code>MVP</code> <code>MVN</code> <code>PEA</code> <code>BRA</code> for <strong>WDC 65816</strong></li>
+<li>dodane nowe rozkazy <code>BRL</code> <code>JSL</code> <code>JML</code>  <strong>WDC 65816</strong>, jako odpowiedniki rozkazów długich skoków <code>BRA</code> <code>JSR</code> <code>JMP</code></li>
+<li>blok aktualizacji etykiet zewnętrznych (external) został rozszerzony o zapis młodszego i starszego bajtu adresu takiej etykiety</li>
+<li>poprawione działanie dyrektywy <code>.USE</code> <code>.USING</code>, działa niezależnie od przestrzeni nazw w której zostanie użyta</li>
+<li>usunięty błąd, który powodował w pewnych sytuacjach pomijanie asemblacji bloku <code>#IF</code> <code>#WHILE</code></li>
+<li>dodana możliwość definiowania zmiennych poprzez dyrektywę <code>.DS</code> lub pseudo rozkaz ORG przed blokiem <code>.RELOC</code></li>
+<li>dodana dodatkowa forma składni dla dyrektywy <code>.VAR</code>, z tym że dla takiego przypadku nie ma możliwości określenia adresu umiejscowienia zmiennych w pamięci</li>
+</ul>
+<pre><code> .VAR .TYPE lab1 lab2 lab3 .TYPE lab4 .TYPE lab5 lab6 ...
+
+ .var .byte a,b,c .dword i j
+</code></pre>
+<ul>
+<li>dodana możliwość definicji pojedyńczych zmiennych typu strukturalnego w krótszy sposób aniżeli dotąd przez <code>DTA</code></li>
+</ul>
+<pre><code>.struct @point
+ x .byte
+ y .byte
+.ends
+
+pointA  @point    ; pointA dta @point [0] &lt;=&gt; pointA dta @point
+pointB  @point    ; pointB dta @point [0] &lt;=&gt; pointB dta @point
+
+points  dta @point [100]
+</code></pre>
+<ul>
+<li>dodana nowa dyrektywa <code>.ZPVAR</code> umożliwiająca automatyczne przydzielenie miejsca zmiennym na stronie zerowej</li>
+</ul>
+<pre><code> .ZPVAR TYPE label1, label2 label3 = $80  ; LABEL1=$80, LABEL2=LABEL1+TYPE, LABEL3=LABEL2+TYPE
+ .ZPVAR label4, label5 TYPE     ; LABEL4=LABEL3+TYPE, LABEL5=LABEL4+TYPE
+
+ .print .zpvar
+</code></pre>
+<ul>
+<li>poprawione działanie dyrektywy <code>.ERROR</code> i pseudo rozkazu <code>ERT</code>, możliwe jest umieszczenie dodatkowych informacji w wierszu podobnie jak dla <code>.PRINT</code> <code>.ECHO</code> np.:</li>
+</ul>
+<pre><code>  ERT *&gt;$6000 , BUUU przekroczyliśmy zakres pamięci o ' , *-$6000 , ' bajtów'
+</code></pre>
+<ul>
+<li>dodana możliwość zagnieżdżania bloków procedur .PROC, ten sam kod może być wywoływany z różnymi parametrami np.:</li>
+</ul>
+<pre><code>.proc copySrc (.word src+1) .var
+
+ .proc ToDst (.word src+1, dst+1) .var
+ .endp
+
+  ldy #0
+src lda $ffff,y
+dst sta $ffff,y
+  iny
+  bne src
+
+  rts
+.endp
+
+  copySrc.ToDst #$a080 #$b000
+
+  copySrc #$a360
+</code></pre>
+<ul>
+<li>dodane nowe dyrektywy <code>.ENUM</code> <code>.ENDE</code> <code>.EEND</code></li>
+</ul>
+<pre><code>.enum dni_tygodnia
+
+  poniedzialek = 1
+  wtorek, sroda = 5, czwartek = 7
+  piatek
+  sobota
+  niedziela
+
+.ende
+
+ift dzien==dni_tygodnia::wtorek
+.print 'wtorek'
+eif
+</code></pre>
+<ul>
+<li>rozszerzona funkcjonalność komentarzy wieloliniowych <code>/* */</code> o możliwość umieszczania ich gdziekolwiek</li>
+</ul>
+<pre><code>lda #12+ /* komentarz */ 23
+</code></pre>
+<ul>
+<li>umożliwiona relokacja adresów definiowanych dyrektywą <code>.DEF</code></li>
+</ul>
+<pre><code>.reloc
+.def label=*
+lda label
+</code></pre>
+<ul>
+<li>dodana możliwość użycia znaków <code>{ }</code> do oznaczenia bloku (z wyjątkiem bloków <code>.MACRO</code>), znak <code>{</code> <code>}</code> zostaje rozpoznany na początku nowego wiersza, np.:</li>
+</ul>
+<pre><code>#while .word ad+1&lt;=#$bc40+39
+{
+ad  sta $bc40
+
+  inw ad+1
+}
+
+.proc lab
+{
+  .local temp2
+  {
+  }
+
+  .array tab [255] .long
+  {}
+}
+</code></pre>
+<h2 id="182">1.8.2</h2>
+<ul>
+<li>zniesione ograniczenie długości pliku dla pseudo rozkazu <code>INS</code> (poprzednio długość wczytywanego pliku ograniczona była do 65536 bajtów)</li>
+<li>dodany komunikat błędu <strong>The referenced label ... has not previously been defined properly</strong> w przypadku etykiet, które nie zostały zdefiniowane do końca, np. tylko w pierwszym przebiegu wartością nieokreśloną</li>
+<li>dodana nowa dyrektywa <code>.ECHO</code> jako odpowiednik dyrektywy .PRINT, dodatkowo informacje generowane przez <code>.PRINT</code> <code>.ECHO</code> zapisywane są teraz także w listingu <code>*.LST</code></li>
+<li>dodana nowa dyrektywa <code>.ALIGN</code> pozwalająca na wyrównanie do zadanego zakresu pamięci, dodatkowo można określić wartość jaką wypełnić pamięć</li>
+</ul>
+<pre><code>[label] .ALIGN N[,fill]
+</code></pre>
+<ul>
+<li>dodany nowy przełącznik <code>-U</code> (Warn of unused labels)</li>
+</ul>
+<h2 id="181">1.8.1</h2>
+<ul>
+<li>rozszerzone działanie znaku backslash <code>\</code>, umieszczenie go na końcu wiersza oznacza kontynuację aktualnego wiersza od nowego wiersza, np.:</li>
+</ul>
+<pre><code>macro_temp \
+
+_____________________________________parametr1_________________________________________________\
+_____________________________________parametr2_________________________________________________\
+_____________________________________parametr3_________________________________________________
+
+lda\
+ #____________________________________label________________________________________\
+ +__________________________________expression___________________________________
+</code></pre>
+<ul>
+<li>zmienione testowanie niekończącego wywoływania się makr po którym wystąpi błąd <strong>Infinite loop</strong></li>
+<li>naprawiony zapis etykiet do pliku <code>*.LAB</code>, błąd powstał po dodaniu addytywności obszarów <code>LOCAL</code></li>
+<li>poprawione działanie pseudo rozkazu <code>SIN</code> (kod zapożyczony z <strong>XASM</strong>)</li>
+<li>poprawione rozpoznawanie dyrektyw przy włączonym przełączniku -C (Case sensitive)</li>
+<li>usprawniony odczyt bloków <code>.REPT</code> (wskazanie prawidłowej linii z błędem) i <code>.MACRO</code></li>
+<li>zablokowane użycie <code>.VAR</code> w bloku <code>.REPT</code></li>
+<li>umożliwione zagnieżdżanie oraz wielokrotne uruchamianie (poprzez makra) pętli <code>.REPT</code> <code>:repeat</code> (poprzednio występował komunikat <strong>Use .REPT directive</strong>)</li>
+<li>umożliwione przekazywanie parametrów do bloku .REPT, np.</li>
+</ul>
+<pre><code>.REPT 10, #
+label:1           ; LABEL0, LABEL1, LABEL2 ... LABEL9
+.ENDR
+
+.REPT 5, $12,$33,$44,$55,$66
+ dta :1,:2,:3,:4,:5            ; $12,$33,$44,$55,$66
+ dta :5,:4,:3,:2,:1            ; $66,$55,$44,$33,$12
+.ENDR
+</code></pre>
+<h2 id="179-180">1.7.9 - 1.8.0</h2>
+<ul>
+<li>poprawiony błąd w opisie przełącznika <code>-f</code>, poprzednio <strong>Label at first column</strong>, prawidłowy opis to <strong>CPU command at first column</strong></li>
+<li>przepisana od nowa obsługa dyrektywy <code>.DS</code> i opcji <code>OPT F+</code> (dodana możliwość użycia bloków RUN i INI)</li>
+<li>przepisana od nowa obsługa opcji <code>OPT ?+</code> (etykiety lokalne w standardzie <strong>MAE</strong>)</li>
+<li>dodana możliwość upublicznienia w blokach PUBLIC tablic zadeklarowanych przez .ARRAY oraz deklaracji struktur <code>.STRUCT</code></li>
+<li>dyrektywa generująca kod <strong>6502</strong> dla decyzji <code>.TEST</code> zastąpiona została przez dyrektywę <code>#IF</code>, dyrektywa <code>.ENDT</code> przez <code>#END</code>, dodatkowo możliwe jest użycie dyrektywy <code>#ELSE</code> np.:</li>
+</ul>
+<pre><code> # if .byte i&gt;#8 .and .byte i&lt;#200
+ # else
+       #if .word j = #12
+       #end
+ # end
+</code></pre>
+<ul>
+<li>dyrektywa generująca kod <strong>6502</strong> dla iteracji <code>.WHILE</code> zastąpiona została przez dyrektywę <code>#WHILE</code>, dyrektywa <code>.ENDW</code> przez <code>#END</code>, np.:</li>
+</ul>
+<pre><code> lda 20               -&gt;       lda 20
+ # while .byte @=20   -&gt;  wait cmp 20
+ # end                -&gt;       sne
+                      -&gt;       jmp wait
+</code></pre>
+<ul>
+<li>dyrektywy <code>#IF</code> <code>#WHILE</code> akceptują dwa dodatkowe operatory <code>==</code> <code>!=</code></li>
+<li>dodana dyrektywa <code>.EXITM</code> jako odpowiednik <code>.EXIT</code></li>
+<li>dodana dyrektywa <code>.FI</code> jako odpowiednik <code>.ENDIF</code></li>
+<li>dodana dyrektywa <code>.IFDEF</code> jako krótszy odpowiednik dyrektyw <code>.IF</code> <code>.DEF</code></li>
+<li>dodana dyrektywa <code>.IFNDEF</code> jako krótszy odpowiednik dyrektyw <code>.IF</code> <code>.NOT</code> <code>.DEF</code></li>
+<li>umożliwione zostało definiowanie makr w obszarze procedury <code>.PROC</code>, podsumowując aktualnie dopuszczalne jest zdefiniowanie makra w obszarze <code>.LOCAL</code> <code>.PROC</code></li>
+<li>wystąpienie jakiegokolwiek ostrzeżenia podczas asemblacji nie zmieni kodu wyjścia (exit_code=0), zmiana podyktowana potrzebą kompatybilności z linuxowym makefile</li>
+<li>ujednolicony sposób deklaracji etykiet lokalnych i globalnych, "białe znaki" przed nazwą etykiety nie wymuszą zdefiniowania takiej etykiety jako globalnej, umożliwi to tylko dyrektywa <code>.DEF :LABEL</code></li>
+<li>poprawione makra <code>@CALL.MAC</code> <code>@CALL_2.MAC</code>, zmienna tymczasowa globalna <code>?@stack_offset</code> modyfikowana jest teraz przez dyrektywę <code>.DEF</code></li>
+<li>rezygnacja z opcji <code>-E</code> (Eat White spaces), aktualnie jest ta opcja zawsze włączona</li>
+<li>poprawione wyświetlanie numeru linii z błędem w aktualnie wykonywanym makrze</li>
+<li>skrócone nazwy etykiet tworzonych podczas wykonywania makr (łatwiejsza ich identyfikacja w pliku <code>*.LAB</code>)</li>
+<li>poprawione działanie opcji <code>OPT H-</code></li>
+<li>dodane nowe makro rozkazy <code>INL</code> (increse LONG), <code>IND</code> (increse DWORD), <code>DEL</code> (decrese LONG), <code>DED</code> (decrese DWORD)</li>
+<li>dodane nowe makro rozkazy <code>CPB</code> (compare BYTE), <code>CPW</code> (compare WORD), <code>CPL</code> (compare LONG), <code>CPD</code> (compare DWORD)</li>
+<li>usprawnione i rozszerzone działanie dyrektyw <code>#TEST</code> <code>#WHILE</code> w oparciu o kod generowany przez makro rozkazy <code>CPB</code> <code>CPW</code> <code>CPL</code> <code>CPD</code>, dyrektywy <code>#TEST</code> <code>#WHILE</code> dla wyrażeń <code>=#0</code> <code>&lt;&gt;#0</code> generują najkrótszy kod wynikowy</li>
+<li>dodana optymalizacja długości generowanego kodu dla makro rozkazów <code>MWA</code> <code>MWX</code> <code>MWY</code></li>
+<li>dodana nowa opcja OPT R optymalizująca kod makro rozkazów <code>MWA</code> <code>MWX</code> <code>MWY</code> <code>MVA</code> <code>MVX</code> <code>MVY</code> ze względu na zawartość rejestrów, np.:</li>
+</ul>
+<pre><code>                opt r-        opt r+
+mva #0 $80  -&gt;  lda #$00  -&gt;  lda #0
+mva #0 $81  -&gt;  sta $80   -&gt;  sta $80
+                lda #$00  -&gt;  sta $81
+                sta $81   -&gt;
+</code></pre>
+<ul>
+<li>rozszerzona funkcjonalność dyrektywy <code>.DEF</code> o możliwość przypisania wartości nowo deklarowanej etykiecie, np.:</li>
+</ul>
+<pre><code>.def label = 1
+</code></pre>
+<ul>
+<li>rozszerzona funkcjonalność dyrektywy <code>.DEF</code> o możliwość zdefiniowania etykiety globalnej niezależnie od aktulnego obszaru lokalnego, np.:</li>
+</ul>
+<pre><code>.def :label
+</code></pre>
+<ul>
+<li>umożliwiona została addytywność obszarów <code>.LOCAL</code>, tzn. może istnieć wiele obszarów lokalnych o tej samej nazwie, symbole zawarte w takich obszarach należeć będą do wspólnej przestrzeni nazw, np.:</li>
+</ul>
+<pre><code>.local namespace
+
+ .proc proc1
+ .endp
+
+.endl
+
+.local namespace
+
+ .proc proc2
+ .endp
+
+.endl
+</code></pre>
+<h2 id="178">1.7.8</h2>
+<ul>
+<li>dodane dyrektywy <code>.MEND</code> <code>.PGEND</code> <code>.REND</code> jako odpowiedniki <code>.ENDM</code> <code>.ENDPG</code> <code>.ENDR</code></li>
+<li>obecnie deklaracja makra musi kończyć się dyrektywą <code>.ENDM</code> lub <code>.MEND</code> (poprzednio dopuszczalne było użycie dyrektywy <code>.END</code>)</li>
+<li>poprawiony sposób wykonywania makr dzięki czemu umożliwione zostało wykonanie dyrektywy <code>.ENDL</code> z poziomu wykonywanego makra</li>
+<li>poprawione zauważone błędy dotyczące starszych bajtów relokowanego adresu oraz bloku aktualizacji symboli publicznych</li>
+<li>dodana nowa dyrektywa <code>.USING</code> <code>.USE</code> pozwalająca określić ścieżkę poszukiwań dla nazw etykiet</li>
+<li>poprawione działanie dyrektyw <code>.LOCAL</code> <code>.DEF</code>, których błędne działanie objawiało się w szczególnych przypadkach</li>
+<li>poprawione działanie makro rozkazów skoków (<code>SNE</code> <code>RNE</code> itp.), których błędne działanie objawiało się w szczególnych przypadkach</li>
+<li>rozszerzona składnia dyrektywy <code>.TEST</code> (kod <strong>6502</strong> dla warunku) o dowolną ilość wyrażeń połączonych przez <code>.OR</code> lub <code>.AND</code> (brak możliwości zmiany piorytetu wartościowania przy pomocy nawiasów), np.:</li>
+</ul>
+<pre><code>.test .byte k&gt;#10+1 .or .word j&gt;#100 .and .word j&lt;#105 .or .byte k&lt;=#5
+...
+...
+.endt
+</code></pre>
+<ul>
+<li>rozszerzona składnia dyrektywy <code>.WHILE</code> (kod <strong>6502</strong> dla pętli) o dowolną ilość wyrażeń połączonych przez <code>.OR</code> lub <code>.AND</code> (brak możliwości zmiany piorytetu wartościowania przy pomocy nawiasów), np.:</li>
+</ul>
+<pre><code>.while .byte k&gt;#4 .and .byte k&lt;#39
+...
+...
+.endw
+</code></pre>
+<h2 id="176-177">1.7.6 - 1.7.7</h2>
+<ul>
+<li>dodany nowy przełącznik <code>-B:ADDRESS</code> umożliwiający asemblacje od zadanego adresu</li>
+<li>dodany nowa opcja <code>OPT F+-</code> pozwalająca tworzyć bloki ciągłej pamięci (przydatne dla cartów)</li>
+<li>dodana obsługa parametrów typu <code>.LONG</code> <code>.DWORD</code> przekazywanych do procedur <code>.PROC</code> typu <code>.VAR</code> (poprzednio akceptowanymi typami parametrów był tylko <code>.BYTE</code> <code>.WORD</code>)</li>
+<li>dodana nowa dyrektywa <code>.FL</code> realizująca zapis liczb rzeczywistych <code>REAL</code> w formacie <strong>FP Atari</strong>, np.:</li>
+</ul>
+<pre><code>pi .fl 3.1415926535897932384626433832795  ; 40 03 14 15 92 65
+tb .fl 0.5 12.34 -2.30 0.00002
+tb .fl 0.5, 12.34, -2.30, 0.00002
+</code></pre>
+<ul>
+<li>umożliwiony został zapis wartości innych typów niż tylko <code>.BYTE</code> w bloku <code>.ARRAY</code></li>
+<li>dodana obsługa typów wielokrotnych dla <code>.STRUCT</code>, poprzednio takie typy były akceptowane jednak pamięć nie była właściwie dla nich rezerwowana, np.:</li>
+</ul>
+<pre><code>.struct test
+  x :200 .byte
+  y :999 .long
+.ends
+
+buf dta test [0]
+</code></pre>
+<ul>
+<li>poprawione błędy dotyczące generowania kodu relokowalnego zauważone przez <strong>Laoo</strong>, np.:</li>
+</ul>
+<pre><code>    .reloc
+    lda temp
+
+temp .long $aabbcc
+</code></pre>
+<ul>
+<li>błąd <strong>Addres relocation overload</strong> wystąpi teraz tylko gdy wyrażenie będzie dotyczyć więcej niż jednej etykiety relokowalnej, poprzednio każde wyrażenie z udziałem etykiety relokowalnej powodowało wyświetlenie tego komunikatu błędu</li>
+<li>blok aktualizacji symboli plublicznych rozszerzony został o możliwość przekazywania stałych różnych typów B-YTE, W-ORD, L-ONG, D-WORD, poprzednio przekazywanym typem był tylko W-ORD</li>
+<li>zmienione działanie dyrektywy <code>.VAR</code> w blokach <code>.LOCAL</code> znajdujących się w bloku <code>.PROC</code>, zmienne takie zawsze odkładane są na końcu bloku przed dyrektywą <code>.ENDP</code>, w pozostałych przypadkach na końcu bloku <code>.LOCAL</code> przed dyrektywą <code>.ENDL</code></li>
+<li>umożliwiona została relokowalność kodu generowanego przez dyrektywy <code>.WHILE</code> <code>.TEST</code></li>
+<li>poprawione działanie testowania wartości typu <code>.WORD</code> w kodzie generowanym przez dyrektywy <code>.WHILE</code> <code>.TEST</code></li>
+<li>dodana nowa dyrektywa <code>.ADR</code> zwracająca adres etykiety przed zmianą adresu asemblacji</li>
+<li>dodana nowa dyrektywa <code>.LEN</code> zwracająca długość bloków zdefiniowanych przez <code>.PROC</code> <code>.ARRAY</code></li>
+<li>poprawione działanie operacji dzielenia, mnożenia i modulo, poprzednio błędnie był interpretowany piorytet dla tych operacji</li>
+<li>komentarze z końca linii nie poprzedzone znakiem komentarza będą powodować wystąpienie błędu <strong>Unexpected end of line</strong></li>
+<li>dodana możliwość przypisania zmiennej pól zdefiniowanych przez strukture, np.:</li>
+</ul>
+<pre><code>@point .struct
+       x .byte
+       y .byte
+       .ends
+
+a @point
+b @point
+c @point
+</code></pre>
+<ul>
+<li>rozszerzona składnia <code>.STRUCT</code> o możliwość dodania nowych pól bez definiowania nazwy pola, np.:</li>
+</ul>
+<pre><code>.struct @id
+ id .word
+.ends
+.struct @mem
+ @id
+ adr .word
+.ends
+</code></pre>
+<ul>
+<li>rozszerzona składnia makro rozkazu <code>MWA</code> o możliwość użycia adresowania pośredniego strony zerowej postindeksowanego <code>Y</code>, np.:</li>
+</ul>
+<pre><code>mwa ($80),y $a000,x
+mwa $bc40,y ($f0),y
+mwa ($80),y ($82),y
+</code></pre>
+<ul>
+<li>rozszerzona składnia dyrektywy <code>.EXTRN</code>, obecnie możliwe jest zapowiedzenie większej ilości etykiet różnych typów w jednym wierszu, zapowiedzenie procedury <code>.PROC</code> w takim wierszu musi znajdować się na jego końcu, np.:</li>
+</ul>
+<pre><code>.extrn a,b,c,d .byte  x y z .word  line .proc(.byte x,y) .reg
+</code></pre>
+<ul>
+<li>rozszerzona składnia dyrektywy <code>.VAR</code>, obecnie możliwe jest zadeklarowanie większej ilości etykiet różnych typów w jednym wierszu oraz przypisanie im adresu od którego zostaną odłożone w pamięci, np.:</li>
+</ul>
+<pre><code>.var x y z .byte bit :2 .dword = $80
+</code></pre>
+<ul>
+<li>rozszerzona składnia dla parametrów procedur przekazywanych przez zmienne <code>.VAR</code>, możliwe jest podanie przesunięcia np.:</li>
+</ul>
+<pre><code>move .proc (.word src+1,dst+1) .var
+
+src lda $ffff
+dst sta $ffff
+
+     .endp
+</code></pre>
+<ul>
+<li>dodana nowa dyrektywa <code>.NOWARN</code> wyłączająca wyświetlenie ostrzeżenia dla aktualnie asemblowanego wiersza, np.:</li>
+</ul>
+<pre><code>.nowarn PROCNAME
+</code></pre>
+<ul>
+<li>dodane nowe makro rozkazy <code>PHR</code> <code>PLR</code> realizujące odkładanie i zdejmowanie wartości rejestrów z udziałem stosu sprzętowego, np.:</li>
+</ul>
+<pre><code>PHR -&gt; PHA         PLR -&gt; PLA
+       TXA                TAY
+       PHA                PLA
+       TYA                TAX
+       PHA                PLA
+</code></pre>
+<ul>
+<li>dodane nowe makro rozkazy <code>ADB</code>, <code>SBB</code> realizujące dodawanie i odejmowanie wartości typu <code>.BYTE</code>, np.:</li>
+</ul>
+<pre><code>ADB $80 #12 $b000  -&gt;  lda $80
+                       clc
+                       adc #12
+                       sta $b000
+SBB #200 $a000     -&gt;  lda #200
+                       sec
+                       sbc $a000
+                       sta $a000
+</code></pre>
+<ul>
+<li>dodana możliwość użycia składni C dla liczb szestnastkowych, np.:</li>
+</ul>
+<pre><code>lda 0x2000
+ldx #0x12
+
+temp = 0x8000
+</code></pre>
+<h2 id="175">1.7.5</h2>
+<ul>
+<li>dyrektywa <code>.DS</code> w blokach relokowalnych <strong>SDX</strong> <code>RELOC</code> i <strong>MADS</strong> <code>RELOC</code> deklaruje od teraz pusty blok</li>
+<li>dodany nowy przełącznik -F, który umożliwia umieszczanie rozkazów CPU i pseudo rozkazów od pierwszej kolumny w wierszu</li>
+<li>przepisane od nowa procedury odczytu bloków <code>.MACRO</code> <code>.REPT</code> oraz procedura realizująca dzielenie wiersza przy pomocy znaku <code>\</code></li>
+<li>dodane nowe pseudo rozkazy <code>ADW</code>, <code>SBW</code> realizujące dodawanie i odejmowanie wartości typu <code>WORD</code> dla <strong>6502</strong>, np.:</li>
+</ul>
+<pre><code>adw hlp #40        ; hlp=hlp+40
+adw hlp #20 pom    ; pom=hlp+20
+</code></pre>
+<ul>
+<li>rozszerzone działanie dyrektywy <code>.DEF</code> o możliwość zdefiniowania etykiety, np.: <code>.DEF label</code></li>
+<li>zwiększona liczba przebiegów dla deklaracji etykiet przez EQU dla pewnych szczególnych przypadków</li>
+</ul>
+<h2 id="174">1.7.4</h2>
+<ul>
+<li>naprawione działanie dyrektywy <code>.PRINT</code>, dotąd mogła nie wyświetlić wartości etykiet zaczynającej się na literę <code>A</code> <code>B</code> <code>C</code> <code>D</code> <code>E</code> <code>F</code> <code>G</code> <code>H</code> <code>L</code> <code>T</code> <code>V</code></li>
+<li>zablokowane działanie dyrektywy <code>.DS</code> w blokach <code>.RELOC</code> <strong>SDX</strong> oraz naprawione jej działanie z instrukcją warunkową <code>.IF</code> <code>IFT</code></li>
+<li>usprawnione przeszukiwanie ścieżek dostępu <code>-i:path</code> (można odwoływać się do podkatalogów tam zawartych)</li>
+<li>w przypadku wystąpienia błędów podczas asemblacji wyświetlane są one wszystkie a nie tylko pierwszy z błędów</li>
+<li>poprawione zauważone błędy, m.in. użycie makra w pliku <code>.RELO</code>C mogło spowodować w pewnych sytuacjach zapis błędnej informacji o relokownych adresach</li>
+<li>uproszczony został sposób kończenia procedur wykorzystujących stos programowy <strong>MADS</strong>, nie ma potrzeby używania dyrektywy <code>.EXIT</code>, a dyrektywa <code>.ENDP</code> nie powoduje już dodatkowych działań na stosie programowym</li>
+<li>dodana nowa dyrektywa <code>.SYMBOL</code> jako odpowiednik bloku aktualizacji <code>BLK UPDATE NEW SYMBOL 'SYMBOL'</code>, dyrektywę <code>.SYMBOL</code> można użyć w dowolnym miejscu programu</li>
+<li>dodane automatyczne wywoływanie bloków aktualizacji <code>ADDRESS</code> <code>EXTERNAL</code> <code>PUBLIC</code> <code>SYMBOL</code> dla <code>.RELOC</code> i <strong>SDX</strong></li>
+<li>dodane nowe dyrektywy <code>.BY</code> <code>.WO</code> <code>.HE</code> <code>.EN</code> <code>.SB</code> (zapożyczone z <strong>MAE</strong>)</li>
+<li>dodany nowy przełącznik <code>OPT ?-</code> (domyślnie) etykiety ze znakiem zapytania (?labels) traktowane są jako etykiety tymczasowe, <code>OPT ?+</code> etykiety ze znakiem zapytania <code>?labels</code> traktowane są jako lokalne i tymczasowe, nazwą obszaru lokalnego jest ostatnio użyta etykieta bez znaku zapytania</li>
+<li>dodane dyrektywy <code>.LEND</code> <code>.PEND</code> <code>.AEND</code> <code>.WEND</code> <code>.TEND</code> <code>.SEND</code> jako odpowiedniki dyrektyw <code>.ENDL</code> <code>.ENDP</code> <code>.ENDW</code> <code>ENDW</code> <code>.ENDT</code> <code>.ENDS</code></li>
+<li>dodane nowe dyrektywy <code>.GLOBAL</code> <code>.GLOBL</code> jako odpowiednik (zamiennik) dyrektywy <code>.PUBLIC</code></li>
+<li>dodana optymalizacja skoków warunkowych <code>JEQ</code> <code>JNE</code> <code>JPL</code> <code>JMI</code> <code>JCC</code> <code>JCS</code> <code>JVC</code> <code>JVS</code> jeśli jest taka możliwość wybierany jest skok krótki typu <code>BEQ</code> <code>BNE</code> <code>BPL</code> <code>BMI</code> <code>BCC</code> <code>BCS</code> <code>BVC</code> <code>BVS</code></li>
+<li>dodany nowy domyślny separator znak spacji dla przekazywanych parametrów do <code>.PROC</code> <code>.MACRO</code> dotąd był to tylko znak przecinka</li>
+<li>usprawnienia dotyczące przekazywania parametrów do makr i procedur, np. paramatrem makra może być dyrektywa zwracająca wartość wyrażenia lub symbol licznika pętli <code>#</code></li>
+</ul>
+<pre><code>:12 makro #
+</code></pre>
+<ul>
+<li>dodana możliwość użycia znaku spacji jako separatora dla <code>.VAR</code> <code>.EXTRN</code> np.</li>
+</ul>
+<pre><code>.EXTRN a b c d .word
+.VAR i = 1  j = 2 .byte
+.VAR a b c d .byte
+</code></pre>
+<ul>
+<li>rozszerzona składnia dla <code>.VAR</code> umożliwiająca zaincjowanie zmiennych stałą, np.:</li>
+</ul>
+<pre><code>.var i = 10  j = 12 .byte
+.var a , b = 2 .byte
+</code></pre>
+<ul>
+<li>dodane nowe dyrektywy <code>.WHILE</code> <code>.ENDW</code> pozwalające na automatyczne wygenerowanie kodu dla pętli <code>WHILE</code>, np.:</li>
+</ul>
+<pre><code>        ldx #$ff
+.while .word adr &lt; #$bc40+40*24
+        stx $bc40
+   adr: equ *-2
+        inw adr
+.endw
+</code></pre>
+<ul>
+<li>dodane nowe dyrektywy <code>.TEST</code> <code>.ENDT</code> pozwalające na automatyczne wygenerowanie kodu dla warunku, np.:</li>
+</ul>
+<pre><code>.test .byte (@&gt;=#'a')
+  .test .byte (@&lt;=#'z')
+
+  .endt
+.endt
+</code></pre>
+<h2 id="173">1.7.3</h2>
+<ul>
+<li>dodana możliwość zmiany adresu asemblacji <code>.PROC</code> lub <code>.LOCAL</code> bez zmiany adresu ładowania</li>
+<li>usunięto optymalizację kodu dla makro rozkazów <code>MWA</code> itp., która mogła powodować w szczególnych przypadkach zapętlenie się <strong>MADS</strong></li>
+<li>dodane dyrektywy <code>.REG</code> <code>.VAR</code> pozwalające określić sposób przekazywania parametrów do procedur (<code>.REG</code> przez rejestry <strong>CPU</strong>, <code>.VAR</code> przez zmienne)</li>
+<li>dodana dyrektywa <code>.VAR</code> pozwalająca na deklarację zmiennych w blokach <code>.PROC</code> <code>.LOCAL</code>, zadeklarowane zmiennne są fizycznie odkładane na końcu takiego bloku</li>
+<li>rozszerzona składnia dla dyrektywy <code>.EXTRN</code>, np. <code>EXTRN label1,label2,label3... TYPE</code></li>
+<li>jesli brak deklaracji etykiet dla stosu programowego <strong>MADS</strong>, przyjmowane są domyślne wartości <code>@PROC_VARS_ADR=$0500</code> <code>@STACK_ADDRESS=$0600</code> <code>@STACK_POINTER=$FE</code></li>
+<li>dodany <code>repeat_counter #</code>, który można używać zamiennie z dyrektywą <code>.R</code></li>
+<li>wystapi błąd <em>^ not relocatable</em> przy próbie relokacji rozkazu <code>lda ^label</code></li>
+<li>dodana obsługa symboli publicznych dla stałych <code>CONSTANT</code> w blokach <code>PUBLIC</code></li>
+<li>poprawiona relokowalnosc dla tablic <code>.ARRAY</code>, danych stworzonych przez <code>.STRUCT</code>, parametrów przekazywanych do procedur przez stała <code>#</code></li>
+</ul>
+<h2 id="172">1.7.2</h2>
+<ul>
+<li>przepisana na nowo obsługa pseudo rozkazów <code>REQ</code> <code>RNE</code> <code>RPL</code> <code>RMI</code> <code>RCC</code> <code>RCS</code> <code>RVC</code> <code>RVS</code> <code>SEQ</code> <code>SNE</code> <code>SPL</code> <code>SMI</code> <code>SCC</code> <code>SCS</code> <code>SVC</code> <code>SVS</code></li>
+<li>poprawione działanie dyrektywy <code>.LINK</code> dla bloków o stałych adresach</li>
+<li>poprawione testowanie słów zarezerwowanych (można używać nazw zarezerwowanych dla <strong>WDC 65816</strong> gdy używamy tylko <strong>6502</strong>)</li>
+<li>zmiany w listingu, wyświetla informacje o numerze banku tylko gdy bank &gt; 0</li>
+<li>dodana obsługa makro rozkazów <code>MWA</code> <code>MWX</code> <code>MWY</code> <code>MVA</code> <code>MVX</code> <code>MVY</code> <code>ADD</code> <code>SUB</code> <code>INW</code> <code>DEW</code> (do ich obsługi nie są już potrzebne makra)</li>
+</ul>
+<h2 id="171">1.7.1</h2>
+<ul>
+<li>dodana możliwość używania nazw mnemoników <strong>WDC 65816</strong> w trybie pracy <strong>6502</strong>, w trybie <strong>WDC 65816</strong> wystąpi już błąd <strong>Reserved word</strong></li>
+<li>poprawione działanie pseudo rozkazów skoków <code>SCC</code> <code>RNE</code> itp. w makrach</li>
+<li>usprawnione wykonywanie wielu makr rozdzielonych znakiem dwukropka <code>:</code></li>
+</ul>
+<h2 id="170">1.7.0</h2>
+<ul>
+<li>usunięty błąd, który powodował zbyt mała liczbę przebiegów asemblacji</li>
+<li>dodana obsługa pseudo rozkazów <code>JEQ</code> <code>JNE</code> <code>JPL</code> <code>JMI</code> <code>JCC</code> <code>JCS</code> <code>JVC</code> <code>JVS</code> (makra nie są już potrzebne do ich obsługi)</li>
+</ul>
+<h2 id="169">1.6.9</h2>
+<ul>
+<li>rozszerzona składnia dla <code>.ARRAY</code> <code>.PUT</code></li>
+<li>dodany pseudo rozkaz <code>EXT</code> pozwalający na deklaracje etykiety external</li>
+<li>dodane makra <code>JEQ</code> <code>JNE</code> <code>JPL</code> <code>JMI</code> <code>JCC</code> <code>JCS</code></li>
+<li>dodane dyrektywy <code>.PAGES</code> <code>.ENDPG</code></li>
+<li>dodana dyrektywa <code>.END</code> zastepujaca inne dyrektywy <code>.END?</code></li>
+<li>przełącznik <code>-H</code> zastąpiony został przez <code>-HC</code> (generuje plik nagłówkowy dla <strong>CC65</strong>)</li>
+<li>dodany nowy przełącznik <code>-HM</code> generujący plik nagłówkowy dla <strong>MADS</strong> z sortowaniem na etykiety typu <code>CONSTANTS</code> <code>VARIABLES</code> <code>PROCEDURES</code></li>
+<li>dodana nowa dyrektywa <code>.RELOC</code> generująca kod relokowalny w formacie <strong>MADS</strong></li>
+</ul>
+<h2 id="168">1.6.8</h2>
+<ul>
+<li>dodana nowa dyrektywa <code>.PUT</code> oraz rozszerzona składnia dla dyrektywy <code>.GET</code> (../EXAMPLES/MSX/MPT_PLAYER/MPT_RELOCATOR.MAC , ../EXAMPLES/MSX/TMC_PLAYER/TMC_RELOCATOR.MAC)</li>
+<li>dodana obsługa pseudo rozkazów <strong>XASM</strong> <code>REQ</code> <code>RNE</code> <code>RPL</code> <code>RMI</code> <code>RCC</code> <code>RCS</code> <code>RVC</code> <code>RVS</code> <code>SEQ</code> <code>SNE</code> <code>SPL</code> <code>SMI</code> <code>SCC</code> <code>SCS</code> <code>SVC</code> <code>SVS</code></li>
+<li>dodana możliwość łączenia dowolnej liczby znanych <strong>MADS</strong> mnemoników przy pomocy znaku <code>:</code> (styl <strong>XASM</strong>), np.:</li>
+</ul>
+<pre><code>lda:cmp:req 20
+ldx:ldy:lda:iny label
+</code></pre>
+<h2 id="166-167">1.6.6 - 1.6.7</h2>
+<ul>
+<li>źródło <strong>MADS</strong> kompatybilne z <strong>Free Pascal Compiler</strong>, po kompilacji możliwe jest jego używanie na innych platformach systemowych, jak np. <strong>Linux</strong>, <strong>Mac OS</strong>, <strong>OS/2</strong> itp.</li>
+<li>od teraz <strong>MADS</strong> sam dobiera odpowiednią liczbę przebiegów asemblacji, przełącznik <code>/3</code> nie jest już potrzebny</li>
+<li>poprawiony i rozbudowany został mechanizm przekazywania parametrów do <strong>MADS</strong> (rozdział <em>Przełączniki assemblera</em>)</li>
+<li>poprawione zostało wywołanie makra w linii rozdzielanej znakiem <code>\</code> oraz usprawnione rozpoznawanie i wykonywanie linii rozdzielanych znakami <code>\</code></li>
+<li>poprawiony błąd, w którym <strong>MADS</strong> mylił dyrektywę <code>.ENDM</code> z pseudorozkazem <code>IFT</code></li>
+<li>poprawione działanie instrukcji warunkowych <code>.ELSEIF</code> <code>.ELSE</code></li>
+<li>poprawione testowanie poprawności instrukcji warunkowych w makrach</li>
+<li>obsługa procedur <code>.PROC</code> została rozbudowana o nowe makra i mechanizmy, dzięki którym podobna jest w działaniu jak i łatwości użycia do procedur z języków wyższego poziomu</li>
+<li>dla procedur <code>.PROC</code> z zadeklarowanymi parametrami potrzebna jest teraz dodatkowa deklaracja <code>@PROC_VARS_ADR</code></li>
+<li>brak ograniczeń w liczbie parametrów przekazywanych do procedur, jedynym ograniczeniem jest dostępna pamięć</li>
+<li>dodany nowy przełącznik <code>/d:label=value</code> pozwalający zdefiniować nową etykietę <strong>MADS</strong> z poziomu linii poleceń</li>
+<li>dodany nowy przełącznik <code>/x</code> <strong>Exclude unreferenced procedures</strong> pozwalający pominąć podczas asemblacji nie używane w programie procedury zadeklarowane dyrektywą <code>.PROC</code></li>
+<li>nowa opcja <code>OPT T+</code> (track sep, rep) śledząca zmiany rozmiaru rejestrów <code>A</code> <code>X</code> <code>Y</code> dokonywane przez rozkazy <code>SEP</code>, <code>REP</code> <strong>WDC 65816</strong></li>
+<li>nowe biblioteki w katalogu <code>..\EXAMPLES\LIBRARIES</code></li>
+<li>w deklaracji obszaru lokalnego <code>.LOCAL</code> nie jest wymagane podanie nazwy obszaru</li>
+<li>nowe operatory <code>-=</code> <code>+=</code> <code>++</code> <code>--</code> pozwalające zmniejszyć/zwiększyć wartość etykiety tymczasowej, np.:</li>
+</ul>
+<pre><code>?label --      -&gt;   ?label=?label-1
+?lab ++        -&gt;   ?lab=?lab+1
+?temp += 3     -&gt;   ?temp=?temp+3
+?ofset -= 5    -&gt;   ?ofset=?ofset-5
+</code></pre>
+<ul>
+<li>rozszerzona o znak przecinka składnia deklaracji parametrów procedur, np.:</li>
+</ul>
+<pre><code>.proc nazwa (.byte a,b,c .word d,e)
+.endp
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.1.2
+Build Date UTC : 2025-02-16 10:40:40.989803+00:00
+-->

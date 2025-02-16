@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Dyrektywy - Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Dyrektywy";
+    var mkdocs_page_input_path = "dyrektywy.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sposob-uzycia/">Sposób użycia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kontrola/">Kontrola asemblacji</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sparta-dos/">Sparta DOS X</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makro-rozkazy/">Makro rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Dyrektywy</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#symbol-label">.SYMBOL label</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#align-n-fill">.ALIGN N [,fill]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rept-expression-parameter1-parameter2">.REPT expression [,parameter1, parameter2, ...]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pages-expression">.PAGES [expression]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#segdef-label-address-length-attrib-bank">.SEGDEF label address length [attrib] [bank]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#segment-label">.SEGMENT label</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#endseg">.ENDSEG</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#end">.END</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#var-var1value1var2value2-bytewordlongdword-address">.VAR var1[=value1],var2[=value2]... (.BYTE|.WORD|.LONG|.DWORD) [=address]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#zpvar-var1-var2-bytewordlongdword-address">.ZPVAR var1, var2... (.BYTE|.WORD|.LONG|.DWORD) [=address]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#print-echo">.PRINT [.ECHO]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#error-ert-stringstring-error-ert-expression">.ERROR [ERT] 'string'["string"] | .ERROR [ERT] expression</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#byte-word-long-dword">.BYTE, .WORD, .LONG, .DWORD</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dbyte">.DBYTE</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#label-ds-expression-label-ds-elements0elements1-type">[label] .DS expression | label .DS [elements0][elements1][...] .type</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#by-byte-bytes-andor-ascii">.BY [+byte] bytes and/or ASCII</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wo-words">.WO words</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#he-hex-bytes">.HE hex bytes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sb-byte-bytes-andor-ascii">.SB [+byte] bytes and/or ASCII</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cb-byte-bytes-andor-ascii">.CB [+byte] bytes and/or ASCII</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fl-floating-point-numbers">.FL floating point numbers</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#en">.EN</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#adr-label">.ADR label</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#len-label-filename-sizeof-label-filesize-filename">.LEN label ['filename'], .SIZEOF label, .FILESIZE 'filename'</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fileexists-filename">.FILEEXISTS 'filename'</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#define-macro_name-expression">.DEFINE macro_name expression</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#undef-macro_name">.UNDEF macro_name</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#def-label-expression">.DEF label [= expression]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ifdef-label">.IFDEF label</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ifndef-label">.IFNDEF label</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#nowarn">.NOWARN</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using-use">.USING, [.USE]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#get-index-filename-byte-word-long-dword">.GET [index] 'filename'... [.BYTE, .WORD, .LONG, .DWORD]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wget-index-lget-index-dget-index">.WGET [index] | .LGET [index] | .DGET [index]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#put-index-value">.PUT [index] = value</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sav-index-filename-length">.SAV [index] ['filename',] length</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#or-and-xor-not">.OR, .AND, .XOR, .NOT</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#lo-expression-hi-expression">.LO (expression), .HI (expression)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#if-else-elseif-endif">.IF, .ELSE, .ELSEIF, .ENDIF</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../lokal/">Obszar lokalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../procedury/">Procedury</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makra/">Makra</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tablice/">Tablice</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../typy/">Typy danych</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../banki-pamieci/">Banki pamięci</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kod-relokowalny/">Kod relokowalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Dyrektywy</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/dyrektywy.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="dyrektywy">Dyrektywy</h2>
+<p><a href="#a8">.A8, .A16, .AI8, .AI16</a><br>
+ <a href="#i8">.I8, .I16, .IA8, .IA16</a><br></p>
+<p><a href="#asize">.ASIZE</a><br>
+ <a href="#isize">.ISIZE</a><br></p>
+<p><a href="#align">.ALIGN N[,fill]</a></p>
+<p><a href="#tablice">.ARRAY label [elements0][elements1][...] .type [= init_value]</a><br>
+ <a href="#tablice">.ENDA, [.AEND]</a><br></p>
+<p><a href="#def">.DEF label [= expression]</a></p>
+<p><a href="#define">.DEFINE macro_name expression</a><br>
+ <a href="#undef">.UNDEF macro_name</a><br></p>
+<p><a href="../typy/#wyliczenia">.ENUM label</a><br>
+ <a href="../typy/#wyliczenia">.ENDE, [.EEND]</a><br></p>
+<p><a href="#error">.ERROR [ERT] 'string'["string"] lub .ERROR [ERT] expression</a></p>
+<p><a href="../kod-relokowalny/#symbole-zewnetrzne">.EXTRN label [,label2,...] type</a></p>
+<p><a href="#if_else">.IF [IFT] expression</a><br>
+ <a href="#if_else">.ELSE [ELS]</a><br>
+ <a href="#if_else">.ELSEIF [ELI] expression</a><br>
+ <a href="#if_else">.ENDIF [EIF]</a><br></p>
+<p><a href="#ifdef">.IFDEF label</a><br>
+ <a href="#ifndef">.IFNDEF label</a><br></p>
+<p><a href="#obszar-lokalny">.LOCAL label</a><br>
+ <a href="#obszar-lokalny">.ENDL, [.LEND]</a><br></p>
+<p><a href="../kod-relokowalny/#dyrektywy-longa-longi">.LONGA ON|OFF</a><br>
+ <a href="../kod-relokowalny/#dyrektywy-longa-longi">.LONGI ON|OFF</a><br></p>
+<p><a href="../kod-relokowalny/#linkowanie-link">.LINK 'filename'</a></p>
+<p><a href="#makra">.MACRO label</a><br>
+ <a href="#makra">.ENDM, [.MEND]</a><br>
+ <a href="#makra">:[%%]parameter</a><br>
+ <a href="#makra">.EXITM [.EXIT]</a><br></p>
+<p><a href="#nowarn">.NOWARN</a></p>
+<p><a href="#print">.PRINT [.ECHO] 'string1','string2'...,value1,value2,...</a></p>
+<p><a href="#pages">.PAGES [expression]</a><br>
+ <a href="#pages">.ENDPG, [.PGEND]</a><br></p>
+<p><a href="../kod-relokowalny/#symbole-publiczne">.PUBLIC, [.GLOBAL], [.GLOBL] label [,label2,...]</a></p>
+<p><a href="#deklaracja-procedury">.PROC label</a><br>
+ <a href="#deklaracja-procedury">.ENDP, [.PEND]</a><br>
+ <a href="#deklaracja-procedury">.REG, .VAR</a><br></p>
+<p><a href="#rept">.REPT expression [,parameter1, parameter2, ...]</a><br>
+ <a href="#rept">.ENDR, [.REND]</a><br>
+ <a href="#rept">.R</a><br></p>
+<p><a href="../kod-relokowalny/#blok-relokowalny-reloc">.RELOC [.BYTE|.WORD]</a></p>
+<p><a href="../typy/#struktury">.STRUCT label</a><br>
+ <a href="../typy/#struktury">.ENDS, [.SEND]</a><br></p>
+<p><a href="#symbol">.SYMBOL label</a></p>
+<p><a href="#seg">.SEGDEF label address length [bank]</a><br>
+ <a href="#seg">.SEGMENT label</a><br>
+ <a href="#seg">.ENDSEG</a><br></p>
+<p><a href="#using">.USING, [.USE] proc_name, local_name</a></p>
+<p><a href="#var">.VAR var1[=value],var2[=value]... (.BYTE|.WORD|.LONG|.DWORD)</a><br>
+ <a href="#zpvar">.ZPVAR var1, var2... (.BYTE|.WORD|.LONG|.DWORD)</a><br></p>
+<p><a href="#end">.END</a></p>
+<p><a href="#en">.EN</a></p>
+<p><a href="#byte">.BYTE</a><br>
+ <a href="#byte">.WORD</a><br>
+ <a href="#byte">.LONG</a><br>
+ <a href="#byte">.DWORD</a><br></p>
+<p><a href="#or_and">.OR</a><br>
+ <a href="#or_and">.AND</a><br>
+ <a href="#or_and">.XOR</a><br>
+ <a href="#or_and">.NOT</a><br></p>
+<p><a href="#lohi">.LO (expression)</a><br>
+ <a href="#lohi">.HI (expression)</a><br></p>
+<p><a href="#dbyte">.DBYTE words</a><br>
+ <a href="#_ds">.DS expression</a><br></p>
+<p><a href="#_by">.BY [+byte] bytes and/or ASCII</a><br>
+ <a href="#_wo">.WO words</a><br>
+ <a href="#_he">.HE hex bytes</a><br>
+ <a href="#_sb">.SB [+byte] bytes and/or ASCII</a><br>
+ <a href="#_cb">.CB [+byte] bytes and/or ASCII</a><br>
+ <a href="#_fl">.FL floating point numbers</a><br></p>
+<p><a href="#adr">.ADR label</a></p>
+<p><a href="#sizeof">.LEN label ['filename']</a><br>
+ <a href="#sizeof">.SIZEOF label</a><br>
+ <a href="#sizeof">.FILESIZE 'filename'</a><br></p>
+<p><a href="#fileexists">.FILEEXISTS 'filename'</a><br></p>
+<p><a href="#get">.GET [index] 'filename'["filename"][*][+-value][,+-ofset[,length]]</a><br>
+ <a href="#get">.WGET [index]</a><br>
+ <a href="#get">.LGET [index]</a><br>
+ <a href="#get">.DGET [index]</a><br>
+ <a href="#put">.PUT [index] = value</a><br>
+ <a href="#sav">.SAV [index] ['filename',] length</a><br></p>
+<p><a name="symbol"></a></p>
+<h3 id="symbol-label">.SYMBOL label</h3>
+<p>Dyrektywa <code>.SYMBOL</code> to odpowiednik pseudo rozkazu <code>SMB</code> z tą różnicą że nie trzeba podawać symbolu, symbolem jest etykieta label. Dyrektywę <code>.SYMBOL</code> można umieszczać w dowolnym miejscu bloku relokowalnego <strong>SDX</strong> (<code>BLK RELOC</code>) w przeciwieństwie do <code>SMB</code>.</p>
+<p>Jeśli wystąpiła dyrektywa <code>.SYMBOL</code> zostanie wygenerowany odpowiedni blok aktualizacji:</p>
+<pre><code>BLK UPDATE NEW LABEL 'LABEL'
+</code></pre>
+<p>Więcej na temat deklaracji symboli SDX w rozdziale <a href="#smb">Definiowanie symbolu SMB</a>.</p>
+<p><a name="align"></a></p>
+<h3 id="align-n-fill">.ALIGN N [,fill]</h3>
+<p>Dyrektywa <code>.ALIGN</code> pozwala wyrównać adres asemblacji do zadanej wartości <code>N</code>, oraz potencjalnie wypełnić pamięć zadaną wartością <code>FILL</code>. Możliwe jest wyrównanie adresu asemblacji dla kodu relokowalnego pod warunkiem że podamy wartość wypełnienia pamięci <code>FILL</code>.</p>
+<p>Domyślne wartości to: <code>N=$0100</code>, <code>FILL=0</code>.</p>
+<pre><code> .align
+
+ .align $400
+
+ .align $100,$ff
+</code></pre>
+<p><a name="rept"></a></p>
+<h3 id="rept-expression-parameter1-parameter2">.REPT expression [,parameter1, parameter2, ...]</h3>
+<p>Dyrektywa <code>.REPT</code> jest rozwinięciem <code>:repeat</code> z tą różnicą, że nie jest powtarzana jedna linia, tylko zaznaczony blok programu. Początek bloku definiowany jest dyrektywą <code>.REPT</code>, po niej musi wystąpić wartość lub wyrażenie arytmetyczne określające liczbę powtórzeń z zakresu &lt;0..2147483647&gt;, po liczbie powtórzeń opcjonalnie mogą wystąpić parametry. W przeciwieństwie do makr parametry dla <code>.REPT</code> zawsze są najpierw obliczane i dopiero ich wynik jest podstawiany (tą właściwość można wykorzystać do definiowania nowych etykiet). Z parametrów w bloku <code>.REPT</code> korzystamy podobnie jak z parametrów w bloku <code>.MACRO</code>. Koniec bloku <code>.REPT</code> definiuje dyrektywa <code>.ENDR</code>, przed którą nie powinna znajdować się żadna etykieta.</p>
+<p>Dodatkowo w obszarze bloku oznaczonego przez <code>.REPT</code> i <code>.ENDR</code> mamy możliwość skorzystania ze znaku hash <code>#</code> (lub dyrektywy <code>.R</code>), który zwraca aktualną wartość licznika pętli <code>.REPT</code> (podobnie jak dla <code>:repeat</code>).</p>
+<pre><code> .rept 12, #*2, #*3        ; bloki .REPT możemy łączyć z :rept
+ :+4 dta :1                ; :+4 aby odróżnić licznik powtórzeń od parametru :4
+ :+4 dta :2
+ .endr
+
+ .rept 9, #                ; definiujemy 9 etykiet label0..label8
+label:1 mva #0 $d012+#
+ .endr
+</code></pre>
+<p><a name="pages"></a></p>
+<h3 id="pages-expression">.PAGES [expression]</h3>
+<p>Dyrektywa <code>.PAGES</code> pozwala określić liczbę stron pamięci w których powinien zmieścić się nasz fragment kodu ograniczony przez <code>&lt;.PAGES .. .ENDPG&gt;</code> (domyślnie jest to wartość 1). Jeśli kod programu przekroczy zadeklarowaną liczbę stron pamięci wówczas zostanie wygenerowany komunikat błędu <em><strong>Page error at ????</strong></em>.</p>
+<p>Dyrektywy te mogą nam pomóc gdy zależy nam aby fragment programu mieścił się w granicach jednej strony pamięci albo gdy piszemy program mieszczący się w dodatkowym banku pamięci (64 strony pamięci), np.:</p>
+<pre><code> org $4000
+
+ .pages $40
+  ...
+  ...
+ .endpg
+</code></pre>
+<p><a name="seg"></a></p>
+<h3 id="segdef-label-address-length-attrib-bank">.SEGDEF label address length [attrib] [bank]</h3>
+<h3 id="segment-label">.SEGMENT label</h3>
+<h3 id="endseg">.ENDSEG</h3>
+<p>Dyrektywa <code>.SEGDEF</code> definiuje nowy segment LABEL o adresie początkowym <code>ADDRESS</code> i długości <code>LENGTH</code>, dodatkowo możliwe jest określenie atrybutu dla segmentu (R-read, W-rite, RW-ReadWrite - domyślnie) oraz przypisanie numeru wirtualnego banku BANK (domyślnie BANK=0).</p>
+<p>Dyrektywa <code>.SEGMENT</code> aktywuje zapis kodu wynikowego segmentu <code>LABEL</code>. W przypadku przekroczenia zadanej długości segmentu zostanie wygenerowany komunikat błędu <em><strong>Segment LABEL error at ADDRESS</strong></em>.</p>
+<p>Dyrektywa <code>.ENDSEG</code> kończy zapis do aktualnego segmentu, przywraca zapis do głównego bloku programu.</p>
+<pre><code>    .segdef sdata adr0 $100
+    .segdef test  adr1 $40
+
+    org $2000
+
+    nop
+
+    .cb 'ALA'
+
+    .segment sdata
+
+    nop
+
+    .endseg
+
+    lda #0
+
+    .segment test
+    ldx #0
+    clc
+
+    dta c'ATARI'
+
+    .endseg
+
+adr0    .ds $100
+adr1    .ds $40
+</code></pre>
+<h3 id="end">.END</h3>
+<p>Dyrektywa <code>.END</code> może być zamiennie używana z dyrektywami <code>.ENDP</code>, <code>.ENDM</code>, <code>.ENDS</code>, <code>.ENDA</code>, <code>.ENDL</code>, <code>.ENDR</code>, <code>.ENDPG</code>, <code>.ENDW</code>, <code>.ENDT</code></p>
+<p><a name="var"></a></p>
+<h3 id="var-var1value1var2value2-bytewordlongdword-address">.VAR var1[=value1],var2[=value2]... (.BYTE|.WORD|.LONG|.DWORD) [=address]</h3>
+<p>Dyrektywa <code>.VAR</code> służy do deklaracji i inicjacji zmiennych w głównym bloku programu oraz w blokach <code>.PROC</code> i <code>.LOCAL</code>. <strong>MADS</strong> nie wykorzystuje informacji na temat takich zmiennych w dalszych operacjach z udziałem pseudo i makro rozkazów. Dopuszczalne typy zmiennych to <code>.BYTE</code>, <code>.WORD</code>, <code>.LONG</code>, <code>.DWORD</code> i ich wielokrotności, a także typy zadeklarowane przez <code>.STRUCT</code> i <code>.ENUM</code> np.:</p>
+<pre><code> .var a,b , c,d   .word          ; 4 zmienne typu .WORD
+ .var a,b,f  :256 .byte          ; 3 zmienne każda o wielkości 256 bajtów
+ .var c=5,d=2,f=$123344 .dword   ; 3 zmienne .DWORD o wartościach 5, 2, $123344
+
+ .var .byte i=1, j=3             ; 2 zmienne typu .BYTE o wartościach 1, 3
+
+ .var a,b,c,d .byte = $a000      ; 4 zmienne typu .BYTE o adresach kolejno $A000, $A001, $A002, $A003
+
+ .var .byte a,b,c,d = $a0        ; 4 zmienne typu bajt, ostatnia zmiennna 'D' o wartości $A0
+                                 ; !!! dla takiego zapisu nie ma możliwości określenia adresu alokacji zmiennych
+
+  .proc name
+  .var .word p1,p2,p3            ; deklaracja trzech zmiennych typu .WORD
+  .endp
+
+ .local
+  .var a,b,c .byte
+  lda a
+  ldx b
+  ldy c
+ .endl
+
+ .struct Point                   ; nowy typ danych strukturalnych POINT
+ x .byte
+ y .byte
+ .ends
+
+  .var a,b Point                 ; deklaracja zmiennych strukturalnych
+  .var Point c,d                 ; odpowiednik składni 'label DTA POINT'
+</code></pre>
+<p>Tak zadeklarowane zmienne zostaną fizycznie alokowane dopiero na końcu bloku w którym zostały zadeklarowane, po dyrektywie <code>.ENDP</code>, <code>.ENDL</code> (<code>.END</code>). Wyjątek stanowi blok <code>.PROC</code> gdzie zmienne zadeklarowane przez <code>.VAR</code> zawsze alokowane są przed dyrektywą <code>.ENDP</code> niezależnie czy w bloku procedury wystąpiły jakiekolwiek dodatkowe bloki <code>.LOCAL</code> ze zmiennymi deklarowanymi przez <code>.VAR</code></p>
+<p><a name="zpvar"></a></p>
+<h3 id="zpvar-var1-var2-bytewordlongdword-address">.ZPVAR var1, var2... (.BYTE|.WORD|.LONG|.DWORD) [=address]</h3>
+<p>Dyrektywa <code>.ZPVAR</code> służy do deklaracji zmiennych strony zerowej w głównym bloku programu oraz w blokach <code>.PROC</code> i <code>.LOCAL</code>. Próba przypisania wartości (zaincjowania) takiej zmiennej spowoduje wygenerowanie komunikatu ostrzeżenia <em><strong>Uninitialized variable</strong></em>. <strong>MADS</strong> nie wykorzystuje informacji na temat takich zmiennych w dalszych operacjach z udziałem pseudo i makro rozkazów. Dopuszczalne typy zmiennych to <code>.BYTE</code>, <code>.WORD</code>, <code>.LONG</code>, <code>.DWORD</code> i ich wielokrotności, a także typy zadeklarowane przez <code>.STRUCT</code> i <code>.ENUM</code> np.:</p>
+<pre><code> .zpvar a b c d  .word = $80    ; 4 zmienne typu .WORD o adresie początkowym $0080
+ .zpvar i j .byte               ; dwie kolejne zmienne od adresu $0080+8
+
+ .zpvar .word a,b               ; 2 zmienne typu .WORD
+                                ; !!! dla takiej składni nie ma możliwości określenia adresu zmiennych
+
+ .struct Point                  ; nowy typ danych strukturalnych POINT
+ x .byte
+ y .byte
+ .ends
+
+  .zpvar a,b Point              ; deklaracja zmiennych strukturalnych
+  .zpvar Point c,d              ; odpowiednik składni 'label DTA POINT'
+</code></pre>
+<p>Tak zadeklarowanym zmiennym strony zerowej zostaną przypisane adresy dopiero na końcu bloku w którym zostały zadeklarowane, po dyrektywie <code>.ENDP</code>, <code>.ENDL</code> (<code>.END</code>). Wyjątek stanowi blok <code>.PROC</code> gdzie zmiennym zadeklarowanym przez <code>.ZPVAR</code> adresy przypisywane są przed dyrektywą <code>.ENDP</code> niezależnie czy w bloku procedury wystąpiły jakiekolwiek dodatkowe bloki <code>.LOCAL</code> ze zmiennymi deklarowanymi przez <code>.ZPVAR</code>.</p>
+<p>Przy pierwszym użyciu dyrektywy <code>.ZPVAR</code> należy zaincjować adres jaki będzie przypisywany kolejnym zmiennym (domyślnym adresem jest $0080).</p>
+<pre><code> .zpvar = $40
+</code></pre>
+<p>Z każdą kolejną zmienną adres ten jest automatycznie zwiększany przez <strong>MADS</strong>-a, w przypadku gdy adresy zmiennych powtórzą się zostanie wygenerowany komunikat ostrzeżenia <em><strong>Access violations at address $xxxx</strong></em>. W przypadku przekroczenia zakresu strony zerowej zostaje wygenerowany komunikat błędu <em><strong>Value out of range</strong></em>.</p>
+<p><a name="print"></a></p>
+<h3 id="print-echo">.PRINT [.ECHO]</h3>
+<p>Powoduje wypisanie na ekranie podanej jako parametr wartości wyrażenia lub ciągu znakowego ograniczonego apostrofami <code>' '</code> lub <code>" "</code>, np.:</p>
+<pre><code> .print &quot;End: &quot;,*,'..',$8000-*
+ .echo &quot;End: &quot;,*,'..',$8000-*
+</code></pre>
+<p><a name="error"></a></p>
+<h3 id="error-ert-stringstring-error-ert-expression">.ERROR [ERT] 'string'["string"] | .ERROR [ERT] expression</h3>
+<p>Dyrektywa <code>.ERROR</code> i pseudo rozkaz <code>ERT</code> mają to samo znaczenie. Zatrzymują asemblację programu oraz wyświetlają komunikat podany jako parametr, ograniczony apostrofami <code>' '</code> lub <code>" "</code>. Jeśli parametrem jest wyrażenie logiczne, wówczas asemblacja zostanie zatrzymana gdy wartość wyrażenia logicznego jest prawdą (komunikat <em><strong>User error</strong></em>), np.:</p>
+<pre><code> ert &quot;halt&quot;            ; ERROR: halt
+ .error &quot;halt&quot;
+
+ ert *&gt;$7fff           ; ERROR: User error
+ .error *&gt;$7fff
+</code></pre>
+<p><a name="byte"></a></p>
+<h3 id="byte-word-long-dword">.BYTE, .WORD, .LONG, .DWORD</h3>
+<p>W/w dyrektywy służą do oznaczenia dopuszczalnych typów parametrów w deklaracji parametrów procedury (<code>.BYTE</code>, <code>.WORD</code>, <code>.LONG</code>, <code>.DWORD</code>). Możliwe jest także ich użycie w celu definicji danych, w zastępstwie pseudo rozkazu <code>DTA</code>.</p>
+<pre><code>.proc test (.word tmp,a,b .byte value)
+
+ .byte &quot;atari&quot;,5,22
+ .word 12,$FFFF
+ .long $34518F
+ .dword $11223344
+</code></pre>
+<p><a name="dbyte"></a></p>
+<h3 id="dbyte">.DBYTE</h3>
+<p>Definicja danych typu <code>WORD</code> w odwrotnej kolejności tzn. najpierw starszy bajt, następnie młodszy bajt.</p>
+<pre><code>.DBYTE $1234,-1,1     ; 12 34 FF FF 00 01
+</code></pre>
+<p><a name="_ds"></a></p>
+<h3 id="label-ds-expression-label-ds-elements0elements1-type">[label] .DS expression | label .DS [elements0][elements1][...] .type</h3>
+<p>Ta dyrektywa zapożyczona została z <strong>MAC'65</strong>, pozwala zarezerwować pamięć bez jej uprzedniej inicjalizacji. Jest to odpowiednik pseudo rozkazu <code>ORG *+expression</code>. Dyrektywy <code>.DS</code> nie można używać w kodzie relokowalnym podobnie jak <code>ORG</code>-a.
+Użycie nawiasów kwadratowych w wyrażeniu umożliwia rezerwowanie pamięci jako tablicy, podobnie jak <code>.ARRAY</code>, wymagane jest wówczas podanie etykiety. Użycie dyrektywy <code>.DS</code> w bloku relokowalnym <strong>Sparta DOS X</strong> wymusi utworzenie bloku pustego <code>blk empty</code>.</p>
+<p>purpose: reserves space for data without initializing then space to any particular value(s).</p>
+<pre><code>usage: [label] .DS expression
+       label .DS [elements0][elements1][...] .TYPE
+</code></pre>
+<p>Using <code>.DS expression</code> is exactly equivalent of using <code>ORG *+expression</code>. That is, the label (if it is given) is set equal to the current value of the location counter. Then then value of the expression is added to then location counter.</p>
+<pre><code>         BUFFERLEN .DS 1     ;reserve a single byte
+         BUFFER   .DS [256]  ;reserve 256 bytes as array [0..255]
+</code></pre>
+<p><a name="_by"></a></p>
+<h3 id="by-byte-bytes-andor-ascii">.BY [+byte] bytes and/or ASCII</h3>
+<p>Store byte values in memory. <em>ASCII</em> strings can be specified by enclosing the string in either single or double quotes.</p>
+<p>If the first character of the operand field is a <code>+</code>, then the following byte will be used as a constant and added to all remaining bytes of the instruction.</p>
+<pre><code>      .BY +$80 1 10 $10 'Hello' $9B
+
+will generate:
+        81 8A 90 C8 E5 EC EC EF 1B
+</code></pre>
+<p>Values in <code>.BY</code> statements may also be separated with commas for compatibility with other assemblers. Spaces are allowed since they are easier to type.</p>
+<p><a name="_wo"></a></p>
+<h3 id="wo-words">.WO words</h3>
+<p>Stores words in memory. Multiple words can be entered.</p>
+<p>Values in <code>.WO</code> statements may also be separated with commas for compatibility with other assemblers. Spaces are allowed since they are easier to type.</p>
+<p><a name="_he"></a></p>
+<h3 id="he-hex-bytes">.HE hex bytes</h3>
+<p>Store hex bytes in memory. This is a convenient method to enter strings of hex bytes, since it does not require the use of the '$' character. The bytes are still separated by spaces however, which I feel makes a much more readable layout than the 'all run together' form of hex statement that some other assemblers use.</p>
+<pre><code>   .HE 0 55 AA FF
+</code></pre>
+<p>Values in <code>.HE</code> statements may also be separated with commas for compatibility with other assemblers. Spaces are allowed since they are easier to type.</p>
+<p><a name="_sb"></a></p>
+<h3 id="sb-byte-bytes-andor-ascii">.SB [+byte] bytes and/or ASCII</h3>
+<p>This is in the same format as the .BY pseudo-op, except that it will convert all bytes into <em>ATASCII</em> screen codes before storing them. The <em>ATASCII</em> conversion is done before any constant is added with the '+' modifier.</p>
+<p>Values in <code>.SB</code> statements may also be separated with commas for compatibility with other assemblers. Spaces are allowed since they are easier to type.</p>
+<p><a name="_cb"></a></p>
+<h3 id="cb-byte-bytes-andor-ascii">.CB [+byte] bytes and/or ASCII</h3>
+<p>This is in the same format as the <code>.BY</code> pseudo-op, except that the last character on the line will be EOR'ed with $80.</p>
+<p>Values in <code>.CB</code> statements may also be separated with commas for compatibility with other assemblers. Spaces are allowed since they are easier to type.</p>
+<p><a name="_fl"></a></p>
+<h3 id="fl-floating-point-numbers">.FL floating point numbers</h3>
+<p>Stores 6-byte <em>BCD</em> floating point numbers for use with the <em>OS FP ROM</em> routines.</p>
+<p>Values in <code>.FL</code> statements may also be separated with commas for compatibility with other assemblers. Spaces are allowed since they are easier to type.</p>
+<h3 id="en">.EN</h3>
+<p>Dyrektywa <code>.EN</code> jest odpowiednikiem pseudo rozkazu <code>END</code>, oznacza koniec asemblowanego bloku programu.</p>
+<p>This is an optional pseudo-op to mark the end of assembly. It can be placed before the end of your source file to prevent a portion of it from being assembled.</p>
+<p><a name="adr"></a></p>
+<h3 id="adr-label">.ADR label</h3>
+<p>Dyrektywa <code>.ADR</code> zwraca wartość etykiety <code>LABEL</code> przed zmianą adresu asemblacji (możliwe jest umieszczenie nazwy etykiety <code>LABEL</code> pomiędzy nawiasami okrągłymi lub kwadratowymi), np.:</p>
+<pre><code> org $2000
+
+.proc tb,$1000
+tmp lda #0
+.endp
+
+ lda .adr tb.tmp  ; = $2000
+ lda tb.tmp       ; = $1000
+</code></pre>
+<p><a name="sizeof"></a></p>
+<h3 id="len-label-filename-sizeof-label-filesize-filename">.LEN label ['filename'], .SIZEOF label, .FILESIZE 'filename'</h3>
+<p>Dyrektywa <code>.LEN</code> zwraca długość (wyrażoną w bajtach) bloku <code>.PROC</code>, <code>.ARRAY</code>, <code>.LOCAL</code>, <code>.STRUCT</code> lub długość pliku o nazwie <code>'filename'</code>. Etykieta <code>LABEL</code> to nazwa bloku <code>.PROC</code>, <code>.ARRAY</code>, <code>.LOCAL</code> lub <code>.STRUCT</code> (możliwe jest umieszczenie nazwy etykiety <code>LABEL</code> pomiędzy nawiasami okrągłymi lub kwadratowymi), np.:</p>
+<pre><code>label .array [255] .dword
+      .enda
+
+      dta a(.len label)   ; = $400
+
+.proc wait
+ lda:cmp:req 20
+ rts
+.endp
+
+ dta .sizeof wait    ; = 7
+</code></pre>
+<p>Dyrektywy <code>.SIZEOF</code> i <code>.FILESIZE</code> to alternatywne nazwy dla <code>.LEN</code>, można używać ich zamiennie zależnie od upodobań programującego.</p>
+<p><a name="fileexists"></a></p>
+<h3 id="fileexists-filename">.FILEEXISTS 'filename'</h3>
+<p>Dyrektywa <code>.FILEEXISTS</code> zwraca <code>'1'</code> gdy plik <code>'filename'</code> istnieje w przeciwnym wypadku zwraca wartość <code>'0'</code> np.:</p>
+<pre><code> ift .fileexists 'filename'
+   .print 'true'
+  els
+   .print 'false'
+  eif
+</code></pre>
+<p><a name="define"></a></p>
+<h3 id="define-macro_name-expression">.DEFINE macro_name expression</h3>
+<p>Dyrektywa <code>.DEFINE</code> pozwala zdefiniować jedno-liniowe makro <code>MACRO_NAME</code>. Dopuszczalnych jest dziewięć parametrów <code>%%1.%%9</code> (<code>:1..:9</code>) reprezentowanych w ten sam sposób jak dla makr <code>.MACRO</code>, poprzez znaki <code>%%</code> lub znak <code>:</code>. Nazwy literowe parametrów nie są akceptowane, nie ma możliwości użycia znaku podziału linii <code>\</code>.</p>
+<pre><code> .define poke mva #%%2 %%1
+
+ poke(712, 100)
+</code></pre>
+<p>Makro jedno-liniowe <code>.DEFINE</code> można wielokrotnie definiować w trakcie jednego przebiegu asemblacji.</p>
+<pre><code> .define pisz %%1+%%2
+
+ .print pisz(712, 100)
+
+ .define pisz %%1-%%2
+
+ .print pisz(712, 100)
+</code></pre>
+<p><a name="undef"></a></p>
+<h3 id="undef-macro_name">.UNDEF macro_name</h3>
+<p>Dyrektywa <code>.UNDEF</code> usuwa definicję jedno-liniowego makra <code>MACRO_NAME</code>.</p>
+<pre><code> .define poke mva #%%2 %%1
+
+ .undef poke
+</code></pre>
+<p><a name="def"></a></p>
+<h3 id="def-label-expression">.DEF label [= expression]</h3>
+<p>Dyrektywa <code>.DEF</code> pozwala sprawdzić obecność definicji etykiety <code>LABEL</code> lub ją zdefiniować. Jeśli etykieta została zdefiniowana zwraca wartość <code>1</code> czyli <code>TRUE</code>, w przeciwnym wypadku zwraca <code>0</code> czyli <code>FALSE</code>. Możliwe jest umieszczenie nazwy etykiety <code>LABEL</code> pomiędzy nawiasami okrągłymi lub kwadratowymi, np.:</p>
+<pre><code> ift .not(.def label)
+ .def label
+ eif
+</code></pre>
+<p>Definiowane etykiety są zasięgu aktualnego obszaru lokalnego, jeśli chcemy zdefiniować etykiety globalne stawiamy przed etykietą znak <code>:</code>, np.</p>
+<pre><code>.local test
+ :10 .def :label%%1
+.endl
+</code></pre>
+<p>This unary operator tests whether the following label has been defined yet, returning TRUE or FALSE as appropriate.</p>
+<blockquote>
+<p><em>CAUTION:</em>
+<em>Defining a label AFTER the use of a .DEF which references it can be dangerous, particularly if the .DEF is used in a .IF directive.</em></p>
+</blockquote>
+<p><a name="ifdef"></a></p>
+<h3 id="ifdef-label">.IFDEF label</h3>
+<p>Dyrektywa <code>.IFDEF</code> jest krótszym odpowiednikiem warunku <code>.IF .DEF LABEL</code></p>
+<pre><code>.ifdef label
+       jsr proc1
+.else
+       jsr proc2
+.endif
+</code></pre>
+<p><a name="ifndef"></a></p>
+<h3 id="ifndef-label">.IFNDEF label</h3>
+<p>Dyrektywa <code>.IFNDEF</code> jest krótszym odpowiednikiem warunku <code>.IF .NOT .DEF LABEL</code></p>
+<pre><code>.ifndef label
+      clc
+.else
+      sec
+.endif
+</code></pre>
+<p>Dla n/w przykładu asemblacja bloku <code>.IFNDEF</code> (<code>.IF</code>) będzie miała miejsce tylko w pierwszym przebiegu, jeśli umieścimy w takim bloku jakikolwiek kod programu na pewno nie zostanie on wygenerowany do pliku, definicje etykiet zostaną przeprowadzone tylko w pierwszym przebiegu, jeśli wystąpiły jakiekolwiek błędy związane z ich definiowaniem dowiemy się o nich dopiero w momencie próby odwołania do takich etykiet, będzie to komunikat błędu <em><strong>Undeclared label LABEL_NAME</strong></em></p>
+<pre><code> .ifndef label
+ .def label
+ lda #0               ; ten rozkaz nie zostanie zasemblowany, tylko ostatni przebieg asemblacji generuje kod
+ temp = 100           ; etykieta TEMP zostanie zdefiniowana tylko w 1 przebiegu asemblacji
+ .endif
+</code></pre>
+<p><a name="nowarn"></a></p>
+<h3 id="nowarn">.NOWARN</h3>
+<p>Dyrektywa <code>.NOWARN</code> wyłącza komunikat ostrzeżenia dla aktualnie asemblowanego wiersza programu.</p>
+<pre><code>.nowarn .proc temp       ; nie zostanie wygenerowane ostrzeżenie 'Unreferenced procedure TEMP'
+        .endp
+</code></pre>
+<p><a name="using"></a></p>
+<h3 id="using-use">.USING, [.USE]</h3>
+<p>Dyrektywa <code>.USING</code> (<code>.USE</code>) pozwala określić dodatkową ścieżkę poszukiwań dla nazw etykiet. Działanie <code>.USING</code> (<code>.USE</code>) obowiązuje w aktualnej przestrzeni nazw jak i kolejnych zawierających się w tej przestrzeni.</p>
+<pre><code>.local move
+
+tmp    lda #0
+hlp    sta $a000
+
+.local move2
+
+tmp2   ldx #0
+hlp2   stx $b000
+
+.endl
+
+.endl
+
+.local main
+
+.use move.move2
+
+       lda tmp2
+
+.use move
+
+       lda tmp
+
+.endl
+</code></pre>
+<p><a name="get"></a></p>
+<h3 id="get-index-filename-byte-word-long-dword">.GET [index] 'filename'... [.BYTE, .WORD, .LONG, .DWORD]</h3>
+<h3 id="wget-index-lget-index-dget-index">.WGET [index] | .LGET [index] | .DGET [index]</h3>
+<p><code>.GET</code> jest odpowiednikiem pseudo rozkazu <code>INS</code> (podobna składnia), z tą różnicą że plik nie jest dołączany do asemblowanego pliku tylko ładowany do pamięci <strong>MADS</strong>-a. Ta dyrektywa pozwala wczytać określony plik do pamięci <strong>MADS</strong>-a i odwoływać się do bajtów tego pliku jak do tablicy jednowymiarowej.</p>
+<pre><code> .get 'file'                    ; wczytanie pliku do tablicy MADS-a
+ .get [5] 'file'                ; wczytanie pliku do tablicy MADS-a od indeksu = 5
+
+ .get 'file',0,3                ; wczytanie do tablicy MADS-a 3-ech wartości
+
+ lda #.get[7]                   ; odczytanie 7 bajtu z tablicy MADS-a
+ adres = .get[2]+.get[3]&lt;&lt;8     ; 2 i 3 bajt w nagłówku pliku DOS zawiera informacje o adresie ładowania
+
+ adres = .wget[2]              ; word
+ tmp = .lget[5]                ; long
+ ?x = .dget[11]                ; dword
+</code></pre>
+<p>Przy pomocy dyrektyw <code>.GET</code>, <code>.PUT</code> można odczytać np moduł <strong>Theta Music Composer</strong> (<em>TMC</em>) i dokonać jego relokacji. Realizuje to załączone do <strong>MADS</strong>-a makro z katalogu ../EXAMPLES/MSX/TMC_PLAYER/tmc_relocator.mac.</p>
+<p>Dopuszczalny zakres wartości dla <code>INDEX</code> = <code>&lt;0..65535&gt;</code>. Wartości odczytywane przez <code>.GET</code> są typu <code>BYTE</code>. Wartości odczytywane przez <code>.WGET</code> są typu <code>WORD</code>. Wartości odczytywane przez <code>.LGET</code> są typu <code>LONG</code>. Wartości odczytywane przez <code>.DGET</code> są typu <code>DWORD</code>.</p>
+<p><a name="put"></a></p>
+<h3 id="put-index-value">.PUT [index] = value</h3>
+<p>Dyrektywa <code>.PUT</code> pozwala odwołać się do tablicy jednowymiarowej w pamięci <strong>MADS</strong>-a i zapisać w niej wartość typu <code>BYTE</code>. Jest to ta sama tablica do której dyrektywa <code>.GET</code> zapisuje plik.
+Dopuszczalny zakres wartości dla INDEX = &lt;0..65535&gt;.</p>
+<pre><code> .put [5] = 12       ; zapisanie wartosci 12 w talicy MADS-a na pozycji 5-ej
+</code></pre>
+<p><a name="sav"></a></p>
+<h3 id="sav-index-filename-length">.SAV [index] ['filename',] length</h3>
+<p>Dyrektywa <code>.SAV</code> pozwala zapisać bufor używany przez dyrektywy <code>.GET</code>, <code>.PUT</code> do pliku zewnętrznego lub dołączenie do aktualnie asemblowanego.</p>
+<pre><code> .sav ?length            ; dołączenie do asemblowanego pliku zawartości bufora [0..?length-1]
+ .sav [200] 256          ; dołączenie do asemblowanego pliku zawartości bufora [200..200+256-1]
+ .sav [6] 'filename',32  ; zapisanie do pliku FILENAME zawartości bufora [6..6+32-1]
+</code></pre>
+<p>Dopuszczalny zakres wartości dla INDEX = &lt;0..65535&gt;.</p>
+<p><a name="or_and"></a></p>
+<h3 id="or-and-xor-not">.OR, .AND, .XOR, .NOT</h3>
+<p>W/w dyrektywy to odpowiedniki operatorów logicznych <code>||</code> (<code>.OR</code>), <code>&amp;&amp;</code> (<code>.AND</code>), <code>^</code> (<code>.XOR</code>), <code>!</code> (<code>.NOT</code>).</p>
+<p><a name="lohi"></a></p>
+<h3 id="lo-expression-hi-expression">.LO (expression), .HI (expression)</h3>
+<p>W/w dyrektywy to odpowiedniki operatorów odpowiednio <code>&lt;</code> (młodszy bajt) i <code>&gt;</code> (starszy bajt).</p>
+<p><a name="if_else"></a></p>
+<h3 id="if-else-elseif-endif">.IF, .ELSE, .ELSEIF, .ENDIF</h3>
+<pre><code> .IF     [IFT] expression
+ .ELSE   [ELS]
+ .ELSEIF [ELI] expression
+ .ENDIF  [EIF]
+</code></pre>
+<p>W/w dyrektywy i pseudo rozkazy wpływają na przebieg asemblacji (można ich używać zamiennie), np.:</p>
+<pre><code> .IF .NOT .DEF label_name
+   label_name = 1
+ .ENDIF
+
+ .IF [.NOT .DEF label_name] .AND [.NOT .DEF label_name2]
+   label_name = 1
+   label_name2 = 2
+ .ENDIF
+</code></pre>
+<p>W w/w przykładzie nawiasy (kwadratowe lub okrągłe) są koniecznością, ich brak spowodowałby że dla pierwszej dyrektywy <code>.DEF</code> parametrem byłaby nazwa etykiety <code>label_name.AND.NOT.DEFlabel_name2</code> (spacje są pomijane, a znak kropki akceptowany w nazwie etykiety).</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../lokal/" class="btn btn-neutral float-right" title="Obszar lokalny">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../pseudo-rozkazy/" class="btn btn-neutral" title="Pseudo rozkazy"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../pseudo-rozkazy/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../lokal/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

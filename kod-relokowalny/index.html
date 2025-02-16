@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Kod relokowalny - Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Kod relokowalny";
+    var mkdocs_page_input_path = "kod-relokowalny.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sposob-uzycia/">Sposób użycia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kontrola/">Kontrola asemblacji</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sparta-dos/">Sparta DOS X</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makro-rozkazy/">Makro rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy/">Dyrektywy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../lokal/">Obszar lokalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../procedury/">Procedury</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makra/">Makra</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tablice/">Tablice</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../typy/">Typy danych</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../banki-pamieci/">Banki pamięci</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Kod relokowalny</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#wstep">Wstęp</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#blok-relokowalny-reloc">Blok relokowalny .RELOC</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#symbole-zewnetrzne-extrn">Symbole zewnętrzne .EXTRN</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#symbole-publiczne-public">Symbole publiczne .PUBLIC</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dyrektywy-longa-longi">Dyrektywy .LONGA .LONGI</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#linkowanie-link">Linkowanie .LINK</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Kod relokowalny</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/kod-relokowalny.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1"></h1>
+<h2 id="wstep">Wstęp</h2>
+<p>Kod relokowalny to taki kod, który nie ma z góry określonego adresu ładowania do pamięci komputera, kod taki musi zadziałać niezależnie od adresu załadowania. W <strong>Atari XE/XL</strong> kod relokowalny udostępnia system <strong>Sparta DOS X</strong> (<strong>SDX</strong>), więcej na ten temat można przeczytać w rozdziale <em>Sparta DOS X - Programowanie</em>.</p>
+<p>Kod relokowalny dla <strong>SDX</strong> posiada podstawowe ograniczenie jakim jest relokowanie tylko adresów typu <code>WORD</code>, nie ma także obsługi rozkazów <em>CPU 65816</em>. <strong>MADS</strong> udostępnia możliwość generowania kodu relokowalnego w formacie <strong>SDX</strong> jak i swoim własnym niekompatybilnym z <strong>SDX</strong>, który znosi wcześniej wymienione ograniczenia.</p>
+<p>Format zapisu pliku z kodem relokowalnym <strong>MADS</strong> jest podobny do tego znanego z <strong>SDX</strong>, podobnie występuje tutaj blok główny i bloki dodatkowe z informacją o adresach które należy poddać relokacji. MADS stosuje prostszy zapis bloków aktualizacji, bez <em>kompresji</em> jaką stosuje <strong>SDX</strong>.</p>
+<p>Zalety kodu relokowalnego <strong>MADS</strong>:</p>
+<ul>
+<li>uwzględnia rozmiar argumentów dla <em>CPU 6502</em>, <em>65816</em></li>
+<li>można używać wszystkie rozkazy <em>CPU</em>, bez ograniczeń</li>
+<li>pozwala na relokacje młodszych i starszych bajtów adresu</li>
+</ul>
+<p>Ograniczenia kodu relokowalnego <strong>MADS</strong>:</p>
+<ul>
+<li>deklaracji etykiet przez <code>EQU</code> dokonujemy przed blokiem <code>.RELOC</code></li>
+<li>jeśli chcemy zdefiniować nową etykietę w bloku <code>.RELOC</code> musimy jej nazwę poprzedzić spacją lub tabulatorem (etykieta globalna)</li>
+<li>nie można używać pseudo rozkazów <code>ORG</code> <code>RMB</code> <code>LMB</code> <code>NMB</code> oraz dyrektywy <code>.DS</code></li>
+<li>nie można relokować najstarszego bajtu ze słowa 24bit, np. <code>lda ^$121416</code></li>
+</ul>
+<p>Przykładem tego jak prosto można stworzyć kod relokowalny jest plik <code>..\EXAMPLES\TETRIS_RELOC.ASM</code>, który od strony użytej listy rozkazów <em>CPU</em> i pseudo rozkazów definiujących dane niczym nie różni się od wersji nierelokowalnej <code>..\EXAMPLES\TETRIS.ASM</code>.</p>
+<h2 id="blok-relokowalny-reloc">Blok relokowalny .RELOC</h2>
+<p>Blok relokowalny <strong>MADS</strong> zostanie wygenerowany po użyciu dyrektywy:</p>
+<pre><code>.RELOC [.BYTE|.WORD]
+</code></pre>
+<p>Blok aktualizacji dla bloku relokowalnego <strong>MADS</strong> wywołujemy używając pseudo rozkazu <code>BLK</code>:</p>
+<pre><code>BLK UPDATE ADDRESS
+</code></pre>
+<p>Po dyrektywie <code>.RELOC</code> możliwe jest podanie typu bloku relokowalnego <code>.BYTE</code> <code>.WORD</code>, domyślnie jest to typ <code>.WORD</code>. Typ <code>.BYTE</code> dotyczy bloku przeznaczonego do umieszczenia wyłącznie na stronie zerowej (będzie zawierał rozkazy strony zerowej), <strong>MADS</strong> będzie asemblował taki blok od adresu <code>$0000</code>. Typ <code>.WORD</code> oznacza że <strong>MADS</strong> będzie asemblował blok relokowalny od adresu <code>$0100</code> i będzie przeznaczony do umieszczenia w dowolnym obszarze pamięci (nie będzie zawierał rozkazów strony zerowej).</p>
+<p>Nagłówek bloku <code>.RELOC</code> przypomina ten znany z <strong>DOS</strong>, dodatkowo został on rozszerzony o 10 nowych bajtów czyli w sumie zajmuje 16 bajtów, np.:</p>
+<pre><code>HEADER            .WORD = $FFFF
+START_ADDRESS     .WORD = $0000
+END_ADDRESS       .WORD = FILE_LENGTH-1
+MADS_RELOC_HEADER .WORD = $524D
+UNUSED            .BYTE = $00
+CONFIG            .BYTE (bit0)
+@STACK_POINTER    .WORD
+@STACK_ADDRESS    .WORD
+@PROC_VARS_ADR    .WORD
+</code></pre>
+<ul>
+<li><code>MADS_RELOC_HEADER</code></li>
+</ul>
+<p>Zawsze o wartości <code>$524D</code> co odpowiada znakom <code>MR</code> (M-ADS R-ELOC).</p>
+<ul>
+<li><code>FILE_LENGTH</code></li>
+</ul>
+<p>To długość bloku relokowalnego bez 16 bajtowego nagłówka.</p>
+<ul>
+<li><code>CONFIG</code></li>
+</ul>
+<p>Wykorzystany jest obecnie tylko <code>bit0</code> tego bajtu, <code>bit0=0</code> oznacza blok relokowalny asemblowany od adresu <code>$0000</code>, <code>bit0=1</code> blok relokowalny asemblowany od adresu <code>$0100</code></p>
+<hr />
+<p>Ostatnie 6 bajtów zawiera informację o wartościach etykiet potrzebnych do działania stosu programowego <code>@STACK_POINTER</code>, <code>@STACK_ADDRESS</code>, <code>@PROC_VARS_ADR</code> jeśli zostały użyte podczas asemblacji bloków relokowalnych. Jeśli poszczególne bloki <code>.RELOC</code> zostały zasemblowane z różnymi wartościami tych etykiet i są one linkowane wystąpi wówczas komunikat ostrzeżenia <strong>Incompatible stack parameters</strong>. Jeśli stos programowy nie został użyty wartościami tych etykiet są zera.</p>
+<p>Pseudo rozkaz <code>.RELOC</code> powoduje przełączenie <strong>MADS</strong> w tryb generowania kodu relokowalnego z uwzględnianiem rozmiaru argumentów rozkazów <em>CPU 6502</em>, <em>65816</em>. W obszarze takiego kodu niemożliwe jest używanie pseudo rozkazów <code>ORG</code> <code>LMB</code> <code>NMB</code> <code>RMB</code> oraz dyrektywy <code>.DS</code>. Niemożliwy jest powrót <strong>MADS</strong> do trybu generowania kodu nie relokowalnego, możliwe jest wygenerowanie więcej niż jednego bloku <code>.RELOC</code>.</p>
+<p>Użycie dyrektywy <code>.RELOC</code> powoduje dodatkowo zwiększenie licznika wirtualnych banków <strong>MADS</strong> przez co taki obszar staje się lokalny i niewidoczny dla innych bloków. Więcej informacji na temat wirtualnych banków w rozdziale Wirtualne banki pamięci <code>OPT B-</code>.</p>
+<p>Na końcu bloku <code>.RELOC</code> wymagane jest wygenerowanie bloku aktualizacji, realizuje to pseudo rozkaz <code>BLK</code> z identyczną składnią jak dla bloku relokowalnego <strong>SDX</strong> (<strong>BLK UPDATE ADDRESS</strong>). Format zapisu takiego bloku aktualizacji nie jest jednak identyczny z <strong>SDX</strong>, ma następującą postać:</p>
+<pre><code>HEADER       WORD ($FFEF)
+TYPE         CHAR (B-YTE, W-ORD, L-ONG, D-WORD, &lt;, &gt;)
+DATA_LENGTH  WORD
+DATA         WORD [BYTE]
+</code></pre>
+<ul>
+<li><code>HEADER</code></li>
+</ul>
+<p>Zawsze o wartości <code>$FFEF</code>.</p>
+<ul>
+<li><code>TYPE</code></li>
+</ul>
+<p>Typ danych zapisany jest na bitach <code>0..6</code> tego bajtu i określa typ modyfikowanych adresów, znak <code>&lt;</code> oznacza młodszy bajt adresu, znak <code>&gt;</code> oznacza starszy bajt adresu.</p>
+<ul>
+<li><code>DATA_LENGTH</code></li>
+</ul>
+<p>To liczba 2-bajtowych danych (adresów) do modyfikacji.</p>
+<ul>
+<li><code>DATA</code></li>
+</ul>
+<p>To właściwy ciąg danych służących modyfikacji głównego bloku relokowalnego. Pod wskazanym tutaj adresem należy odczytać wartość typu <code>TYPE</code> a następnie zmodyfikować na podstawie nowego adresu ładowania.</p>
+<hr />
+<p>Wyjątek stanowi blok aktualizacji dla starszych bajtów adresów <code>&gt;</code>, dla takiego bloku w <code>DATA</code> zapisywany jest jeszcze dodatkowy bajt <code>BYTE</code> (młodszy bajt modyfikowanego adresu). Aby dokonać aktualizacji starszych bajtów, musimy odczytać bajt spod adresu <code>WORD</code> w <code>DATA</code>, dodać go do aktualnego adresu relokacji i dodać jeszcze młodszy bajt z <code>BYTE</code> w <code>DATA</code>. Tak nowo obliczony starszy bajt umieszczamy pod adresem <code>WORD</code> z <code>DATA</code>.</p>
+<h2 id="symbole-zewnetrzne-extrn">Symbole zewnętrzne .EXTRN</h2>
+<p>Symbole zewnętrzne informują, że zmienne i procedury które reprezentują będą znajdowały się gdzieś na zewnątrz, poza aktualnym programem. Nie musimy określać gdzie. Musimy jedynie podać ich nazwy oraz typy. W zależności od typu danych jakie reprezentuje symbol instrukcje asemblera tłumaczone są na odpowiednie kody maszynowe, asembler musi znać rozmiar używanych danych.</p>
+<blockquote>
+<p><strong>UWAGA:</strong>
+<em>Aktualnie nie istnieje możliwość dokonywania operacji na symbolach external typu <code>^</code> (najstarszy bajt).</em></p>
+</blockquote>
+<p>Symbole zewnętrzne mogą być używane w blokach relokowalnych <code>.RELOC</code> jak i w zwykłych blokach <strong>DOS</strong>.</p>
+<p>Symbole zewnętrzne <strong>external</strong> deklarujemy używając pseudo rozkazu <code>EXT</code> lub dyrektywy <code>.EXTRN</code>:</p>
+<pre><code>label EXT type
+
+label .EXTRN type
+
+.EXTRN label1,label2,label3... type
+
+.extrn PlaySfx .proc (.byte PlaySfx.note, PlaySfx.fx) .var
+</code></pre>
+<p>Blok aktualizacji dla symboli <strong>external</strong> wywołujemy używając pseudo rozkazu <code>BLK</code>:</p>
+<pre><code>BLK UPDATE EXTERNAL
+</code></pre>
+<blockquote>
+<p><strong>UWAGA:</strong>
+<em>Zostaną zapisane symbole, które zostały użyte w programie.</em></p>
+</blockquote>
+<p>Symbole external nie mają zdefiniowanej wartości tylko typ <code>.BYTE</code> <code>.WORD</code> <code>.LONG</code> <code>.DWORD</code> np.:</p>
+<pre><code>name EXT .BYTE
+
+label_name EXT .WORD
+
+ .EXTRN label_name .WORD
+
+wait EXT .PROC (.BYTE delay)
+</code></pre>
+<p>Symbol external z deklaracją procedury <code>.PROC</code> przyjmuje domyślnie typ <code>.WORD</code>, próba odwołania się do nazwy takiej etykiety zostanie potraktowana przez <strong>MADS</strong> jako próba wywołania procedury, więcej na temat wywołań procedur <code>.PROC</code> w rozdziale <em>Procedury</em>.</p>
+<p>W procesie asemblacji po napotkaniu odwołania do symbolu external zawsze podstawiane są zera.</p>
+<p>Symbole <strong>external</strong> przydać się nam mogą wówczas gdy chcemy zasemblować program oddzielnie, niezależnie od reszty właściwego programu. W takim programie występują wówczas najczęściej odwołania do procedur, zmiennych które zostały zdefiniowane gdzieś indziej, na zewnątrz, a my nie znamy ich wartości tylko typ. W tym momencie z pomocą przychodzą symbole <strong>external</strong>, które umożliwiają asemblację takiego programu mimo braku właściwych procedur czy zmiennych.</p>
+<p>Innym zastosowaniem symboli external mogą być tzw. <em>pluginy</em> programy zewnętrzne połączone z programem głównym i realizujące dodatkowe czynności. Są to swoistego rodzaje biblioteki, wykorzystujące procedury programu głównego, rozszerzające jego funkcjonalność. Aby stworzyć taki plugin należałoby określić jakie procedury udostępnia program główny (ich nazwy+parametry i typ) oraz stworzyć procedurę odczytu pliku z symbolami <strong>external</strong>, ta procedura realizowałaby dołączanie pluginów do głównego programu.</p>
+<p>Poniżej format zapisu nagłówka w pliku z symbolami external typu <strong>B</strong>-YTE, <strong>W</strong>-ORD, <strong>L</strong>-ONG i <strong>D</strong>-WORD po wywołaniu przez <code>BLK UPDATE EXTERNAL</code>:</p>
+<pre><code>HEADER        WORD ($FFEE)
+TYPE          CHAR (B-YTE, W-ORD, L-ONG, D-WORD, &lt;, &gt;)
+DATA_LENGTH   WORD
+LABEL_LENGTH  WORD
+LABEL_NAME    ATASCII
+DATA          WORD .. .. ..
+</code></pre>
+<ul>
+<li><code>HEADER</code></li>
+</ul>
+<p>Zawsze o wartości <code>$FFEE</code>.</p>
+<ul>
+<li><code>TYPE</code></li>
+</ul>
+<p>Typ danych zapisany jest na bitach <code>0..6</code> tego bajtu i określa typ modyfikowanych adresów.</p>
+<ul>
+<li><code>DATA_LENGTH</code></li>
+</ul>
+<p>To liczba 2-bajtowych danych (adresów) do modyfikacji.</p>
+<ul>
+<li><code>LABEL_LENGTH</code></li>
+</ul>
+<p>To długość nazwy symbolu wyrażona w bajtach.</p>
+<ul>
+<li><code>LABEL_NAME</code></li>
+</ul>
+<p>To nazwa symbolu w kodach <strong>ATASCII</strong>.</p>
+<ul>
+<li><code>DATA</code></li>
+</ul>
+<p>Właściwy ciąg danych służących modyfikacji głównego bloku relokowalnego. Pod wskazanym tutaj adresem należy odczytać wartość typu <code>TYPE</code> a następnie zmodyfikować na podstawie nowej wartości symbolu.</p>
+<hr />
+<p>Przykładem zastosowania symboli <strong>external</strong> i struktur <code>.STRUCT</code> jest przykładowa biblioteka prymitywów graficznych <code>PLOT</code> <code>LINE</code> <code>CIRCLE</code> z katalogu <code>..\EXAMPLES\LIBRARIES\GRAPHICS\LIB</code>. Poszczególne moduły wykorzystują tutaj dość sporą liczbę zmiennych na stronie zerowej, jeśli chcemy aby adresy tych zmiennych były relokowalne musielibyśmy każdą z osobna zmienną zadeklarować jako symbol zewnętrzny przez <code>EXT</code> <code>.EXTRN</code>. Możemy to uprościć wykorzystując tylko jeden symbol zewnętrzny i strukturę danych <code>.STRUCT</code>. Za pomocą struktur definiujemy <em>mapę</em> zmiennych <code>ZP</code>, potem jeden symbol external <code>ZPAGE</code> typu <code>.BYTE</code> bo chcemy aby zmienne były na stronie zerowej. Teraz odwołując się do zmiennej musimy zapisać to w sposób wymuszający relokowalność np. <code>ZPAGE+ZP.DX</code> i tak powstał moduł całkowicie relokowalny z możliwością zmiany adresu zmiennych w przestrzeni strony zerowej.</p>
+<h2 id="symbole-publiczne-public">Symbole publiczne .PUBLIC</h2>
+<p>Symbole publiczne udostępniają zmienne i procedury występujące w bloku relokowalnym pozostałej części asemblowanego programu. Dzięki symbolom publicznym możemy odwoływać się do zmiennych i procedur <em>zaszytych</em> np. w bibliotekach.</p>
+<p>Symbole publiczne mogą być używane w blokach relokowalnych <code>.RELOC</code> jak i w zwykłych blokach <strong>DOS</strong>.</p>
+<p><strong>MADS</strong> sam rozpoznaje czy podana do upublicznienia etykieta jest zmienną, stałą czy też procedurą zadeklarowną przez <code>.PROC</code>, nie jest wymagana żadna dodatkowa informacja jak w przypadku symboli zewnętrznych.</p>
+<p>Symbole publiczne deklarujemy używając n/w dyrektyw:</p>
+<pre><code>.PUBLIC label [,label2,...]
+.GLOBAL label [,label2,...]
+.GLOBL label [,label2,...]
+</code></pre>
+<p>Dyrektywy <code>.GLOBAL</code> <code>.GLOBL</code> zostały dodane z myślą o kompatybilności z innymi assemblerami, ich znaczenie jest identyczne z dyrektywą <code>.PUBLIC</code>.</p>
+<p>Blok aktualizacji dla symboli publicznych wywołujemy używając pseudo rozkazu <code>BLK</code>:</p>
+<pre><code>BLK UPDATE PUBLIC
+</code></pre>
+<p>Poniżej format zapisu nagłówka w pliku z symbolami publicznymi po wywołaniu przez <code>BLK UPDATE PUBLIC</code>:</p>
+<pre><code>HEADER        WORD ($FFED)
+LENGTH        WORD
+TYPE          BYTE (B-YTE, W-ORD, L-ONG, D-WORD)
+LABEL_TYPE    CHAR (C-ONSTANT, V-ARIABLE, P-ROCEDURE, A-RRAY, S-TRUCT)
+LABEL_LENGTH  WORD
+LABEL_NAME    ATASCII
+ADDRESS       WORD
+</code></pre>
+<p><strong>MADS</strong> automatycznie dobiera odpowiedni typ dla upublicznianej etykiety:</p>
+<ul>
+<li><code>C-ONSTANT</code> etykieta nie poddająca się relokacji</li>
+<li><code>V-ARIABLE</code> etykieta poddająca się relokacji</li>
+<li><code>P-ROCEDURE</code> procedura zadeklarowana przez .PROC, podlega relokacji</li>
+<li><code>A-RRAY</code> tablica zadeklarowana przez .ARRAY, podlega relokacji</li>
+<li><code>S-TRUCT</code> struktura zadeklarowana przez .STRUCT, nie podlega relokacji</li>
+</ul>
+<p>Jeśli symbol dotyczy struktury <code>.STRUCT</code> wówczas zapisywane są dodatkowe informacje (typ pola struktury, nazwa pola struktury, liczba powtórzeń pola struktury):</p>
+<pre><code>STRUCT_LABEL_TYPE    CHAR (B-YTE, W-ORD, L-ONG, D-WORD)
+STRUCT_LABEL_LENGTH  WORD
+STRUCT_LABEL_NAME    ATASCII
+STRUCT_LABEL_REPEAT  WORD
+</code></pre>
+<p>Jeśli symbol dotyczy tablicy <code>.ARRAY</code> wówczas zapisywane są dodatkowe informacje (maksymalny zadeklarowany indeks tablicy, typ zadeklarowanych pól tablicy):</p>
+<pre><code>ARRAY_MAX_INDEX  WORD
+ARRAY_TYPE       CHAR (B-YTE, W-ORD, L-ONG, D-WORD)
+</code></pre>
+<p>Jeśli symbol dotyczy procedury .PROC wówczas zapisywane są dodatkowe informacje, niezależnie od tego czy procedura miała czy też nie miała zadeklarowane parametry:</p>
+<pre><code>PROC_CPU_REG  BYTE (bits 00 - regA, 01 - regX, 10 - regY)
+PROC_TYPE     BYTE (D-EFAULT, R-EGISTRY, V-ARIABLE)
+PARAM_COUNT   WORD
+</code></pre>
+<p>Dla symboli dotyczących procedur <code>.REG</code> zapisywane są już teraz tylko typy tych parametrów w ilości <code>PARAM_COUNT</code>:</p>
+<pre><code>PARAM_TYPE    CHAR (B-YTE, W-ORD, L-ONG, D-WORD)
+...
+...
+</code></pre>
+<p>Dla symboli dotyczących procedur .VAR zapisywane są typy parametrów i ich nazwy. <code>PARAM_COUNT</code> określa całkowitą długość tych danych:</p>
+<pre><code>PARAM_TYPE    CHAR (B-YTE, W-ORD, L-ONG, D-WORD)
+PARAM_LENGTH  WORD
+PARAM_NAME    ATASCII
+...
+...
+</code></pre>
+<ul>
+<li><code>HEADER</code></li>
+</ul>
+<p>Zawsze o wartości <code>$FFED</code>.</p>
+<ul>
+<li><code>LENGTH</code></li>
+</ul>
+<p>To liczba symboli zapisanych w bloku aktualizacji.</p>
+<ul>
+<li><code>TYPE</code></li>
+</ul>
+<p>Typ symbolizowanych danych <strong>B</strong>-YTE, <strong>W</strong>-ORD, <strong>L</strong>-ONG, <strong>D</strong>-WORD.</p>
+<ul>
+<li><code>LABEL_TYPE</code><ul>
+<li>Typ symbolu: V-ARIABLE, C-ONSTANT, P-ROCEDURE, A-RRAY, S-TRUCT</li>
+<li>Dla typu P zapisywane są dodatkowe informacje: PROC_CPU_REG, PROC_TYPE, PARAM_COUNT, PARAM_TYPE</li>
+<li>Dla typu A zapisywane są dodatkowe informacje: ARRAY_MAX_INDEX, ARRAY_TYPE</li>
+<li>Dla typu S zapisywane są dodatkowe informacje: STRUCT_LABEL_TYPE, STRUCT_LABEL_LENGTH, STRUCT_LABEL_NAME, STRUCT_LABEL_REPEAT</li>
+</ul>
+</li>
+</ul>
+<p>Typ symbolizowanych danych <strong>B</strong>-YTE, <strong>W</strong>-ORD, <strong>L</strong>-ONG, <strong>D</strong>-WORD.</p>
+<ul>
+<li><code>LABEL_LENGTH</code></li>
+</ul>
+<p>Długość etykiety symbolu publicznego wyrażona w bajtach</p>
+<ul>
+<li><code>LABEL_LENGTH</code></li>
+</ul>
+<p>Długość etykiety symbolu publicznego wyrażona w bajtach</p>
+<ul>
+<li><code>LABEL_NAME</code></li>
+</ul>
+<p>Etykieta symbolu publicznego zapisana w kodach <strong>ATASCII</strong></p>
+<ul>
+<li><code>ADDRESS</code></li>
+</ul>
+<p>Adres przypisany symbolowi w bloku relokowalnym <code>.RELOC</code>. Ta wartość zostaje poddana relokacji poprzez dodanie do niej aktualnego adresu asemblacji.</p>
+<ul>
+<li><code>PROC_CPU_REG</code></li>
+</ul>
+<p>Informacja o kolejności użycia rejestrów <em>CPU</em> dla procedury typu <code>.REG</code></p>
+<ul>
+<li>
+<p><code>PROC_TYPE</code></p>
+<ul>
+<li><strong>D</strong>-EFAULT domyślny typ wykorzystujący do przekazywania parametrów stos programowy <strong>MADS</strong></li>
+<li><strong>R</strong>-EGISTRY parametry do procedury przekazywane są przez rejestry <strong>CPU</strong> <code>.REG</code></li>
+<li><strong>V</strong>-ARIABLE parametry do procedury przekazywane są przez zmienne <code>.VAR</code></li>
+</ul>
+</li>
+<li>
+<p><code>PARAM_COUNT</code></p>
+</li>
+</ul>
+<p>Informacja o liczbie parametrów procedury <code>.REG</code> lub całkowitej długości danych zawierających informację o typie parametrów i ich nazwach <code>.VAR</code>.</p>
+<ul>
+<li><code>PARAM_TYPE</code></li>
+</ul>
+<p>Typ parametrów zapisany za pomocą znaków <code>B</code> <code>W</code> <code>L</code> <code>D</code></p>
+<ul>
+<li><code>PARAM_LENGTH</code></li>
+</ul>
+<p>Długość nazwy parametru <code>.VAR</code>.</p>
+<ul>
+<li><code>PARAM_NAME</code></li>
+</ul>
+<p>Nazwa parametru w kodach ATASCII <code>.VAR</code>.</p>
+<h2 id="dyrektywy-longa-longi">Dyrektywy <code>.LONGA</code> <code>.LONGI</code></h2>
+<pre><code>.LONGA ON|OFF
+.LONGI ON|OFF
+</code></pre>
+<ul>
+<li>
+<p>Dyrektywa <code>.LONGA</code> informuje assembler o rozmiarze rejestru akumulatora, 16bit gdy ON, 8bit gdy OFF.</p>
+</li>
+<li>
+<p>Dyrektywa <code>.LONGI</code> informuje assembler o rozmiarze rejestrów indeksowych <code>XY</code>, 16bit gdy ON, 8bit gdy OFF.</p>
+</li>
+<li>
+<p>Dyrektywy wpływają na rozmiar argumentu przy adresowaniu absolutnym <em>CPU 65816</em>.</p>
+</li>
+</ul>
+<h2 id="linkowanie-link">Linkowanie <code>.LINK</code></h2>
+<pre><code>.LINK 'filename'
+</code></pre>
+<p>Dyrektywa <code>.LINK</code> wymaga podania jako parametru nazwy pliku do relokacji. Akceptowane są tylko pliki <strong>DOS Atari</strong>, pliki <strong>SDX</strong> nie są akceptowane.</p>
+<p>Jeśli adres ładowania pliku jest inny niż <code>$0000</code> oznacza to że plik nie zawiera kodu relokowalnego, jednak może zawierać bloki aktualizacji dla symboli zewnętrznych i publicznych. Dyrektywa <code>.LINK</code> akceptuje pliki o dowolnym adresie ładowania, jednak relokacji poddawane są tylko te o adresie ładowania <code>$0000</code>, więcej szczegółów na temat budowy takiego pliku zostało zawartych w rozdziale Blok relokowalny <code>.RELOC</code>.</p>
+<p>Dyrektywa <code>.LINK</code> pozwala na łączenie kodu relokowalnego z nierelokowalnym. <strong>MADS</strong> na podstawie bloków aktualizacji dokonuje automatycznej relokacji takiego pliku. Uwzględniane są wszystkie 3 rodzaje bloków aktualizacji <code>ADDRESS</code> <code>EXTERNAL</code> <code>PUBLIC</code>.
+Nie ma ograniczeń co do adresu pod którym umieszczany jest plik relokowalny.</p>
+<p>Jeśli blok relokowalny do działania wymaga stosu programowego <strong>MADS</strong> wówczas etykiety <code>@STACK_POINTER</code> <code>@STACK_ADDRESS</code> <code>@PROC_VARS_ADR</code> zostaną automatycznie zaktualizowane na podstawie nagłówka bloku <code>.RELOC</code>. Wymagane jest aby bloki <code>.RELOC</code> i program główny operowały na tym samym stosie programowym jeśli jest on konieczny.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../przyklady/" class="btn btn-neutral float-right" title="Przykłady">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../banki-pamieci/" class="btn btn-neutral" title="Banki pamięci"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../banki-pamieci/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../przyklady/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

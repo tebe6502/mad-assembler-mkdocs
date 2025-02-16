@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Sposób użycia - Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Spos\u00f3b u\u017cycia";
+    var mkdocs_page_input_path = "sposob-uzycia.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Sposób użycia</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#przeaczniki-assemblera">Przełączniki assemblera</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#baddress">b:address</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#c">c</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dlabelvalue">d:label=value</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#f">f</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fvvalue">fv:value</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hcfilename">hc[:filename]</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hmfilename">hm[:filename]</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ipath">i:path</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#lfilename">l:filename</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mfilename">m:filename</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ofilename">o:filename</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#p">p</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#s">s</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tfilename">t[:filename]</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#x">x</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#vu">vu</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#u">u</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#kody-wyjscia">Kody wyjścia</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#struktura-pliku-lst">Struktura pliku LST</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#struktura-pliku-lab">Struktura pliku LAB</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#struktura-pliku-h">Struktura pliku H</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kontrola/">Kontrola asemblacji</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sparta-dos/">Sparta DOS X</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makro-rozkazy/">Makro rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy/">Dyrektywy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../lokal/">Obszar lokalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../procedury/">Procedury</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makra/">Makra</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tablice/">Tablice</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../typy/">Typy danych</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../banki-pamieci/">Banki pamięci</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kod-relokowalny/">Kod relokowalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Sposób użycia</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/sposob-uzycia.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1"></h1>
+<h2 id="przeaczniki-assemblera">Przełączniki assemblera</h2>
+<pre><code class="language-none">Syntax: mads source [switches]
+
+-b:address      Generate binary file at specific address
+-c              Label case sensitivity
+-d:label=value  Define a label
+-f              CPU command at first column
+-fv:value       Set raw binary fill byte to [value]
+-hc[:filename]  Header file for CC65
+-hm[:filename]  Header file for MADS
+-i:path         Additional include directories
+-l[:filename]   Generate listing
+-m:filename     File with macro definition
+-ml:value       margin-left property
+-o:filename     Set object file name
+-p              Print fully qualified file names in listing and error messages
+-s              Silent mode
+-t[:filename]   List label table
+-u              Warn of unused labels
+-vu             Verify code inside unreferenced procedures
+-x              Exclude unreferenced procedures
+</code></pre>
+<p>Domyślne nazwy plików to:</p>
+<ul>
+<li><code>source.lst</code></li>
+<li><code>source.obx</code></li>
+<li><code>source.lab</code></li>
+<li><code>source.h</code></li>
+<li><code>source.hea</code></li>
+<li><code>source.mac</code></li>
+</ul>
+<p>Jeśli nie podamy rozszerzenia dla pliku source, wówczas MADS domyślnie przyjmie rozszerzenie <code>.ASM</code>.</p>
+<p>Parametry możemy podawać w dowolnej kolejności uprzednio poprzedzając je znakiem <code>/</code> lub <code>-</code>, wielkość liter nie ma znaczenia. Parametry możemy łączyć ze sobą, np.:</p>
+<pre><code>mads -lptd:label=value -d:label2=value source.asm
+mads -l  -p  -t  source
+mads source.asm  -lpt
+mads.exe &quot;%1&quot; -ltpi:&quot;d:\!atari\macro\&quot;
+mads -i:&quot;c:\atari\macros\&quot; -c source.asm  -lpt
+</code></pre>
+<p>Domyślnie <strong>MADS</strong> po asemblacji zapisze plik z rozszerzeniem <code>.OBX</code>, możemy to zmienić z poziomu <strong>BAT</strong>:</p>
+<pre><code>mads &quot;%1&quot; -o:%~n1.xex
+</code></pre>
+<p>Więcej na temat operatorów możemy dowiedzieć się wykonując <code>CALL /?</code> z poziomu <strong>Microsoft DOS</strong>.</p>
+<h3 id="baddress"><code>b:address</code></h3>
+<p>Użycie przełącznika <code>-b</code> pozwala nadać nowy adres asemblacji dla pliku w którym nie określono adresu asemblacji (adres asemblacji określamy przy pomocy pseudo rozkazu <code>ORG</code>).</p>
+<h3 id="c"><code>c</code></h3>
+<p>Użycie przełącznika <code>-c</code> spowoduje rozróżnianie wielkości liter w nazwach etykiet, zmiennych, stałych. Dyrektywy assemblera i rozkazy <em>CPU 6502</em>, <em>65816</em> są zawsze rozpoznawane bez względu na wielkość liter.</p>
+<h3 id="dlabelvalue"><code>d:label=value</code></h3>
+<p>Użycie przełącznika <code>-d</code> pozwala na wprowadzenie nowej etykiety do pamięci <strong>MADS</strong> z poziomu linii poleceń. Przełącznika można użyć wielokrotnie podczas jednego wywołania <strong>MADS</strong>, może być przydatny gdy asemblujemy z użyciem plików wsadowych <strong>BAT</strong>.</p>
+<h3 id="f"><code>f</code></h3>
+<p>Użycie przełącznika -f umożliwia umieszczanie rozkazów <em>CPU</em> od pierwszej kolumny wiersza i ich poprawne rozpoznawanie przez asembler jako rozkazy a nie tylko jako etykiety.</p>
+<h3 id="fvvalue"><code>fv:value</code></h3>
+<p>Użycie przełącznika <code>-fv:value</code> pozwala ustalić wartość wypełnienia pamięci gdy użyjemy <code>OPT F+</code></p>
+<h3 id="hcfilename"><code>hc[:filename]</code></h3>
+<p>Przełącznik <code>-hc</code> włącza zapis pliku z nagłówkami dla kompilatora <strong>CC65</strong>. Pozwala także określić nową nazwę dla takiego pliku. Domyślna nazwa pliku nagłówkowego dla <strong>CC65</strong> to <code>*.H</code></p>
+<h3 id="hmfilename"><code>hm[:filename]</code></h3>
+<p>Przełącznik <code>-hm</code> włącza zapis pliku z nagłówkami dla <strong>MADS</strong>. Pozwala także określić nową nazwę dla takiego pliku. Domyślna nazwa pliku nagłówkowego dla <strong>MADS</strong> to <code>*.HEA</code>. Plik taki zawiera informacje o bankach przypisanych etykietom i ich wartości. Dodatkowo etykiety posortowane zostają wg typu <code>CONSTANS</code> <code>VARIABLES</code> <code>PROCEDURES</code>.</p>
+<h3 id="ipath"><code>i:path</code></h3>
+<p>Przełącznik <code>-i</code> służy do określenia ścieżek poszukiwań dla operacji <code>ICL</code> oraz <code>INS</code>. Przełącznika można użyć wielokrotnie podczas jednego wywołania MADS-a, np.:</p>
+<pre><code>-i:&quot;c:\program files&quot; -i:c:\temp -i:&quot;d:\atari project&quot;
+</code></pre>
+<h3 id="lfilename"><code>l:filename</code></h3>
+<p>Przełącznik <code>-l</code> włącza zapis pliku z listingiem. Pozwala także określić nową nazwę dla takiego pliku.</p>
+<h3 id="mfilename"><code>m:filename</code></h3>
+<p>Przełącznik <code>-m</code> służy do określenia pliku z deklaracjami makr. W przypadku jego użycia <strong>MADS</strong> asembluje taki plik przed głównym plikiem <code>.ASM</code></p>
+<h3 id="ofilename"><code>o:filename</code></h3>
+<p>Przełącznik <code>-o</code> pozwala określić nową nazwę pliku wykonywalnego <strong>Atari DOS</strong> lub <strong>Atari Sparta DOS X</strong>, który powstanie po procesie asemblacji.</p>
+<h3 id="p"><code>p</code></h3>
+<p>Przełącznik <code>-p</code> pomocny jest w połączeniu z <strong>Code Genie</strong>. Gdy wystąpi błąd podczas asemblacji, w oknie <em>Output Bar</em> edytora <strong>Code Genie</strong> pojawi się stosowny komunikat wygenerowany przez <strong>MADS</strong>, np.:</p>
+<pre><code>D:\!Delphi\Masm\test.asm (29) ERROR: Missing .PROC
+</code></pre>
+<p>Teraz wystarczy kliknąć dwukrotnie linię z tym komunikatem, a kursor edytora ustawi się w linii z błędem.</p>
+<h3 id="s"><code>s</code></h3>
+<p>Użycie przełącznika <code>-s</code> spowoduje uaktywnienie tzw. trybu pracy <em>Silent mode</em>, czyli żadne komunikaty nie zostaną wyświetlone, co najwyżej komunikaty błędów <strong>ERROR</strong> i ostrzeżenia <strong>WARNING</strong>.</p>
+<h3 id="tfilename">t[:filename]</h3>
+<p>Przełącznik <code>-t</code> włącza zapis pliku z użytymi definicjami etykiet. Pozwala także określić nową nazwę dla takiego pliku.</p>
+<h3 id="x"><code>x</code></h3>
+<p>Przełącznik <code>-x</code> pozwala na pominięcie w procesie asemblacji procedur zadeklarowanych dyrektywą <code>.PROC</code>, do których nie nastąpiło odwołanie w programie.</p>
+<h3 id="vu"><code>vu</code></h3>
+<p>Przełącznik <code>-vu</code> wymusza dodatkowy test kodu w blokach <code>.PROC</code> mimo tego że taki blok <code>.PROC</code> nie zostanie zapisany do pliku wynikowego, najczęściej przydaje się gdy używamy przełącznika <code>-x</code></p>
+<h3 id="u"><code>u</code></h3>
+<p>Przełącznik <code>-u</code> wyświetli etykiety które nie zostały użyte w programie.</p>
+<h2 id="kody-wyjscia">Kody wyjścia</h2>
+<pre><code class="language-none">3 = bad parameters, assembling not started
+2 = error occured
+0 = no errors
+</code></pre>
+<p>Komunikaty ostrzeżenia nie powodują zmiany wartości kodu wyjścia.</p>
+<h2 id="struktura-pliku-lst">Struktura pliku <code>LST</code></h2>
+<p>Format listingu nie odbiega od tego znanego z <strong>XASM</strong>, jedyną zmianą jest dodanie przed adresem, numeru wirtualnego banku pamięci (pod warunkiem że numer banku <code>&lt;&gt; 0</code>).</p>
+<pre><code class="language-none">3
+4 = 01,9033    obraz equ $9033
+5 = 01,00A0    scr1 equ $a0
+6
+7
+8 01,2000 EA   main nop
+</code></pre>
+<h2 id="struktura-pliku-lab">Struktura pliku <code>LAB</code></h2>
+<p>Podobnie jak w przypadku <strong>XASM</strong>, w pliku <code>*.LAB</code> przechowywane są informacje na temat etykiet które wystąpiły w programie.</p>
+<p>W sumie są to trzy kolumny:</p>
+<ul>
+<li>Pierwsza kolumna to numer wirtualnego banku przypisany do etykiety (jeśli bank <code>&lt;&gt; 0</code>)</li>
+<li>Druga kolumna to wartość etykiety.</li>
+<li>Trzecia kolumna to nazwa etykiety.</li>
+</ul>
+<p>Numery wirtualnych banków przypisane do etykiety o wartościach <code>&gt;= $FFF9</code> mają specjalne znaczenie:</p>
+<pre><code class="language-none">$FFF9   etykieta parametru procedury zdefiniowanej przez dyrektywę .PROC
+$FFFA   etykieta tablicy zdefiniowanej przez dyrektywę .ARRAY
+$FFFB   etykieta danych strukturalnych zdefiniowanej przez pseudo rozkaz DTA STRUCT_LABEL
+$FFFC   etykieta symbolu Sparta DOS X - SMB
+$FFFD   etykieta makra zdefiniowanego przez dyrektywę .MACRO
+$FFFE   etykieta struktury zdefiniowanej przez dyrektywę .STRUCT
+$FFFF   etykieta procedury zdefiniowanej przez dyrektywę .PROC
+</code></pre>
+<p>Specjalne znaczenie w nazwach etykiet mają znaki:</p>
+<ul>
+<li>etykieta zdefiniowana w makrze (dwa dwukropki) <code>::</code></li>
+<li>znak kropki <code>.</code> rozdziela nazwę struktury <code>.MACRO</code> <code>.PROC</code> <code>.LOCAL</code> <code>.STRUCT</code> od nazwy pola w strukturze</li>
+</ul>
+<p>Wartość liczbowa, która występuje po <code>::</code> oznacza numer wywołania makra.</p>
+<pre><code class="language-none">Mad-Assembler v1.4.2beta by TeBe/Madteam
+Label table:
+00  0400    @STACK_ADDRESS
+00  00FF    @STACK_POINTER
+00  2000    MAIN
+00  2019    LOOP
+00  201C    LOOP::1
+00  201C    LHEX
+00  0080    LHEX.HLP
+00  204C    LHEX.THEX
+00  205C    HEX
+00  205C    HEX.@GETPAR0.LOOP
+00  2079    HEX.@GETPAR1.LOOP
+</code></pre>
+<h2 id="struktura-pliku-h">Struktura pliku <code>H</code></h2>
+<p>Nie jestem pewien czy wszystko z tym plikiem jest OK, ale <strong>Eru</strong> chciał żeby coś takiego było więc jest :) Ma on być pomocny przy łączeniu <strong>ASM</strong> z <strong>CC65</strong>, czyli portem <strong>C</strong> dla małego <strong>Atari</strong>. Jego zawartość może wyglądać tak, przykładowy plik <code>TEST.ASM</code>:</p>
+<pre><code class="language-none">#ifndef _TEST_ASM_H_
+#define _TEST_ASM_H_
+
+#define TEST_CPU65816 0x200F
+#define TEST_CPU6502 0x2017
+#define TEST_TEXT6502 0x201F
+#define TEST_TEXT65816 0x2024
+
+#endif
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../kontrola/" class="btn btn-neutral float-right" title="Kontrola asemblacji">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../wprowadzenie/" class="btn btn-neutral" title="Wprowadzenie"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../wprowadzenie/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../kontrola/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Banki pamięci - Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Banki pami\u0119ci";
+    var mkdocs_page_input_path = "banki-pamieci.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sposob-uzycia/">Sposób użycia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kontrola/">Kontrola asemblacji</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sparta-dos/">Sparta DOS X</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makro-rozkazy/">Makro rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy/">Dyrektywy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../lokal/">Obszar lokalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../procedury/">Procedury</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makra/">Makra</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tablice/">Tablice</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../typy/">Typy danych</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Banki pamięci</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#wstep">Wstęp</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wirtualne-banki-pamieci-opt-b-">Wirtualne banki pamięci OPT B-</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sprzetowe-banki-pamieci-opt-b">Sprzętowe banki pamięci OPT B+</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kod-relokowalny/">Kod relokowalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Banki pamięci</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/banki-pamieci.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1"></h1>
+<h2 id="wstep">Wstęp</h2>
+<p>Pewnie każdemu, kto miał do czynienia z architekturą małego <strong>Atari</strong>, pojęcie <em>bank pamięci</em> kojarzy się z pamięcią rozszerzoną, podzieloną na banki wielkości <strong>16kb</strong>, przełączane w obszar <code>$4000..$7FFF</code>.</p>
+<p><strong>MADS</strong> też może to rozumieć w ten sposób (opcja <code>OPT B+</code>, <a href="#sprzetowe-banki-pamieci-opt-b">Sprzętowe banki pamięci</a>), jednak domyślnie rozumie to w sposób bardziej wirtualny (opcja <code>OPT B-</code>, <a href="#wirtualne-banki-pamieci-opt-b-">Wirtualne banki pamięci</a>).</p>
+<p>Banków dotyczą n/w pseudo rozkazy:</p>
+<pre><code>LMB #value
+NMB
+RMB
+</code></pre>
+<ul>
+<li><code>LMB #</code> Load Memory Bank</li>
+</ul>
+<p>Ustawiamy licznik banków MADS-a na konkretną wartość z zakresu &lt;$00..$FF&gt; (BANK = value), np.</p>
+<pre><code>lmb #0
+lmb #bank
+lmb #5 , $6500      ; tylko gdy OPT B+
+</code></pre>
+<ul>
+<li><code>NMB</code> Next Memory Bank</li>
+</ul>
+<p>Zwiększamy o 1 licznik banków <strong>MADS</strong>-a (BANK = BANK + 1).</p>
+<pre><code>nmb
+nmb  $6500          ; tylko gdy OPT B+
+</code></pre>
+<ul>
+<li><code>RMB</code> Reset Memory Bank</li>
+</ul>
+<p>Zerujemy licznik banków <strong>MADS</strong>-a (BANK = 0).</p>
+<pre><code>rmb
+rmb $3500           ; tylko gdy OPT B+
+rmb $8500           ; tylko gdy OPT B+
+</code></pre>
+<hr />
+<p><strong>MADS</strong> podczas asemblacji, każdej nowo zdefiniowanej etykiecie przypisuje aktualną wartość licznika banków. Programista może mieć wpływ na wartość licznika banków dzięki w/w pseudo rozkazom.</p>
+<ul>
+<li>Etykiety z przypisanym licznikiem banków <strong>MADS</strong> <code>=0</code> są zasięgu <strong>globalnego</strong>.</li>
+<li>Etykiety z przypisanym licznikiem banków <strong>MADS</strong> <code>&gt;0</code> są zasięgu <strong>lokalnego</strong>.</li>
+</ul>
+<h2 id="wirtualne-banki-pamieci-opt-b-">Wirtualne banki pamięci <code>OPT B-</code></h2>
+<p>W <strong>MADS</strong> przez pojęcie <em>wirtualny bank pamięci</em> rozumiany jest każdy obszar oznaczony przez nowo zdefiniowaną etykietę z przypisaną aktualną wartością licznika banków (domyślnie licznik banków jest wyzerowany). Czyli wirtualny bank pamięci to nie koniecznie obszar pamięci <code>$4000..$7FFF</code>, ale każda etykieta reprezentująca jakiś obszar kodu programu, której przypisany został kod (wartość licznika banków) z zakresu <code>$00..$FF</code> przy pomocy odpowiednich pseudo rozkazów oddanych na użytek programisty <code>NMB</code> <code>RMB</code> <code>LMB</code>.</p>
+<p>Wyjątek stanowią bloki <code>.RELOC</code> w których nie można samodzielnie zmieniać licznika banków, realizuje to automatycznie <strong>MADS</strong>, który zwiększa licznik za każdym wywołaniem dyrektywy <code>.RELOC</code>. Licznik banków w takim przypadku przyjmuje wartości z zakresu <code>$0001..$FFF7</code>.</p>
+<p>Programista może odczytać wartość licznika banków, który został przypisany etykiecie za pomocą operatora <code>=</code> np.:</p>
+<pre><code>label
+
+ ldx #=label
+</code></pre>
+<p>W w/w przykładzie do rejestru <code>X</code> <em>CPU</em> zapisaliśmy wartość licznika banków pamięci <strong>MADS</strong> przypisany etykiecie <code>LABEL</code>.</p>
+<p>Innym przydatnym operatorem może być znak dwukropka <code>:</code> umieszczony na początku nazwy etykiety. Spowoduje to że <strong>MADS</strong> odczyta wartość takiej etykiety pomijając ograniczenia zasięgu, które wprowadza licznik banków <strong>MADS</strong>. Niekiedy może spowodować to komplikacje, np. jeśli wystąpiło więcej etykiet o tej samej nazwie ale w różnych obszarach lokalnych albo w obszarach o różnych wartościach licznika wirtualnych banków.</p>
+<pre><code>
+
+ lmb #5
+
+label5
+ nop
+
+ lmb #6
+
+label6
+ nop
+
+ lda :label5
+</code></pre>
+<p>Dla w/w przykładu brak operatora <code>:</code> na początku nazwy etykiety w rozkazie <code>lda :label5</code> skończy się komunikatem błędu <strong>ERROR: Undeclared label LABEL5 (BANK=6)</strong>.</p>
+<p>Wirtualnych banków pamięci można użyc do indeksowania tablicy zawierającej wartości dla <strong>PORTB</strong>. Takie też jest ich zastosowanie w przypadku wybrania opcji <code>OPT B+</code>.</p>
+<h2 id="sprzetowe-banki-pamieci-opt-b">Sprzętowe banki pamięci <code>OPT B+</code></h2>
+<p>Ten tryb działania <strong>MADS</strong> można określić jako <em>czuły na banki</em> <strong>BANK SENSITIVE</strong>.</p>
+<p>Sprzętowe banki pamięci są rozszerzeniem wirtualnych banków. Rozumiane są przez <strong>MADS</strong> jako banki rozszerzonej pamięci, włączane w obszar <code>$4000..$7FFF</code>. Działanie pseudo rozkazów <code>NMB</code>  <code>RMB</code> <code>LMB</code> zostaje rozszerzone o wywołanie makra <code>@BANK_ADD</code>, które można znaleźć w katalogu <code>..\EXAMPLES\MACROS\</code>.</p>
+<p>W tym trybie działania <strong>MADS</strong> potrzebuje deklaracji konkretnych makr:</p>
+<pre><code>@BANK_ADD
+@BANK_JMP
+</code></pre>
+<p>oraz potrzebuje definicji etykiet o nazwach:</p>
+<pre><code>@TAB_MEM_BANKS
+@PROC_ADD_BANK
+</code></pre>
+<p>Etykieta <code>@TAB_MEM_BANKS</code> definiuje adres tablicy, z której wartości będą przepisywane do rejestru <strong>PORTB</strong> odpowiedzialnego za przełączanie banków rozszerzonej pamięci. Możemy sobie ułatwić sprawę i skorzystać z gotowej procedury wykrywającej banki rozszerzonej pamięci dołączonej do <strong>MADS</strong>, plik <code>..\EXAMPLES\PROCEDURES\@MEM_DETECT.ASM</code>.</p>
+<p>Etykieta <code>@PROC_ADD_BANK</code> używana jest przez makro <code>@BANK_ADD</code> i definiuje adres pod jakim znajdzie się kod programu przełączający bank pamięci rozszerzonej.</p>
+<p>Programista może odczytać wartość licznika banków, który został przypisany etykiecie za pomocą operatora <code>=</code>, np.:</p>
+<pre><code>label
+
+ ldy #=label
+</code></pre>
+<p>W w/w przykładzie do rejestru regY zapisaliśmy wartość licznika banków pamięci <strong>MADS</strong> przypisany etykiecie <code>LABEL</code>.</p>
+<p>Jeśli licznik banków <strong>MADS</strong> <code>= 0</code> to:</p>
+<ul>
+<li>kod programu musi znajdować się poza obszarem <code>$4000..$7FFF</code></li>
+<li>nowo zdefiniowane etykiety w tym obszarze są globalne</li>
+<li>można odwoływać się do wszystkich zdefiniowanych etykiet bez ograniczeń, bez względu na numer banku</li>
+<li>skok w obszar banku możliwy przy użyciu makra <code>@BANK_JMP</code>, przykład w pliku <code>..\EXAMPLES\MACROS\@BANK_JMP.MAC</code>, parametr dla tego makra nie musi być poprzedzony operatorem <code>:</code></li>
+</ul>
+<p>Jeśli licznik banków <strong>MADS</strong> <code>&gt; 0</code> to:</p>
+<ul>
+<li>kod programu musi znajdować się w obszarze <code>$4000..$7FFF</code></li>
+<li>nowo zdefiniowane etykiety w tym obszarze są lokalne</li>
+<li>można odwoływać się tylko do etykiet globalnych i tych zdefiniowanych w obszarze aktualnego banku</li>
+<li>pseudo rozkaz <code>LMB</code> <code>NMB</code> powoduje wykonanie makra <code>@BANK_ADD</code>, które włącza nowy bank rozszerzonej pamięci na podstawie licznika banków MADS-a oraz ustawia nowy adres asemblacji (domyślnie na <code>$4000</code>)</li>
+<li>pseudo rozkaz <code>RMB</code> powoduje wyzerowanie licznika banków pamięci <strong>MADS</strong> oraz ustawienie nowego adresu asemblacji poza bankiem (domyślnie na <code>$8000</code>)</li>
+<li>skok w obszar innego banku możliwy przy użyciu makra <code>@BANK_JMP</code>, przykład w pliku <code>..\EXAMPLES\MACROS\@BANK_JMP</code>, parametr dla tego makra musi być poprzedzony operatorem <code>:</code></li>
+</ul>
+<p>Przykładem wykorzystania tego trybu pracy <strong>MADS</strong> jest plik <code>..\EXAMPLES\XMS_BANKS.ASM</code>. W tym przykładzie kod programu znajduje się w dwóch różnych bankach rozszerzonej pamięci i wykonuje się jakby był jedną całością.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../kod-relokowalny/" class="btn btn-neutral float-right" title="Kod relokowalny">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../detekcja-cpu/" class="btn btn-neutral" title="Detekcja CPU"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../detekcja-cpu/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../kod-relokowalny/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

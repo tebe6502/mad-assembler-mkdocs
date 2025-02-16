@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Procedury - Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Procedury";
+    var mkdocs_page_input_path = "procedury.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sposob-uzycia/">Sposób użycia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kontrola/">Kontrola asemblacji</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sparta-dos/">Sparta DOS X</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makro-rozkazy/">Makro rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy/">Dyrektywy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../lokal/">Obszar lokalny</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Procedury</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#deklaracja-procedury">Deklaracja procedury</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#name-proc-type-par1par2-type-par3-reg-var">name .PROC [(.TYPE Par1,Par2 .TYPE Par3 ...)] [.REG] [.VAR]</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#endp">.ENDP</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wywoanie-procedury">Wywołanie procedury</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#parametry-procedury">Parametry procedury</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makra/">Makra</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tablice/">Tablice</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../typy/">Typy danych</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../banki-pamieci/">Banki pamięci</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kod-relokowalny/">Kod relokowalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Procedury</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/procedury.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="procedury">Procedury</h2>
+<p><strong>MADS</strong> wprowadza nowe możliwości w obsłudze procedur z parametrami. Nowe możliwości upodabniają ten mechanizm do tych znanych z języków wysokiego poziomu i są tak samo łatwe w użyciu dla programisty.</p>
+<p>Aktualnie dołączone do <strong>MADS</strong>-a deklaracje makr (<code>@CALL.MAC</code>, <code>@PULL.MAC</code>, <code>@EXIT.MAC</code>) umożliwiają obsługę stosu programowego o wielkości 256 bajtów, czyli tej samej wielkości jak stos sprzętowy, udostępniają mechanizm zdejmowania ze stosu programowego i odkładania na stos programowy parametrów potrzebnych podczas wywoływania procedur, jak i wychodzenia z takich procedur. <strong>MADS</strong> uwzględnia możliwość rekurencji takich procedur.</p>
+<p>Programista nie jest zaangażowany w ten mechanizm, może skupić uwagę na swoim programie. Musi tylko pamiętać o potrzebie zdefiniowania odpowiednich etykiet i dołączeniu odpowiednich makr podczas asemblacji programu.</p>
+<p>Dodatkowo istnieje możliwość pominięcia "mechanizmu" stosu programowego <strong>MADS</strong>-a i skorzystanie z klasycznego sposobu ich przekazywania, za pomocą rejestrów <em>CPU</em> (dyrektywa <code>.REG</code>) lub przez zmienne (dyrektywa <code>.VAR</code>).</p>
+<p>Inną właściwością procedur <code>.PROC</code> jest możliwość pominięcia ich podczas asemblacji jeśli nie wystąpiło żadne odwołanie do nich, czyli zostały zdefiniowane ale nie są wykorzystane. Wystąpi wówczas komunikat ostrzeżenia <em><strong>Unreferenced procedure ????</strong></em>. Pominięcie takiej procedury podczas asemblacji możliwe jest poprzez podanie parametru do <strong>MADS</strong>-a w linii poleceń <code>-x 'Exclude unreferenced procedures'</code>.</p>
+<p>Wszelkie etykiety zdefiniowane w obszarze procedury <code>.PROC</code> są zasięgu lokalnego, można je też określić jako etykiety globalne zdefiniowane lokalnie o dostępie swobodnym, ponieważ można się do nich odwoływać co nie jest normalne w innych językach programowania.</p>
+<p>W obszarze procedury <code>.PROC</code> istnieje możliwość zdefiniowania etykiet o zasięgu globalnym (patrz rozdział <a href="#globalne">Etykiety globalne</a>).</p>
+<p>Jeśli chcemy dostać się do etykiet zdefiniowanych w procedurze spoza obszaru procedury, wówczas adresujemy z użyciem znaku kropki <code>.</code>, np.:</p>
+<pre><code> lda test.pole
+
+.proc test
+
+pole nop
+
+.endp
+</code></pre>
+<p>Jeśli poszukiwana przez assembler etykieta nie wystąpiła w obszarze procedury <code>.PROC</code>, wówczas <strong>MADS</strong> będzie poszukiwał ją w obszarze niższym aż dojdzie do obszaru globalnego. Aby odczytać natychmiastowo wartość etykiety globalnej z poziomu procedury <code>.PROC</code> (czy też innego obszaru lokalnego) poprzedzamy nazwę etykiety znakiem dwukropka <code>:</code>.</p>
+<p><strong>MADS</strong> wymaga dla procedur wykorzystujących stos programowy, trzech globalnych definicji etykiet o konkretnych nazwach (adres stosu, wskaźnik stosu, adres parametrów procedury):</p>
+<ul>
+<li>@PROC_VARS_ADR</li>
+<li>@STACK_ADDRESS</li>
+<li>@STACK_POINTER</li>
+</ul>
+<p>Brak definicji w/w etykiet i próba użycia bloku <code>.PROC</code> wykorzystującego stos programowy spowoduje że <strong>MADS</strong> przyjmie swoje domyślne wartości tych etykiet: <code>@PROC_VARS_ADR = $0500</code>, <code>@STACK_ADDRESS = $0600</code>, <code>@STACK_POINTER = $FE</code></p>
+<p><strong>MADS</strong> dla procedur wykorzystujących stos programowy wymaga także deklaracji makr o konkretnych nazwach. Dołączone do <strong>MADS</strong>-a deklaracje tych makr znajdują się w plikach:</p>
+<ul>
+<li>@CALL    ..\EXAMPLES\MACROS\@CALL.MAC</li>
+<li>@PUSH    ..\EXAMPLES\MACROS\@CALL.MAC</li>
+<li>@PULL    ..\EXAMPLES\MACROS\@PULL.MAC</li>
+<li>@EXIT    ..\EXAMPLES\MACROS\@EXIT.MAC</li>
+</ul>
+<p>W/w makra realizują przekazywanie i odkładanie na programowy stos parametrów, oraz zdejmowanie i odkładanie parametrów dla procedur wykorzystujących stos programowy i wywoływanych z poziomu innych procedur wykorzystujących stos programowy.</p>
+<h3 id="deklaracja-procedury">Deklaracja procedury</h3>
+<p>Procedur dotyczą n/w dyrektywy:</p>
+<pre><code> name .PROC [(.TYPE PAR1 .TYPE PAR2 ...)] [.REG] [.VAR]
+ .PROC name [,address] [(.TYPE PAR1 .TYPE PAR2 ...)] [.REG] [.VAR]
+ .ENDP [.PEND] [.END]
+</code></pre>
+<h4 id="name-proc-type-par1par2-type-par3-reg-var">name .PROC [(.TYPE Par1,Par2 .TYPE Par3 ...)] [.REG] [.VAR]</h4>
+<p>Deklaracja procedury name przy użyciu dyrektywy <code>.PROC</code>. Nazwa procedury jest wymagana i konieczna, jej brak wygeneruje błąd. Do nazw procedur nie można używać nazw mnemoników i pseudo rozkazów. Jeśli nazwa jest zarezerwowana wystąpi błąd z komunikatem <em><strong>Reserved word</strong></em>.</p>
+<p>Jeśli chcemy wykorzystać jeden z mechanizmów <strong>MADS</strong>-a do przekazywania parametrów do procedur, musimy je wcześniej zadeklarować. Deklaracja parametrów procedury mieści się pomiędzy nawiasami okrągłymi <code>( )</code>. Dostępne są cztery typy parametrów:</p>
+<ul>
+<li>.BYTE  (8-bit)  relokowalne</li>
+<li>.WORD  (16-bit) relokowalne</li>
+<li>.LONG  (24-bit) nierelokowalne</li>
+<li>.DWORD (32-bit) nierelokowalne</li>
+</ul>
+<blockquote>
+<p><em>W obecnej wersji <strong>MADS</strong>-a nie ma możliwości przekazywania parametrów za pomocą struktur <code>.STRUCT</code>.</em></p>
+</blockquote>
+<p>Bezpośrednio po deklaracji typu, oddzielona minimum jedną spacją, następuje nazwa parametru. Jeśli deklarujemy więcej parametrów tego samego typu możemy rozdzielić ich nazwy znakiem przecinka ','.</p>
+<p>Przykład deklaracji procedury wykorzystującej stos programowy:</p>
+<pre><code>name .PROC ( .WORD par1 .BYTE par2 )
+name .PROC ( .BYTE par1,par2 .LONG par3 )
+name .PROC ( .DWORD p1,p2,p3,p4,p5,p6,p7,p8 )
+</code></pre>
+<p>Dodatkowo używając dyrektyw <code>.REG</code> lub <code>.VAR</code> mamy możliwość określenia sposobu i metody przekazywania parametrów do procedur <strong>MADS</strong>-a. Przez rejestry <em>CPU</em> (<code>.REG</code>) lub przez zmienne (<code>.VAR</code>). Dyrektywy określające sposób przekazywania parametrów umieszczamy na końcu naszej deklaracji procedury <code>.PROC</code></p>
+<p>Przykład deklaracji procedury wykorzystującej rejestry <em>CPU</em>:</p>
+<pre><code>name .PROC ( .BYTE x,y,a ) .REG
+name .PROC ( .WORD xa .BYTE y ) .REG
+name .PROC ( .LONG axy ) .REG
+</code></pre>
+<p>Dyrektywa <code>.REG</code> wymaga aby nazwy parametrów składały się z liter <code>A</code>, <code>X</code>, <code>Y</code> lub ich kombinacji. Litery te odpowiadają nazwom rejestrów <em>CPU</em> i wpływają na kolejność użycia rejestrów. Ograniczeniem w liczbie przekazywanych parametrów jest ilość rejestrów <em>CPU</em>, przez co możemy przekazać do procedury w sumie maksimum 3 bajty. Zaletą takiego sposobu jest natomiast szybkość i małe zużycie pamięci <em>RAM</em>.</p>
+<p>Przykład deklaracji procedury wykorzystującej zmienne:</p>
+<pre><code>name .PROC ( .BYTE x1,x2,y1,y2 ) .VAR
+name .PROC ( .WORD inputPointer, outputPointer ) .VAR
+name .PROC ( .WORD src+1, dst+1 ) .VAR
+</code></pre>
+<p>Dla <code>.VAR</code> nazwy parametrów wskazują nazwy zmiennych do których będą ładowane przekazywane parametry. Metoda ta jest wolniejsza od <code>.REG</code> jednak nadal szybsza od metody ze stosem programowym.</p>
+<p>Procedurę opuszczamy w standardowy sposób, czyli przy pomocy rozkazu <code>RTS</code>. Dodanie rozkazu <code>RTS</code> w ciele procedury przy wyjściu z każdej ścieżki jest obowiązkiem programującego, a nie assemblera.</p>
+<p>Podobnie jak w przypadku bloku <code>.LOCAL</code> mamy możliwość określenia nowego adresu asemblacji dla bloku <code>.PROC</code>, np.:</p>
+<pre><code>.PROC label,$8000
+.ENDP
+
+.PROC label2,$a000 (.word ax) .reg
+.ENDP
+</code></pre>
+<p>W przypadku procedur wykorzystujących stos programowy po zakończeniu procedury przez <code>.ENDP</code> <strong>MADS</strong> wywołuje makro <code>@EXIT</code>, którego zadaniem jest modyfikacja wskaźnika stosu programowego <code>@STACK_POINTER</code>, jest to konieczne dla prawidłowego działania stosu programowego. Użytkownik może sam zaprojektować swoje makro <code>@EXIT</code>, albo skorzystać z dołączonego do <strong>MADS</strong>-a (plik ..\EXAMPLES\MACROS\@EXIT.MAC), ma ono obecnie następującą postać:</p>
+<pre><code>.macro @EXIT
+
+ ift :1&lt;&gt;0
+
+  ift :1=1
+   dec @stack_pointer
+
+  eli :1=2
+   dec @stack_pointer
+   dec @stack_pointer
+
+  els
+   pha
+   lda @stack_pointer
+   sub #:1
+   sta @stack_pointer
+   pla
+
+  eif
+
+ eif
+
+.endm
+</code></pre>
+<p>Makro <code>@EXIT</code> nie powinno zmieniać zawartości rejestrów <em>CPU</em> jeśli chcemy zachować możliwość zwrócenie wyniku działania procedury <code>.PROC</code> poprzez rejestry <em>CPU</em>.</p>
+<h4 id="endp">.ENDP</h4>
+<p>Dyrektywa <code>.ENDP</code> kończy deklarację bloku procedury.</p>
+<h3 id="wywoanie-procedury">Wywołanie procedury</h3>
+<p>Procedurę wywołujemy poprzez jej nazwę (identycznie jak makro), po niej mogą wystąpić parametry, rozdzielone separatorem w postaci znaku przecinka <code>,</code> lub spacji <code>' '</code> (nie ma możliwości zadeklarowania innych separatorów).</p>
+<p>Jeśli typ parametru nie będzie zgadzał się z typem zadeklarowanym w deklaracji procedury wystąpi komunikat błędu <em><strong>Incompatible types</strong></em>.</p>
+<p>Jeśli przekazana liczba parametrów różni się od liczby zadeklarowanych parametrów w deklaracji procedury to wystąpi komunikat błędu <em><strong>Improper number of actual parameters</strong></em>. Wyjątkiem jest procedura do której parametry przekazywane są przez rejestry <em>CPU</em> (<code>.REG</code>) lub zmienne (<code>.VAR</code>), w takich przypadkach możemy pominąć parametry, w domyśle są one już załadowane do odpowiednich rejestrów czy też zmiennych.</p>
+<p>Możliwe są trzy sposoby przekazania parametru:</p>
+<ul>
+<li>'#' przez wartość</li>
+<li>' ' przez wartość spod adresu (bez znaku poprzedzającego)</li>
+<li>'@' przez akumulator (parametry typu .BYTE)</li>
+<li>"string" przez ciąg znakowy, np. "label,x"</li>
+</ul>
+<p>Przykład wywołania procedury:</p>
+<pre><code> name @ , #$166 , $A400  ; dla stosu programowego
+ name , @ , #$3f         ; dla .REG lub .VAR
+ name &quot;(hlp),y&quot; &quot;tab,y&quot;  ; dla .VAR lub dla stosu programowego (stos programowy korzysta z regX)
+</code></pre>
+<p><strong>MADS</strong> po napotkaniu wywołania procedury, która korzysta ze stosu programowego wymusza wykonanie makra <code>@CALL</code>. Jeśli jednak procedura nie korzysta ze stosu programowego, zamiast makra <code>@CALL</code> zostanie wygenerowany zwykły rozkaz <code>JSR PROCEDURE</code>.</p>
+<p>Do makra <code>@CALL</code> <strong>MADS</strong> przekazuje parametry wyliczone na podstawie deklaracji procedury (rozbija każdy parametr na trzy składowe: tryb adresacji, typ parametru, wartość parametru).</p>
+<pre><code>@CALL_INIT 3\ @PUSH_INIT 3\ @CALL '@','B',0\ @CALL '#','W',358\ @CALL ' ',W,&quot;$A400&quot;\ @CALL_END PROC_NAME
+</code></pre>
+<p>Makro <code>@CALL</code> odłoży na stos zawartość akumulatora, następnie wartość $166 (358 dec), następnie wartość spod adresu $A400. Więcej informacji na temat sposobu przekazywania parametrów do makr (znaczenia apostrofów <code>' '</code> i <code>" "</code>) w rozdziale <a href="../skladnia/#wywoanie-makra">Wywołanie makra</a>.</p>
+<p>Parametr przekazywany przez akumulator <code>@</code> powinien być zawsze pierwszym parametrem przekazywanym do procedury, jeśli wystąpi w innym miejscu zawartość akumulatora zostanie zmodyfikowana (domyślne makro <code>@CALL</code> nakłada takie ograniczenie). Oczywiście użytkownik może to zmienić pisząc swoją wersję makra <code>@CALL</code>. W przypadku procedur <code>.REG</code> lub <code>.VAR</code> kolejność wystąpienia parametru <code>@</code> nie ma znaczenia.</p>
+<p>Wyjście z procedury <code>.PROC</code> następuje poprzez rozkaz <code>RTS</code>. Po powrocie z procedury <strong>MADS</strong> wywołuje makro <code>@EXIT</code> które zawiera program modyfikujący wartość wskaźnika stosu <code>@STACK_POINTER</code>, jest to niezbędne w celu prawidłowego działania stosu programowego. Od wskaźnika stosu odejmowana jest liczba bajtów które zostały przekazane do procedury, liczba bajtów przekazywana jest do makra jako parametr.</p>
+<p>Dodanie rozkazu <code>RTS</code> w ciele procedury przy wyjściu z każdej ścieżki jest obowiązkiem programującego, a nie assemblera.</p>
+<h3 id="parametry-procedury">Parametry procedury</h3>
+<p>Odwołania do parametrów procedury z poziomu procedury nie wymagają dodatkowych operacji ze strony programisty, np.:</p>
+<pre><code>@stack_address equ $400
+@stack_pointer equ $ff
+@proc_vars_adr equ $80
+
+name .PROC (.WORD par1,par2)
+
+ lda par1
+ clc
+ adc par2
+ sta par1
+
+ lda par1+1
+ adc par2+1
+ sta par1+1
+
+.endp
+
+ icl '@call.mac'
+ icl '@pull.mac'
+ icl '@exit.mac'
+</code></pre>
+<p><strong>MADS</strong> w momencie napotkania deklaracji <code>.PROC</code> z parametrami, dokonuje automatycznej definicji tych parametrów przypisując im wartości na podstawie <code>@PROC_VARS_ADR</code>. W w/w przykładzie <strong>MADS</strong> dokona automatycznej definicji parametrów <code>PAR1 = @PROC_VARS_ADR</code>, <code>PAR2 = @PROC_VARS_ADR + 2</code>.</p>
+<p>Programista odwołuje się do tych parametrów po nazwie jaka została im nadana w deklaracji procedury, czyli podobnie jak ma to miejsce w językach wyższego poziomu. W <strong>MADS</strong> istnieje możliwość dostępu do parametrów procedury spoza procedury co nie jest już normalne w językach wyższego poziomu. Możemy odczytać z w/w przykładu zawartość <code>PAR1</code>, np.:</p>
+<pre><code> lda name.par1
+ sta $a000
+ lda name.par1+1
+ sta $a000+1
+</code></pre>
+<p>Wartość <code>PAR1</code> została przepisane pod adres $A000, wartość PAR1+1 pod adres $A000+1. Oczywiście możemy tego dokonać tylko bezpośrednio po zakończeniu tej konkretnej procedury. Trzeba pamiętać że parametry takich procedur odkładane są pod wspólnym adresem <code>@PROC_VARS_ADR</code>, więc z każdym nowym wywołaniem procedury wykorzystującej stos programowy zawartość obszaru <code>&lt;@PROC_VARS_ADR .. @PROC_VARS_ADR + $FF&gt;</code> ulega zmianom.</p>
+<p>Jeśli procedura ma zadeklarowane parametry typu <code>.REG</code> programista powinien zatroszczyć się o to aby je zapamiętać czy też właściwie wykorzystać zanim zostaną zmodyfikowane przez kod procedury. W przypadku parametrów typu <code>.VAR</code> nie trzeba się o nic martwić ponieważ parametry zostały zapisane do konkretnych komórek pamięci skąd zawsze możemy je odczytać.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../makra/" class="btn btn-neutral float-right" title="Makra">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../lokal/" class="btn btn-neutral" title="Obszar lokalny"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../lokal/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../makra/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

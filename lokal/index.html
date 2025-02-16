@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Obszar lokalny - Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Obszar lokalny";
+    var mkdocs_page_input_path = "lokal.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sposob-uzycia/">Sposób użycia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kontrola/">Kontrola asemblacji</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sparta-dos/">Sparta DOS X</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makro-rozkazy/">Makro rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy/">Dyrektywy</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Obszar lokalny</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#name-local-address">[name] .LOCAL [,address]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#endl">.ENDL</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../procedury/">Procedury</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makra/">Makra</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tablice/">Tablice</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../typy/">Typy danych</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../banki-pamieci/">Banki pamięci</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kod-relokowalny/">Kod relokowalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Obszar lokalny</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/lokal.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="obszar-lokalny">Obszar lokalny</h2>
+<p>Głównym zadaniem obszaru lokalnego w <strong>MADS</strong> jest stworzenie nowej przestrzeni nazw dla etykiet.</p>
+<p>Wszelkie etykiety zdefiniowane w obszarze lokalnym <code>.LOCAL</code> są zasięgu lokalnego, można je też określić jako etykiety globalne zdefiniowane lokalnie o dostępie swobodnym, ponieważ można się do nich odwoływać co nie jest normalne w innych językach programowania.</p>
+<p>Obszary lokalne są addytywne tzn. że może być wiele bloków <code>.LOCAL</code> o tej samej nazwie, nie zostanie wygenerowany komunikat błędu <em><strong>Label ... declared twice</strong></em>.</p>
+<p>Addytywność obszarów lokalnych odbywa się na aktualnym poziomie przestrzeni nazw, jeśli chcemy połączyć się z wybranym obszarem lokalnym w innej przestrzeni nazw, poprzedzamy pełną nazwę prowadzącą do takiego obszaru znakiem <code>+</code>, np.:</p>
+<pre><code>  .local lvl
+
+tmp = 3
+
+  .endl
+
+
+
+  .local temp
+
+tmp = 7
+
+
+    .local +lvl
+
+      .print tmp
+
+    .endl
+
+
+  .endl
+
+</code></pre>
+<p>Dla w/w przykładu zostanie wyświetlona wartość etykiety <code>TMP</code> z obszaru lokalnego <code>LVL</code> o wartości <code>3</code>. Gdyby zabrakło znaku <code>+</code> w <code>.LOCAL +LVL</code> wówczas wartość <code>TMP</code> jaka zostanie wyświetlona to <code>7</code>.</p>
+<p>W obszarze lokalnym <code>.LOCAL</code> istnieje możliwość zdefiniowania etykiet o zasięgu globalnym (patrz rozdział <a href="#globalne">Etykiety globalne</a>).</p>
+<p>Jeśli poszukiwana przez assembler etykieta nie wystąpiła w obszarze lokalnym <code>.LOCAL</code>, wówczas <strong>MADS</strong> będzie poszukiwał ją w obszarze niższym aż dojdzie do obszaru globalnego. Aby odczytać natychmiastowo wartość etykiety globalnej z poziomu obszaru lokalnego <code>.LOCAL</code> (czy też innego obszaru lokalnego) poprzedzamy nazwę etykiety znakiem dwukropka <code>:</code>.</p>
+<p>Obszarów lokalnych dotyczą n/w dyrektywy:</p>
+<pre><code> [name] .LOCAL [,address]
+ .LOCAL [name] [,address]
+ .ENDL [.LEND] [.END]
+</code></pre>
+<h3 id="name-local-address">[name] .LOCAL [,address]</h3>
+<p>Deklaracja obszaru lokalnego o nazwie <code>name</code> za pomocą dyrektywy <code>.LOCAL</code>. Nazwa obszaru nie jest wymagana i nie jest konieczna. Do nazw obszarów lokalnych nie można używać nazw mnemoników i pseudo rozkazów. Jeśli nazwa jest zarezerwowana wystąpi błąd z komunikatem <em><strong>Reserved word</strong></em>.</p>
+<p>Po nazwie obszaru lokalnego (lub po dyrektywie <code>.LOCAL</code>) możemy podać nowy adres asemblacji bloku lokalnego. Po zakończeniu takiego bloku (<code>.ENDL</code>) przywracany jest poprzedni adres asemblacji zwiększony o długość bloku lokalnego.</p>
+<pre><code>label .local,$4000
+.endl
+
+.local label2,$8000
+.endl
+
+.local
+.endl
+
+.local label3
+.endl
+</code></pre>
+<p>Wszelkie definicje etykiet w obszarze <code>.LOCAL</code> są typu lokalnego. Aby odwołać się do etykiety globalnej o tej samej nazwie co etykieta lokalna należy poprzedzić ją znakiem dwukropka <code>:</code>, np.:</p>
+<pre><code>lab equ 1
+
+.local
+
+lab equ 2
+
+ lda #lab
+ ldx #:lab
+
+.endl
+</code></pre>
+<p>W w/w przykładzie do rejestru <code>A</code> zostanie załadowana wartość <code>2</code>, natomiast do rejestru <code>X</code> wartość <code>1</code>.</p>
+<p>Jeśli poszukiwana przez assembler etykieta nie wystąpiła w obszarze <code>.LOCAL</code>, wówczas nastąpi jej szukanie w obszarze makra (jeśli jest aktualnie przetwarzane), potem w procedurze (jeśli procedura jest aktualnie przetwarzana), na końcu w głównym programie.</p>
+<p>W zadeklarowanym obszarze lokalnym wszystkie definicje etykiet rozróżniane są na podstawie nazwy obszaru lokalnego. Aby dotrzeć do zdefiniowanej etykiety w obszarze lokalnym spoza obszaru lokalnego musimy znać nazwę obszaru i etykiety w nim występującej, np.:</p>
+<pre><code> lda #name.lab1
+ ldx #name.lab2
+
+.local name
+
+lab1 = 1
+lab2 = 2
+
+.endl
+</code></pre>
+<p>W adresowaniu takiej struktury <code>.LOCAL</code> używamy znaku kropki <code>.</code>.</p>
+<p>Obszary lokalne możemy zagnieżdżać, możemy je umieszczać w ciele procedur zadeklarowanych przez dyrektywę <code>.PROC</code>. Obszary lokalne są addytywne, tzn. może istnieć wiele obszarów lokalnych o tej samej nazwie, wszystkie symbole występujące w tych obszarach należeć będą do wspólnej przestrzeni nazw.</p>
+<p>Długość wygenerowanego kodu w bloku <code>.LOCAL</code> można sprawdzić przy pomocy dyrektywy <code>.LEN</code> (<code>.SIZEOF</code>).</p>
+<h3 id="endl">.ENDL</h3>
+<p>Dyrektywa <code>.ENDL</code> kończy deklarację obszaru lokalnego.</p>
+<p>Przykład deklaracji obszaru lokalnego:</p>
+<pre><code> org $2000
+
+tmp ldx #0   &lt;-------------   etykieta w obszarze globalnym
+                          |
+ lda obszar.pole  &lt;---    |   odwolanie do obszaru lokalnego
+                     |    |
+.local obszar        |    |   deklaracja obszaru lokalnego
+                     |    |
+ lda tmp   &lt;---      |    |
+              |      |    |
+ lda :tmp     |      | &lt;---   odwolanie do obszaru globalnego
+              |      |
+tmp nop    &lt;---      |        definicja w obszarze lokalnym
+                     |
+pole lda #0       &lt;---   &lt;--- definicja w obszarze lokalnym
+                            |
+ lda pole  &lt;----------------- odwolanie w obszarze lokalnym
+
+.endl                        koniec deklaracji obszaru lokalnego
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../procedury/" class="btn btn-neutral float-right" title="Procedury">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../dyrektywy/" class="btn btn-neutral" title="Dyrektywy"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../dyrektywy/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../procedury/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

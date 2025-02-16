@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="TeBe">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Tablice - Mad-Assembler</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Tablice";
+    var mkdocs_page_input_path = "tablice.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Mad-Assembler</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../wprowadzenie/">Wprowadzenie</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sposob-uzycia/">Sposób użycia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kontrola/">Kontrola asemblacji</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sparta-dos/">Sparta DOS X</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../skladnia/">Składnia</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../etykiety/">Etykiety</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../mnemoniki/">Mnemoniki</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makro-rozkazy/">Makro rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pseudo-rozkazy/">Pseudo rozkazy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy/">Dyrektywy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../lokal/">Obszar lokalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../procedury/">Procedury</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../makra/">Makra</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Tablice</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#deklaracja-tablicy">Deklaracja tablicy</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../typy/">Typy danych</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../detekcja-cpu/">Detekcja CPU</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../banki-pamieci/">Banki pamięci</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kod-relokowalny/">Kod relokowalny</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../przyklady/">Przykłady</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../projekty/">Projekty</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Mad-Assembler</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Tablice</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tebe6502/mad-assembler-mkdocs/edit/master/docs/tablice.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="tablice">Tablice</h2>
+<h3 id="deklaracja-tablicy">Deklaracja tablicy</h3>
+<p>Tablic dotyczą n/w dyrektywy:</p>
+<pre><code>label .ARRAY [elements0][elements1][...] [.type] [= init_value]
+      .ARRAY label [elements0][elements1][...] [.type] [= init_value]
+      .ENDA [.AEND] [.END]
+</code></pre>
+<p>Dostępne typy danych to <code>.BYTE</code>, <code>.WORD</code>, <code>.LONG</code>, <code>.DWORD</code>. W przypadku braku podania typu domyślnie przyjmowany jest typ <code>.BYTE</code>. Definicja tablicy lokalizuje ją in-place (w miejscu definicji).
+<code>ELEMENTS</code> określa liczbę elementów tablicy, które będą indeksowane od <code>&lt;0..ELEMENTS-1&gt;</code>. Wartość <code>ELEMENTS</code> może być stałą lub wyrażeniem, powinna być z przedziału <code>&lt;0..65535&gt;</code>. W przypadku braku podania liczby elementów zostanie ona ustalona na podstawie liczby wprowadzonych danych.</p>
+<p>W obszarze ograniczonym dyrektywami <code>.ARRAY</code> i <code>.ENDA</code> nie ma możliwości używania mnemoników <em>CPU</em>, jeśli je użyjemy lub użyjemy innych niedozwolonych znaków wówczas wystąpi błąd z komunikatem <em><strong>Improper syntax</strong></em>.</p>
+<p>Dopuszczalne jest określenie indeksu od jakiego będziemy wpisywali wartości dla kolejnych pól tablicy. Nową wartość takiego indeksu określamy umieszczając na początku nowego wiersza w nawiasach kwadratowych wyrażenie <code>[expression]</code>. Możliwe jest określenie większej ilości indeksów, w tym celu rozdzielamy kolejne indeksy znakiem dwukropka <code>:</code>. Następnie wprowadzamy wartości dla pól tablicy po znaku równości <code>=</code>, np.:</p>
+<pre><code class="language-JavaScript">.array tab .word      ; tablica TAB o nieokreślonej z góry liczbie pól typu .WORD
+ 1,3                  ; [0]=1, [1]=3
+ 5                    ; [2]=5
+ [12] = 1             ; [12]=1
+ [3]:[7]:[11] = 9,11  ; [3]=9, [4]=11, [7]=9, [8]=11, [11]=9, [12]=11
+.enda
+
+.array scr [24][40]   ; tablica dwuwymiarowa SCR typu .BYTE
+  [11][15] = &quot;ATARI&quot;
+.enda
+Przykład tablicy tłumaczącej kod naciśniętego klawisza na kod INTERNAL.
+
+.array TAB [255] .byte = $ff   ; alokowanie 256 bajtów [0..255] o wartości początkowej $FF
+
+ [63]:[127] = &quot;A&quot;              ; przypisanie nowej wartości TAB[63]=&quot;A&quot;, TAB[127]=&quot;A&quot;
+ [21]:[85]  = &quot;B&quot;
+ [18]:[82]  = &quot;C&quot;
+ [58]:[122] = &quot;D&quot;
+ [42]:[106] = &quot;E&quot;
+ [56]:[120] = &quot;F&quot;
+ [61]:[125] = &quot;G&quot;
+ [57]:[121] = &quot;H&quot;
+ [13]:[77]  = &quot;I&quot;
+ [1] :[65]  = &quot;J&quot;
+ [5] :[69]  = &quot;K&quot;
+ [0] :[64]  = &quot;L&quot;
+ [37]:[101] = &quot;M&quot;
+ [35]:[99]  = &quot;N&quot;
+ [8] :[72]  = &quot;O&quot;
+ [10]:[74]  = &quot;P&quot;
+ [47]:[111] = &quot;Q&quot;
+ [40]:[104] = &quot;R&quot;
+ [62]:[126] = &quot;S&quot;
+ [45]:[109] = &quot;T&quot;
+ [11]:[75]  = &quot;U&quot;
+ [16]:[80]  = &quot;V&quot;
+ [46]:[110] = &quot;W&quot;
+ [22]:[86]  = &quot;X&quot;
+ [43]:[107] = &quot;Y&quot;
+ [23]:[87]  = &quot;Z&quot;
+ [33]:[97]  = &quot; &quot;
+
+ [52]:[180] = $7e
+ [12]:[76]  = $9b
+
+.enda
+</code></pre>
+<p>W w/w przykładzie stworzyliśmy tablicę <code>TAB</code> o rozmiarze 256 bajtów <code>[0..255]</code>, typie danych <code>.BYTE</code> i wypełniliśmy pola wartością <code>= $FF</code>, dodatkowo zapisaliśmy wartości kodów literowych <code>INTERNAL</code> na pozycjach (indeksach tablicy) równych kodowi naciśnięcia klawisza (bez SHIFT-a i z SHIFT-em, czyli duże i małe litery).</p>
+<p>Znak dwukropka <code>:</code> rozdziela poszczególne indeksy tablicy.</p>
+<p>Przykład procedury detekcji ruchu joysticka, np.:</p>
+<pre><code class="language-JavaScript">.local HERO
+
+  .pages
+
+  lda $d300
+  and #$0f
+  tay
+  lda joy,y
+  sta _jmp
+
+  jmp null
+_jmp equ *-2
+
+left
+right
+up
+down
+
+null
+
+  rts
+
+  .endpg
+
+  _none     = 15
+  _up       = 14
+  _down     = 13
+  _left     = 11
+  _left_up  = 10
+  _left_dw  = 9
+  _right    = 7
+  _right_up = 6
+  _right_dw = 5
+
+.array joy [16] .byte = .lo(null)
+
+    [_left]     = .lo(left)
+    [_left_up]  = .lo(left)
+    [_left_dw]  = .lo(left)
+
+    [_right     = .lo(right)
+    [_right_up] = .lo(right)
+    [_right_dw] = .lo(right)
+
+    [_up]       = .lo(up)
+    [_dw]       = .lo(down)
+.enda
+
+.endl
+</code></pre>
+<p>Innym przykładem może być umieszczenie wycentrowanego napisu, np.:</p>
+<pre><code class="language-JavaScript"> org $bc40
+
+.array txt 39 .byte
+ [17] = &quot;ATARI&quot;
+.enda
+Do tak stworzonej tablicy odwołujemy się następująco:
+ lda tab,y
+ lda tab[23],x
+ ldx tab[200]
+</code></pre>
+<p>Jeśli w nawiasie kwadratowym podamy wartość indeksu przekraczającą zadeklarowaną dla danej tablicy, zostanie wygenerowany komunikat błędu _<strong>Constant expression violates subrange bounds</strong>+.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../typy/" class="btn btn-neutral float-right" title="Typy danych">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../dyrektywy-kodu/" class="btn btn-neutral" title="Dyrektywy generujące kod"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../dyrektywy-kodu/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../typy/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
