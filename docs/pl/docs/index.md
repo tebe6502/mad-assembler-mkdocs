@@ -6,6 +6,28 @@ Najnowsze wydania dla systemu Windows są dostępne na [Github](https://github.c
 
 # Historia Zmian
 
+
+## [2.1.6 - 2.1.7](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.6)
+
+- nowy przełącznik **'-xp Display warnings for unreferenced procedures'**
+- **Sparta DOS X**: Weak Symbol, `SMB^`
+- poprawione inicjalizowanie danych `STRUCT` przez `STRING`
+- poprawki dla `.LOCAL +label`
+- naprawiony błąd zapisu małych liczb `FLOAT (.FL)`, [issue 8](https://github.com/tebe6502/Mad-Assembler/issues/8)
+- [issue #10 fixed](https://github.com/tebe6502/Mad-Assembler/issues/10)
+- [issue #18 fixed](https://github.com/tebe6502/Mad-Assembler/issues/18)
+- dodany komunikat ostrzeżenia w przypadku przekroczenia adresu `$FFFF` **'Memory range has been exceeded'**
+- poprawione generowanie kodu dla `LAX (Z,X)`
+- dodane etykiety automodyfikacji dla zasięgu globalnego `::`, np.
+```
+   .local
+    lda temp:: #$00
+   .endl
+
+   lda #$aa
+   sta temp
+```
+
 ## [2.1.5](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.5)
 
 - poprawione działanie `.UNDEF`, `.IFDEF`
@@ -16,19 +38,19 @@ Najnowsze wydania dla systemu Windows są dostępne na [Github](https://github.c
 
 ## [2.1.3](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.3)
 
-- nowa dyrektywa `.RND` zwracająca wartość losową z zakresu 0..255
+- nowa dyrektywa `.RND` zwracająca wartość losową z zakresu `0..255`
 - dodany komunikat ostrzeżenia **'Register A is changed'** dla pseudo rozkazów `DEW`, `DEL`, `DED`
 - nowy przełącznik `-bc` **'Branch condition test'**, powoduje wygenerowanie komunikatów ostrzeżenia w przypadku kiedy skok jest poza zakres lub przekracza stronę pamięci
 
 ## [2.1.0](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.0)
 
 - dodany komunikat ostrzeżenia **'Buggy indirect jump'** w przypadku użycia rozkazu `JMP(ABS)`
-- dodana dyrektywa `.FILEEXISTS('filename')` zwracajaca 1 gdy plik w podanej ścieżce istnije, 0 gdy nie istnieje
+- dodana dyrektywa `.FILEEXISTS('filename')` zwracajaca `1` gdy plik w podanej ścieżce istnieje, `0` gdy nie istnieje
 - rozszerzony komunikat **Value out of range (VALUE must be between X and Y)**
 
 ## 2.0.9
 
-- `.CBM 'text'` konwersja na znaki ekranowe Commodore C64
+- `.CBM 'text'` konwersja na znaki ekranowe **Commodore C64**
 - usunięty błąd kiedy procedura `.PROC` znajdująca się w bloku `.LOCAL` nie została oznaczona jako 'do asemblacji' mimo tego że było do niej odwołanie z poziomu makra `.MACRO` w bloku `.LOCAL`
 - usunięty błąd, etykiety tymczasowe `?label` były oznaczane 'do relokacji'
 
@@ -48,13 +70,12 @@ Najnowsze wydania dla systemu Windows są dostępne na [Github](https://github.c
 - poprawione generowanie kodu wynikowego dla nielegali `DOP` i `SHA`
 - dodane dyrektywy **WDC 65816** `.A8` `.A16` `.I8` `.I16` `.AI8` `.IA8` `.AI16` `.IA16` pozwalające ustawić rozmiar rejestrów `AXY`
 - dodane dyrektywy **WDC 65816** `.ASIZE` `.ISIZE` zwracające aktualnie ustawiony rozmiar rejestrów `AXY`
-- rozkaz `JMP` zmieniany jest na `JML` **WDC 65816** tylko gdy skok dotyczy innego 64KB banku niż obecny
-- dodany przełącznik `-ml:value` (margin-left property), który umożliwia zmianę lewego marginesu generowanego listingu w zakresie od 32 do 128 znaków
+- rozkaz `JMP` zmieniany jest na `JML` **WDC 65816** tylko gdy skok dotyczy innego `64KB` banku niż obecny
+- dodany przełącznik `-ml:value` (margin-left property), który umożliwia zmianę lewego marginesu generowanego listingu w zakresie od `32` do `128` znaków
 
 ## 2.0.6
 
 - poprawione parsowanie parametrów makra zapisanych przy pomocy etykiet
-
 ```
 .macro test currentRow, previousRow
     .print Tmp%%currentRowAllowed
@@ -65,7 +86,6 @@ Najnowsze wydania dla systemu Windows są dostępne na [Github](https://github.c
 - poprawione alokowanie danych `.ARRAY` gdy nie ma określonego rozmiaru, lub jest to tablica inna niż jednowymiarowa
 - zwiększona liczba przebiegów dla `.PROC`, w pewnych warunkach dla parametru `xa .reg` parametr był źle interpretowany
 - dodana dyrektywa `.DEFINE` pozwalająca definiować jedno liniowe makra (można definiować wielokrotnie w tym samym przebiegu)
-
 ```
 .DEFINE macro_name expression
 
@@ -82,7 +102,7 @@ text 'atari'
 
 - tablice `.ARRAY` w bloku `.PROC` są pomijane jeśli użyto przełącznik `-x` **Exclude unreferenced procedures**
 - użycie `.ARRAY` w bloku `.STRUCT` nie będzie generować już zer w pliku wynikowym
-- nowa dyrektywa `.XGET`, pozwalająca wczytać do bufora pamięci **MADS** plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla **VBXE**)
+- nowa dyrektywa `.XGET`, pozwalająca wczytać do bufora pamięci **Mad Assembler** plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla **VBXE**)
 
 ## 2.0.4
 
@@ -91,7 +111,6 @@ text 'atari'
 - `.DBYTE` (MSB/LSB) odkłada słowo w odwrotnej kolejności (starszy/młodszy)
 - dodane dyrektywy `.WGET` **WORD**, `.LGET` **LONG**, `.DGET` **DWORD**
 - poprawione działanie makro rozkazków `ADW` i `SBW`, np.:
-
 ```
 adw (tmp),y #1 posx
 adw (tmp),y ptr2 ptr4
@@ -116,15 +135,13 @@ adw (tmp),y ptr2 ptr4
 ## 1.9.7
 
 - dyrektywa `.DEF` definiuje etykiety o zasiegu lokalnym, jeśli poprzedzić ją znakiem `:` to globalne
-- poprawki dla liczb zmiennoprzecinkowych .FL, poprawione kodowane zera, dokonywane zaokrąglenie do 10 miejsc po przecinku
+- poprawki dla liczb zmiennoprzecinkowych `.FL`, poprawione kodowane zera, dokonywane zaokrąglenie do `10` miejsc po przecinku
 - dla bloków **Sparta DOS X** `blk reloc` i `blk empty` dodana możliwość określenia innego typu pamięci niż `$00` (main), `$02` (extended), np.:
-
 ```
 blk reloc $40
 ```
 - poprawka umożliwiająca użycie dyrektywy `.PRINT` po `blk empty`
 - dodana możliwość definiowania wielowymiarowych tablic `.ARRAY`, np.:
-
 ```
 .array scr [24][40]
   [11][16] = "atari"
@@ -134,13 +151,11 @@ blk reloc $40
 ```
 
 - dodana możliwość definiowania tablicy `.ARRAY` poprzez dyrektywę `.DS`, np.:
-
 ```
 tmp .ds .array [5][12][4] .word
 ```
 
 - dodana możliwość definiowania tablicy `.ARRAY` poprzez pseudorozkaz `EQU` (=), np.:
-
 ```
 fnt = $e000 .array [128] [8] .byte
 ```
@@ -148,10 +163,10 @@ fnt = $e000 .array [128] [8] .byte
 - naprawione działanie makrorozkazu `ADW` w połączeniu z makrorozkazem `SCC` itp.
 - poprawki dla `.REPT`, m.in. komentarz wieloliniowy `/* */` jest teraz właściwie rozpoznawany
 
+
 ## 1.9.6
 
 - poprawione działanie etykiet anonimowych dla mnemoników łączonych znakiem `:`, np.:
-
 ```
        ldx #8
 @      lda:cmp:req 20
@@ -159,10 +174,9 @@ fnt = $e000 .array [128] [8] .byte
        bne @-
 ```
 
-- dodany pseudo rozkaz `COS` (centre,amp,size[,first,last]) generujący wartości dla funkcji cosinus
+- dodany pseudo rozkaz `COS` `(centre,amp,size[,first,last])` generujący wartości dla funkcji cosinus
 - dodany komunikat błędu **Improper syntax** w przypadku użycia dyrektywy `.DS` w bloku `.STRUCT`
 - naprawione działanie pseudo rozkazu `ORG`, np.:
-
 ```
 opt h-
 ORG [a($ffff),d'atari',c'ble',20,30,40],$8000,$a000
@@ -191,9 +205,8 @@ free_ptr_t dta free_ptr_struct [3]
 .print .sizeof(free_ptr_t)    ; free_ptr_struct [0..3] = 16 bytes
 ```
 
-- zmiany dla operacji odczytu plików poprzez `ICL`, `INS` itp. plik do odczytu/zapisu będzie poszukiwany najpierw w ścieżce, która prowadzi do obecnie otwartego pliku, następnie ze ścieżki z której został uruchomiony główny asemblowany plik i na końcu ze ścieżek podanych parametrem -i (additional include directories)
+- zmiany dla operacji odczytu plików poprzez `ICL`, `INS` itp. plik do odczytu/zapisu będzie poszukiwany najpierw w ścieżce, która prowadzi do obecnie otwartego pliku, następnie ze ścieżki z której został uruchomiony główny asemblowany plik i na końcu ze ścieżek podanych parametrem **-i (additional include directories)**
 - poprawione rozpoznawanie wielkości znaków gdy aktywowany jest przełącznik `-c` (char sensitive) dla struktur, np.:
-
 ```
 .struct fcb
 sEcbuf  .byte
@@ -203,10 +216,7 @@ data dta fcb [1] (0)
 
     lda     data[0].sEcbuf
 ```
-
-
 - rozszerzone działanie dyrektywy `.REPT` o możliwość jej zagnieżdżania np.:
-
 ```
 .rept 2,#*2              ;  1 - $0000
                          ;  2 - $0000
@@ -219,16 +229,15 @@ data dta fcb [1] (0)
 .endr
 ```
 - krótsza wersja pętli `#WHILE` bez wyrażenia, pętla trwa dopóki `LABEL <> 0`
-
 ```
 #while .word label
 #end
 ```
 
+
 ## 1.9.5
 
 - dodany pseudorozkaz `SET` pozwalający redefiniować etykietę, podobne działanie jak etykiety tymczasowe zaczynające się znakiem `?`, np.:
-
 ```
 temp set 12
 
@@ -238,22 +247,17 @@ temp set 23
 
      lda #temp
 ```
-
 - dodana możliwość wymuszenia trybu adresowania w stylu **XASM** `a:` i `z:`, np.:
-
 ```
 XASM        MADS
 lda a:0     lda.a 0
 ldx z:0     lda.z 0
 ```
-
 - dodana możliwość określenia nowego adresu relokacji kodu w stylu **XASM** `r:`, np.:
-
 ```
 XASM        MADS
 org r:$40   org $40,*
 ```
-
 - poprawione działanie parametru `-x` **Exclude unreferenced procedures**, zmienne `.VAR` nie są alokowane gdy procedura jest nieużywana
 - rozszerzona składnia dla jednoliniowych pętli `:rept`, możliwe wykorzystanie licznika pętli jako parametru `:1` lub `%%1`, np.:
 

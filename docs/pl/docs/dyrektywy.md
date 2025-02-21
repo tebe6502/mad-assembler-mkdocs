@@ -114,6 +114,7 @@
  [.FILEEXISTS 'filename'](#fileexists)<br>
 
  [.GET [index] 'filename'["filename"][*][+-value][,+-ofset[,length]]](#get)<br>
+ [.XGET 'filename'["filename"]](#xget)<br>
  [.WGET [index]](#get)<br>
  [.LGET [index]](#get)<br>
  [.DGET [index]](#get)<br>
@@ -597,6 +598,12 @@ hlp2   stx $b000
 
 .endl
 ```
+
+<a name="xget"></a>
+### .XGET 'filename'
+
+`.XGET` pozwala wczytać do bufora pamięci **Mad Assembler** plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla **VBXE**).
+
 
 <a name="get"></a>
 ### .GET [index] 'filename'... [.BYTE, .WORD, .LONG, .DWORD]
