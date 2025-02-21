@@ -1,173 +1,176 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Mad-Assembler Dokumentacja">
-  <meta name="author" content="TeBe">
-  
-  <link rel="shortcut icon" href="img/favicon.ico">
-  <title>Mad-Assembler</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
-
-  <link rel="stylesheet" href="css/theme.css" />
-  <link rel="stylesheet" href="css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "Mad-Assembler";
-    var mkdocs_page_input_path = "index.md";
-    var mkdocs_page_url = null;
-  </script>
-  
-  <script src="js/jquery-2.1.1.min.js" defer></script>
-  <script src="js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/armasm.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="Mad-Assembler Dokumentacja" /><meta name="author" content="TeBe" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Mad-Assembler</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/dark.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Mad-Assembler";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/armasm.min.js"></script>
+      <script>hljs.highlightAll();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="." class="icon icon-home"> Mad-Assembler</a>
-        <div role="search">
+          <a href="." class="icon icon-home"> Mad-Assembler
+        </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="wprowadzenie/">Wprowadzenie</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="sposob-uzycia/">Sposób użycia</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="kontrola/">Kontrola asemblacji</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="sparta-dos/">Sparta DOS X</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="skladnia/">Składnia</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="etykiety/">Etykiety</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="mnemoniki/">Mnemoniki</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="makro-rozkazy/">Makro rozkazy</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="pseudo-rozkazy/">Pseudo rozkazy</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="dyrektywy/">Dyrektywy</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="lokal/">Obszar lokalny</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="procedury/">Procedury</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="makra/">Makra</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="dyrektywy-kodu/">Dyrektywy generujące kod</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="tablice/">Tablice</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="typy/">Typy danych</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="detekcja-cpu/">Detekcja CPU</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="banki-pamieci/">Banki pamięci</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="kod-relokowalny/">Kod relokowalny</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="przyklady/">Przykłady</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="projekty/">Projekty</a>
-                    </li>
-                </ul>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="wprowadzenie/">Wprowadzenie</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="sposob-uzycia/">Sposób użycia</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="kontrola/">Kontrola asemblacji</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="sparta-dos/">Sparta DOS X</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="skladnia/">Składnia</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="etykiety/">Etykiety</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="mnemoniki/">Mnemoniki</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="makro-rozkazy/">Makro rozkazy</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="pseudo-rozkazy/">Pseudo rozkazy</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dyrektywy/">Dyrektywy</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="lokal/">Obszar lokalny</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="procedury/">Procedury</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="makra/">Makra</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="dyrektywy-kodu/">Dyrektywy generujące kod</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="tablice/">Tablice</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="typy/">Typy danych</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="detekcja-cpu/">Detekcja CPU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="banki-pamieci/">Banki pamięci</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="kod-relokowalny/">Kod relokowalny</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="przyklady/">Przykłady</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="projekty/">Projekty</a>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href=".">Mad-Assembler</a>
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">Mad-Assembler</a>
+        
       </nav>
-
-      
       <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>Mad-Assembler</li>
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Mad-Assembler</li>
     <li class="wy-breadcrumbs-aside">
-      
     </li>
   </ul>
-  
   <hr/>
 </div>
-          <div role="main">
-            <div class="section">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
                 <h1 id="mad-assembler">Mad-Assembler</h1>
 <p><strong>Mad-Assembler (MADS)</strong> jest cross-assemblerem MOS 6502/MOS 65C02/WDC 65816 autorstwa <a href="https://github.com/tebe6502">Tomazs Biela (tebe)</a>. </p>
 <p>Najnowsze wydania dla systemu Windows są dostępne na <a href="https://github.com/tebe6502/Mad-Assembler/releases">Github</a>. Wydania dla innych platform systemów operacyjnych są publikowane cyklicznie w ramach <a href="https://github.com/peterdell/wudsn-ide-tools/tree/main/ASM/MADS">WUDSN IDE Tools</a>.</p>
 <h1 id="historia-zmian">Historia Zmian</h1>
+<h2 id="216-217"><a href="https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.6">2.1.6 - 2.1.7</a></h2>
+<ul>
+<li>nowy przełącznik <strong>'-xp Display warnings for unreferenced procedures'</strong></li>
+<li><strong>Sparta DOS X</strong>: Weak Symbol, <code>SMB^</code></li>
+<li>poprawione inicjalizowanie danych <code>STRUCT</code> przez <code>STRING</code></li>
+<li>poprawki dla <code>.LOCAL +label</code></li>
+<li>naprawiony błąd zapisu małych liczb <code>FLOAT (.FL)</code>, <a href="https://github.com/tebe6502/Mad-Assembler/issues/8">issue 8</a></li>
+<li><a href="https://github.com/tebe6502/Mad-Assembler/issues/10">issue #10 fixed</a></li>
+<li><a href="https://github.com/tebe6502/Mad-Assembler/issues/18">issue #18 fixed</a></li>
+<li>dodany komunikat ostrzeżenia w przypadku przekroczenia adresu <code>$FFFF</code> <strong>'Memory range has been exceeded'</strong></li>
+<li>poprawione generowanie kodu dla <code>LAX (Z,X)</code></li>
+<li>dodane etykiety automodyfikacji dla zasięgu globalnego <code>::</code>, np.</li>
+</ul>
+<pre><code>   .local
+    lda temp:: #$00
+   .endl
+
+   lda #$aa
+   sta temp
+</code></pre>
 <h2 id="215"><a href="https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.5">2.1.5</a></h2>
 <ul>
 <li>poprawione działanie <code>.UNDEF</code>, <code>.IFDEF</code></li>
@@ -178,19 +181,19 @@
 </ul>
 <h2 id="213"><a href="https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.3">2.1.3</a></h2>
 <ul>
-<li>nowa dyrektywa <code>.RND</code> zwracająca wartość losową z zakresu 0..255</li>
+<li>nowa dyrektywa <code>.RND</code> zwracająca wartość losową z zakresu <code>0..255</code></li>
 <li>dodany komunikat ostrzeżenia <strong>'Register A is changed'</strong> dla pseudo rozkazów <code>DEW</code>, <code>DEL</code>, <code>DED</code></li>
 <li>nowy przełącznik <code>-bc</code> <strong>'Branch condition test'</strong>, powoduje wygenerowanie komunikatów ostrzeżenia w przypadku kiedy skok jest poza zakres lub przekracza stronę pamięci</li>
 </ul>
 <h2 id="210"><a href="https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.0">2.1.0</a></h2>
 <ul>
 <li>dodany komunikat ostrzeżenia <strong>'Buggy indirect jump'</strong> w przypadku użycia rozkazu <code>JMP(ABS)</code></li>
-<li>dodana dyrektywa <code>.FILEEXISTS('filename')</code> zwracajaca 1 gdy plik w podanej ścieżce istnije, 0 gdy nie istnieje</li>
+<li>dodana dyrektywa <code>.FILEEXISTS('filename')</code> zwracajaca <code>1</code> gdy plik w podanej ścieżce istnieje, <code>0</code> gdy nie istnieje</li>
 <li>rozszerzony komunikat <strong>Value out of range (VALUE must be between X and Y)</strong></li>
 </ul>
 <h2 id="209">2.0.9</h2>
 <ul>
-<li><code>.CBM 'text'</code> konwersja na znaki ekranowe Commodore C64</li>
+<li><code>.CBM 'text'</code> konwersja na znaki ekranowe <strong>Commodore C64</strong></li>
 <li>usunięty błąd kiedy procedura <code>.PROC</code> znajdująca się w bloku <code>.LOCAL</code> nie została oznaczona jako 'do asemblacji' mimo tego że było do niej odwołanie z poziomu makra <code>.MACRO</code> w bloku <code>.LOCAL</code></li>
 <li>usunięty błąd, etykiety tymczasowe <code>?label</code> były oznaczane 'do relokacji'</li>
 </ul>
@@ -210,8 +213,8 @@
 <li>poprawione generowanie kodu wynikowego dla nielegali <code>DOP</code> i <code>SHA</code></li>
 <li>dodane dyrektywy <strong>WDC 65816</strong> <code>.A8</code> <code>.A16</code> <code>.I8</code> <code>.I16</code> <code>.AI8</code> <code>.IA8</code> <code>.AI16</code> <code>.IA16</code> pozwalające ustawić rozmiar rejestrów <code>AXY</code></li>
 <li>dodane dyrektywy <strong>WDC 65816</strong> <code>.ASIZE</code> <code>.ISIZE</code> zwracające aktualnie ustawiony rozmiar rejestrów <code>AXY</code></li>
-<li>rozkaz <code>JMP</code> zmieniany jest na <code>JML</code> <strong>WDC 65816</strong> tylko gdy skok dotyczy innego 64KB banku niż obecny</li>
-<li>dodany przełącznik <code>-ml:value</code> (margin-left property), który umożliwia zmianę lewego marginesu generowanego listingu w zakresie od 32 do 128 znaków</li>
+<li>rozkaz <code>JMP</code> zmieniany jest na <code>JML</code> <strong>WDC 65816</strong> tylko gdy skok dotyczy innego <code>64KB</code> banku niż obecny</li>
+<li>dodany przełącznik <code>-ml:value</code> (margin-left property), który umożliwia zmianę lewego marginesu generowanego listingu w zakresie od <code>32</code> do <code>128</code> znaków</li>
 </ul>
 <h2 id="206">2.0.6</h2>
 <ul>
@@ -242,7 +245,7 @@ text 'atari'
 <ul>
 <li>tablice <code>.ARRAY</code> w bloku <code>.PROC</code> są pomijane jeśli użyto przełącznik <code>-x</code> <strong>Exclude unreferenced procedures</strong></li>
 <li>użycie <code>.ARRAY</code> w bloku <code>.STRUCT</code> nie będzie generować już zer w pliku wynikowym</li>
-<li>nowa dyrektywa <code>.XGET</code>, pozwalająca wczytać do bufora pamięci <strong>MADS</strong> plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla <strong>VBXE</strong>)</li>
+<li>nowa dyrektywa <code>.XGET</code>, pozwalająca wczytać do bufora pamięci <strong>Mad Assembler</strong> plik i dodatkowo zmodyfikować jego bajty pod warunkiem że są różne od zera (przydatne dla <strong>VBXE</strong>)</li>
 </ul>
 <h2 id="204">2.0.4</h2>
 <ul>
@@ -274,7 +277,7 @@ adw (tmp),y ptr2 ptr4
 <h2 id="197">1.9.7</h2>
 <ul>
 <li>dyrektywa <code>.DEF</code> definiuje etykiety o zasiegu lokalnym, jeśli poprzedzić ją znakiem <code>:</code> to globalne</li>
-<li>poprawki dla liczb zmiennoprzecinkowych .FL, poprawione kodowane zera, dokonywane zaokrąglenie do 10 miejsc po przecinku</li>
+<li>poprawki dla liczb zmiennoprzecinkowych <code>.FL</code>, poprawione kodowane zera, dokonywane zaokrąglenie do <code>10</code> miejsc po przecinku</li>
 <li>dla bloków <strong>Sparta DOS X</strong> <code>blk reloc</code> i <code>blk empty</code> dodana możliwość określenia innego typu pamięci niż <code>$00</code> (main), <code>$02</code> (extended), np.:</li>
 </ul>
 <pre><code>blk reloc $40
@@ -313,7 +316,7 @@ adw (tmp),y ptr2 ptr4
        bne @-
 </code></pre>
 <ul>
-<li>dodany pseudo rozkaz <code>COS</code> (centre,amp,size[,first,last]) generujący wartości dla funkcji cosinus</li>
+<li>dodany pseudo rozkaz <code>COS</code> <code>(centre,amp,size[,first,last])</code> generujący wartości dla funkcji cosinus</li>
 <li>dodany komunikat błędu <strong>Improper syntax</strong> w przypadku użycia dyrektywy <code>.DS</code> w bloku <code>.STRUCT</code></li>
 <li>naprawione działanie pseudo rozkazu <code>ORG</code>, np.:</li>
 </ul>
@@ -342,7 +345,7 @@ free_ptr_t dta free_ptr_struct [3]
 .print .sizeof(free_ptr_t)    ; free_ptr_struct [0..3] = 16 bytes
 </code></pre>
 <ul>
-<li>zmiany dla operacji odczytu plików poprzez <code>ICL</code>, <code>INS</code> itp. plik do odczytu/zapisu będzie poszukiwany najpierw w ścieżce, która prowadzi do obecnie otwartego pliku, następnie ze ścieżki z której został uruchomiony główny asemblowany plik i na końcu ze ścieżek podanych parametrem -i (additional include directories)</li>
+<li>zmiany dla operacji odczytu plików poprzez <code>ICL</code>, <code>INS</code> itp. plik do odczytu/zapisu będzie poszukiwany najpierw w ścieżce, która prowadzi do obecnie otwartego pliku, następnie ze ścieżki z której został uruchomiony główny asemblowany plik i na końcu ze ścieżek podanych parametrem <strong>-i (additional include directories)</strong></li>
 <li>poprawione rozpoznawanie wielkości znaków gdy aktywowany jest przełącznik <code>-c</code> (char sensitive) dla struktur, np.:</li>
 </ul>
 <pre><code>.struct fcb
@@ -1157,20 +1160,17 @@ ldx:ldy:lda:iny label
 </code></pre>
               
             </div>
-          </div>
-          <footer>
-  
+          </div><footer>
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-    
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+          
         </div>
       </div>
 
@@ -1178,28 +1178,32 @@ ldx:ldy:lda:iny label
 
   </div>
 
-  <div class="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-          <a href="https://github.com/tebe6502/mad-assembler-mkdocs" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
-      
-      
-      
-    </span>
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
 </div>
-    <script>var base_url = '.';</script>
-    <script src="js/theme.js" defer></script>
-      <script src="search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
-        };
+        });
     </script>
 
 </body>
 </html>
 
 <!--
-MkDocs version : 1.1.2
-Build Date UTC : 2025-02-16 10:55:52.336960+00:00
+MkDocs version : 1.6.1
+Build Date UTC : 2025-02-21 09:46:13.559782+00:00
 -->
