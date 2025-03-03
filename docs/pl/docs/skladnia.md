@@ -90,6 +90,13 @@ Wartościowanie wyrażenia przebiega w porządku, określonym pierwszeństwem op
     1743
 ```
 
+#### zapis czwórkowy
+
+```JavaScript
+    0q3333
+    0q0123
+```
+
 #### zapis hexadecymalny
 
 ```JavaScript
