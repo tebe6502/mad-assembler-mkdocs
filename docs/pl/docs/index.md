@@ -9,6 +9,7 @@ Najnowsze wydania dla systemu Windows są dostępne na [Github](https://github.c
 
 ## [2.1.6 - 2.1.7](https://github.com/tebe6502/Mad-Assembler/releases/tag/2.1.6)
 
+- dodana obsługa zapisu wartości w systemie czwórkowym 0q0123
 - nowy przełącznik **'-xp Display warnings for unreferenced procedures'**
 - **Sparta DOS X**: Weak Symbol, `SMB^`
 - poprawione inicjalizowanie danych `STRUCT` przez `STRING`
