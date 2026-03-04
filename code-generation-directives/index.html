@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="TeBe" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Code Generation Directives - Mad-Assembler</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/dark.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Code Generation Directives";
+        var mkdocs_page_input_path = "code-generation-directives.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/armasm.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Mad-Assembler
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../usage/">Usage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../control/">Assembly control</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../spartadosx/">Sparta DOS X</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../syntax/">Syntax</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../labels/">Labels</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../mnemonics/">Mnemonics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../macro-commands/">Macro Commands</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../pseudo-commands/">Pseudo Commands</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../directives/">Directives</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../local-areas/">Local Areas</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../procedures/">Procedures</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../macros/">Macros</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Code Generation Directives</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#if-type-expression-or-type-expression-and-type-expression">#IF type expression [.OR type expression] [.AND type expression]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#while-type-expression-or-type-expression-and-type-expression">#WHILE type expression [.OR type expression] [.AND type expression]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cycle-n">#CYCLE #N</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../arrays/">Arrays</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../data-types/">Data Types</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../cpu-detection/">CPU Detection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../memory-banks/">Memory Banks</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../relocatable-code/">Relocatable Code</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../examples/">Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../projects/">Projects</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Mad-Assembler</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Code Generation Directives</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="dyrektywy-generujace-kod-6502">Dyrektywy generujące kod 6502</h2>
+<p><a href="#d_if">#IF type expression [.OR type expression] [.AND type expression]</a><br>
+ <a href="#d_if">#ELSE</a><br>
+ <a href="#d_if">#END</a><br></p>
+<p><a href="#d_while">#WHILE type expression [.OR type expression] [.AND type expression]</a><br>
+ <a href="#d_while">#END</a><br></p>
+<p><a href="#d_cycle">#CYCLE #N</a></p>
+<p><a name="d_if"></a></p>
+<h3 id="if-type-expression-or-type-expression-and-type-expression">#IF type expression [.OR type expression] [.AND type expression]</h3>
+<p>Dyrektywa <code>#IF</code> to skromniejszy odpowiednik instrukcji <code>IF</code> z języków wyższego poziomu (<strong>C</strong>, <strong>Pascal</strong>).</p>
+<p>Dyrektywy <code>#IF</code>, <code>#ELSE</code> i <code>#END</code> pozwalają na wygenerowanie kodu maszynowego <em>CPU 6502</em> instrukcji warunkowej <code>IF</code> dla wyznaczonego bloku programu, możliwe jest ich zagnieżdżanie.</p>
+<p>Dopuszczalne są wszystkie typy <code>.BYTE</code>, <code>.WORD</code>, <code>.LONG</code>, <code>.DWORD</code>, możliwe jest łączenie większej ilości warunków przy pomocy dyrektyw <code>.OR</code> i <code>.AND</code>, nie ma możliwości określenia kolejności wartościowania poprzez nawiasy.</p>
+<p>Wykonanie dyrektywy <code>#IF</code> zaczyna się od obliczenia wartości wyrażenia prostego tzn. takiego które składa się z dwóch argumentów i jednego operatora (wyrażenia możemy łączyć dyrektywami <code>.OR</code> lub <code>.AND</code>).</p>
+<p>Jeżeli wyrażenie ma wartość różną od zera (<code>TRUE</code>), to zostanie wykonywany blok programu występujący po dyrektywie <code>#IF</code>. Blok takiego programu automatycznie kończony jest instrukcją <code>JMP</code> realizującą skok do następnej instrukcji programu za dyrektywą <code>#END</code> w przypadku występowania bloku <code>#ELSE</code>.</p>
+<p>Jeżeli wyrażenie ma wartość zero (<code>FALSE</code>), to wykonywany jest kod programu występujący po dyrektywie <code>#ELSE</code>, jeśli dyrektywa <code>#ELSE</code> nie występuje sterowanie przekazywane jest do następnej instrukcji programu za dyrektywą <code>#END</code>, np.:</p>
+<pre><code class="language-JavaScript">#if .byte label&gt;#10 .or .byte label&lt;#5
+#end
+
+#if .byte label&gt;#100
+
+#else
+
+ #if .byte label&lt;#200
+ #end
+
+#end
+
+#if .byte label&gt;#100 .and .byte label&lt;#200 .or .word lab=temp
+#end
+
+#if .byte @
+#end
+</code></pre>
+<p><a name="d_while"></a></p>
+<h3 id="while-type-expression-or-type-expression-and-type-expression">#WHILE type expression [.OR type expression] [.AND type expression]</h3>
+<p>Dyrektywa <code>#WHILE</code> jest odpowiednikiem instrukcji <code>WHILE</code> z języków wyższego poziomu (<strong>C</strong>, <strong>Pascal</strong>).</p>
+<p>Dyrektywy <code>#WHILE</code> i <code>#END</code> pozwalają na wygenerowanie kodu maszynowego <em>CPU 6502</em> pętli dla wyznaczonego bloku programu, możliwe jest ich zagnieżdżanie.</p>
+<p>Dopuszczalne są wszystkie typy <code>.BYTE</code>, <code>.WORD</code>, <code>.LONG</code>, <code>.DWORD</code>, możliwe jest łączenie większej ilości warunków przy pomocy dyrektyw <code>.OR</code> i <code>.AND</code>, nie ma możliwości określenia kolejności wartościowania poprzez nawiasy.</p>
+<p>Sekwencja działań przy wykonywaniu dyrektywy <code>#WHILE</code> jest następująca:</p>
+<ol>
+<li>Oblicz wartość wyrażenia i sprawdź, czy jest równe zeru (<code>FALSE</code>).<ul>
+<li>jeżeli tak, to pomiń krok 2;</li>
+<li>jeżeli nie (<code>TRUE</code>), przejdź do kroku 2.</li>
+</ul>
+</li>
+<li>Wykonaj blok programu ograniczonego dyrektywami <code>#WHILE</code> i <code>#END</code>, następnie przejdź do kroku 1.</li>
+</ol>
+<p>Jeżeli pierwsze wartościowanie wyrażenia wykaże, że ma ono wartość zero, to blok programu nigdy nie zostanie wykonany i sterowanie przejdzie do następnej instrukcji programu za dyrektywą <code>#END</code></p>
+<pre><code class="language-JavaScript">#while .byte label&gt;#10 .or .byte label&lt;#5
+#end
+
+#while .byte label&gt;#100
+ #while .byte label2&lt;#200
+ #end
+#end
+
+#while .byte label&gt;#100 .and .byte label&lt;#200 .or .word lab=temp
+#end
+</code></pre>
+<p>Wersja krótka pętli <code>#WHILE</code>, trwa dopóki <code>LABEL&lt;&gt;0</code></p>
+<pre><code>#while .word label
+#end
+</code></pre>
+<p><a name="d_cycle"></a></p>
+<h3 id="cycle-n">#CYCLE #N</h3>
+<p>Dyrektywa <code>#CYCLE</code> pozwala wygenerować kod <em>6502</em> o zadanej liczbie cykli. Wygenerowany kod nie modyfikuje żadnej komórki pamięci, ani rejestru <em>CPU</em>, co najwyżej znaczniki.</p>
+<pre><code class="language-JavaScript">#cycle #17  ; pha      3 cycle
+            ; pla      4 cycle
+            ; pha      3 cycle
+            ; pla      4 cycle
+            ; cmp $00  3 cycle
+                      ---------
+                      17 cycle
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../macros/" class="btn btn-neutral float-left" title="Macros"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../arrays/" class="btn btn-neutral float-right" title="Arrays">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../macros/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../arrays/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

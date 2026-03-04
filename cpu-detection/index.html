@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="TeBe" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>CPU Detection - Mad-Assembler</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/dark.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CPU Detection";
+        var mkdocs_page_input_path = "cpu-detection.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/armasm.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Mad-Assembler
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../usage/">Usage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../control/">Assembly control</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../spartadosx/">Sparta DOS X</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../syntax/">Syntax</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../labels/">Labels</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../mnemonics/">Mnemonics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../macro-commands/">Macro Commands</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../pseudo-commands/">Pseudo Commands</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../directives/">Directives</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../local-areas/">Local Areas</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../procedures/">Procedures</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../macros/">Macros</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../code-generation-directives/">Code Generation Directives</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../arrays/">Arrays</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../data-types/">Data Types</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">CPU Detection</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#detekcja-cpu6502-cpu65816">Detekcja CPU6502, CPU65816</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../memory-banks/">Memory Banks</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../relocatable-code/">Relocatable Code</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../examples/">Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../projects/">Projects</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Mad-Assembler</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CPU Detection</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1"></h1>
+<h2 id="detekcja-cpu6502-cpu65816">Detekcja CPU6502, CPU65816</h2>
+<p>Przykład zaczerpnięty z <a href="http://www.s-direktnet.de/homepages/k_nadj/cputest.html">tej</a> strony. Program potrafi zdiagnozować obecność jednego z mikroprocesorów: <em>6502</em>, <em>65C02</em>, <em>65816</em>.</p>
+<pre><code>/*
+
+How to detect on which CPU the assembler code is running
+
+(This information is from Draco, the author of SYSINFO 2.0)
+
+You can test on plain 6502-Code if there is a 65c816 CPU, the 16-Bit processor avaible
+in some XLs as a turbo-board, avaible. Draco told me how to do this:
+
+First we make sure, whether we are running on NMOS-CPU (6502) or CMOS (65c02,65c816).
+I will just show the &quot;official&quot; way which doesn`t uses &quot;illegal opcodes&quot;:
+
+*/
+
+ org $2000
+
+ opt c+
+
+DetectCPU
+
+ lda #$99
+ clc
+ sed
+ adc #$01
+ cld
+ beq DetectCPU_CMOS
+
+DetectCPU_02
+
+ ldx #&lt;_6502
+ ldy #&gt;_6502
+ jsr $c642
+
+ lda #0
+ rts
+
+DetectCPU_CMOS
+
+ lda #0
+ rep #%00000010     ;wyzerowanie bitu Z
+ bne DetectCPU_C816
+
+DetectCPU_C02
+
+ ldx #&lt;_65c02
+ ldy #&gt;_65c02
+ jsr $c642
+
+ lda #1
+ rts
+
+DetectCPU_C816
+
+ ldx &lt;_65816
+ ldy &gt;_65816
+ jsr $c642
+
+ lda #$80
+ rts
+
+_6502   dta c'6502',$9b
+_65c02  dta c'65c02',$9b
+_65816  dta c'65816',$9b
+</code></pre>
+<p>Następny przykład detekcji <em>CPU</em>, ogranicza się do określenia obecności mikroprocesora <em>6502</em> lub <em>65816</em>. Program po disasemblacji inaczej wygląda dla <strong>6502</strong>, inaczej dla <strong>65816</strong>. <strong>6502</strong> rozkaz <code>inc @</code> uzna za <code>nop</code>, rozkaz <code>xba</code> uzna za <code>sbc #</code>. Dzięki takiej <em>przezroczystości</em> możemy być pewni że program nie wykona żadnej nielegalnej operacji i uczciwie rozpozna właściwy <em>CPU</em>. Pomysłodawcą tego zwięzłego i jakże sprytnego testu jest <strong>Ullrich von Bassewitz</strong>.</p>
+<pre><code> org $2000
+
+ opt c+                 ; 65816 enabled
+
+ lda #0
+
+ inc @                  ; increment accumulator
+
+ cmp #1
+ bcc cpu6502
+
+; ostateczny test na obecnosc 65816
+
+ xba           ; put $01 in B accu
+ dec @         ; A=$00 if 65C02
+ xba           ; get $01 back if 65816
+ inc @         ; make $01/$02
+
+ cmp #2
+ bne cpu6502
+
+cpu65816
+
+ ldx &lt;text65816
+ ldy &gt;text65816
+ jsr $c642
+ rts
+
+cpu6502
+
+ ldx &lt;text6502
+ ldy &gt;text6502
+ jsr $c642
+ rts
+
+text6502  dta c'6502',$9b
+text65816 dta c'65816',$9b
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../data-types/" class="btn btn-neutral float-left" title="Data Types"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../memory-banks/" class="btn btn-neutral float-right" title="Memory Banks">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tebe6502/mad-assembler-mkdocs/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../data-types/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../memory-banks/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
