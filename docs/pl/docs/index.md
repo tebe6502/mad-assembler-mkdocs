@@ -1,6 +1,6 @@
 # Mad-Assembler
 
-**Mad-Assembler (MADS)** jest cross-assemblerem MOS 6502/MOS 65C02/WDC 65816 autorstwa [Tomazs Biela (tebe)](https://github.com/tebe6502). 
+**Mad-Assembler (MADS)** jest cross-assemblerem MOS 6502/MOS 65C02/WDC 65816 autorstwa [Tomasz Biela (tebe)](https://github.com/tebe6502). 
 
 Najnowsze wydania dla systemu Windows są dostępne na [Github](https://github.com/tebe6502/Mad-Assembler/releases). Wydania dla innych platform systemów operacyjnych są publikowane cyklicznie w ramach [WUDSN IDE Tools](https://github.com/peterdell/wudsn-ide-tools/tree/main/ASM/MADS).
 
