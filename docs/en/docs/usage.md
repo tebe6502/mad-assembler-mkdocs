@@ -1,10 +1,9 @@
 #
 
-## Przełączniki assemblera
-<!-- TODO: Use "options" instead of "switches", also adapt MADS  -->
+## Assembler Options
 <!-- TODO: Use active form  -->
 ```none
-Syntax: mads source [switches]
+Syntax: mads source [options]
 
 -b:address      Generate binary file at specific address
 -c              Label case sensitivity
@@ -26,7 +25,7 @@ Syntax: mads source [switches]
 -x              Exclude unreferenced procedures
 ```
 
-Domyślne nazwy plików to:
+The default filenames are:
 
 * `source.lst`
 * `source.obx`
@@ -35,9 +34,9 @@ Domyślne nazwy plików to:
 * `source.hea`
 * `source.mac`
 
-Jeśli nie podamy rozszerzenia dla pliku source, wówczas MADS domyślnie przyjmie rozszerzenie `.ASM`.
+If no extension is provided for the source file, MADS will assume the `.ASM` extension by default.
 
-Parametry możemy podawać w dowolnej kolejności uprzednio poprzedzając je znakiem `/` lub `-`, wielkość liter nie ma znaczenia. Parametry możemy łączyć ze sobą, np.:
+Parameters can be provided in any order, preceded by the `/` or `-` character; case does not matter. Parameters can be combined, e.g.:
 
 ```
 mads -lptd:label=value -d:label2=value source.asm
@@ -47,45 +46,45 @@ mads.exe "%1" -ltpi:"d:\!atari\macro\"
 mads -i:"c:\atari\macros\" -c source.asm  -lpt
 ```
 
-Domyślnie **MADS** po asemblacji zapisze plik z rozszerzeniem `.OBX`, możemy to zmienić z poziomu **BAT**:
+By default, **MADS** saves the file with the `.OBX` extension after assembly; this can be changed via a **BAT** file:
 
 ```
 mads "%1" -o:%~n1.xex
 ```
 
-Więcej na temat operatorów możemy dowiedzieć się wykonując `CALL /?` z poziomu **Microsoft DOS**.
+More information about operators can be found by executing `CALL /?` from **Microsoft DOS**.
 
 ### `b:address`
 
-Użycie przełącznika `-b` pozwala nadać nowy adres asemblacji dla pliku w którym nie określono adresu asemblacji (adres asemblacji określamy przy pomocy pseudo rozkazu `ORG`).
+Using the `-b` switch allows assigning a new assembly address to a file where no assembly address has been specified (the assembly address is defined using the `ORG` pseudo-command).
 
 ### `c`
 
-Użycie przełącznika `-c` spowoduje rozróżnianie wielkości liter w nazwach etykiet, zmiennych, stałych. Dyrektywy assemblera i rozkazy *CPU 6502*, *65816* są zawsze rozpoznawane bez względu na wielkość liter.
+Using the `-c` switch enables case sensitivity for label, variable, and constant names. Assembler directives and *CPU 6502* or *65816* instructions are always recognized regardless of case.
 
 ### `d:label=value`
 
-Użycie przełącznika `-d` pozwala na wprowadzenie nowej etykiety do pamięci **MADS** z poziomu linii poleceń. Przełącznika można użyć wielokrotnie podczas jednego wywołania **MADS**, może być przydatny gdy asemblujemy z użyciem plików wsadowych **BAT**.
+Using the `-d` switch allows defining a new label in **MADS** memory from the command line. The switch can be used multiple times during a single **MADS** invocation and can be useful when assembling using **BAT** batch files.
 
 ### `f`
 
-Użycie przełącznika -f umożliwia umieszczanie rozkazów *CPU* od pierwszej kolumny wiersza i ich poprawne rozpoznawanie przez asembler jako rozkazy a nie tylko jako etykiety.
+Using the `-f` switch allows placing *CPU* instructions in the first column of a line and ensures they are correctly recognized by the assembler as instructions rather than labels.
 
 ### `fv:value`
 
-Użycie przełącznika `-fv:value` pozwala ustalić wartość wypełnienia pamięci gdy użyjemy `OPT F+`
+Using the `-fv:value` switch allows setting the memory fill value when `OPT F+` is used.
 
 ### `hc[:filename]`
 
-Przełącznik `-hc` włącza zapis pliku z nagłówkami dla kompilatora **CC65**. Pozwala także określić nową nazwę dla takiego pliku. Domyślna nazwa pliku nagłówkowego dla **CC65** to `*.H`
+The `-hc` switch enables saving a header file for the **CC65** compiler. It also allows specifying a new name for the file. The default header filename for **CC65** is `*.H`.
 
 ### `hm[:filename]`
 
-Przełącznik `-hm` włącza zapis pliku z nagłówkami dla **MADS**. Pozwala także określić nową nazwę dla takiego pliku. Domyślna nazwa pliku nagłówkowego dla **MADS** to `*.HEA`. Plik taki zawiera informacje o bankach przypisanych etykietom i ich wartości. Dodatkowo etykiety posortowane zostają wg typu `CONSTANS` `VARIABLES` `PROCEDURES`.
+The `-hm` switch enables saving a header file for **MADS**. It also allows specifying a new name for the file. The default header filename for **MADS** is `*.HEA`. This file contains information about the banks assigned to labels and their values. Additionally, labels are sorted by type: `CONSTANTS`, `VARIABLES`, and `PROCEDURES`.
 
 ### `i:path`
 
-Przełącznik `-i` służy do określenia ścieżek poszukiwań dla operacji `ICL` oraz `INS`. Przełącznika można użyć wielokrotnie podczas jednego wywołania MADS-a, np.:
+The `-i` switch is used to specify search paths for `ICL` and `INS` operations. The switch can be used multiple times during a single MADS invocation, e.g.:
 
 ```
 -i:"c:\program files" -i:c:\temp -i:"d:\atari project"
@@ -93,46 +92,46 @@ Przełącznik `-i` służy do określenia ścieżek poszukiwań dla operacji `IC
 
 ### `l:filename`
 
-Przełącznik `-l` włącza zapis pliku z listingiem. Pozwala także określić nową nazwę dla takiego pliku.
+The `-l` switch enables saving a listing file. It also allows specifying a new name for the file.
 
 ### `m:filename`
 
-Przełącznik `-m` służy do określenia pliku z deklaracjami makr. W przypadku jego użycia **MADS** asembluje taki plik przed głównym plikiem `.ASM`
+The `-m` switch is used to specify a file with macro declarations. When used, **MADS** assembles this file before the main `.ASM` file.
 
 ### `o:filename`
 
-Przełącznik `-o` pozwala określić nową nazwę pliku wykonywalnego **Atari DOS** lub **Atari Sparta DOS X**, który powstanie po procesie asemblacji.
+The `-o` switch allows specifying a new name for the **Atari DOS** or **Atari Sparta DOS X** executable file generated after the assembly process.
 
 ### `p`
 
-Przełącznik `-p` pomocny jest w połączeniu z **Code Genie**. Gdy wystąpi błąd podczas asemblacji, w oknie *Output Bar* edytora **Code Genie** pojawi się stosowny komunikat wygenerowany przez **MADS**, np.:
+The `-p` switch is helpful when used with **Code Genie**. If an error occurs during assembly, an appropriate message generated by **MADS** will appear in the *Output Bar* window of the **Code Genie** editor, e.g.:
 
 ```
 D:\!Delphi\Masm\test.asm (29) ERROR: Missing .PROC
 ```
 
-Teraz wystarczy kliknąć dwukrotnie linię z tym komunikatem, a kursor edytora ustawi się w linii z błędem.
+Now, simply double-click the line with this message, and the editor's cursor will move to the line with the error.
 
 ### `s`
 
-Użycie przełącznika `-s` spowoduje uaktywnienie tzw. trybu pracy *Silent mode*, czyli żadne komunikaty nie zostaną wyświetlone, co najwyżej komunikaty błędów **ERROR** i ostrzeżenia **WARNING**.
+Using the `-s` switch activates "Silent mode," meaning no messages will be displayed except for **ERROR** and **WARNING** messages.
 
 ### t[:filename]
 
-Przełącznik `-t` włącza zapis pliku z użytymi definicjami etykiet. Pozwala także określić nową nazwę dla takiego pliku.
+The `-t` switch enables saving a file with the label definitions used. It also allows specifying a new name for the file.
 
 ### `x`
-Przełącznik `-x` pozwala na pominięcie w procesie asemblacji procedur zadeklarowanych dyrektywą `.PROC`, do których nie nastąpiło odwołanie w programie.
+The `-x` switch allows skipping procedures declared with the `.PROC` directive that have not been referenced in the program during the assembly process.
 
 ### `vu`
 
-Przełącznik `-vu` wymusza dodatkowy test kodu w blokach `.PROC` mimo tego że taki blok `.PROC` nie zostanie zapisany do pliku wynikowego, najczęściej przydaje się gdy używamy przełącznika `-x`
+The `-vu` switch forces an additional code test within `.PROC` blocks even if the `.PROC` block is not saved to the output file; it is most useful when using the `-x` switch.
 
 ### `u`
 
-Przełącznik `-u` wyświetli etykiety które nie zostały użyte w programie.
+The `-u` switch displays labels that have not been used in the program.
 
-## Kody wyjścia
+## Exit Codes
 
 ```none
 3 = bad parameters, assembling not started
@@ -140,11 +139,11 @@ Przełącznik `-u` wyświetli etykiety które nie zostały użyte w programie.
 0 = no errors
 ```
 
-Komunikaty ostrzeżenia nie powodują zmiany wartości kodu wyjścia.
+Warning messages do not change the exit code value.
 
-## Struktura pliku `LST`
+## `LST` File Structure
 
-Format listingu nie odbiega od tego znanego z **XASM**, jedyną zmianą jest dodanie przed adresem, numeru wirtualnego banku pamięci (pod warunkiem że numer banku `<> 0`).
+The listing format does not differ from the one known from **XASM**; the only change is the addition of the virtual memory bank number before the address (provided the bank number is `<> 0`).
 
 ```none
 3
@@ -155,34 +154,34 @@ Format listingu nie odbiega od tego znanego z **XASM**, jedyną zmianą jest dod
 8 01,2000 EA   main nop
 ```
 
-## Struktura pliku `LAB`
+## `LAB` File Structure
 
-Podobnie jak w przypadku **XASM**, w pliku `*.LAB` przechowywane są informacje na temat etykiet które wystąpiły w programie.
+Similar to **XASM**, the `*.LAB` file stores information about the labels that occurred in the program.
 
-W sumie są to trzy kolumny:
+Altogether, there are three columns:
 
-* Pierwsza kolumna to numer wirtualnego banku przypisany do etykiety (jeśli bank `<> 0`)
-* Druga kolumna to wartość etykiety.
-* Trzecia kolumna to nazwa etykiety.
+* The first column is the virtual bank number assigned to the label (if the bank is `<> 0`).
+* The second column is the label value.
+* The third column is the label name.
 
-Numery wirtualnych banków przypisane do etykiety o wartościach `>= $FFF9` mają specjalne znaczenie:
+Virtual bank numbers assigned to a label with values `>= $FFF9` have special meanings:
 
 ```none
-$FFF9   etykieta parametru procedury zdefiniowanej przez dyrektywę .PROC
-$FFFA   etykieta tablicy zdefiniowanej przez dyrektywę .ARRAY
-$FFFB   etykieta danych strukturalnych zdefiniowanej przez pseudo rozkaz DTA STRUCT_LABEL
-$FFFC   etykieta symbolu Sparta DOS X - SMB
-$FFFD   etykieta makra zdefiniowanego przez dyrektywę .MACRO
-$FFFE   etykieta struktury zdefiniowanej przez dyrektywę .STRUCT
-$FFFF   etykieta procedury zdefiniowanej przez dyrektywę .PROC
+$FFF9   label of a procedure parameter defined by the .PROC directive
+$FFFA   label of an array defined by the .ARRAY directive
+$FFFB   label of structural data defined by the DTA STRUCT_LABEL pseudo-command
+$FFFC   label of a Sparta DOS X symbol—SMB
+$FFFD   label of a macro defined by the .MACRO directive
+$FFFE   label of a structure defined by the .STRUCT directive
+$FFFF   label of a procedure defined by the .PROC directive
 ```
 
-Specjalne znaczenie w nazwach etykiet mają znaki:
+Characters with special meanings in label names include:
 
-* etykieta zdefiniowana w makrze (dwa dwukropki) `::`
-* znak kropki `.` rozdziela nazwę struktury `.MACRO` `.PROC` `.LOCAL` `.STRUCT` od nazwy pola w strukturze
+* a label defined in a macro (double colon) `::`
+* the dot `.` character separates the name of a `.MACRO`, `.PROC`, `.LOCAL`, or `.STRUCT` from the field name within the structure.
 
-Wartość liczbowa, która występuje po `::` oznacza numer wywołania makra.
+The numerical value that follows `::` indicates the macro invocation number.
 
 ```none
 Mad-Assembler v1.4.2beta by TeBe/Madteam
@@ -200,9 +199,9 @@ Label table:
 00  2079    HEX.@GETPAR1.LOOP
 ```
 
-## Struktura pliku `H`
+## `H` File Structure
 
-Nie jestem pewien czy wszystko z tym plikiem jest OK, ale **Eru** chciał żeby coś takiego było więc jest :) Ma on być pomocny przy łączeniu **ASM** z **CC65**, czyli portem **C** dla małego **Atari**. Jego zawartość może wyglądać tak, przykładowy plik `TEST.ASM`:
+I'm not sure if everything with this file is OK, but **Eru** wanted something like this, so here it is :) It is meant to be helpful for linking **ASM** with **CC65**, which is the **C** port for the 8-bit **Atari**. Its content might look like this (example `TEST.ASM` file):
 
 ```none
 #ifndef _TEST_ASM_H_

@@ -1,4 +1,4 @@
-## Dyrektywy generujące kod 6502
+## 6502 Code Generation Directives
 
  [#IF type expression [.OR type expression] [.AND type expression]](#d_if)<br>
  [#ELSE](#d_if)<br>
@@ -12,17 +12,17 @@
 <a name="d_if"></a>
 ### #IF type expression [.OR type expression] [.AND type expression]
 
-Dyrektywa `#IF` to skromniejszy odpowiednik instrukcji `IF` z języków wyższego poziomu (**C**, **Pascal**).
+The `#IF` directive is a modest equivalent of the `IF` statement found in high-level languages (**C**, **Pascal**).
 
-Dyrektywy `#IF`, `#ELSE` i `#END` pozwalają na wygenerowanie kodu maszynowego *CPU 6502* instrukcji warunkowej `IF` dla wyznaczonego bloku programu, możliwe jest ich zagnieżdżanie.
+The `#IF`, `#ELSE`, and `#END` directives allow for generating *CPU 6502* machine code for an `IF` conditional statement for a designated program block; nesting is possible.
 
-Dopuszczalne są wszystkie typy `.BYTE`, `.WORD`, `.LONG`, `.DWORD`, możliwe jest łączenie większej ilości warunków przy pomocy dyrektyw `.OR` i `.AND`, nie ma możliwości określenia kolejności wartościowania poprzez nawiasy.
+All types `.BYTE`, `.WORD`, `.LONG`, and `.DWORD` are allowed. Multiple conditions can be combined using the `.OR` and `.AND` directives; however, it is not possible to specify evaluation order using parentheses.
 
-Wykonanie dyrektywy `#IF` zaczyna się od obliczenia wartości wyrażenia prostego tzn. takiego które składa się z dwóch argumentów i jednego operatora (wyrażenia możemy łączyć dyrektywami `.OR` lub `.AND`).
+Execution of the `#IF` directive begins with evaluating a simple expression, i.e., one consisting of two arguments and one operator (expressions can be combined using `.OR` or `.AND` directives).
 
-Jeżeli wyrażenie ma wartość różną od zera (`TRUE`), to zostanie wykonywany blok programu występujący po dyrektywie `#IF`. Blok takiego programu automatycznie kończony jest instrukcją `JMP` realizującą skok do następnej instrukcji programu za dyrektywą `#END` w przypadku występowania bloku `#ELSE`.
+If the expression evaluates to non-zero (`TRUE`), the program block following the `#IF` directive is executed. Such a program block is automatically terminated with a `JMP` instruction that jumps to the next instruction after the `#END` directive if an `#ELSE` block is present.
 
-Jeżeli wyrażenie ma wartość zero (`FALSE`), to wykonywany jest kod programu występujący po dyrektywie `#ELSE`, jeśli dyrektywa `#ELSE` nie występuje sterowanie przekazywane jest do następnej instrukcji programu za dyrektywą `#END`, np.:
+If the expression evaluates to zero (`FALSE`), the code following the `#ELSE` directive is executed. If the `#ELSE` directive is absent, control is passed to the next instruction after the `#END` directive, e.g.:
 
 ```JavaScript
 #if .byte label>#10 .or .byte label<#5
@@ -47,20 +47,20 @@ Jeżeli wyrażenie ma wartość zero (`FALSE`), to wykonywany jest kod programu 
 <a name="d_while"></a>
 ### #WHILE type expression [.OR type expression] [.AND type expression]
 
-Dyrektywa `#WHILE` jest odpowiednikiem instrukcji `WHILE` z języków wyższego poziomu (**C**, **Pascal**).
+The `#WHILE` directive is the equivalent of the `WHILE` statement in high-level languages (**C**, **Pascal**).
 
-Dyrektywy `#WHILE` i `#END` pozwalają na wygenerowanie kodu maszynowego *CPU 6502* pętli dla wyznaczonego bloku programu, możliwe jest ich zagnieżdżanie.
+The `#WHILE` and `#END` directives allow for generating *CPU 6502* machine code for a loop for a designated program block; nesting is possible.
 
-Dopuszczalne są wszystkie typy `.BYTE`, `.WORD`, `.LONG`, `.DWORD`, możliwe jest łączenie większej ilości warunków przy pomocy dyrektyw `.OR` i `.AND`, nie ma możliwości określenia kolejności wartościowania poprzez nawiasy.
+All types `.BYTE`, `.WORD`, `.LONG`, and `.DWORD` are allowed. Multiple conditions can be combined using the `.OR` and `.AND` directives; however, it is not possible to specify evaluation order using parentheses.
 
-Sekwencja działań przy wykonywaniu dyrektywy `#WHILE` jest następująca:
+The sequence of actions when executing the `#WHILE` directive is as follows:
 
-1. Oblicz wartość wyrażenia i sprawdź, czy jest równe zeru (`FALSE`).
-	- jeżeli tak, to pomiń krok 2;
-	- jeżeli nie (`TRUE`), przejdź do kroku 2.
-2. Wykonaj blok programu ograniczonego dyrektywami `#WHILE` i `#END`, następnie przejdź do kroku 1.
+1. Evaluate the expression and check if it is zero (`FALSE`).
+	- if so, skip step 2;
+	- if not (`TRUE`), go to step 2.
+2. Execute the program block bounded by the `#WHILE` and `#END` directives, then return to step 1.
 
-Jeżeli pierwsze wartościowanie wyrażenia wykaże, że ma ono wartość zero, to blok programu nigdy nie zostanie wykonany i sterowanie przejdzie do następnej instrukcji programu za dyrektywą `#END`
+If the initial evaluation of the expression shows it is zero, the program block will never be executed, and control will pass to the next instruction after the `#END` directive.
 
 ```JavaScript
 #while .byte label>#10 .or .byte label<#5
@@ -75,7 +75,7 @@ Jeżeli pierwsze wartościowanie wyrażenia wykaże, że ma ono wartość zero, 
 #end
 ```
 
-Wersja krótka pętli `#WHILE`, trwa dopóki `LABEL<>0`
+Short version of the `#WHILE` loop, continues as long as `LABEL<>0`
 
 ```
 #while .word label
@@ -85,7 +85,7 @@ Wersja krótka pętli `#WHILE`, trwa dopóki `LABEL<>0`
 <a name="d_cycle"></a>
 ### #CYCLE #N
 
-Dyrektywa `#CYCLE` pozwala wygenerować kod *6502* o zadanej liczbie cykli. Wygenerowany kod nie modyfikuje żadnej komórki pamięci, ani rejestru *CPU*, co najwyżej znaczniki.
+The `#CYCLE` directive allows for generating *6502* code with a specified number of cycles. The generated code does not modify any memory cell or CPU register, only flags at most.
 
 ```JavaScript
 #cycle #17  ; pha      3 cycle

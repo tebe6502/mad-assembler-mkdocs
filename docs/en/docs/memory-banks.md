@@ -1,12 +1,10 @@
-#
+## Introduction
 
-## Wstęp
+Probably everyone who has dealt with the small **Atari** architecture associates the term *memory bank* with extended memory, divided into **16kb** banks, switched into the `$4000..$7FFF` area.
 
-Pewnie każdemu, kto miał do czynienia z architekturą małego **Atari**, pojęcie *bank pamięci* kojarzy się z pamięcią rozszerzoną, podzieloną na banki wielkości **16kb**, przełączane w obszar `$4000..$7FFF`.
+**MADS** can also understand it this way (`OPT B+` option, [Hardware memory banks](#hardware-memory-banks-opt-b)), but by default it understands it in a more virtual way (`OPT B-` option, [Virtual memory banks](#virtual-memory-banks-opt-b-)).
 
-**MADS** też może to rozumieć w ten sposób (opcja `OPT B+`, [Sprzętowe banki pamięci](#sprzetowe-banki-pamieci-opt-b)), jednak domyślnie rozumie to w sposób bardziej wirtualny (opcja `OPT B-`, [Wirtualne banki pamięci](#wirtualne-banki-pamieci-opt-b-)).
-
-Banków dotyczą n/w pseudo rozkazy:
+The following pseudo-commands apply to banks:
 
 ```
 LMB #value
@@ -16,47 +14,47 @@ RMB
 
 * `LMB #` Load Memory Bank
 
-Ustawiamy licznik banków MADS-a na konkretną wartość z zakresu <$00..$FF> (BANK = value), np.
+We set the MADS bank counter to a specific value from the range <$00..$FF> (BANK = value), e.g.
 
 ```
 lmb #0
 lmb #bank
-lmb #5 , $6500      ; tylko gdy OPT B+
+lmb #5 , $6500      ; only when OPT B+
 ```
 
 * `NMB` Next Memory Bank
 
-Zwiększamy o 1 licznik banków **MADS**-a (BANK = BANK + 1).
+We increase the **MADS** bank counter by 1 (BANK = BANK + 1).
 
 ```
 nmb
-nmb  $6500          ; tylko gdy OPT B+
+nmb  $6500          ; only when OPT B+
 ```
 
 * `RMB` Reset Memory Bank
 
-Zerujemy licznik banków **MADS**-a (BANK = 0).
+We zero the **MADS** bank counter (BANK = 0).
 
 ```
 rmb
-rmb $3500           ; tylko gdy OPT B+
-rmb $8500           ; tylko gdy OPT B+
+rmb $3500           ; only when OPT B+
+rmb $8500           ; only when OPT B+
 ```
 
 ---
 
-**MADS** podczas asemblacji, każdej nowo zdefiniowanej etykiecie przypisuje aktualną wartość licznika banków. Programista może mieć wpływ na wartość licznika banków dzięki w/w pseudo rozkazom.
+During assembly, **MADS** assigns the current bank counter value to each newly defined label. The programmer can influence the bank counter value using the above pseudo-commands.
 
-* Etykiety z przypisanym licznikiem banków **MADS** `=0` są zasięgu **globalnego**.
-* Etykiety z przypisanym licznikiem banków **MADS** `>0` są zasięgu **lokalnego**.
+* Labels with an assigned **MADS** bank counter `=0` have **global** scope.
+* Labels with an assigned **MADS** bank counter `>0` have **local** scope.
 
-## Wirtualne banki pamięci `OPT B-`
+## Virtual memory banks `OPT B-`
 
-W **MADS** przez pojęcie *wirtualny bank pamięci* rozumiany jest każdy obszar oznaczony przez nowo zdefiniowaną etykietę z przypisaną aktualną wartością licznika banków (domyślnie licznik banków jest wyzerowany). Czyli wirtualny bank pamięci to nie koniecznie obszar pamięci `$4000..$7FFF`, ale każda etykieta reprezentująca jakiś obszar kodu programu, której przypisany został kod (wartość licznika banków) z zakresu `$00..$FF` przy pomocy odpowiednich pseudo rozkazów oddanych na użytek programisty `NMB` `RMB` `LMB`.
+In **MADS**, the term *virtual memory bank* is understood as any area marked by a newly defined label with the current bank counter value assigned (by default, the bank counter is zeroed). So a virtual memory bank is not necessarily the `$4000..$7FFF` memory area, but any label representing some program code area to which a code (bank counter value) from the range `$00..$FF` has been assigned using appropriate pseudo-commands provided for the programmer's use: `NMB`, `RMB`, `LMB`.
 
-Wyjątek stanowią bloki `.RELOC` w których nie można samodzielnie zmieniać licznika banków, realizuje to automatycznie **MADS**, który zwiększa licznik za każdym wywołaniem dyrektywy `.RELOC`. Licznik banków w takim przypadku przyjmuje wartości z zakresu `$0001..$FFF7`.
+An exception is `.RELOC` blocks in which you cannot manually change the bank counter; this is performed automatically by **MADS**, which increases the counter with each call to the `.RELOC` directive. In this case, the bank counter takes values from the range `$0001..$FFF7`.
 
-Programista może odczytać wartość licznika banków, który został przypisany etykiecie za pomocą operatora `=` np.:
+The programmer can read the bank counter value assigned to a label using the `=` operator, e.g.:
 
 ```
 label
@@ -64,9 +62,9 @@ label
  ldx #=label
 ```
 
-W w/w przykładzie do rejestru `X` *CPU* zapisaliśmy wartość licznika banków pamięci **MADS** przypisany etykiecie `LABEL`.
+In the above example, we stored the **MADS** memory bank counter value assigned to the `LABEL` label in the *CPU* register `X`.
 
-Innym przydatnym operatorem może być znak dwukropka `:` umieszczony na początku nazwy etykiety. Spowoduje to że **MADS** odczyta wartość takiej etykiety pomijając ograniczenia zasięgu, które wprowadza licznik banków **MADS**. Niekiedy może spowodować to komplikacje, np. jeśli wystąpiło więcej etykiet o tej samej nazwie ale w różnych obszarach lokalnych albo w obszarach o różnych wartościach licznika wirtualnych banków.
+Another useful operator can be the colon character `:` placed at the beginning of the label name. This will cause **MADS** to read the value of such a label bypassing the scope restrictions introduced by the **MADS** bank counter. Sometimes this can cause complications, e.g., if multiple labels with the same name occurred but in different local areas or in areas with different virtual bank counter values.
 
 ```
 
@@ -84,35 +82,35 @@ label6
  lda :label5
 ```
 
-Dla w/w przykładu brak operatora `:` na początku nazwy etykiety w rozkazie `lda :label5` skończy się komunikatem błędu **ERROR: Undeclared label LABEL5 (BANK=6)**.
+In the above example, the absence of the `:` operator at the beginning of the label name in the `lda :label5` command would end with the error message **ERROR: Undeclared label LABEL5 (BANK=6)**.
 
-Wirtualnych banków pamięci można użyc do indeksowania tablicy zawierającej wartości dla **PORTB**. Takie też jest ich zastosowanie w przypadku wybrania opcji `OPT B+`.
+Virtual memory banks can be used to index an array containing values for **PORTB**. This is also their use when the `OPT B+` option is selected.
 
-## Sprzętowe banki pamięci `OPT B+`
+## Hardware memory banks `OPT B+`
 
-Ten tryb działania **MADS** można określić jako *czuły na banki* **BANK SENSITIVE**.
+This **MADS** operating mode can be described as **BANK SENSITIVE**.
 
-Sprzętowe banki pamięci są rozszerzeniem wirtualnych banków. Rozumiane są przez **MADS** jako banki rozszerzonej pamięci, włączane w obszar `$4000..$7FFF`. Działanie pseudo rozkazów `NMB`  `RMB` `LMB` zostaje rozszerzone o wywołanie makra `@BANK_ADD`, które można znaleźć w katalogu `..\EXAMPLES\MACROS\`.
+Hardware memory banks are an extension of virtual banks. They are understood by **MADS** as extended memory banks, switched into the `$4000..$7FFF` area. The operation of pseudo-commands `NMB`, `RMB`, `LMB` is extended by a call to the `@BANK_ADD` macro, which can be found in the `..\EXAMPLES\MACROS\` directory.
 
-W tym trybie działania **MADS** potrzebuje deklaracji konkretnych makr:
+In this operating mode, **MADS** needs declarations of specific macros:
 
 ```
 @BANK_ADD
 @BANK_JMP
 ```
 
-oraz potrzebuje definicji etykiet o nazwach:
+and needs label definitions with names:
 
 ```
 @TAB_MEM_BANKS
 @PROC_ADD_BANK
 ```
 
-Etykieta `@TAB_MEM_BANKS` definiuje adres tablicy, z której wartości będą przepisywane do rejestru **PORTB** odpowiedzialnego za przełączanie banków rozszerzonej pamięci. Możemy sobie ułatwić sprawę i skorzystać z gotowej procedury wykrywającej banki rozszerzonej pamięci dołączonej do **MADS**, plik `..\EXAMPLES\PROCEDURES\@MEM_DETECT.ASM`.
+The `@TAB_MEM_BANKS` label defines the address of the table from which values will be copied to the **PORTB** register responsible for switching extended memory banks. We can make things easier and use the ready-made procedure for detecting extended memory banks included with **MADS**, file `..\EXAMPLES\PROCEDURES\@MEM_DETECT.ASM`.
 
-Etykieta `@PROC_ADD_BANK` używana jest przez makro `@BANK_ADD` i definiuje adres pod jakim znajdzie się kod programu przełączający bank pamięci rozszerzonej.
+The `@PROC_ADD_BANK` label is used by the `@BANK_ADD` macro and defines the address where the program code switching the extended memory bank will be located.
 
-Programista może odczytać wartość licznika banków, który został przypisany etykiecie za pomocą operatora `=`, np.:
+The programmer can read the bank counter value assigned to a label using the `=` operator, e.g.:
 
 ```
 label
@@ -120,22 +118,22 @@ label
  ldy #=label
 ```
 
-W w/w przykładzie do rejestru regY zapisaliśmy wartość licznika banków pamięci **MADS** przypisany etykiecie `LABEL`.
+In the above example, we stored the **MADS** memory bank counter value assigned to the `LABEL` label in the `regY` register.
 
-Jeśli licznik banków **MADS** `= 0` to:
+If the **MADS** bank counter `= 0` then:
 
-* kod programu musi znajdować się poza obszarem `$4000..$7FFF`
-* nowo zdefiniowane etykiety w tym obszarze są globalne
-* można odwoływać się do wszystkich zdefiniowanych etykiet bez ograniczeń, bez względu na numer banku
-* skok w obszar banku możliwy przy użyciu makra `@BANK_JMP`, przykład w pliku `..\EXAMPLES\MACROS\@BANK_JMP.MAC`, parametr dla tego makra nie musi być poprzedzony operatorem `:`
+* program code must be located outside the `$4000..$7FFF` area
+* newly defined labels in this area are global
+* all defined labels can be referenced without restriction, regardless of the bank number
+* a jump to a bank area is possible using the `@BANK_JMP` macro, example in file `..\EXAMPLES\MACROS\@BANK_JMP.MAC`; the parameter for this macro does not need to be preceded by the `:` operator
 
-Jeśli licznik banków **MADS** `> 0` to:
+If the **MADS** bank counter `> 0` then:
 
-* kod programu musi znajdować się w obszarze `$4000..$7FFF`
-* nowo zdefiniowane etykiety w tym obszarze są lokalne
-* można odwoływać się tylko do etykiet globalnych i tych zdefiniowanych w obszarze aktualnego banku
-* pseudo rozkaz `LMB` `NMB` powoduje wykonanie makra `@BANK_ADD`, które włącza nowy bank rozszerzonej pamięci na podstawie licznika banków MADS-a oraz ustawia nowy adres asemblacji (domyślnie na `$4000`)
-* pseudo rozkaz `RMB` powoduje wyzerowanie licznika banków pamięci **MADS** oraz ustawienie nowego adresu asemblacji poza bankiem (domyślnie na `$8000`)
-* skok w obszar innego banku możliwy przy użyciu makra `@BANK_JMP`, przykład w pliku `..\EXAMPLES\MACROS\@BANK_JMP`, parametr dla tego makra musi być poprzedzony operatorem `:`
+* program code must be located in the `$4000..$7FFF` area
+* newly defined labels in this area are local
+* only global labels and those defined in the current bank area can be referenced
+* the `LMB`, `NMB` pseudo-command causes the execution of the `@BANK_ADD` macro, which switches on a new extended memory bank based on the MADS bank counter and sets a new assembly address (default to `$4000`)
+* the `RMB` pseudo-command causes zeroing of the **MADS** memory bank counter and sets a new assembly address outside the bank (default to `$8000`)
+* a jump to another bank area is possible using the `@BANK_JMP` macro, example in file `..\EXAMPLES\MACROS\@BANK_JMP`, the parameter for this macro must be preceded by the `:` operator
 
-Przykładem wykorzystania tego trybu pracy **MADS** jest plik `..\EXAMPLES\XMS_BANKS.ASM`. W tym przykładzie kod programu znajduje się w dwóch różnych bankach rozszerzonej pamięci i wykonuje się jakby był jedną całością.
+An example of using this **MADS** operating mode is the file `..\EXAMPLES\XMS_BANKS.ASM`. In this example, the program code is located in two different extended memory banks and executes as if it were a single whole.

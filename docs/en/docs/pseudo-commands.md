@@ -1,10 +1,11 @@
-## Pseudo rozkazy
+## Pseudo-commands
 
  [IFT _.IF_ expression](#ift)<br>
  [ELS _.ELSE_](#ift)<br>
  [ELI _.ELSEIF_ expression](#ift)<br>
  [EIF _.ENDIF_](#eif)<br>
 
+<a name="ert"></a>
  [ERT _ERT 'string'_ | ERT expression](#ert)
 
  [label SET expression](#set)<br>
@@ -46,45 +47,45 @@
  [RMB](#rmb)<br>
  [LMB #expression](#lmb)<br>
 
-Czyli w większości po staremu, chociaż parę zmian zaszło. W przypadku cudzysłowów można używać ' ' lub " ". Oba rodzaje cudzysłowów traktowane są jednakowo z wyjątkiem adresowania (dla ' ' zostanie wyliczona wartość `ATASCII` znaku, dla " " zostanie wyliczona wartość `INTERNAL` znaku).
+Mostly the same as before, although a few changes have occurred. Both single ' ' and double " " quotes can be used. Both types are treated equally except for addressing (single quotes ' ' calculate the `ATASCII` value of the character, while double quotes " " calculate the `INTERNAL` value of the character).
 
 
 ### BLK
 
 ```
- BLK N[one] X                    - blok bez nagłówków, licznik programu ustawiany na X
+ BLK N[one] X                    - block without headers, program counter set to X
 
- BLK D[os] X                     - blok DOS-a z nagłówkiem $FFFF lub bez nagłówka gdy
-                                   poprzedni taki sam, licznik programu ustawiany na X
+ BLK D[os] X                     - DOS block with $FFFF header or without header if the
+                                   previous one is the same, program counter set to X
 
- BLK S[parta] X                  - blok o stałych adresach ładowania z nagłówkiem $FFFA,
-                                   licznik programu ustawiany na X
+ BLK S[parta] X                  - block with fixed loading addresses and $FFFA header,
+                                   program counter set to X
 
- BLK R[eloc] M[ain]|E[xtended]   - blok relokowalny umieszczany w pamięci MAIN lub EXTENDED
+ BLK R[eloc] M[ain]|E[xtended]   - relocatable block placed in MAIN or EXTENDED memory
 
- BLK E[mpty] X M[ain]|E[xtended] - blok relokowalny rezerwujący X bajtów w pamięci MAIN lub EXTENDED
-                                   UWAGA: licznik programu jest natychmiastowo zwiększany o X bajtów
+ BLK E[mpty] X M[ain]|E[xtended] - relocatable block reserving X bytes in MAIN or EXTENDED memory
+                                   NOTE: the program counter is immediately increased by X bytes
 
- BLK U[pdate] S[ymbols]          - blok aktualizujący w poprzednich blokach SPARTA lub
-                                   RELOC adresy symboli SDX
+ BLK U[pdate] S[ymbols]          - block updating SDX symbol addresses in previous SPARTA or
+                                   RELOC blocks
 
- BLK U[pdate] E[xternal]         - blok aktualizujący adresy etykiet external (nagłówek $FFEE)
-                                   UWAGA: nie dotyczy Sparta DOS X, jest to rozszerzenie MADS-a
+ BLK U[pdate] E[xternal]         - block updating external label addresses ($FFEE header)
+                                   NOTE: does not apply to Sparta DOS X, this is a MADS extension
 
- BLK U[pdate] A[dress]           - blok aktualizacji adresów w blokach RELOC
+ BLK U[pdate] A[dress]           - block for updating addresses in RELOC blocks
 
- BLK U[pdate] N[ew] X 'string'   - blok deklarujący nowy symbol 'string' w bloku RELOC
-                                   o adresie X. Gdy nazwa symbolu poprzedzona jest znakiem @,
-                                   a adres jest z pamięci podstawowej to taki symbol może być
-                                   wywoływany z command.com
+ BLK U[pdate] N[ew] X 'string'   - block declaring a new symbol 'string' in a RELOC block
+                                   at address X. If the symbol name is preceded by the @ sign
+                                   and the address is from main memory, such a symbol can be
+                                   called from command.com
 ```
 
-Więcej informacji na temat bloków w plikach **Sparta DOS X** w rozdziale [Budowa plików SPARTA DOS X](../sparta-dos/#budowa-plikow) oraz [Programowanie SPARTA DOS X](../sparta-dos/#programowanie).
+More information about blocks in **Sparta DOS X** files in the [Sparta DOS X File Structure](spartadosx.md#file-structure) and [Sparta DOS X Programming](spartadosx.md#programming) chapters.
 
 <a name="set"></a>
 ### label SET expression
 
-Pseudorozkaz `SET` pozwala redefiniować etykietę, ma podobne działanie jak etykiety tymczasowe zaczynające się znakiem `?`, np.:
+The `SET` pseudo-command allows redefining a label; it works similarly to temporary labels starting with the `?` sign, e.g.:
 
 ```
 temp set 12
@@ -99,7 +100,7 @@ temp set 23
 <a name="smb"></a>
 ### label SMB 'string'
 
-Deklaracja etykiety jako symbolu **SDX**. Symbol może mieć maksymalnie długość 8-iu znaków. Dzięki temu po użyciu `BLK UPDATE SYMBOLS` asembler wygeneruje poprawny blok aktualizacji symboli. Np:
+Label declaration as an **SDX** symbol. The symbol can have a maximum length of 8 characters. As a result, after using `BLK UPDATE SYMBOLS`, the assembler will generate the correct symbol update block. E.g.:
 
 ```
        pf  smb 'PRINTF'
@@ -107,28 +108,28 @@ Deklaracja etykiety jako symbolu **SDX**. Symbol może mieć maksymalnie długo�
            ...
 ```
 
-sprawi że po instrukcji `JSR` system **SDX** wstawi adres symbolu.
+will make the **SDX** system insert the symbol's address after the `JSR` instruction.
 
-> **UWAGA:**
-> _Deklaracja ta nie jest przechodnia, to znaczy że poniższy przykład spowoduje błędy w czasie kompilacji:_
+> **NOTE:**
+> _This declaration is not transitive, meaning the following example will cause compilation errors:_
 
 ```
        cm  smb 'COMTAB'
-       wp  equ cm-1       (błąd !)
+       wp  equ cm-1       (error!)
 
            sta wp
 ```
 
-Zamiast tego należy użyć:
+Instead, use:
 
 ```
        cm  smb 'COMTAB'
 
-           sta cm-1       (ok !)
+           sta cm-1       (ok!)
 ```
 
-> **UWAGA:**
-> _Wszystkie deklaracje symboli należy użyć przed deklaracjami etykiet, jak i programem właściwym !_
+> **NOTE:**
+> _All symbol declarations must be used before label declarations and the main program!_
 
 
 <a name="rep"></a>
@@ -143,8 +144,8 @@ ladr :4 dta l(line:1)
 hadr :4 dta h(line:1)
 ```
 
-Znak `:` określa liczbę powtórzeń linii (w przypadku makr określa numer parametru pod warunkiem że wartość liczbowa zapisana została w systemie decymalnym). Liczba powtórzeń powinna być z zakresu `<0..2147483647>`. W powtarzanej linii `:repeat` możliwe jest skorzystanie z licznika pętli - znaku hash `#` lub z parametru `:1`.
-Jeśli użyjemy znaku `:` w makrze w znaczeniu liczby powtórzeń linii, np.:
+The `:` sign specifies the number of line repetitions (in the case of macros, it specifies the parameter number, provided the numerical value is written in decimal). The number of repetitions should be in the range `<0..2147483647>`. In the repeated line `:repeat`, it is possible to use the loop counter - the hash sign `#` or the parameter `:1`.
+If we use the `:` sign in a macro as the line repetition count, e.g.:
 
 ```
 .macro test
@@ -152,7 +153,7 @@ Jeśli użyjemy znaku `:` w makrze w znaczeniu liczby powtórzeń linii, np.:
 .endm
 ```
 
-Wówczas dla w/w przykładu znak `:` zostanie zinterpretowany jako drugi parametr makra. Aby zapobiec takiej interpretacji przez **MADS**, należy po znaku dwukropka `:` umieścić znak który nic nie robi, np. znak plusa '+'.
+Then, for the above example, the `:` sign will be interpreted as the second macro parameter. To prevent this interpretation by **MADS**, place a character that does nothing after the colon `:`, such as a plus sign '+'.
 
 ```
 .macro test
@@ -160,35 +161,35 @@ Wówczas dla w/w przykładu znak `:` zostanie zinterpretowany jako drugi paramet
 .endm
 ```
 
-Teraz znak dwukropka `:` zostanie prawidłowo zinterpretowany jako `:repeat`
+Now the colon sign `:` will be correctly interpreted as `:repeat`
 
 ### OPT
 
-Pseudo rozkaz `OPT` pozwala włączać/wyłączać dodatkowe opcje podczas asemblacji.
+The `OPT` pseudo-command allows enabling/disabling additional options during assembly.
 
 ```
  b+  bank sensitive on
  b-  bank sensitive off                                               (default)
- c+  włącza obsługę CPU 65816 (16bit)
- c-  włącza obsługę CPU 6502 (8bit)                                   (default)
- f+  plik wynikowy w postaci jednego bloku (przydatne dla carta)
- f-  plik wynikowy w postaci blokowej                                 (default)
- h+  zapisuje nagłówek pliku dla DOS                                  (default)
- h-  nie zapisuje nagłówka pliku dla DOS
- l+  zapisuje listing do pliku (LST)
- l-  nie zapisuje listingu (LST)                                      (default)
- m+  zapisuje całe makra w listingu
- m-  zapisuje w listingu tylko tą część makra która zostaje wykonana  (default)
- o+  zapisuje wynik asemblacji do pliku wynikowego (OBX)              (default)
- o-  nie zapisuje wyniku asemblacji do pliku wynikowego (OBX)
- r+  optymalizacja długości kodu dla MVA, MVX, MVY, MWA, MWX, MWY
- r-  bez optymalizacji długości kodu dla MVA, MVX, MVY, MWA, MWX, MWY (default)
- s+  drukuje listing na ekranie
- s-  nie drukuje listingu na ekranie                                  (default)
+ c+  enables support for CPU 65816 (16-bit)
+ c-  enables support for CPU 6502 (8-bit)                             (default)
+ f+  output file as a single block (useful for carts)
+ f-  output file in block format                                      (default)
+ h+  saves the file header for DOS                                   (default)
+ h-  does not save the file header for DOS
+ l+  saves the listing to a file (LST)
+ l-  does not save the listing (LST)                                  (default)
+ m+  saves entire macros in the listing
+ m-  saves only the part of the macro that is executed in the listing (default)
+ o+  saves the assembly result to an output file (OBX)                (default)
+ o-  does not save the assembly result to an output file (OBX)
+ r+  code length optimization for MVA, MVX, MVY, MWA, MWX, MWY
+ r-  no code length optimization for MVA, MVX, MVY, MWA, MWX, MWY     (default)
+ s+  prints the listing on the screen
+ s-  does not print the listing on the screen                         (default)
  t+  track SEP REP on (CPU 65816)
  t-  track SEP REP off (CPU 65816)                                    (default)
- ?+  etykiety ze znakiem '?' na początku są lokalne (styl MAE)
- ?-  etykiety ze znakiem '?' na początku są tymczasowe                (default)
+ ?+  labels starting with '?' are local (MAE style)
+ ?-  labels starting with '?' are temporary                           (default)
 ```
 
 ```
@@ -197,24 +198,24 @@ Pseudo rozkaz `OPT` pozwala włączać/wyłączać dodatkowe opcje podczas asemb
  OPT o +
 ```
 
-Wszystkie opcje `OPT` możemy używać w dowolnym miejscu listingu, czyli np. możemy włączyć zapis listingu w linii 12, a w linii 20 wyłączyć itd., wówczas plik z listingiem będzie zawierał tylko linie 12..20.
+All `OPT` options can be used anywhere in the listing; for example, we can enable listing recording at line 12 and disable it at line 20, etc. Then the listing file will only contain lines 12..20.
 
-Jeśli chcemy użyć trybów adresowania *65816*, musimy o tym poinformować asembler przez `OPT C+`.
+If we want to use *65816* addressing modes, we must inform the assembler via `OPT C+`.
 
-Jeśli używamy **CodeGenie** lub **NotePad++** możemy użyć `OPT S+`, dzięki temu nie musimy przechodzić do pliku z listingiem, bo listing wydrukowany został w dolnym okienku (Output Bar).
+If using **CodeGenie** or **Notepad++**, you can use `OPT S+` so you don't have to switch to the listing file, as the listing will be printed in the bottom window (Output Bar).
 
 
 ### ORG
 
-Pseudo rozkaz `ORG` ustawia nowy adres asemblacji, a więc i lokalizację zasemblowanych danych w pamięci *RAM*.
+The `ORG` pseudo-command sets a new assembly address, and thus the location of the assembled data in *RAM*.
 
 ```
- adr                 asembluj od adresu ADR, ustaw adres w nagłówku pliku na ADR
- adr,adr2            asembluj od adresu ADR, ustaw adres w nagłówku pliku na ADR2
- [b($ff,$fe)]        zmień nagłówek na $FFFE (zostaną wygenerowane 2 bajty)
- [$ff,$fe],adr       zmień nagłówek na $FFFE, ustaw adres w nagłówku pliku na ADR
- [$d0,$fe],adr,adr2  zmień nagłówek na $D0FE, asembluj od adresu ADR, ustaw adres w nagłówku pliku na ADR2
- [a($FFFA)],adr      nagłówek SpartaDOS $FAFF, ustaw adres w nagłówku pliku na ADR
+ adr                 assemble from address ADR, set the file header address to ADR
+ adr,adr2            assemble from address ADR, set the file header address to ADR2
+ [b($ff,$fe)]        change header to $FFFE (2 bytes will be generated)
+ [$ff,$fe],adr       change header to $FFFE, set the file header address to ADR
+ [$d0,$fe],adr,adr2  change header to $D0FE, assemble from address ADR, set the file header address to ADR2
+ [a($FFFA)],adr      SpartaDOS header $FAFF, set the file header address to ADR
 ```
 
 ```
@@ -222,9 +223,9 @@ Pseudo rozkaz `ORG` ustawia nowy adres asemblacji, a więc i lokalizację zasemb
  ORG [a($ffff),d'atari',c'ble',20,30,40],adr,adr2
 ```
 
-Nawiasy kwadratowe `[ ]` służą określeniu nowego nagłówka, który może być dowolnej długości. Pozostałe wartości za zamykającym nawiasem kwadratowym `]`, rozdzielone znakiem przecinka `,` oznaczają odpowiednio: adres asemblacji, adres w nagłówku pliku.
+Square brackets `[ ]` are used to specify a new header, which can be of any length. The remaining values after the closing square bracket `]`, separated by commas `,`, represent respectively: the assembly address and the address in the file header.
 
-Przykład nagłówka dla pliku w postaci jednego bloku, asemblowanego od adresu $2000, w nagłówku podany adres początkowy i adres końcowy bloku.
+Example of a header for a single-block file assembled from address $2000, with the block's start and end addresses provided in the header.
 
 ```
  opt h-f+
@@ -240,48 +241,48 @@ over
 <a name="ins"></a>
 ### INS 'filename'["filename"][*][+-value][,+-ofset[,length]]
 
-Pseudo rozkaz `INS` pozwala na dołączenie dodatkowego pliku binarnego. Dołączany plik nie musi znajdować się w tym samym katalogu co główny asemblowany plik. Wystarczy, że odpowiednio wskazaliśmy **MADS**-owi ścieżki poszukiwań za pomocą przełącznika `/i` (patrz [Przełączniki assemblera](../sposob-uzycia/#przeaczniki-assemblera)).
+The `INS` pseudo-command allows including an additional binary file. The included file does not have to be in the same directory as the main assembly file. It is enough to have specified the search paths for **MADS** using the `/i` switch (see [Assembler Switches](usage.md#assembler-options)).
 
-Dodatkowo można przeprowadzić na dołączanym pliku binarnym operacje:
+Additionally, the following operations can be performed on the included binary file:
 
 ```
-*          invers bajtów pliku binarnego
-+-VALUE    zwiększenie/zmniejszenie wartości bajtów pliku binarnego o wartość wyrażenia VALUE
+*          invert the bytes of the binary file
++-VALUE    increase/decrease the byte values of the binary file by the value of the VALUE expression
 
-+OFSET     ominięcie OFSET bajtów z początku pliku binarnego (SEEK OFSET)
--OFSET     odczyt pliku binarnego od jego końca              (SEEK FileLength-OFSET)
++OFSET     skip OFFSET bytes from the beginning of the binary file (SEEK OFFSET)
+-OFSET     read the binary file from its end (SEEK FileLength-OFFSET)
 
-LENGTH     odczyt LENGTH bajtów pliku binarnego
+LENGTH     read LENGTH bytes of the binary file
 ```
 
-Jeśli wartość `LENGTH` nie została określona, domyślnie plik binarny zostanie odczytany aż do końca.
+If the `LENGTH` value is not specified, the binary file will be read until the end by default.
 
 <a name="icl"></a>
 ### ICL 'filename'["filename"]
 
-Pseudo rozkaz `ICL` pozwala na dołączenie dodatkowego pliku źródłowego i jego asemblację. Dołączany plik nie musi znajdować się w tym samym katalogu co główny asemblowany plik. Wystarczy, że odpowiednio wskazaliśmy **MADS**-owi ścieżki poszukiwań za pomocą przełącznika `/i` (patrz [Przełączniki assemblera](../sposob-uzycia/#przeaczniki-assemblera)).
+The `ICL` pseudo-command allows including an additional source file and assembling it. The included file does not have to be in the same directory as the main assembly file. It is enough to have specified the search paths for **MADS** using the `/i` switch (see [Assembler Switches](usage.md#assembler-options)).
 
 
 ### DTA
 
-Pseudo rozkaz `DTA` służy do definicji danych określonego typu. Jeśli typ nie został określony wówczas domyślnie zostanie ustawiony typ `BYTE` (b).
+The `DTA` pseudo-command is used to define data of a specific type. If no type is specified, the `BYTE` (b) type is set by default.
 
 ```JavaScript
-   b   wartość typu BYTE
-   a   wartość typu WORD
-   v   wartość typu WORD, relokowalna
-   l   młodszy bajt wartości (BYTE)
-   h   starszy bajt wartości (BYTE)
-   m   najstarszy bajt wartości LONG (24bit)
-   g   najstarszy bajt wartości DWORD (32bit)
-   t   wartość typu LONG (24bit)
-   e   wartość typu LONG (24bit)
-   f   wartość typu DWORD (32bit)
-   r   wartość typu DWORD w odróconej kolejności (32 bit)
-   c   ciąg znaków ATASCII ograniczony apostrofami '' lub "", znak * na końcu spowoduje
-       invers wartości ciągu, np. dta c'abecadlo'*
-   d   ciąg znaków INTERNAL ograniczony apostrofami '' lub "", znak * na końcu spowoduje
-       invers wartości ciągu, np. dta d'abecadlo'*
+   b   BYTE value
+   a   WORD value
+   v   WORD value, relocatable
+   l   low byte of the value (BYTE)
+   h   high byte of the value (BYTE)
+   m   highest byte of a LONG value (24-bit)
+   g   highest byte of a DWORD value (32-bit)
+   t   LONG value (24-bit)
+   e   LONG value (24-bit)
+   f   DWORD value (32-bit)
+   r   DWORD value in reversed order (32-bit)
+   c   ATASCII character string delimited by single '' or double "" quotes; a * character
+       at the end will invert the string values, e.g., dta c'alphabet'*
+   d   INTERNAL character string delimited by single '' or double "" quotes; a * character
+       at the end will invert the string values, e.g., dta d'alphabet'*
 ```
 
 ```JavaScript
@@ -328,13 +329,16 @@ defines table of 64 words representing a quarter of cosine with amplitude of 100
 
 <a name="rnd"></a>
 ### RND (min,max,length)
-Ten pseudo rozkaz umożliwia wygenerowanie LENGTH losowych wartości z przedziału <MIN..MAX>.
+This pseudo-command allows generating LENGTH random values within the range <MIN..MAX>.
 
 ```
    dta b(rnd(0,33,256))
 ```
 
 <a name="ift"></a>
+<a name="els"></a>
+<a name="eli"></a>
+<a name="eif"></a>
 ### IFT, ELS, ELI, EIF
 
 ```
@@ -344,5 +348,4 @@ Ten pseudo rozkaz umożliwia wygenerowanie LENGTH losowych wartości z przedzia�
  EIF .ENDIF
 ```
 
-W/w pseudo rozkazy i dyrektywy wpływają na przebieg asemblacji (można ich używać zamiennie).
-
+The above pseudo-commands and directives affect the assembly process (they can be used interchangeably).

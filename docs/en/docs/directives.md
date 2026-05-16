@@ -1,4 +1,4 @@
-## Dyrektywy
+## Directives
 
 
  [.A8, .A16, .AI8, .AI16](#a8)<br>
@@ -9,20 +9,20 @@
 
  [.ALIGN N[,fill]](#align)
 
- [.ARRAY label [elements0][elements1][...] .type [= init_value]](#tablice)<br>
- [.ENDA, [.AEND]](#tablice)<br>
+ [.ARRAY label [elements0][elements1][...] .type [= init_value]](arrays.md#arrays)<br>
+ [.ENDA, [.AEND]](arrays.md#arrays)<br>
 
  [.DEF label [= expression]](#def)
 
  [.DEFINE macro_name expression](#define)<br>
  [.UNDEF macro_name](#undef)<br>
 
- [.ENUM label](../typy/#wyliczenia)<br>
- [.ENDE, [.EEND]](../typy/#wyliczenia)<br>
+ [.ENUM label](data-types.md#enumerations)<br>
+ [.ENDE, [.EEND]](data-types.md#enumerations)<br>
 
- [.ERROR [ERT] 'string'["string"] lub .ERROR [ERT] expression](#error)
+ [.ERROR [ERT] 'string'["string"] or .ERROR [ERT] expression](#error)
 
- [.EXTRN label [,label2,...] type](../kod-relokowalny/#symbole-zewnetrzne)
+ [.EXTRN label [,label2,...] type](relocatable-code.md#external-symbols)
 
  [.IF [IFT] expression](#if_else)<br>
  [.ELSE [ELS]](#if_else)<br>
@@ -32,18 +32,18 @@
  [.IFDEF label](#ifdef)<br>
  [.IFNDEF label](#ifndef)<br>
 
- [.LOCAL label](#obszar-lokalny)<br>
- [.ENDL, [.LEND]](#obszar-lokalny)<br>
+ [.LOCAL label](local-areas.md#local-area)<br>
+ [.ENDL, [.LEND]](local-areas.md#local-area)<br>
 
- [.LONGA ON|OFF](../kod-relokowalny/#dyrektywy-longa-longi)<br>
- [.LONGI ON|OFF](../kod-relokowalny/#dyrektywy-longa-longi)<br>
+ [.LONGA ON|OFF](relocatable-code.md#directives-longa-and-longi)<br>
+ [.LONGI ON|OFF](relocatable-code.md#directives-longa-and-longi)<br>
 
- [.LINK 'filename'](../kod-relokowalny/#linkowanie-link)
+ [.LINK 'filename']](../relocatable-code/#linking-link)
 
- [.MACRO label](#makra)<br>
- [.ENDM, [.MEND]](#makra)<br>
- [:[%%]parameter](#makra)<br>
- [.EXITM [.EXIT]](#makra)<br>
+ [.MACRO label](macros.md#macros)<br>
+ [.ENDM, [.MEND]](macros.md#macros)<br>
+ [:[%%]parameter](macros.md#macros)<br>
+ [.EXITM [.EXIT]](macros.md#macros)<br>
 
  [.NOWARN](#nowarn)
 
@@ -52,20 +52,20 @@
  [.PAGES [expression]](#pages)<br>
  [.ENDPG, [.PGEND]](#pages)<br>
 
- [.PUBLIC, [.GLOBAL], [.GLOBL] label [,label2,...]](../kod-relokowalny/#symbole-publiczne)
+ [.PUBLIC, [.GLOBAL], [.GLOBL] label [,label2,...]](relocatable-code.md#public-symbols)
 
- [.PROC label](#deklaracja-procedury)<br>
- [.ENDP, [.PEND]](#deklaracja-procedury)<br>
- [.REG, .VAR](#deklaracja-procedury)<br>
+ [.PROC label](procedures.md#procedure-declaration)<br>
+ [.ENDP, [.PEND]](procedures.md#procedure-declaration)<br>
+ [.REG, .VAR](procedures.md#procedure-declaration)<br>
 
  [.REPT expression [,parameter1, parameter2, ...]](#rept)<br>
  [.ENDR, [.REND]](#rept)<br>
  [.R](#rept)<br>
 
- [.RELOC [.BYTE|.WORD]](../kod-relokowalny/#blok-relokowalny-reloc)
+ [.RELOC [.BYTE|.WORD]](relocatable-code.md#relocatable-block-reloc)
 
- [.STRUCT label](../typy/#struktury)<br>
- [.ENDS, [.SEND]](../typy/#struktury)<br>
+ [.STRUCT label](data-types.md#structures)<br>
+ [.ENDS, [.SEND]](data-types.md#structures)<br>
 
  [.SYMBOL label](#symbol)
 
@@ -123,22 +123,22 @@
 
 <a name="symbol"></a>
 ### .SYMBOL label
-Dyrektywa `.SYMBOL` to odpowiednik pseudo rozkazu `SMB` z tą różnicą że nie trzeba podawać symbolu, symbolem jest etykieta label. Dyrektywę `.SYMBOL` można umieszczać w dowolnym miejscu bloku relokowalnego **SDX** (`BLK RELOC`) w przeciwieństwie do `SMB`.
+The `.SYMBOL` directive is the equivalent of the `SMB` pseudo-instruction, with the difference that you do not need to provide a symbol; the symbol is the `label`. The `.SYMBOL` directive can be placed anywhere within an **SDX** relocatable block (`BLK RELOC`), unlike `SMB`.
 
-Jeśli wystąpiła dyrektywa `.SYMBOL` zostanie wygenerowany odpowiedni blok aktualizacji:
+If the `.SYMBOL` directive occurs, a corresponding update block will be generated:
 
 ```
 BLK UPDATE NEW LABEL 'LABEL'
 ```
 
-Więcej na temat deklaracji symboli SDX w rozdziale [Definiowanie symbolu SMB](#smb).
+More about SDX symbol declarations in the [Defining SMB symbols](#smb) chapter.
 
 
 <a name="align"></a>
 ### .ALIGN N [,fill]
-Dyrektywa `.ALIGN` pozwala wyrównać adres asemblacji do zadanej wartości `N`, oraz potencjalnie wypełnić pamięć zadaną wartością `FILL`. Możliwe jest wyrównanie adresu asemblacji dla kodu relokowalnego pod warunkiem że podamy wartość wypełnienia pamięci `FILL`.
+The `.ALIGN` directive allows aligning the assembly address to a specified value `N`, and potentially filling memory with a specified `FILL` value. It is possible to align the assembly address for relocatable code provided a memory fill value `FILL` is given.
 
-Domyślne wartości to: `N=$0100`, `FILL=0`.
+Default values are: `N=$0100`, `FILL=0`.
 
 ```
  .align
@@ -150,26 +150,26 @@ Domyślne wartości to: `N=$0100`, `FILL=0`.
 
 <a name="rept"></a>
 ### .REPT expression [,parameter1, parameter2, ...]
-Dyrektywa `.REPT` jest rozwinięciem `:repeat` z tą różnicą, że nie jest powtarzana jedna linia, tylko zaznaczony blok programu. Początek bloku definiowany jest dyrektywą `.REPT`, po niej musi wystąpić wartość lub wyrażenie arytmetyczne określające liczbę powtórzeń z zakresu <0..2147483647>, po liczbie powtórzeń opcjonalnie mogą wystąpić parametry. W przeciwieństwie do makr parametry dla `.REPT` zawsze są najpierw obliczane i dopiero ich wynik jest podstawiany (tą właściwość można wykorzystać do definiowania nowych etykiet). Z parametrów w bloku `.REPT` korzystamy podobnie jak z parametrów w bloku `.MACRO`. Koniec bloku `.REPT` definiuje dyrektywa `.ENDR`, przed którą nie powinna znajdować się żadna etykieta.
+The `.REPT` directive is an extension of `:repeat`, with the difference that it repeats a designated program block instead of a single line. The beginning of the block is defined by the `.REPT` directive, followed by a value or arithmetic expression specifying the number of repetitions in the range <0..2147483647>. After the number of repetitions, parameters may optionally occur. Unlike macros, parameters for `.REPT` are always evaluated first, and only then is their result substituted (this property can be used to define new labels). Parameters in a `.REPT` block are used similarly to parameters in a `.MACRO` block. The end of a `.REPT` block is defined by the `.ENDR` directive, before which no label should be placed.
 
-Dodatkowo w obszarze bloku oznaczonego przez `.REPT` i `.ENDR` mamy możliwość skorzystania ze znaku hash `#` (lub dyrektywy `.R`), który zwraca aktualną wartość licznika pętli `.REPT` (podobnie jak dla `:repeat`).
+Additionally, within the block marked by `.REPT` and `.ENDR`, you can use the hash character `#` (or the `.R` directive), which returns the current value of the `.REPT` loop counter (similar to `:repeat`).
 
 ```
- .rept 12, #*2, #*3        ; bloki .REPT możemy łączyć z :rept
- :+4 dta :1                ; :+4 aby odróżnić licznik powtórzeń od parametru :4
+ .rept 12, #*2, #*3        ; we can combine .REPT blocks with :rept
+ :+4 dta :1                ; :+4 to distinguish the repetition counter from the parameter :4
  :+4 dta :2
  .endr
 
- .rept 9, #                ; definiujemy 9 etykiet label0..label8
+ .rept 9, #                ; we define 9 labels label0..label8
 label:1 mva #0 $d012+#
  .endr
 ```
 
 <a name="pages"></a>
 ### .PAGES [expression]
-Dyrektywa `.PAGES` pozwala określić liczbę stron pamięci w których powinien zmieścić się nasz fragment kodu ograniczony przez `<.PAGES .. .ENDPG>` (domyślnie jest to wartość 1). Jeśli kod programu przekroczy zadeklarowaną liczbę stron pamięci wówczas zostanie wygenerowany komunikat błędu _**Page error at ????**_.
+The `.PAGES` directive allows specifying the number of memory pages that our code snippet, bounded by `<.PAGES .. .ENDPG>`, should fit into (default is 1). If the program code exceeds the declared number of memory pages, a *Page error at ????* error message will be generated.
 
-Dyrektywy te mogą nam pomóc gdy zależy nam aby fragment programu mieścił się w granicach jednej strony pamięci albo gdy piszemy program mieszczący się w dodatkowym banku pamięci (64 strony pamięci), np.:
+These directives can help us when we want a program fragment to fit within a single memory page, or when writing a program that fits into an additional memory bank (64 memory pages), e.g.:
 
 ```
  org $4000
@@ -185,11 +185,11 @@ Dyrektywy te mogą nam pomóc gdy zależy nam aby fragment programu mieścił si
 ### .SEGMENT label
 ### .ENDSEG
 
-Dyrektywa `.SEGDEF` definiuje nowy segment LABEL o adresie początkowym `ADDRESS` i długości `LENGTH`, dodatkowo możliwe jest określenie atrybutu dla segmentu (R-read, W-rite, RW-ReadWrite - domyślnie) oraz przypisanie numeru wirtualnego banku BANK (domyślnie BANK=0).
+The `.SEGDEF` directive defines a new segment `LABEL` with starting address `ADDRESS` and length `LENGTH`. Additionally, it is possible to specify an attribute for the segment (R-read, W-rite, RW-ReadWrite - default) and assign a virtual bank number `BANK` (default `BANK=0`).
 
-Dyrektywa `.SEGMENT` aktywuje zapis kodu wynikowego segmentu `LABEL`. W przypadku przekroczenia zadanej długości segmentu zostanie wygenerowany komunikat błędu _**Segment LABEL error at ADDRESS**_.
+The `.SEGMENT` directive activates writing the output code for segment `LABEL`. If the specified segment length is exceeded, a *Segment LABEL error at ADDRESS* error message will be generated.
 
-Dyrektywa `.ENDSEG` kończy zapis do aktualnego segmentu, przywraca zapis do głównego bloku programu.
+The `.ENDSEG` directive ends writing to the current segment and restores writing to the main program block.
 
 ```
 	.segdef sdata adr0 $100
@@ -222,27 +222,27 @@ adr1	.ds $40
 ```
 
 ### .END
-Dyrektywa `.END` może być zamiennie używana z dyrektywami `.ENDP`, `.ENDM`, `.ENDS`, `.ENDA`, `.ENDL`, `.ENDR`, `.ENDPG`, `.ENDW`, `.ENDT`
+The `.END` directive can be used interchangeably with the directives `.ENDP`, `.ENDM`, `.ENDS`, `.ENDA`, `.ENDL`, `.ENDR`, `.ENDPG`, `.ENDW`, and `.ENDT`.
 
 
 <a name="var"></a>
 ### .VAR var1[=value1],var2[=value2]... (.BYTE|.WORD|.LONG|.DWORD) [=address]
-Dyrektywa `.VAR` służy do deklaracji i inicjacji zmiennych w głównym bloku programu oraz w blokach `.PROC` i `.LOCAL`. **MADS** nie wykorzystuje informacji na temat takich zmiennych w dalszych operacjach z udziałem pseudo i makro rozkazów. Dopuszczalne typy zmiennych to `.BYTE`, `.WORD`, `.LONG`, `.DWORD` i ich wielokrotności, a także typy zadeklarowane przez `.STRUCT` i `.ENUM` np.:
+The `.VAR` directive is used to declare and initialize variables in the main program block and in `.PROC` and `.LOCAL` blocks. **MADS** does not use information about such variables in further operations involving pseudo and macro instructions. Permitted variable types are `.BYTE`, `.WORD`, `.LONG`, `.DWORD` and their multiples, as well as types declared by `.STRUCT` and `.ENUM`, e.g.:
 
 ```
- .var a,b , c,d   .word          ; 4 zmienne typu .WORD
- .var a,b,f  :256 .byte          ; 3 zmienne każda o wielkości 256 bajtów
- .var c=5,d=2,f=$123344 .dword   ; 3 zmienne .DWORD o wartościach 5, 2, $123344
+ .var a,b , c,d   .word          ; 4 variables of type .WORD
+ .var a,b,f  :256 .byte          ; 3 variables, each 256 bytes in size
+ .var c=5,d=2,f=$123344 .dword   ; 3 .DWORD variables with values 5, 2, $123344
 
- .var .byte i=1, j=3             ; 2 zmienne typu .BYTE o wartościach 1, 3
+ .var .byte i=1, j=3             ; 2 variables of type .BYTE with values 1, 3
 
- .var a,b,c,d .byte = $a000      ; 4 zmienne typu .BYTE o adresach kolejno $A000, $A001, $A002, $A003
+ .var a,b,c,d .byte = $a000      ; 4 variables of type .BYTE with addresses $A000, $A001, $A002, $A003 respectively
 
- .var .byte a,b,c,d = $a0        ; 4 zmienne typu bajt, ostatnia zmiennna 'D' o wartości $A0
-                                 ; !!! dla takiego zapisu nie ma możliwości określenia adresu alokacji zmiennych
+ .var .byte a,b,c,d = $a0        ; 4 byte-type variables, the last variable 'D' with value $A0
+                                 ; !!! for this notation, it is not possible to specify the allocation address for variables
 
   .proc name
-  .var .word p1,p2,p3            ; deklaracja trzech zmiennych typu .WORD
+  .var .word p1,p2,p3            ; declaration of three .WORD type variables
   .endp
 
  .local
@@ -252,52 +252,52 @@ Dyrektywa `.VAR` służy do deklaracji i inicjacji zmiennych w głównym bloku p
   ldy c
  .endl
 
- .struct Point                   ; nowy typ danych strukturalnych POINT
+ .struct Point                   ; new structural data type POINT
  x .byte
  y .byte
  .ends
 
-  .var a,b Point                 ; deklaracja zmiennych strukturalnych
-  .var Point c,d                 ; odpowiednik składni 'label DTA POINT'
+  .var a,b Point                 ; declaration of structural variables
+  .var Point c,d                 ; equivalent to the syntax 'label DTA POINT'
 ```
 
-Tak zadeklarowane zmienne zostaną fizycznie alokowane dopiero na końcu bloku w którym zostały zadeklarowane, po dyrektywie `.ENDP`, `.ENDL` (`.END`). Wyjątek stanowi blok `.PROC` gdzie zmienne zadeklarowane przez `.VAR` zawsze alokowane są przed dyrektywą `.ENDP` niezależnie czy w bloku procedury wystąpiły jakiekolwiek dodatkowe bloki `.LOCAL` ze zmiennymi deklarowanymi przez `.VAR`
+Variables declared this way will be physically allocated only at the end of the block in which they were declared, after the `.ENDP`, `.ENDL` (`.END`) directive. An exception is the `.PROC` block, where variables declared via `.VAR` are always allocated before the `.ENDP` directive, regardless of whether any additional `.LOCAL` blocks with variables declared via `.VAR` occurred within the procedure block.
 
 
 <a name="zpvar"></a>
 ### .ZPVAR var1, var2... (.BYTE|.WORD|.LONG|.DWORD) [=address]
-Dyrektywa `.ZPVAR` służy do deklaracji zmiennych strony zerowej w głównym bloku programu oraz w blokach `.PROC` i `.LOCAL`. Próba przypisania wartości (zaincjowania) takiej zmiennej spowoduje wygenerowanie komunikatu ostrzeżenia _**Uninitialized variable**_. **MADS** nie wykorzystuje informacji na temat takich zmiennych w dalszych operacjach z udziałem pseudo i makro rozkazów. Dopuszczalne typy zmiennych to `.BYTE`, `.WORD`, `.LONG`, `.DWORD` i ich wielokrotności, a także typy zadeklarowane przez `.STRUCT` i `.ENUM` np.:
+The `.ZPVAR` directive is used to declare zero page variables in the main program block and in `.PROC` and `.LOCAL` blocks. Attempting to assign a value (initialize) such a variable will generate an *Uninitialized variable* warning message. **MADS** does not use information about such variables in further operations involving pseudo and macro instructions. Permitted variable types are `.BYTE`, `.WORD`, `.LONG`, `.DWORD` and their multiples, as well as types declared by `.STRUCT` and `.ENUM`, e.g.:
 
 ```
- .zpvar a b c d  .word = $80    ; 4 zmienne typu .WORD o adresie początkowym $0080
- .zpvar i j .byte               ; dwie kolejne zmienne od adresu $0080+8
+ .zpvar a b c d  .word = $80    ; 4 variables of type .WORD with starting address $0080
+ .zpvar i j .byte               ; two subsequent variables from address $0080+8
 
- .zpvar .word a,b               ; 2 zmienne typu .WORD
-                                ; !!! dla takiej składni nie ma możliwości określenia adresu zmiennych
+ .zpvar .word a,b               ; 2 variables of type .WORD
+                                ; !!! for this syntax, it is not possible to specify the address for variables
 
- .struct Point                  ; nowy typ danych strukturalnych POINT
+ .struct Point                  ; new structural data type POINT
  x .byte
  y .byte
  .ends
 
-  .zpvar a,b Point              ; deklaracja zmiennych strukturalnych
-  .zpvar Point c,d              ; odpowiednik składni 'label DTA POINT'
+  .zpvar a,b Point              ; declaration of structural variables
+  .zpvar Point c,d              ; equivalent to the syntax 'label DTA POINT'
 ```
 
-Tak zadeklarowanym zmiennym strony zerowej zostaną przypisane adresy dopiero na końcu bloku w którym zostały zadeklarowane, po dyrektywie `.ENDP`, `.ENDL` (`.END`). Wyjątek stanowi blok `.PROC` gdzie zmiennym zadeklarowanym przez `.ZPVAR` adresy przypisywane są przed dyrektywą `.ENDP` niezależnie czy w bloku procedury wystąpiły jakiekolwiek dodatkowe bloki `.LOCAL` ze zmiennymi deklarowanymi przez `.ZPVAR`.
+Zero page variables declared this way will be assigned addresses only at the end of the block in which they were declared, after the `.ENDP`, `.ENDL` (`.END`) directive. An exception is the `.PROC` block, where addresses for variables declared via `.ZPVAR` are assigned before the `.ENDP` directive, regardless of whether any additional `.LOCAL` blocks with variables declared via `.ZPVAR` occurred within the procedure block.
 
-Przy pierwszym użyciu dyrektywy `.ZPVAR` należy zaincjować adres jaki będzie przypisywany kolejnym zmiennym (domyślnym adresem jest $0080).
+Upon the first use of the `.ZPVAR` directive, you must initialize the address that will be assigned to subsequent variables (the default address is $0080).
 
 ```
  .zpvar = $40
 ```
 
-Z każdą kolejną zmienną adres ten jest automatycznie zwiększany przez **MADS**-a, w przypadku gdy adresy zmiennych powtórzą się zostanie wygenerowany komunikat ostrzeżenia _**Access violations at address $xxxx**_. W przypadku przekroczenia zakresu strony zerowej zostaje wygenerowany komunikat błędu _**Value out of range**_.
+With each subsequent variable, this address is automatically increased by **MADS**. If variable addresses overlap, an *Access violations at address $xxxx* warning message will be generated. If the zero page range is exceeded, a *Value out of range* error message is generated.
 
 
 <a name="print"></a>
 ### .PRINT [.ECHO]
-Powoduje wypisanie na ekranie podanej jako parametr wartości wyrażenia lub ciągu znakowego ograniczonego apostrofami `' '` lub `" "`, np.:
+Causes the value of the expression or the character string provided as a parameter (enclosed in single `' '` or double `" "` quotes) to be printed on the screen, e.g.:
 
 ```
  .print "End: ",*,'..',$8000-*
@@ -307,7 +307,7 @@ Powoduje wypisanie na ekranie podanej jako parametr wartości wyrażenia lub ci�
 <a name="error"></a>
 ### .ERROR [ERT] 'string'["string"] | .ERROR [ERT] expression
 
-Dyrektywa `.ERROR` i pseudo rozkaz `ERT` mają to samo znaczenie. Zatrzymują asemblację programu oraz wyświetlają komunikat podany jako parametr, ograniczony apostrofami `' '` lub `" "`. Jeśli parametrem jest wyrażenie logiczne, wówczas asemblacja zostanie zatrzymana gdy wartość wyrażenia logicznego jest prawdą (komunikat _**User error**_), np.:
+The `.ERROR` directive and the `ERT` pseudo-instruction have the same meaning. They stop program assembly and display the message provided as a parameter, enclosed in single `' '` or double `" "` quotes. If the parameter is a logical expression, assembly will be stopped when the value of the logical expression is true (displaying the message *User error*), e.g.:
 
 ```
  ert "halt"            ; ERROR: halt
@@ -319,7 +319,7 @@ Dyrektywa `.ERROR` i pseudo rozkaz `ERT` mają to samo znaczenie. Zatrzymują as
 
 <a name="byte"></a>
 ### .BYTE, .WORD, .LONG, .DWORD
-W/w dyrektywy służą do oznaczenia dopuszczalnych typów parametrów w deklaracji parametrów procedury (`.BYTE`, `.WORD`, `.LONG`, `.DWORD`). Możliwe jest także ich użycie w celu definicji danych, w zastępstwie pseudo rozkazu `DTA`.
+The above directives are used to denote the allowed parameter types in procedure parameter declarations (`.BYTE`, `.WORD`, `.LONG`, `.DWORD`). They can also be used to define data, as a substitute for the `DTA` pseudo-instruction.
 
 ```
 .proc test (.word tmp,a,b .byte value)
@@ -332,7 +332,7 @@ W/w dyrektywy służą do oznaczenia dopuszczalnych typów parametrów w deklara
 
 <a name="dbyte"></a>
 ### .DBYTE
-Definicja danych typu `WORD` w odwrotnej kolejności tzn. najpierw starszy bajt, następnie młodszy bajt.
+Definition of `WORD` type data in reverse order, i.e., the high byte first, followed by the low byte.
 
 ```
 .DBYTE $1234,-1,1     ; 12 34 FF FF 00 01
@@ -341,8 +341,7 @@ Definicja danych typu `WORD` w odwrotnej kolejności tzn. najpierw starszy bajt,
 <a name="_ds"></a>
 ### [label] .DS expression | label .DS [elements0][elements1][...] .type
 
-Ta dyrektywa zapożyczona została z **MAC'65**, pozwala zarezerwować pamięć bez jej uprzedniej inicjalizacji. Jest to odpowiednik pseudo rozkazu `ORG *+expression`. Dyrektywy `.DS` nie można używać w kodzie relokowalnym podobnie jak `ORG`-a.
-Użycie nawiasów kwadratowych w wyrażeniu umożliwia rezerwowanie pamięci jako tablicy, podobnie jak `.ARRAY`, wymagane jest wówczas podanie etykiety. Użycie dyrektywy `.DS` w bloku relokowalnym **Sparta DOS X** wymusi utworzenie bloku pustego `blk empty`.
+This directive is borrowed from **MAC'65** and allows reserving memory without prior initialization. It is the equivalent of the `ORG *+expression` pseudo-instruction. Like `ORG`, the `.DS` directive cannot be used in relocatable code. Using square brackets in the expression enables reserving memory as an array, similar to `.ARRAY`; providing a label is required in this case. Using the `.DS` directive in a **Sparta DOS X** relocatable block will force the creation of an empty block (`blk empty`).
 
 purpose: reserves space for data without initializing then space to any particular value(s).
 
@@ -414,14 +413,14 @@ Values in `.FL` statements may also be separated with commas for compatibility w
 
 
 ### .EN
-Dyrektywa `.EN` jest odpowiednikiem pseudo rozkazu `END`, oznacza koniec asemblowanego bloku programu.
+The `.EN` directive is the equivalent of the `END` pseudo-instruction, marking the end of the assembled program block.
 
 This is an optional pseudo-op to mark the end of assembly. It can be placed before the end of your source file to prevent a portion of it from being assembled.
 
 
 <a name="adr"></a>
 ### .ADR label
-Dyrektywa `.ADR` zwraca wartość etykiety `LABEL` przed zmianą adresu asemblacji (możliwe jest umieszczenie nazwy etykiety `LABEL` pomiędzy nawiasami okrągłymi lub kwadratowymi), np.:
+The `.ADR` directive returns the value of the `LABEL` label before the change of the assembly address (it is possible to place the `LABEL` name between round or square brackets), e.g.:
 
 ```
  org $2000
@@ -436,7 +435,7 @@ tmp lda #0
 
 <a name="sizeof"></a>
 ### .LEN label ['filename'], .SIZEOF label, .FILESIZE 'filename'
-Dyrektywa `.LEN` zwraca długość (wyrażoną w bajtach) bloku `.PROC`, `.ARRAY`, `.LOCAL`, `.STRUCT` lub długość pliku o nazwie `'filename'`. Etykieta `LABEL` to nazwa bloku `.PROC`, `.ARRAY`, `.LOCAL` lub `.STRUCT` (możliwe jest umieszczenie nazwy etykiety `LABEL` pomiędzy nawiasami okrągłymi lub kwadratowymi), np.:
+The `.LEN` directive returns the length (expressed in bytes) of a `.PROC`, `.ARRAY`, `.LOCAL`, or `.STRUCT` block, or the length of a file named `'filename'`. The `LABEL` is the name of the `.PROC`, `.ARRAY`, `.LOCAL`, or `.STRUCT` block (it is possible to place the `LABEL` name between round or square brackets), e.g.:
 
 ```
 label .array [255] .dword
@@ -452,12 +451,12 @@ label .array [255] .dword
  dta .sizeof wait    ; = 7
 ```
 
-Dyrektywy `.SIZEOF` i `.FILESIZE` to alternatywne nazwy dla `.LEN`, można używać ich zamiennie zależnie od upodobań programującego.
+The `.SIZEOF` and `.FILESIZE` directives are alternative names for `.LEN`; they can be used interchangeably depending on the programmer's preference.
 
 
 <a name="fileexists"></a>
 ### .FILEEXISTS 'filename'
-Dyrektywa `.FILEEXISTS` zwraca `'1'` gdy plik `'filename'` istnieje w przeciwnym wypadku zwraca wartość `'0'` np.:
+The `.FILEEXISTS` directive returns `'1'` when the file `'filename'` exists; otherwise, it returns `'0'`, e.g.:
 
 ```
  ift .fileexists 'filename'
@@ -469,7 +468,7 @@ Dyrektywa `.FILEEXISTS` zwraca `'1'` gdy plik `'filename'` istnieje w przeciwnym
 
 <a name="define"></a>
 ### .DEFINE macro_name expression
-Dyrektywa `.DEFINE` pozwala zdefiniować jedno-liniowe makro `MACRO_NAME`. Dopuszczalnych jest dziewięć parametrów `%%1.%%9` (`:1..:9`) reprezentowanych w ten sam sposób jak dla makr `.MACRO`, poprzez znaki `%%` lub znak `:`. Nazwy literowe parametrów nie są akceptowane, nie ma możliwości użycia znaku podziału linii `\`.
+The `.DEFINE` directive allows defining a one-line macro `MACRO_NAME`. Nine parameters are permitted, `%%1..%%9` (`:1..:9`), represented in the same way as for `.MACRO` macros, via the `%%` characters or the `:` character. Literal parameter names are not accepted, and there is no possibility to use the line break character `\`.
 
 ```
  .define poke mva #%%2 %%1
@@ -477,7 +476,7 @@ Dyrektywa `.DEFINE` pozwala zdefiniować jedno-liniowe makro `MACRO_NAME`. Dopus
  poke(712, 100)
 ```
 
-Makro jedno-liniowe `.DEFINE` można wielokrotnie definiować w trakcie jednego przebiegu asemblacji.
+A one-line `.DEFINE` macro can be defined multiple times during a single assembly pass.
 
 ```
  .define pisz %%1+%%2
@@ -491,7 +490,7 @@ Makro jedno-liniowe `.DEFINE` można wielokrotnie definiować w trakcie jednego 
 
 <a name="undef"></a>
 ### .UNDEF macro_name
-Dyrektywa `.UNDEF` usuwa definicję jedno-liniowego makra `MACRO_NAME`.
+The `.UNDEF` directive removes the definition of the one-line macro `MACRO_NAME`.
 
 ```
  .define poke mva #%%2 %%1
@@ -501,7 +500,7 @@ Dyrektywa `.UNDEF` usuwa definicję jedno-liniowego makra `MACRO_NAME`.
 
 <a name="def"></a>
 ### .DEF label [= expression]
-Dyrektywa `.DEF` pozwala sprawdzić obecność definicji etykiety `LABEL` lub ją zdefiniować. Jeśli etykieta została zdefiniowana zwraca wartość `1` czyli `TRUE`, w przeciwnym wypadku zwraca `0` czyli `FALSE`. Możliwe jest umieszczenie nazwy etykiety `LABEL` pomiędzy nawiasami okrągłymi lub kwadratowymi, np.:
+The `.DEF` directive allows checking for the presence of a label definition `LABEL` or defining it. If the label is defined, it returns the value `1` (TRUE); otherwise, it returns `0` (FALSE). It is possible to place the `LABEL` name between round or square brackets, e.g.:
 
 ```
  ift .not(.def label)
@@ -509,7 +508,7 @@ Dyrektywa `.DEF` pozwala sprawdzić obecność definicji etykiety `LABEL` lub j�
  eif
 ```
 
-Definiowane etykiety są zasięgu aktualnego obszaru lokalnego, jeśli chcemy zdefiniować etykiety globalne stawiamy przed etykietą znak `:`, np.
+Defined labels are within the scope of the current local area. If you want to define global labels, place the `:` character before the label, e.g.:
 
 ```
 .local test
@@ -525,7 +524,7 @@ This unary operator tests whether the following label has been defined yet, retu
 
 <a name="ifdef"></a>
 ### .IFDEF label
-Dyrektywa `.IFDEF` jest krótszym odpowiednikiem warunku `.IF .DEF LABEL`
+The `.IFDEF` directive is a shorter equivalent of the `.IF .DEF LABEL` condition.
 
 ```
 .ifdef label
@@ -537,7 +536,7 @@ Dyrektywa `.IFDEF` jest krótszym odpowiednikiem warunku `.IF .DEF LABEL`
 
 <a name="ifndef"></a>
 ### .IFNDEF label
-Dyrektywa `.IFNDEF` jest krótszym odpowiednikiem warunku `.IF .NOT .DEF LABEL`
+The `.IFNDEF` directive is a shorter equivalent of the `.IF .NOT .DEF LABEL` condition.
 
 ```
 .ifndef label
@@ -547,28 +546,28 @@ Dyrektywa `.IFNDEF` jest krótszym odpowiednikiem warunku `.IF .NOT .DEF LABEL`
 .endif
 ```
 
-Dla n/w przykładu asemblacja bloku `.IFNDEF` (`.IF`) będzie miała miejsce tylko w pierwszym przebiegu, jeśli umieścimy w takim bloku jakikolwiek kod programu na pewno nie zostanie on wygenerowany do pliku, definicje etykiet zostaną przeprowadzone tylko w pierwszym przebiegu, jeśli wystąpiły jakiekolwiek błędy związane z ich definiowaniem dowiemy się o nich dopiero w momencie próby odwołania do takich etykiet, będzie to komunikat błędu _**Undeclared label LABEL_NAME**_
+For the example below, assembly of the `.IFNDEF` (`.IF`) block will occur only in the first pass. If we place any program code within such a block, it will certainly not be generated into the file. Label definitions will be carried out only in the first pass; if any errors occurred related to their definition, we will only find out when attempting to reference such labels, resulting in the *Undeclared label LABEL_NAME* error message.
 
 ```
  .ifndef label
  .def label
- lda #0               ; ten rozkaz nie zostanie zasemblowany, tylko ostatni przebieg asemblacji generuje kod
- temp = 100           ; etykieta TEMP zostanie zdefiniowana tylko w 1 przebiegu asemblacji
+ lda #0               ; this instruction will not be assembled; only the last assembly pass generates code
+ temp = 100           ; the label TEMP will be defined only in the 1st assembly pass
  .endif
 ```
 
 <a name="nowarn"></a>
 ### .NOWARN
-Dyrektywa `.NOWARN` wyłącza komunikat ostrzeżenia dla aktualnie asemblowanego wiersza programu.
+The `.NOWARN` directive disables the warning message for the currently assembled program line.
 
 ```
-.nowarn .proc temp       ; nie zostanie wygenerowane ostrzeżenie 'Unreferenced procedure TEMP'
+.nowarn .proc temp       ; the warning 'Unreferenced procedure TEMP' will not be generated
         .endp
 ```
 
 <a name="using"></a>
 ### .USING, [.USE]
-Dyrektywa `.USING` (`.USE`) pozwala określić dodatkową ścieżkę poszukiwań dla nazw etykiet. Działanie `.USING` (`.USE`) obowiązuje w aktualnej przestrzeni nazw jak i kolejnych zawierających się w tej przestrzeni.
+The `.USING` (`.USE`) directive allows specifying an additional search path for label names. The effect of `.USING` (`.USE`) applies in the current namespace as well as subsequent namespaces contained within it.
 
 ```
 .local move
@@ -602,57 +601,57 @@ hlp2   stx $b000
 ### .GET [index] 'filename'... [.BYTE, .WORD, .LONG, .DWORD]
 ### .WGET [index] | .LGET [index] | .DGET [index]
 
-`.GET` jest odpowiednikiem pseudo rozkazu `INS` (podobna składnia), z tą różnicą że plik nie jest dołączany do asemblowanego pliku tylko ładowany do pamięci **MADS**-a. Ta dyrektywa pozwala wczytać określony plik do pamięci **MADS**-a i odwoływać się do bajtów tego pliku jak do tablicy jednowymiarowej.
+`.GET` is the equivalent of the `INS` pseudo-instruction (similar syntax), with the difference that the file is not appended to the assembled file but instead loaded into **MADS** memory. This directive allows loading a specified file into **MADS** memory and referencing the bytes of this file like a one-dimensional array.
 
 ```
- .get 'file'                    ; wczytanie pliku do tablicy MADS-a
- .get [5] 'file'                ; wczytanie pliku do tablicy MADS-a od indeksu = 5
+ .get 'file'                    ; loading a file into the MADS array
+ .get [5] 'file'                ; loading a file into the MADS array starting from index = 5
 
- .get 'file',0,3                ; wczytanie do tablicy MADS-a 3-ech wartości
+ .get 'file',0,3                ; loading 3 values into the MADS array
 
- lda #.get[7]                   ; odczytanie 7 bajtu z tablicy MADS-a
- adres = .get[2]+.get[3]<<8     ; 2 i 3 bajt w nagłówku pliku DOS zawiera informacje o adresie ładowania
+ lda #.get[7]                   ; reading the 7th byte from the MADS array
+ adres = .get[2]+.get[3]<<8     ; the 2nd and 3rd bytes in the DOS file header contain information about the load address
 
  adres = .wget[2]              ; word
  tmp = .lget[5]                ; long
  ?x = .dget[11]                ; dword
 ```
 
-Przy pomocy dyrektyw `.GET`, `.PUT` można odczytać np moduł **Theta Music Composer** (*TMC*) i dokonać jego relokacji. Realizuje to załączone do **MADS**-a makro z katalogu ../EXAMPLES/MSX/TMC_PLAYER/tmc_relocator.mac.
+Using the `.GET` and `.PUT` directives, one can read, for example, a **Theta Music Composer** (*TMC*) module and perform its relocation. This is implemented by the macro included with **MADS** in the directory `../EXAMPLES/MSX/TMC_PLAYER/tmc_relocator.mac`.
 
-Dopuszczalny zakres wartości dla `INDEX` = `<0..65535>`. Wartości odczytywane przez `.GET` są typu `BYTE`. Wartości odczytywane przez `.WGET` są typu `WORD`. Wartości odczytywane przez `.LGET` są typu `LONG`. Wartości odczytywane przez `.DGET` są typu `DWORD`.
+The permitted range of values for `INDEX` is <0..65535>. Values read by `.GET` are of type `BYTE`. Values read by `.WGET` are of type `WORD`. Values read by `.LGET` are of type `LONG`. Values read by `.DGET` are of type `DWORD`.
 
 
 <a name="put"></a>
 ### .PUT [index] = value
-Dyrektywa `.PUT` pozwala odwołać się do tablicy jednowymiarowej w pamięci **MADS**-a i zapisać w niej wartość typu `BYTE`. Jest to ta sama tablica do której dyrektywa `.GET` zapisuje plik.
-Dopuszczalny zakres wartości dla INDEX = <0..65535>.
+The `.PUT` directive allows referencing the one-dimensional array in **MADS** memory and writing a `BYTE` type value into it. This is the same array where the `.GET` directive saves the file.
+The permitted range of values for INDEX = <0..65535>.
 
 ```
- .put [5] = 12       ; zapisanie wartosci 12 w talicy MADS-a na pozycji 5-ej
+ .put [5] = 12       ; writing the value 12 into the MADS array at position 5
 ```
 
 <a name="sav"></a>
 ### .SAV [index] ['filename',] length
-Dyrektywa `.SAV` pozwala zapisać bufor używany przez dyrektywy `.GET`, `.PUT` do pliku zewnętrznego lub dołączenie do aktualnie asemblowanego.
+The `.SAV` directive allows saving the buffer used by the `.GET` and `.PUT` directives to an external file or appending it to the currently assembled one.
 
 ```
- .sav ?length            ; dołączenie do asemblowanego pliku zawartości bufora [0..?length-1]
- .sav [200] 256          ; dołączenie do asemblowanego pliku zawartości bufora [200..200+256-1]
- .sav [6] 'filename',32  ; zapisanie do pliku FILENAME zawartości bufora [6..6+32-1]
+ .sav ?length            ; appending the contents of the buffer [0..?length-1] to the assembled file
+ .sav [200] 256          ; appending the contents of the buffer [200..200+256-1] to the assembled file
+ .sav [6] 'filename',32  ; saving the contents of the buffer [6..6+32-1] to the file FILENAME
 ```
 
-Dopuszczalny zakres wartości dla INDEX = <0..65535>.
+The permitted range of values for INDEX = <0..65535>.
 
 
 <a name="or_and"></a>
 ### .OR, .AND, .XOR, .NOT
-W/w dyrektywy to odpowiedniki operatorów logicznych `||` (`.OR`), `&&` (`.AND`), `^` (`.XOR`), `!` (`.NOT`).
+The above directives are equivalents of the logical operators `||` (`.OR`), `&&` (`.AND`), `^` (`.XOR`), and `!` (`.NOT`).
 
 
 <a name="lohi"></a>
 ### .LO (expression), .HI (expression)
-W/w dyrektywy to odpowiedniki operatorów odpowiednio `<` (młodszy bajt) i `>` (starszy bajt).
+The above directives are equivalents of the operators `<` (low byte) and `>` (high byte) respectively.
 
 <a name="if_else"></a>
 ### .IF, .ELSE, .ELSEIF, .ENDIF
@@ -664,7 +663,7 @@ W/w dyrektywy to odpowiedniki operatorów odpowiednio `<` (młodszy bajt) i `>` 
  .ENDIF  [EIF]
 ```
 
-W/w dyrektywy i pseudo rozkazy wpływają na przebieg asemblacji (można ich używać zamiennie), np.:
+The above directives and pseudo-instructions affect the assembly process (they can be used interchangeably), e.g.:
 
 ```
  .IF .NOT .DEF label_name
@@ -677,6 +676,4 @@ W/w dyrektywy i pseudo rozkazy wpływają na przebieg asemblacji (można ich uż
  .ENDIF
 ```
 
-W w/w przykładzie nawiasy (kwadratowe lub okrągłe) są koniecznością, ich brak spowodowałby że dla pierwszej dyrektywy `.DEF` parametrem byłaby nazwa etykiety `label_name.AND.NOT.DEFlabel_name2` (spacje są pomijane, a znak kropki akceptowany w nazwie etykiety).
-
-
+In the above example, parentheses (square or round) are a necessity; their absence would mean that for the first `.DEF` directive, the parameter would be the label name `label_name.AND.NOT.DEFlabel_name2` (spaces are ignored, and the dot character is accepted in label names).

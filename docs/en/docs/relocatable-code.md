@@ -1,41 +1,41 @@
 #
 
-## Wstęp
+## Introduction
 
-Kod relokowalny to taki kod, który nie ma z góry określonego adresu ładowania do pamięci komputera, kod taki musi zadziałać niezależnie od adresu załadowania. W **Atari XE/XL** kod relokowalny udostępnia system **Sparta DOS X** (**SDX**), więcej na ten temat można przeczytać w rozdziale *Sparta DOS X - Programowanie*.
+Relocatable code is code that does not have a predefined loading address in computer memory; such code must function correctly regardless of the address it's loaded into. In **Atari XE/XL**, relocatable code is provided by the **Sparta DOS X** (**SDX**) system; more on this can be found in the *Sparta DOS X - Programming* chapter.
 
-Kod relokowalny dla **SDX** posiada podstawowe ograniczenie jakim jest relokowanie tylko adresów typu `WORD`, nie ma także obsługi rozkazów *CPU 65816*. **MADS** udostępnia możliwość generowania kodu relokowalnego w formacie **SDX** jak i swoim własnym niekompatybilnym z **SDX**, który znosi wcześniej wymienione ograniczenia.
+Relocatable code for **SDX** has a basic limitation: only `WORD` type addresses can be relocated, and there is no support for *CPU 65816* instructions. **MADS** provides the ability to generate relocatable code in both the **SDX** format and its own format, which is incompatible with **SDX** but removes the aforementioned limitations.
 
-Format zapisu pliku z kodem relokowalnym **MADS** jest podobny do tego znanego z **SDX**, podobnie występuje tutaj blok główny i bloki dodatkowe z informacją o adresach które należy poddać relokacji. MADS stosuje prostszy zapis bloków aktualizacji, bez *kompresji* jaką stosuje **SDX**.
+The file format for **MADS** relocatable code is similar to the one known from **SDX**, also featuring a main block and additional blocks containing information about the addresses to be relocated. MADS uses a simpler record for update blocks, without the *compression* used by **SDX**.
 
-Zalety kodu relokowalnego **MADS**:
+Advantages of **MADS** relocatable code:
 
-* uwzględnia rozmiar argumentów dla *CPU 6502*, *65816*
-* można używać wszystkie rozkazy *CPU*, bez ograniczeń
-* pozwala na relokacje młodszych i starszych bajtów adresu
+* takes into account argument sizes for *CPU 6502* and *65816*
+* all *CPU* instructions can be used without limitations
+* allows relocation of both low and high bytes of an address
 
-Ograniczenia kodu relokowalnego **MADS**:
+Limitations of **MADS** relocatable code:
 
-* deklaracji etykiet przez `EQU` dokonujemy przed blokiem `.RELOC`
-* jeśli chcemy zdefiniować nową etykietę w bloku `.RELOC` musimy jej nazwę poprzedzić spacją lub tabulatorem (etykieta globalna)
-* nie można używać pseudo rozkazów `ORG` `RMB` `LMB` `NMB` oraz dyrektywy `.DS`
-* nie można relokować najstarszego bajtu ze słowa 24bit, np. `lda ^$121416`
+* label declarations via `EQU` must be made before the `.RELOC` block
+* if you want to define a new label within the `.RELOC` block, its name must be preceded by a space or tab (global label)
+* pseudo-commands `ORG`, `RMB`, `LMB`, `NMB`, and the `.DS` directive cannot be used
+* the highest byte of a 24-bit word cannot be relocated, e.g., `lda ^$121416`
 
-Przykładem tego jak prosto można stworzyć kod relokowalny jest plik `..\EXAMPLES\TETRIS_RELOC.ASM`, który od strony użytej listy rozkazów *CPU* i pseudo rozkazów definiujących dane niczym nie różni się od wersji nierelokowalnej `..\EXAMPLES\TETRIS.ASM`.
+An example of how easily relocatable code can be created is the `..\EXAMPLES\TETRIS_RELOC.ASM` file, which, in terms of the *CPU* instructions and data-defining pseudo-commands used, is no different from the non-relocatable version `..\EXAMPLES\TETRIS.ASM`.
 
-## Blok relokowalny .RELOC
+## Relocatable Block .RELOC
 
-Blok relokowalny **MADS** zostanie wygenerowany po użyciu dyrektywy:
+A **MADS** relocatable block will be generated after using the directive:
 
     .RELOC [.BYTE|.WORD]
 
-Blok aktualizacji dla bloku relokowalnego **MADS** wywołujemy używając pseudo rozkazu `BLK`:
+The update block for a **MADS** relocatable block is called using the `BLK` pseudo-command:
 
     BLK UPDATE ADDRESS
 
-Po dyrektywie `.RELOC` możliwe jest podanie typu bloku relokowalnego `.BYTE` `.WORD`, domyślnie jest to typ `.WORD`. Typ `.BYTE` dotyczy bloku przeznaczonego do umieszczenia wyłącznie na stronie zerowej (będzie zawierał rozkazy strony zerowej), **MADS** będzie asemblował taki blok od adresu `$0000`. Typ `.WORD` oznacza że **MADS** będzie asemblował blok relokowalny od adresu `$0100` i będzie przeznaczony do umieszczenia w dowolnym obszarze pamięci (nie będzie zawierał rozkazów strony zerowej).
+After the `.RELOC` directive, it is possible to specify the relocatable block type as `.BYTE` or `.WORD`; the default is `.WORD`. The `.BYTE` type applies to a block intended to be placed exclusively on the zero page (it will contain zero-page instructions), and **MADS** will assemble such a block starting from address `$0000`. The `.WORD` type means **MADS** will assemble the relocatable block starting from address `$0100`, and it is intended to be placed in any memory area (it will not contain zero-page instructions).
 
-Nagłówek bloku `.RELOC` przypomina ten znany z **DOS**, dodatkowo został on rozszerzony o 10 nowych bajtów czyli w sumie zajmuje 16 bajtów, np.:
+The header of the `.RELOC` block resembles the one known from **DOS**, but it has been extended by 10 new bytes, totaling 16 bytes, e.g.:
 
 ```
 HEADER            .WORD = $FFFF
@@ -51,25 +51,25 @@ CONFIG            .BYTE (bit0)
 
 * `MADS_RELOC_HEADER`
 
-Zawsze o wartości `$524D` co odpowiada znakom `MR` (M-ADS R-ELOC).
+Always with the value `$524D`, which corresponds to the characters `MR` (M-ADS R-ELOC).
 
 * `FILE_LENGTH`
 
-To długość bloku relokowalnego bez 16 bajtowego nagłówka.
+The length of the relocatable block without the 16-byte header.
 
 * `CONFIG`
 
-Wykorzystany jest obecnie tylko `bit0` tego bajtu, `bit0=0` oznacza blok relokowalny asemblowany od adresu `$0000`, `bit0=1` blok relokowalny asemblowany od adresu `$0100`
+Currently only `bit0` of this byte is used; `bit0=0` means the relocatable block is assembled from address `$0000`, and `bit0=1` means it is assembled from address `$0100`.
 
 ---
 
-Ostatnie 6 bajtów zawiera informację o wartościach etykiet potrzebnych do działania stosu programowego `@STACK_POINTER`, `@STACK_ADDRESS`, `@PROC_VARS_ADR` jeśli zostały użyte podczas asemblacji bloków relokowalnych. Jeśli poszczególne bloki `.RELOC` zostały zasemblowane z różnymi wartościami tych etykiet i są one linkowane wystąpi wówczas komunikat ostrzeżenia **Incompatible stack parameters**. Jeśli stos programowy nie został użyty wartościami tych etykiet są zera.
+The last 6 bytes contain information about the label values required for the software stack's operation: `@STACK_POINTER`, `@STACK_ADDRESS`, and `@PROC_VARS_ADR`, if they were used during the assembly of relocatable blocks. If individual `.RELOC` blocks were assembled with different values for these labels and they are linked, an **Incompatible stack parameters** warning will occur. If the software stack was not used, the values of these labels will be zero.
 
-Pseudo rozkaz `.RELOC` powoduje przełączenie **MADS** w tryb generowania kodu relokowalnego z uwzględnianiem rozmiaru argumentów rozkazów *CPU 6502*, *65816*. W obszarze takiego kodu niemożliwe jest używanie pseudo rozkazów `ORG` `LMB` `NMB` `RMB` oraz dyrektywy `.DS`. Niemożliwy jest powrót **MADS** do trybu generowania kodu nie relokowalnego, możliwe jest wygenerowanie więcej niż jednego bloku `.RELOC`.
+The `.RELOC` pseudo-command switches **MADS** to relocatable code generation mode, taking into account the argument sizes for *CPU 6502* and *65816*. Within such code, it is impossible to use pseudo-commands `ORG`, `LMB`, `NMB`, `RMB`, and the `.DS` directive. It is impossible to return **MADS** to non-relocatable code generation mode; however, more than one `.RELOC` block can be generated.
 
-Użycie dyrektywy `.RELOC` powoduje dodatkowo zwiększenie licznika wirtualnych banków **MADS** przez co taki obszar staje się lokalny i niewidoczny dla innych bloków. Więcej informacji na temat wirtualnych banków w rozdziale Wirtualne banki pamięci `OPT B-`.
+Using the `.RELOC` directive also increments the **MADS** virtual bank counter, making the area local and invisible to other blocks. More information about virtual banks can be found in the Virtual Memory Banks `OPT B-` chapter.
 
-Na końcu bloku `.RELOC` wymagane jest wygenerowanie bloku aktualizacji, realizuje to pseudo rozkaz `BLK` z identyczną składnią jak dla bloku relokowalnego **SDX** (**BLK UPDATE ADDRESS**). Format zapisu takiego bloku aktualizacji nie jest jednak identyczny z **SDX**, ma następującą postać:
+At the end of the `.RELOC` block, an update block must be generated; this is done using the `BLK` pseudo-command with the same syntax as for the **SDX** relocatable block (**BLK UPDATE ADDRESS**). However, the format of this update block is not identical to **SDX**; it has the following form:
 
 ```
 HEADER       WORD ($FFEF)
@@ -80,34 +80,34 @@ DATA         WORD [BYTE]
 
 * `HEADER`
 
-Zawsze o wartości `$FFEF`.
+Always with the value `$FFEF`.
 
 * `TYPE`
 
-Typ danych zapisany jest na bitach `0..6` tego bajtu i określa typ modyfikowanych adresów, znak `<` oznacza młodszy bajt adresu, znak `>` oznacza starszy bajt adresu.
+The data type is stored in bits `0..6` of this byte and specifies the type of modified addresses; the `<` sign means the low byte of the address, and the `>` sign means the high byte.
 
 * `DATA_LENGTH`
 
-To liczba 2-bajtowych danych (adresów) do modyfikacji.
+The number of 2-byte data entries (addresses) to be modified.
 
 * `DATA`
 
-To właściwy ciąg danych służących modyfikacji głównego bloku relokowalnego. Pod wskazanym tutaj adresem należy odczytać wartość typu `TYPE` a następnie zmodyfikować na podstawie nowego adresu ładowania.
+The actual sequence of data used to modify the main relocatable block. At the address specified here, the value of type `TYPE` must be read and then modified based on the new loading address.
 
 ---
 
-Wyjątek stanowi blok aktualizacji dla starszych bajtów adresów `>`, dla takiego bloku w `DATA` zapisywany jest jeszcze dodatkowy bajt `BYTE` (młodszy bajt modyfikowanego adresu). Aby dokonać aktualizacji starszych bajtów, musimy odczytać bajt spod adresu `WORD` w `DATA`, dodać go do aktualnego adresu relokacji i dodać jeszcze młodszy bajt z `BYTE` w `DATA`. Tak nowo obliczony starszy bajt umieszczamy pod adresem `WORD` z `DATA`.
+An exception is the update block for high bytes of addresses (`>`); for such a block, an additional `BYTE` (the low byte of the modified address) is also stored in `DATA`. To update the high bytes, we must read the byte from the `WORD` address in `DATA`, add it to the current relocation address, and also add the low byte from `BYTE` in `DATA`. The newly calculated high byte is then placed at the `WORD` address from `DATA`.
 
-## Symbole zewnętrzne
+## External Symbols
 
-Symbole zewnętrzne informują, że zmienne i procedury które reprezentują będą znajdowały się gdzieś na zewnątrz, poza aktualnym programem. Nie musimy określać gdzie. Musimy jedynie podać ich nazwy oraz typy. W zależności od typu danych jakie reprezentuje symbol instrukcje asemblera tłumaczone są na odpowiednie kody maszynowe, asembler musi znać rozmiar używanych danych.
+External symbols indicate that the variables and procedures they represent will be located somewhere outside the current program. We do not need to specify where. We only need to provide their names and types. Depending on the type of data the symbol represents, assembler instructions are translated into the appropriate machine code; the assembler must know the size of the data used.
 
-> **UWAGA:**
-> _Aktualnie nie istnieje możliwość dokonywania operacji na symbolach external typu `^` (najstarszy bajt)._
+> **NOTE:**
+> _Currently, it is not possible to perform operations on external symbols of type `^` (highest byte)._
 
-Symbole zewnętrzne mogą być używane w blokach relokowalnych `.RELOC` jak i w zwykłych blokach **DOS**.
+External symbols can be used in `.RELOC` relocatable blocks as well as in standard **DOS** blocks.
 
-Symbole zewnętrzne **external** deklarujemy używając pseudo rozkazu `EXT` lub dyrektywy `.EXTRN`:
+External symbols are declared using the `EXT` pseudo-command or the `.EXTRN` directive:
 
 ```
 label EXT type
@@ -115,14 +115,14 @@ label .EXTRN type
 .EXTRN label1,label2,label3... type
 ```
 
-Blok aktualizacji dla symboli **external** wywołujemy używając pseudo rozkazu `BLK`:
+The update block for **external** symbols is called using the `BLK` pseudo-command:
 
     BLK UPDATE EXTERNAL
 
-> **UWAGA:**
-> _Zostaną zapisane symbole, które zostały użyte w programie._
+> **NOTE:**
+> _Only symbols used in the program will be saved._
 
-Symbole external nie mają zdefiniowanej wartości tylko typ `.BYTE` `.WORD` `.LONG` `.DWORD` np.:
+External symbols do not have a defined value, only a type: `.BYTE`, `.WORD`, `.LONG`, or `.DWORD`, e.g.:
 
 ```
 name EXT .BYTE
@@ -134,15 +134,15 @@ label_name EXT .WORD
 wait EXT .PROC (.BYTE delay)
 ```
 
-Symbol external z deklaracją procedury `.PROC` przyjmuje domyślnie typ `.WORD`, próba odwołania się do nazwy takiej etykiety zostanie potraktowana przez **MADS** jako próba wywołania procedury, więcej na temat wywołań procedur `.PROC` w rozdziale *Procedury*.
+An external symbol with a `.PROC` procedure declaration defaults to type `.WORD`. Any attempt to reference such a label name will be treated by **MADS** as an attempt to call the procedure; more on `.PROC` procedure calls in the *Procedures* chapter.
 
-W procesie asemblacji po napotkaniu odwołania do symbolu external zawsze podstawiane są zera.
+During the assembly process, zeros are always substituted when an external symbol reference is encountered.
 
-Symbole **external** przydać się nam mogą wówczas gdy chcemy zasemblować program oddzielnie, niezależnie od reszty właściwego programu. W takim programie występują wówczas najczęściej odwołania do procedur, zmiennych które zostały zdefiniowane gdzieś indziej, na zewnątrz, a my nie znamy ich wartości tylko typ. W tym momencie z pomocą przychodzą symbole **external**, które umożliwiają asemblację takiego programu mimo braku właściwych procedur czy zmiennych.
+External symbols can be useful when we want to assemble a program separately, independent of the rest of the main program. Such a program typically contains references to procedures or variables defined elsewhere, externally, where we only know their type but not their value. This is where external symbols come in, allowing for the assembly of such a program even in the absence of the actual procedures or variables.
 
-Innym zastosowaniem symboli external mogą być tzw. *pluginy* programy zewnętrzne połączone z programem głównym i realizujące dodatkowe czynności. Są to swoistego rodzaje biblioteki, wykorzystujące procedury programu głównego, rozszerzające jego funkcjonalność. Aby stworzyć taki plugin należałoby określić jakie procedury udostępnia program główny (ich nazwy+parametry i typ) oraz stworzyć procedurę odczytu pliku z symbolami **external**, ta procedura realizowałaby dołączanie pluginów do głównego programu.
+Another application for external symbols is for so-called *plugins*—external programs linked to the main program to perform additional tasks. These are essentially libraries that utilize the main program's procedures to extend its functionality. To create such a plugin, one would need to define which procedures the main program provides (their names, parameters, and types) and create a procedure to read a file with **external** symbols; this procedure would handle the inclusion of plugins into the main program.
 
-Poniżej format zapisu nagłówka w pliku z symbolami external typu **B**-YTE, **W**-ORD, **L**-ONG i **D**-WORD po wywołaniu przez `BLK UPDATE EXTERNAL`:
+Below is the header format in a file with **B**-YTE, **W**-ORD, **L**-ONG, and **D**-WORD external symbols after a `BLK UPDATE EXTERNAL` call:
 
 ```
 HEADER        WORD ($FFEE)
@@ -155,41 +155,41 @@ DATA          WORD .. .. ..
 
 * `HEADER`
 
-Zawsze o wartości `$FFEE`.
+Always with the value `$FFEE`.
 
 * `TYPE`
 
-Typ danych zapisany jest na bitach `0..6` tego bajtu i określa typ modyfikowanych adresów.
+The data type is stored in bits `0..6` of this byte and specifies the type of modified addresses.
 
 * `DATA_LENGTH`
 
-To liczba 2-bajtowych danych (adresów) do modyfikacji.
+The number of 2-byte data entries (addresses) to be modified.
 
 * `LABEL_LENGTH`
 
-To długość nazwy symbolu wyrażona w bajtach.
+The length of the symbol name in bytes.
 
 * `LABEL_NAME`
 
-To nazwa symbolu w kodach **ATASCII**.
+The symbol name in **ATASCII** codes.
 
 * `DATA`
 
-Właściwy ciąg danych służących modyfikacji głównego bloku relokowalnego. Pod wskazanym tutaj adresem należy odczytać wartość typu `TYPE` a następnie zmodyfikować na podstawie nowej wartości symbolu.
+The actual sequence of data used to modify the main relocatable block. At the address specified here, the value of type `TYPE` must be read and then modified based on the new symbol value.
 
 ---
 
-Przykładem zastosowania symboli **external** i struktur `.STRUCT` jest przykładowa biblioteka prymitywów graficznych `PLOT` `LINE` `CIRCLE` z katalogu `..\EXAMPLES\LIBRARIES\GRAPHICS\LIB`. Poszczególne moduły wykorzystują tutaj dość sporą liczbę zmiennych na stronie zerowej, jeśli chcemy aby adresy tych zmiennych były relokowalne musielibyśmy każdą z osobna zmienną zadeklarować jako symbol zewnętrzny przez `EXT` `.EXTRN`. Możemy to uprościć wykorzystując tylko jeden symbol zewnętrzny i strukturę danych `.STRUCT`. Za pomocą struktur definiujemy *mapę* zmiennych `ZP`, potem jeden symbol external `ZPAGE` typu `.BYTE` bo chcemy aby zmienne były na stronie zerowej. Teraz odwołując się do zmiennej musimy zapisać to w sposób wymuszający relokowalność np. `ZPAGE+ZP.DX` i tak powstał moduł całkowicie relokowalny z możliwością zmiany adresu zmiennych w przestrzeni strony zerowej.
+An example of using **external** symbols and `.STRUCT` structures is the sample library of graphical primitives: `PLOT`, `LINE`, and `CIRCLE` in the `..\EXAMPLES\LIBRARIES\GRAPHICS\LIB` directory. Individual modules here use a considerable number of zero-page variables. If we wanted their addresses to be relocatable, we would have to declare each variable individually as an external symbol using `EXT` or `.EXTRN`. We can simplify this by using only one external symbol and a `.STRUCT` data structure. Using structures, we define a *map* of `ZP` variables, then a single external symbol `ZPAGE` of type `.BYTE` because we want the variables to be on the zero page. Now, when referencing a variable, we must write it in a way that forces relocatability, e.g., `ZPAGE+ZP.DX`, resulting in a completely relocatable module with the ability to change the variable addresses in zero-page space.
 
-## Symbole publiczne
+## Public Symbols
 
-Symbole publiczne udostępniają zmienne i procedury występujące w bloku relokowalnym pozostałej części asemblowanego programu. Dzięki symbolom publicznym możemy odwoływać się do zmiennych i procedur *zaszytych* np. w bibliotekach.
+Public symbols expose the variables and procedures within a relocatable block to the rest of the assembled program. With public symbols, we can reference variables and procedures *embedded* in places like libraries.
 
-Symbole publiczne mogą być używane w blokach relokowalnych `.RELOC` jak i w zwykłych blokach **DOS**.
+Public symbols can be used in `.RELOC` relocatable blocks as well as in standard **DOS** blocks.
 
-**MADS** sam rozpoznaje czy podana do upublicznienia etykieta jest zmienną, stałą czy też procedurą zadeklarowną przez `.PROC`, nie jest wymagana żadna dodatkowa informacja jak w przypadku symboli zewnętrznych.
+**MADS** automatically recognizes whether the label provided for publication is a variable, a constant, or a procedure declared via `.PROC`. No additional information is required, unlike with external symbols.
 
-Symbole publiczne deklarujemy używając n/w dyrektyw:
+Public symbols are declared using the following directives:
 
 ```
 .PUBLIC label [,label2,...]
@@ -197,13 +197,13 @@ Symbole publiczne deklarujemy używając n/w dyrektyw:
 .GLOBL label [,label2,...]
 ```
 
-Dyrektywy `.GLOBAL` `.GLOBL` zostały dodane z myślą o kompatybilności z innymi assemblerami, ich znaczenie jest identyczne z dyrektywą `.PUBLIC`.
+The `.GLOBAL` and `.GLOBL` directives were added for compatibility with other assemblers; their meaning is identical to the `.PUBLIC` directive.
 
-Blok aktualizacji dla symboli publicznych wywołujemy używając pseudo rozkazu `BLK`:
+The update block for public symbols is called using the `BLK` pseudo-command:
 
     BLK UPDATE PUBLIC
 
-Poniżej format zapisu nagłówka w pliku z symbolami publicznymi po wywołaniu przez `BLK UPDATE PUBLIC`:
+Below is the header format in a file with public symbols after a `BLK UPDATE PUBLIC` call:
 
 ```
 HEADER        WORD ($FFED)
@@ -215,15 +215,15 @@ LABEL_NAME    ATASCII
 ADDRESS       WORD
 ```
 
-**MADS** automatycznie dobiera odpowiedni typ dla upublicznianej etykiety:
+**MADS** automatically selects the appropriate type for the published label:
 
-* `C-ONSTANT` etykieta nie poddająca się relokacji
-* `V-ARIABLE` etykieta poddająca się relokacji
-* `P-ROCEDURE` procedura zadeklarowana przez .PROC, podlega relokacji
-* `A-RRAY` tablica zadeklarowana przez .ARRAY, podlega relokacji
-* `S-TRUCT` struktura zadeklarowana przez .STRUCT, nie podlega relokacji
+* `C-ONSTANT`: a non-relocatable label
+* `V-ARIABLE`: a relocatable label
+* `P-ROCEDURE`: a procedure declared via .PROC; undergoes relocation
+* `A-RRAY`: an array declared via .ARRAY; undergoes relocation
+* `S-TRUCT`: a structure declared via .STRUCT; does not undergo relocation
 
-Jeśli symbol dotyczy struktury `.STRUCT` wówczas zapisywane są dodatkowe informacje (typ pola struktury, nazwa pola struktury, liczba powtórzeń pola struktury):
+If the symbol refers to a `.STRUCT` structure, additional information is saved (field type, field name, field repetition count):
 
 ```
 STRUCT_LABEL_TYPE    CHAR (B-YTE, W-ORD, L-ONG, D-WORD)
@@ -232,14 +232,14 @@ STRUCT_LABEL_NAME    ATASCII
 STRUCT_LABEL_REPEAT  WORD
 ```
 
-Jeśli symbol dotyczy tablicy `.ARRAY` wówczas zapisywane są dodatkowe informacje (maksymalny zadeklarowany indeks tablicy, typ zadeklarowanych pól tablicy):
+If the symbol refers to an `.ARRAY` array, additional information is saved (maximum declared array index, declared field type):
 
 ```
 ARRAY_MAX_INDEX  WORD
 ARRAY_TYPE       CHAR (B-YTE, W-ORD, L-ONG, D-WORD)
 ```
 
-Jeśli symbol dotyczy procedury .PROC wówczas zapisywane są dodatkowe informacje, niezależnie od tego czy procedura miała czy też nie miała zadeklarowane parametry:
+If the symbol refers to a `.PROC` procedure, additional information is saved regardless of whether parameters were declared:
 
 ```
 PROC_CPU_REG  BYTE (bits 00 - regA, 01 - regX, 10 - regY)
@@ -247,7 +247,7 @@ PROC_TYPE     BYTE (D-EFAULT, R-EGISTRY, V-ARIABLE)
 PARAM_COUNT   WORD
 ```
 
-Dla symboli dotyczących procedur `.REG` zapisywane są już teraz tylko typy tych parametrów w ilości `PARAM_COUNT`:
+For symbols relating to `.REG` procedures, only the types of these parameters are currently saved, in the quantity of `PARAM_COUNT`:
 
 ```
 PARAM_TYPE    CHAR (B-YTE, W-ORD, L-ONG, D-WORD)
@@ -255,7 +255,7 @@ PARAM_TYPE    CHAR (B-YTE, W-ORD, L-ONG, D-WORD)
 ...
 ```
 
-Dla symboli dotyczących procedur .VAR zapisywane są typy parametrów i ich nazwy. `PARAM_COUNT` określa całkowitą długość tych danych:
+For symbols relating to `.VAR` procedures, the parameter types and their names are saved. `PARAM_COUNT` specifies the total length of this data:
 
 ```
 PARAM_TYPE    CHAR (B-YTE, W-ORD, L-ONG, D-WORD)
@@ -267,88 +267,80 @@ PARAM_NAME    ATASCII
 
 * `HEADER`
 
-Zawsze o wartości `$FFED`.
+Always with the value `$FFED`.
 
 * `LENGTH`
 
-To liczba symboli zapisanych w bloku aktualizacji.
+The number of symbols saved in the update block.
 
 * `TYPE`
 
-Typ symbolizowanych danych **B**-YTE, **W**-ORD, **L**-ONG, **D**-WORD.
+The type of symbolized data: **B**-YTE, **W**-ORD, **L**-ONG, or **D**-WORD.
 
 * `LABEL_TYPE`
-    * Typ symbolu: V-ARIABLE, C-ONSTANT, P-ROCEDURE, A-RRAY, S-TRUCT
-    * Dla typu P zapisywane są dodatkowe informacje: PROC_CPU_REG, PROC_TYPE, PARAM_COUNT, PARAM_TYPE
-    * Dla typu A zapisywane są dodatkowe informacje: ARRAY_MAX_INDEX, ARRAY_TYPE
-    * Dla typu S zapisywane są dodatkowe informacje: STRUCT_LABEL_TYPE, STRUCT_LABEL_LENGTH, STRUCT_LABEL_NAME, STRUCT_LABEL_REPEAT
-
-Typ symbolizowanych danych **B**-YTE, **W**-ORD, **L**-ONG, **D**-WORD.
+    * Symbol type: V-ARIABLE, C-ONSTANT, P-ROCEDURE, A-RRAY, S-TRUCT
+    * For type P, additional information is saved: PROC_CPU_REG, PROC_TYPE, PARAM_COUNT, PARAM_TYPE
+    * For type A, additional information is saved: ARRAY_MAX_INDEX, ARRAY_TYPE
+    * For type S, additional information is saved: STRUCT_LABEL_TYPE, STRUCT_LABEL_LENGTH, STRUCT_LABEL_NAME, STRUCT_LABEL_REPEAT
 
 * `LABEL_LENGTH`
 
-Długość etykiety symbolu publicznego wyrażona w bajtach
-
-* `LABEL_LENGTH`
-
-Długość etykiety symbolu publicznego wyrażona w bajtach
+The length of the public symbol label in bytes.
 
 * `LABEL_NAME`
 
-Etykieta symbolu publicznego zapisana w kodach **ATASCII**
+The public symbol label in **ATASCII** codes.
 
 * `ADDRESS`
 
-Adres przypisany symbolowi w bloku relokowalnym `.RELOC`. Ta wartość zostaje poddana relokacji poprzez dodanie do niej aktualnego adresu asemblacji.
+The address assigned to the symbol in the `.RELOC` relocatable block. This value undergoes relocation by adding the current assembly address to it.
 
 * `PROC_CPU_REG`
 
-Informacja o kolejności użycia rejestrów *CPU* dla procedury typu `.REG`
+Information about the order of *CPU* register usage for a `.REG` type procedure.
 
 * `PROC_TYPE`
-    * **D**-EFAULT domyślny typ wykorzystujący do przekazywania parametrów stos programowy **MADS**
-    * **R**-EGISTRY parametry do procedury przekazywane są przez rejestry **CPU** `.REG`
-    * **V**-ARIABLE parametry do procedury przekazywane są przez zmienne `.VAR`
+    * **D**-EFAULT: the default type using the **MADS** software stack for parameter passing.
+    * **R**-EGISTRY: parameters are passed to the procedure via **CPU** registers (`.REG`).
+    * **V**-ARIABLE: parameters are passed to the procedure via variables (`.VAR`).
 
 * `PARAM_COUNT`
 
-Informacja o liczbie parametrów procedury `.REG` lub całkowitej długości danych zawierających informację o typie parametrów i ich nazwach `.VAR`.
+Information about the number of parameters for a `.REG` procedure or the total length of data containing parameter types and names for a `.VAR` procedure.
 
 * `PARAM_TYPE`
 
-Typ parametrów zapisany za pomocą znaków `B` `W` `L` `D`
+Parameter types recorded using the characters `B`, `W`, `L`, and `D`.
 
 * `PARAM_LENGTH`
 
-Długość nazwy parametru `.VAR`.
+The length of the parameter name in `.VAR`.
 
 * `PARAM_NAME`
 
-Nazwa parametru w kodach ATASCII `.VAR`.
+The parameter name in ATASCII codes in `.VAR`.
 
-## Dyrektywy `.LONGA` `.LONGI`
+## Directives `.LONGA` and `.LONGI`
 
 ```
 .LONGA ON|OFF
 .LONGI ON|OFF
 ```
 
-* Dyrektywa `.LONGA` informuje assembler o rozmiarze rejestru akumulatora, 16bit gdy ON, 8bit gdy OFF.
+* The `.LONGA` directive informs the assembler about the accumulator register size: 16-bit when ON, 8-bit when OFF.
 
-* Dyrektywa `.LONGI` informuje assembler o rozmiarze rejestrów indeksowych `XY`, 16bit gdy ON, 8bit gdy OFF.
+* The `.LONGI` directive informs the assembler about the index register (`XY`) size: 16-bit when ON, 8-bit when OFF.
 
-* Dyrektywy wpływają na rozmiar argumentu przy adresowaniu absolutnym *CPU 65816*.
+* These directives affect the argument size in absolute addressing for *CPU 65816*.
 
-## Linkowanie `.LINK`
+## Linking .LINK
 
     .LINK 'filename'
 
-Dyrektywa `.LINK` wymaga podania jako parametru nazwy pliku do relokacji. Akceptowane są tylko pliki **DOS Atari**, pliki **SDX** nie są akceptowane.
+The `.LINK` directive requires the name of the file to be relocated as a parameter. Only **Atari DOS** files are accepted; **SDX** files are not.
 
-Jeśli adres ładowania pliku jest inny niż `$0000` oznacza to że plik nie zawiera kodu relokowalnego, jednak może zawierać bloki aktualizacji dla symboli zewnętrznych i publicznych. Dyrektywa `.LINK` akceptuje pliki o dowolnym adresie ładowania, jednak relokacji poddawane są tylko te o adresie ładowania `$0000`, więcej szczegółów na temat budowy takiego pliku zostało zawartych w rozdziale Blok relokowalny `.RELOC`.
+If the file's loading address is other than `$0000`, it means the file does not contain relocatable code; however, it may contain update blocks for external and public symbols. The `.LINK` directive accepts files with any loading address, but only those with a loading address of `$0000` are subjected to relocation. More details on the structure of such files can be found in the Relocatable Block `.RELOC` chapter.
 
-Dyrektywa `.LINK` pozwala na łączenie kodu relokowalnego z nierelokowalnym. **MADS** na podstawie bloków aktualizacji dokonuje automatycznej relokacji takiego pliku. Uwzględniane są wszystkie 3 rodzaje bloków aktualizacji `ADDRESS` `EXTERNAL` `PUBLIC`.
-Nie ma ograniczeń co do adresu pod którym umieszczany jest plik relokowalny.
+The `.LINK` directive allows for combining relocatable and non-relocatable code. Based on the update blocks, **MADS** automatically relocates such files. All three types of update blocks—`ADDRESS`, `EXTERNAL`, and `PUBLIC`—are taken into account. There are no restrictions on the address where the relocatable file is placed.
 
-Jeśli blok relokowalny do działania wymaga stosu programowego **MADS** wówczas etykiety `@STACK_POINTER` `@STACK_ADDRESS` `@PROC_VARS_ADR` zostaną automatycznie zaktualizowane na podstawie nagłówka bloku `.RELOC`. Wymagane jest aby bloki `.RELOC` i program główny operowały na tym samym stosie programowym jeśli jest on konieczny.
-
+If the relocatable block requires the **MADS** software stack to function, the labels `@STACK_POINTER`, `@STACK_ADDRESS`, and `@PROC_VARS_ADR` will be automatically updated based on the `.RELOC` block header. It is required that the `.RELOC` blocks and the main program operate on the same software stack if one is necessary.

@@ -1,17 +1,17 @@
-## Makra
+## Macros
 
-Makra ułatwiają nam wykonywanie powtarzających się czynności, automatyzują je. Istnieją tylko w pamięci assemblera, dopiero w momencie wywołania są asemblowane. Przy ich pomocy **MADS** może odkładać i zdejmować z programowego stosu parametry dla procedur zadeklarowanych dyrektywą `.PROC` oraz przełączać banki rozszerzonej pamięci w trybie *BANK SENSITIVE* (`OPT B+`).
+Macros make it easier for us to perform repetitive tasks by automating them. They exist only in the assembler's memory and are assembled only at the time of invocation. With their help, **MADS** can push and pull parameters for procedures declared with the `.PROC` directive onto/from the software stack, and switch extended memory banks in *BANK SENSITIVE* mode (`OPT B+`).
 
-> _Makra czytane są tylko w pierwszym przebiegu assemblacji, dla n/w przykładu makra znajdujące się w pliku dołączanym przez `ICL` nie zostaną rozpoznane_:
+> _Macros are read only in the first assembly pass; for the example below, macros located in a file included via `ICL` will not be recognized_:
 
 ```
  .macro test
-   icl 'dodatkowe_makra.mac'
+   icl 'additional_macros.mac'
  .endm
 ```
 
-### Deklaracja makra
-Makr dotyczą n/w pseudo rozkazy i dyrektywy:
+### Macro Declaration
+The following pseudo-instructions and directives apply to macros:
 
 ```
 name .MACRO [arg1, arg2 ...] ['separator'] ["separator"]
@@ -24,9 +24,9 @@ name .MACRO [arg1, arg2 ...] ['separator'] ["separator"]
 
 #### name .MACRO [(arg1, arg2 ...)] ['separator'] ["separator"]
 
-Deklaracja makra o nazwie name za pomocą dyrektywy `.MACRO`. Nazwa makra jest wymagana i konieczna, jej brak wygeneruje błąd. Do nazw makr nie można używać nazw mnemoników i pseudo rozkazów (błąd _**Reserved word**_).
+Declaration of a macro named `name` using the `.MACRO` directive. The macro name is required and mandatory; its absence will generate an error. Names of mnemonics and pseudo-instructions cannot be used as macro names (error _**Reserved word**_).
 
-Dopuszczalna jest lista z etykietami nazw argumentów jakie będą przekazywane do makra, taka lista może być ograniczona dodatkowo nawiasem okrągłym `( )`. Przedstawianie argumentów w postaci nazw etykiet ma na celu poprawienie przejrzystości kodu makra. W samym ciele makra można używać zamiennie nazw etykiet argumentów lub ich numerycznych odpowiedników.
+A list of labels for the names of arguments to be passed to the macro is allowed; such a list can additionally be enclosed in parentheses `( )`. Presenting arguments as label names is intended to improve the clarity of the macro code. Within the macro body itself, argument label names or their numerical equivalents can be used interchangeably.
 
 ```
 .macro SetColor val,reg
@@ -35,20 +35,20 @@ Dopuszczalna jest lista z etykietami nazw argumentów jakie będą przekazywane 
 .endm
 ```
 
-Na końcu deklaracji makra może wystąpić deklaracja separatora i zarazem trybu przekazywania parametrów do makra (pojedyńczy apostrof bez zmian, podwójny apostrof z rozbijaniem parametrów na tryb adresacji i argument).
-Domyślnym separatorem, rozdzielającym parametry przekazywane do makra jest znak przecinka `,` oraz spacji `' '`.
+At the end of the macro declaration, a separator declaration and simultaneously the mode for passing parameters to the macro can occur (single quote for no change, double quote for splitting parameters into addressing mode and argument).
+The default separator for parameters passed to the macro is the comma `,` and space `' '`.
 
 ```
 name .MACRO 'separator'
 ```
 
-Pomiędzy pojedyńczymi apostrofami `' '` możemy umieścić znak separatora, który będzie używany do oddzielenia parametrów przy wywołaniu makra (tylko do tego mogą służyć pojedyńcze apostrofy).
+Between single quotes `' '`, we can place a separator character that will be used to separate parameters when calling the macro (single quotes can only serve this purpose).
 
 ```
 name .MACRO "separator"
 ```
 
-Pomiędzy podwójnymi apostrofami `" "` możemy także umieścić znak separatora, który będzie używany do oddzielenia parametrów przy wywołaniu makra. Dodatkowo użycie podwójnego apostrofu sygnalizuje **MADS**-owi aby rozkładał przekazywane parametry na dwa elementy: tryb adresacji i argument, np.:
+Between double quotes `" "`, we can also place a separator character that will be used to separate parameters when calling the macro. Additionally, the use of double quotes signals **MADS** to split the passed parameters into two elements: addressing mode and argument, e.g.:
 
 ```
  test #12 200 <30
@@ -57,21 +57,21 @@ test .macro " "
 .endm
 ```
 
-Makro `TEST` ma zadeklarowany separator-spację przy użyciu apostrofu `"`, czyli po wywołaniu makra parametry zostaną rozłożone na dwa elementy: tryb adresacji i argument.
+The `TEST` macro has a space separator declared using the `"` quote, meaning that after calling the macro, the parameters will be split into two elements: addressing mode and argument.
 
 ```
- #12   ->  tryb adresacji '#' argument 12
- 200   ->  tryb adresacji ' ' argument 200
- <30   ->  tryb adresacji '#' argument 0   (obliczona wartość wyrażenia "<30")
+ #12   ->  addressing mode '#' argument 12
+ 200   ->  addressing mode ' ' argument 200
+ <30   ->  addressing mode '#' argument 0   (calculated value of the expression "<30")
 
  test '#' 12 ' ' 200 '#' 0
 ```
 
-UAWAGA #1: Parametry ze znakiem operatora `<`, `>` zostają obliczone i dopiero ich wynik jest przekazywany do makra (podstawiany pod parametr).
+NOTE #1: Parameters with the operator sign `<`, `>` are calculated and only then is their result passed to the macro (substituted for the parameter).
 
-UAWAGA #2: Jeśli parametrem makra jest licznik pętli `#`, `.R` (!!! pojedyńczy znak `#` lub dyrektywa `.R` a nie wyrażenie z udziałem tego znaku, tej dyrektywy !!!) wówczas do makra przekazywana jest wartość licznika pętli (podstawiana pod parametr).
+NOTE #2: If the macro parameter is the loop counter `#`, `.R` (!!! single character `#` or directive `.R`, not an expression involving this character or directive !!!), then the value of the loop counter is passed to the macro (substituted for the parameter).
 
-Tą właściwość możemy wykorzystać do stworzenia "samopiszącego" się kodu, kiedy potrzebujemy tworzyć nowe etykiety typu "label0", "label1", "label2", "label3" ... itd. , np.:
+This property can be used to create "self-writing" code when we need to create new labels like "label0", "label1", "label2", "label3" ... etc., e.g.:
 
 ```
  :32 find #
@@ -83,18 +83,18 @@ find .macro
      .endm
 ```
 
-W/w przykład zapisuje adres etykiety pod warunkiem że taka etykiety istnieje (została zdefiniowana).
+The above example saves the label address provided that such a label exists (has been defined).
 
 
 #### .EXITM [.EXIT]
-Zakończenie działania makra. Powoduje bezwzględne zakończenie działania makra.
+Termination of macro execution. Causes absolute termination of macro execution.
 
 #### .ENDM [.MEND]
-Przy pomocy dyrektywy `.ENDM` lub `.MEND` kończymy deklarację aktualnego makra. Nie ma możliwości użycia dyrektywy `.END` jak ma to miejsce dla innych obszarów deklarowanych przez dyrektywy `.LOCAL`, `.PROC`, `.ARRAY`, `.STRUCT`, `.REPT`
+Using the `.ENDM` or `.MEND` directive, we end the current macro declaration. It is not possible to use the `.END` directive as is the case for other areas declared by the directives `.LOCAL`, `.PROC`, `.ARRAY`, `.STRUCT`, `.REPT`.
 
 #### :[%%]parameter
 
-Parametr jest liczbą decymalną dodatnią (`>=0`), poprzedzoną znakiem dwukropka `:` lub dwoma znakami procentu `%%`. Jeśli w makrze chcemy aby znak `:` określał liczbę powtórzeń a nie numer parametru wystarczy że następny znak po dwukropku nie będzie z przedziału `'0'..'9'`, tylko np:
+A parameter is a positive decimal number (`>=0`), preceded by a colon `:` or two percent signs `%%`. If in a macro we want the `:` character to specify the number of repetitions and not the parameter number, it is sufficient that the character following the colon is not in the range `'0'..'9'`, but for example:
 
 ```
  :$2 nop
@@ -102,7 +102,7 @@ Parametr jest liczbą decymalną dodatnią (`>=0`), poprzedzoną znakiem dwukrop
  :%10 nop
 ```
 
-Parametr `:0` (`%%0`) ma specjalne znaczenie, zawiera liczbę przekazanych parametrów. Z jego pomocą możemy sprawdzić czy wymagana liczba parametrów została przekazana do makra, np.:
+The parameter `:0` (`%%0`) has a special meaning; it contains the number of passed parameters. With its help, we can check if the required number of parameters has been passed to the macro, e.g.:
 
 ```
   .IF :0<2 || :0>5
@@ -114,7 +114,7 @@ Parametr `:0` (`%%0`) ma specjalne znaczenie, zawiera liczbę przekazanych param
   EIF
 ```
 
-Przykład makra:
+Macro example:
 
 ```
 .macro load_word
@@ -134,36 +134,36 @@ Przykład makra:
 ```
 
 
-### Wywołanie makra
+### Macro Call
 
-Makro wywołujemy poprzez jego nazwę, po niej mogą wystąpić parametry makra, rozdzielone separatorem którym jest domyślnie znak przecinka `,` lub spacji `' '`.
+A macro is called by its name, followed by the macro parameters, separated by a separator which is by default a comma `,` or a space `' '`.
 
-Liczba parametrów uzależniona jest od wolnej pamięci komputera *PC*. Jeśli przekazana liczba parametrów jest mniejsza od liczby parametrów używanych w danym makrze, wówczas pod brakujące parametry zostanie podstawiona wartość `-1` (`$FFFFFFFF`). Tą właściwość można wykorzystać do sprawdzenia czy został przekazany parametr czy też nie, łatwiej jednak tego dokonać za pomocą parametru zerowego `%%0`.
+The number of parameters depends on the available memory of the *PC*. If the number of passed parameters is less than the number of parameters used in a given macro, the value `-1` (`$FFFFFFFF`) will be substituted for the missing parameters. This property can be used to check whether a parameter was passed or not, but it is easier to do this using the zero parameter `%%0`.
 
 ```
  macro_name [Par1, Par2, Par3, 'Par4', "string1", "string2" ...]
 ```
 
-Parametrem może być wartość, wyrażenie lub ciąg znaków ograniczony apostrofem pojedyńczym `' '` lub podwójnym `" "`.
+A parameter can be a value, an expression, or a character string enclosed in single quotes `' '` or double quotes `" "`.
 
-* apostrofy pojedyńcze `' '` zostaną przekazane do makra razem ze znakami znajdującymi się pomiędzy nimi
-* apostrofy podwójne `" "` oznaczają ciąg znaków i tylko ciąg znaków znajdujący się pomiędzy apostrofami zostanie przekazany do makra
+* single quotes `' '` will be passed to the macro along with the characters between them
+* double quotes `" "` denote a character string and only the character string between the quotes will be passed to the macro
 
-Wszelkie definicje etykiet w obrębie makra mają zasięg lokalny.
+Any label definitions within a macro have local scope.
 
-Jeśli poszukiwana przez assembler etykieta nie wystąpiła w obszarze makra, wówczas nastąpi jej szukanie w obszarze lokalnym (jeśli wystąpiła dyrektywa `.LOCAL`), następnie w procedurze (jeśli procedura jest aktualnie przetwarzana), na końcu w głównym programie.
+If a label sought by the assembler does not occur within the macro area, it will be searched for in the local area (if the `.LOCAL` directive occurred), then in the procedure (if a procedure is currently being processed), and finally in the main program.
 
-Przykład wywołania makra:
+Example of a macro call:
 
 ```
- macro_name 'a',a,>$a000,cmp    ; dla domyślnego separatora ','
- macro_name 'a'_a_>$a000_cmp    ; dla zadeklarowanego separatora '_'
- macro_name 'a' a >$a000 cmp    ; dla domyślnego separatora ' '
+ macro_name 'a',a,>$a000,cmp    ; for the default separator ','
+ macro_name 'a'_a_>$a000_cmp    ; for a declared separator '_'
+ macro_name 'a' a >$a000 cmp    ; for the default separator ' '
 ```
 
-Możliwe jest wywoływanie makr z poziomu makra, oraz rekurencyjne wywoływanie makr. W tym ostatnim przypadku należy być ostrożnym bo może dojść do przepełnienia stosu **MADS**-a. **MADS** zabezpiecza się przez rekurencją makr bez końca i zatrzymuje asemblacje gdy liczba wywołań makra przekroczy 4095 (błąd _**Infinite recursion**_).
+It is possible to call macros from within a macro, and to call macros recursively. In the latter case, caution is advised as it may lead to a **MADS** stack overflow. **MADS** protects against infinite macro recursion and stops assembly when the number of macro calls exceeds 4095 (error _**Infinite recursion**_).
 
-Przykład makra, które spowoduje przepełnienie stosu **MADS**-a:
+Example of a macro that will cause a **MADS** stack overflow:
 
 ```
 jump .macro
@@ -173,42 +173,42 @@ jump .macro
      .endm
 ```
 
-Przykład programu, który przekazuje parametry do pseudo procedur ..\EXAMPLES\MACRO.ASM:
+Example of a program that passes parameters to pseudo-procedures `..\EXAMPLES\MACRO.ASM`:
 
 ```
  org $2000
 
- proc PutChar,'a'-64    ; wywołanie makra PROC, jako parametr
- proc PutChar,'a'-64    ; nazwa procedury która będzie wywołana przez JSR
- proc PutChar,'r'-64    ; oraz jeden argument (kod znaku INTERNAL)
+ proc PutChar,'a'-64    ; calling the PROC macro as a parameter
+ proc PutChar,'a'-64    ; name of the procedure that will be called via JSR
+ proc PutChar,'r'-64    ; and one argument (INTERNAL character code)
  proc PutChar,'e'-64
  proc PutChar,'a'-64
 
- proc Kolor,$23         ; wywołanie innej procedurki zmieniającej kolor tła
+ proc Kolor,$23         ; calling another small procedure that changes background color
 
 ;---
 
-loop jmp loop           ; pętla bez końca, aby zobaczyć efekt działania
+loop jmp loop           ; infinite loop to see the effect
 
 ;---
 
-proc .macro             ; deklaracja makra PROC
- push =:1,:2,:3,:4      ; wywołanie makra PUSH odkładającego na stos argumenty
-                        ; =:1 wylicza bank pamieci
+proc .macro             ; declaration of the PROC macro
+ push =:1,:2,:3,:4      ; calling the PUSH macro which pushes arguments onto the stack
+                        ; =:1 calculates the memory bank
 
- jsr :1                 ; skok do procedury (nazwa procedury w pierwszym parametrze)
+ jsr :1                 ; jump to procedure (procedure name in the first parameter)
 
- lmb #0                 ; Load Memory Bank, ustawia bank na wartosc 0
- .endm                  ; koniec makra PROC
+ lmb #0                 ; Load Memory Bank, sets the bank to value 0
+ .endm                  ; end of PROC macro
 
 ;---
 
-push .macro             ; deklaracja makra PUSH
+push .macro             ; declaration of the PUSH macro
 
-  lmb #:1               ; ustawia wirtualny bank pamięci
+  lmb #:1               ; sets the virtual memory bank
 
- .if :2<=$FFFF          ; jeśli przekazany argument jest mniejszy równy $FFFF to
-  lda <:2               ; odłóż go na stosie
+ .if :2<=$FFFF          ; if the passed argument is less than or equal to $FFFF then
+  lda <:2               ; push it onto the stack
   sta stack
   lda >:2
   sta stack+1
@@ -231,29 +231,29 @@ push .macro             ; deklaracja makra PUSH
  .endm
 
 
-* ------------ *            ; procedura KOLOR
+* ------------ *            ; KOLOR procedure
 *  PROC Kolor  *
 * ------------ *
- lmb #1                     ; ustawienie numeru wirtualnego banku na 1
-                            ; wszystkie definicje etykiet będą teraz należeć do tego banku
-stack org *+256             ; stos dla procedury KOLOR
+ lmb #1                     ; setting the virtual bank number to 1
+                            ; all label definitions will now belong to this bank
+stack org *+256             ; stack for the KOLOR procedure
 color equ stack
 
-Kolor                       ; kod procedury KOLOR
+Kolor                       ; KOLOR procedure code
  lda color
  sta 712
  rts
 
 
-* -------------- *          ; procedura PUTCHAR
+* -------------- *          ; PUTCHAR procedure
 *  PROC PutChar  *
 * -------------- *
- lmb #2                     ; ustawienie numeru wirtualnego banku na 2
-                            ; wszystkie definicje etykiet będą teraz należeć do tego banku
-stack org *+256             ; stos dla procedury PUTCHAR
+ lmb #2                     ; setting the virtual bank number to 2
+                            ; all label definitions will now belong to this bank
+stack org *+256             ; stack for the PUTCHAR procedure
 char  equ stack
 
-PutChar                     ; kod procedury PUTCHAR
+PutChar                     ; PUTCHAR procedure code
  lda char
  sta $bc40
 scr equ *-2
@@ -262,7 +262,6 @@ scr equ *-2
  rts
 ```
 
-Oczywiście stos w tym przykładowym programie jest programowy. W przypadku *65816* można byłoby użyć stosu sprzętowego. Dzięki temu, że zdefiniowane zmienne przypisywane są do konkretnego numeru banku, można stworzyć strukturę wywołania procedury czy funkcji podobną do tych z języków wyższego poziomu.
+Of course, the stack in this example program is a software stack. In the case of *65816*, the hardware stack could be used. Because the defined variables are assigned to a specific bank number, a procedure or function call structure similar to those in high-level languages can be created.
 
-Prościej i efektywniej jednak skorzystać z deklaracji procedury `.PROC` jaką umożliwia **MADS**. Więcej o deklaracji procedury i operacjach jej dotyczących w rozdziale [Procedury].
-
+However, it is simpler and more efficient to use the `.PROC` procedure declaration that **MADS** enables. More about procedure declarations and operations related to them in the [Procedures] chapter.

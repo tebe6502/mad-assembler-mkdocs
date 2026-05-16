@@ -1,8 +1,8 @@
 #
 
-## Detekcja CPU6502, CPU65816
+## CPU6502, CPU65816 Detection
 
-Przykład zaczerpnięty z [tej](http://www.s-direktnet.de/homepages/k_nadj/cputest.html) strony. Program potrafi zdiagnozować obecność jednego z mikroprocesorów: *6502*, *65C02*, *65816*.
+Example taken from [this](http://www.s-direktnet.de/homepages/k_nadj/cputest.html) page. The program can diagnose the presence of one of the following microprocessors: *6502*, *65C02*, *65816*.
 
 ```
 /*
@@ -44,7 +44,7 @@ DetectCPU_02
 DetectCPU_CMOS
 
  lda #0
- rep #%00000010     ;wyzerowanie bitu Z
+ rep #%00000010     ;resetting the Z bit
  bne DetectCPU_C816
 
 DetectCPU_C02
@@ -70,7 +70,7 @@ _65c02  dta c'65c02',$9b
 _65816  dta c'65816',$9b
 ```
 
-Następny przykład detekcji *CPU*, ogranicza się do określenia obecności mikroprocesora *6502* lub *65816*. Program po disasemblacji inaczej wygląda dla **6502**, inaczej dla **65816**. **6502** rozkaz `inc @` uzna za `nop`, rozkaz `xba` uzna za `sbc #`. Dzięki takiej *przezroczystości* możemy być pewni że program nie wykona żadnej nielegalnej operacji i uczciwie rozpozna właściwy *CPU*. Pomysłodawcą tego zwięzłego i jakże sprytnego testu jest **Ullrich von Bassewitz**.
+The next *CPU* detection example is limited to determining the presence of a *6502* or *65816* microprocessor. After disassembly, the program looks different for the **6502** and the **65816**. The **6502** interprets the `inc @` instruction as `nop`, and the `xba` instruction as `sbc #`. Thanks to this *transparency*, we can be sure that the program will not perform any illegal operations and will accurately recognize the correct *CPU*. The creator of this concise and clever test is **Ullrich von Bassewitz**.
 
 ```
  org $2000
@@ -84,7 +84,7 @@ Następny przykład detekcji *CPU*, ogranicza się do określenia obecności mik
  cmp #1
  bcc cpu6502
 
-; ostateczny test na obecnosc 65816
+; final test for 65816 presence
 
  xba           ; put $01 in B accu
  dec @         ; A=$00 if 65C02
