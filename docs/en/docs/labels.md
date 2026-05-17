@@ -1,38 +1,38 @@
-## Etykiety
+## Labels
 
- Etykiety zdefiniowane w programie mogą posiadać zasięg lokalny lub globalny, w zależności od miejsca w jakim zostały zdefiniowane. Oprócz tego można zdefiniować etykiety tymczasowe, które także mogą posiadać zasięg lokalny lub globalny.
+ Labels defined in a program can have local or global scope, depending on where they were defined. Additionally, temporary labels can be defined, which can also have local or global scope.
 
-* zasięg globalny etykiety oznacza, że jest ona widoczna z każdego miejsca w programie, niezależnie czy jest to makro `.MACRO`, procedura `.PROC` czy obszar lokalny `.LOCAL`.
+* global scope of a label means it is visible from anywhere in the program, regardless of whether it is a `.MACRO`, a `.PROC` procedure, or a `.LOCAL` area.
 
-* zasięg lokalny etykiety oznacza, że jest ona widoczna tylko w konkretnie zdefiniowanym obszarze, np. przez dyrektywy: `.MACRO`, `.PROC`, `.LOCAL`.
+* local scope of a label means it is visible only within a specifically defined area, e.g., defined by directives: `.MACRO`, `.PROC`, `.LOCAL`.
 
-* etykiety muszą zaczynać się znakiem `'A'..'Z','a'..'z','_','?','@'`
-* pozostałe dopuszczalne znaki etykiety to `'A'..'Z','a'..'z','0'..'9','_','?','@'`
-* etykiety występują zawsze na początku wiersza
-* etykiety poprzedzone "białymi znakami" powinny kończyć się znakiem `:` aby uniknąć błędnej interpretacji takiej etykiety jako makra
-* w adresowaniu etykieta może być poprzedzona znakiem `:` informuje to asembler że odwołujemy się do etykiety w bloku głównym programu (odwołujemy się do etykiety globalnej)
+* labels must start with the character `'A'..'Z','a'..'z','_','?','@'`
+* other allowed label characters are `'A'..'Z','a'..'z','0'..'9','_','?','@'`
+* labels always occur at the beginning of a line
+* labels preceded by "white space" should end with a `:` character to avoid misinterpretation of such a label as a macro
+* in addressing, a label can be preceded by a `:` character; this informs the assembler that we are referring to a label in the main block of the program (we are referring to a global label)
 
-Przykład definicji etykiet:
+Example of label definitions:
 
 ```
-?nazwa   EQU  $A000    ; definicja etykiety tymczasowej globalnej
-nazwa     =   *        ; definicja etykiety globalnej
-nazwa2=12              ; definicja etykiety globalnej
-@?nazwa  EQU  'a'+32   ; definicja etykiety globalnej
-  name: equ 12         ; definicja etykiety globalnej nie zaczynającej się od pierwszego znaku wiersza
-         nazwa: = 'v'  ; definicja etykiety globalnej nie zaczynającej się od pierwszego znaku wiersza
+?nazwa   EQU  $A000    ; definition of a temporary global label
+nazwa     =   *        ; definition of a global label
+nazwa2=12              ; definition of a global label
+@?nazwa  EQU  'a'+32   ; definition of a global label
+  name: equ 12         ; definition of a global label not starting from the first character of the line
+         nazwa: = 'v'  ; definition of a global label not starting from the first character of the line
 ```
 
-W porównaniu do **QA/XASM** doszła możliwość użycia znaku zapytania `?` i `@` w nazwach etykiet.
-Użycie znaku kropki `.` w nazwie etykiety jest dopuszczalne, jednak nie zalecane. Znak kropki zarezerwowany jest do oznaczania rozszerzenia mnemonika, do oznaczenia dyrektyw assemblera, w adresowaniu nowych struktur **MADS**.
+Compared to **QA/XASM**, the possibility of using the question mark `?` and `@` in label names has been added.
+Using a period `.` in a label name is allowed, but not recommended. The period character is reserved for marking mnemonic extensions, for designating assembler directives, and in addressing new **MADS** structures.
 
-Znak kropki `.` na początku nazwy etykiety sugeruje że jest to dyrektywa assemblera, natomiast znak zapytania `?` na początku etykiety oznacza **etykietę tymczasową**, taką której wartość może się zmieniać wielokrotnie w trakcie asemblacji.
+A period `.` at the beginning of a label name suggests it is an assembler directive, while a question mark `?` at the beginning of a label means a **temporary label**, one whose value can change multiple times during assembly.
 
-### Anonimowe
+### Anonymous
 
-W celu zapewnienia przejrzystości kodu użycie etykiet anonimowych ograniczone jest tylko dla skoków warunkowych oraz do 10-u wystąpień w przód/tył.
+To ensure code clarity, the use of anonymous labels is limited only to conditional jumps and up to 10 occurrences forward/backward.
 
-Dla etykiet anonimowych został zarezerwowany znak `@`, po takim znaku musi wystąpić znak określający skok w przód `+` lub w tył `-`. Dodatkowo można określić numer wystąpienia etykiety anonimowej z zakresu `[0..9]`, brak numeru wystąpienia oznacza domyślnie `0`.
+The `@` character has been reserved for anonymous labels; this character must be followed by a character specifying a jump forward `+` or backward `-`. Additionally, the occurrence number of the anonymous label in the range `[0..9]` can be specified; no occurrence number means `0` by default.
 
 ```
  @+[0..9]     ; forward
@@ -54,61 +54,61 @@ Dla etykiet anonimowych został zarezerwowany znak `@`, po takim znaku musi wyst
   bne @-1
 ```
 
-### Lokalne
+### Local
 
-Każda definicja etykiety w obrębie makra `.MACRO`, procedury `.PROC` czy obszaru lokalnego `.LOCAL` domyślnie jest zasięgu lokalnego, innymi słowy jest lokalna. Takich etykiet użytkownik nie musi dodatkowo oznaczać.
+Every label definition within a `.MACRO`, a `.PROC` procedure, or a `.LOCAL` area is local scope by default, in other words, it is local. The user does not need to additionally mark such labels.
 
-Etykiety lokalne definiujemy używając n/w równoważnych pseudo rozkazów:
+Local labels are defined using the following equivalent pseudo-commands:
 
 ```
  EQU
   =
 ```
 
-Aby mieć dostęp do etykiet o zasięgu globalnym (czyli zdefiniowanych poza makrem `.MACRO`, procedurą `.PROC`, obszarem lokalnym `.LOCAL`) i o takich samych nazwach jak lokalne, należy użyć operatora `:`, np.:
+To access global scope labels (i.e., defined outside a `.MACRO`, `.PROC` procedure, or `.LOCAL` area) with the same names as local ones, use the `:` operator, e.g.:
 
 ```
-lp   ldx #0         ; definicja globalna etykiety LP
+lp   ldx #0         ; global label definition LP
 
      test
      test
 
 test .macro
 
-      lda :lp       ; znak ':' przed etykietą odczyta wartość etykiety globalnej LP
+      lda :lp       ; the ':' character before the label will read the value of the global label LP
 
-      sta lp+1      ; odwołanie do etykiety lokalnej LP w obszarze makra
-lp    lda #0        ; definicja etykiety lokalnej LP w obszarze makra
+      sta lp+1      ; reference to the local label LP in the macro area
+lp    lda #0        ; local label definition LP in the macro area
 
      .endm
 ```
 
-W w/w przykładzie występują definicje etykiet o tych samych nazwach (LP), lecz każda z nich ma inną wartość i jest innego zasięgu.
+In the example above, there are definitions of labels with the same names (LP), but each has a different value and different scope.
 
-### Globalne
+### Global
 
-Każda definicja etykiety dokonana w głównym bloku programu poza obszarem makra `.MACRO`, procedury `.PROC` czy obszaru lokalnego `.LOCAL` jest zasięgu globalnego, innymi słowy jest globalna.
+Every label definition made in the main program block outside a `.MACRO`, a `.PROC` procedure, or a `.LOCAL` area has global scope, in other words, it is global.
 
-Etykiety globalne definiujemy używając n/w równoważnych pseudo rozkazów:
+Global labels are defined using the following equivalent pseudo-commands:
 
 ```
  EQU
   =
 ```
 
-lub dyrektywy `.DEF` o składni:
+or the `.DEF` directive with the syntax:
 
 ```
     .DEF :label [= expression]
 ```
 
-Dyrektywa `.DEF` umożliwia zdefiniowanie etykiety w aktualnym obszarze lokalnym, znak `:` na początku etykiety sygnalizuje etykietę globalną. Użycie dyrektywy o składni `.DEF :label` pozwala na zdefiniowanie etykiety globalnej z pominięciem aktualnego poziomu lokalności.
+The `.DEF` directive allows defining a label in the current local area, the `:` character at the beginning of the label signals a global label. Using the directive with the syntax `.DEF :label` allows defining a global label bypassing the current locality level.
 
-Znak dwukropka `:` na początku etykiety ma specjalne znaczenie, informuje że odwołujemy się do etykiety globalnej, czyli etykiety z głównego bloku programu z pominięciem wszystkich poziomów lokalności.
+The colon `:` character at the beginning of a label has a special meaning; it informs that we are referring to a global label, i.e., a label from the main program block bypassing all locality levels.
 
-Więcej informacji na temat użycia dyrektywy `.DEF` w rozdziale [Dyrektywa .DEF](#def)
+More information on using the `.DEF` directive in the chapter [.DEF Directive](#def)
 
-Przykład definicji etykiet globalnych:
+Example of global label definitions:
 
 ```
 lab equ *
@@ -129,12 +129,12 @@ lab equ *
 .endp
 ```
 
-Przykładem zastosowania definicji etykiety globalnej tymczasowej jest m.in. makro `@CALL`, przykład w pliku `..\EXAMPLES\MACROS\@CALL.MAC`, w którym występuje definicja etykiety tymczasowej `?@STACK_OFFSET`. Jest ona później wykorzystywana przez pozostałe makra wywoływane z poziomu makra `@CALL`, a służy do optymalizacji programu odkładającego parametry na stos programowy.
+An example of using a global temporary label definition is, among others, the `@CALL` macro, an example in the file `..\EXAMPLES\MACROS\@CALL.MAC`, which contains a definition of the temporary label `?@STACK_OFFSET`. It is later used by other macros called from within the `@CALL` macro, and it serves to optimize the program that puts parameters on the program stack.
 
 ```
 @CALL .macro
 
-  .def ?@stack_offset = 0    ; definicja etykiety globalnej tymczasowej ?@stack_offset
+  .def ?@stack_offset = 0    ; definition of a global temporary label ?@stack_offset
 
   ...
   ...
@@ -143,33 +143,33 @@ Przykładem zastosowania definicji etykiety globalnej tymczasowej jest m.in. mak
 @CALL_@ .macro
 
   sta @stack_address+?@stack_offset,x
-  .def ?@stack_offset = ?@stack_offset + 1    ; modyfikacja etykiety ?@stack_offset
+  .def ?@stack_offset = ?@stack_offset + 1    ; modification of the ?@stack_offset label
 
  .endm
 ```
 
-### Tymczasowe
+### Temporary
 
-Definicja etykiety tymczasowej posiada tą właściwość, że jej wartość może ulegać zmianie wielokrotnie nawet podczas jednego przebiegu asemblacji. Normalnie próba ponownej definicji etykiety kończy się komunikatem _**Label declared twice**_. Nie będzie takiego komunikatu jeśli jest to etykieta tymczasowa.
+A temporary label definition has the property that its value can change multiple times even during a single assembly pass. Normally, an attempt to redefine a label ends with the message _**Label declared twice**_. There will be no such message if it is a temporary label.
 
-Zasięg etykiet tymczasowych uzależniony jest od obszaru w jakim etykieta została zdefiniowana. Etykiety tymczasowe mogą posiadać zasięg lokalny ([Etykiety lokalne](#lokalne)) lub globalny ([Etykiety globalne](#globalne)).
+The scope of temporary labels depends on the area in which the label was defined. Temporary labels can have local scope ([Local labels](#local)) or global scope ([Global labels](#global)).
 
 #### ?label
 
-Etykietę tymczasową definiuje użytkownik poprzez umieszczenie na początku nazwy etykiety znaku zapytania `?`, np.:
+A temporary label is defined by the user by placing a question mark `?` at the beginning of the label name, e.g.:
 
     ?label
 
-Etykiet tymczasowych nie powinno używać się do nazw procedur `.PROC`, makr `.MACRO`, obszarów lokalnych `.LOCAL`, struktur `.STRUCT`, tablic `.ARRAY`.
+Temporary labels should not be used for names of `.PROC` procedures, `.MACRO` macros, `.LOCAL` areas, `.STRUCT` structures, or `.ARRAY` arrays.
 
-Etykiety tymczasowe definiujemy używając n/w równoważnych pseudo rozkazów:
+Temporary labels are defined using the following equivalent pseudo-commands:
 
 ```
  EQU
   =
 ```
 
-Dodatkowo możemy je modyfikować za pomocą znanych z **C** operatorów:
+Additionally, they can be modified using operators known from **C**:
 
 ```
     -= expression
@@ -178,9 +178,9 @@ Dodatkowo możemy je modyfikować za pomocą znanych z **C** operatorów:
     ++
 ```
 
-W/w operatory modyfikujące dotyczą tylko etykiet tymczasowych, próba ich użycia dla innego typu etykiety skończy się komunikatem błędu _**Improper syntax**_.
+The above modifying operators apply only to temporary labels; attempting to use them for another type of label will end with an error message _**Improper syntax**_.
 
-Przykład użycia etykiet tymczasowych:
+Example of using temporary labels:
 
 ```
 ?loc = $567
@@ -196,7 +196,7 @@ Przykład użycia etykiet tymczasowych:
 
 #### label SET value
 
-Pseudorozkaz [SET](#set) umożliwia redefinicję etykiety `LABEL`, działa ze zwykłymi etykietami tzn. takimi które nie mają pierwszego znaku w nazwie `?`. Etykiet zdefiniowanych przez `SET` nie można później definiować inaczej niż przez `SET`.
+The [SET](#set) pseudo-command allows redefining a `LABEL`, it works with regular labels, i.e., those that do not have the `?` character as the first character in the name. Labels defined by `SET` cannot later be defined other than by `SET`.
 
 ```
  tmp set 1
@@ -204,7 +204,7 @@ Pseudorozkaz [SET](#set) umożliwia redefinicję etykiety `LABEL`, działa ze zw
  tmp = 2
 ```
 
-Dla w/w przykładu powstanie nieskończona pętla **Infinite loop**, prawidłowo powinno być :
+For the above example, an **Infinite loop** will occur; it should correctly be:
 
 ```
  tmp set 1
@@ -213,9 +213,9 @@ Dla w/w przykładu powstanie nieskończona pętla **Infinite loop**, prawidłowo
 ```
 
 
-### Automodyfikacji
+### Self-modification
 
-Etykieta umieszczona po mnemoniku i zakończona znakiem `:` definiuje adres automodyfikacji kodu.
+A label placed after a mnemonic and ending with a `:` character defines a code self-modification address.
 
 ```
   lda label:#$00
@@ -226,7 +226,7 @@ Etykieta umieszczona po mnemoniku i zakończona znakiem `:` definiuje adres auto
   sta dst:$ff00,y
 ```
 
-W/w przykłady są odpowiednikiem kodu:
+The above examples are equivalent to the code:
 
 ```
   lda #$00
@@ -243,11 +243,11 @@ dst equ *-2
 ```
 
 
-### Lokalne w stylu MAE
+### MAE-style Local
 
-Opcja `OPT ?+` informuje **MADS** aby etykiety zaczynające się znakiem `?` interpretował jako etykiety lokalne tak jak robi to **MAE**. Domyślnie etykiety zaczynające się znakiem `?` traktowane są przez **MADS** jako etykiety tymczasowe.
+The `OPT ?+` option informs **MADS** to interpret labels starting with the `?` character as local labels, as **MAE** does. By default, labels starting with the `?` character are treated by **MADS** as temporary labels.
 
-Przykład użycia etykiet lokalnych w stylu **MAE**:
+Example of using **MAE**-style local labels:
 
 ```
        opt ?+
@@ -262,4 +262,3 @@ local2 ldx #7
 ?lop   sta $b000,x
        dex
        bpl ?lop
-```

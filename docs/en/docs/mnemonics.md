@@ -1,6 +1,6 @@
 #
 
-## Dostępne rozkazy 6502
+## Available 6502 Instructions
 
 ```none
 LDA   LDX   LDY   STA   STX   STY   ADC   AND
@@ -12,7 +12,7 @@ TXA   TYA   TXS   TAY   TAX   TSX   NOP   BPL
 BMI   BNE   BCC   BCS   BEQ   BVC   BVS   BIT
 ```
 
-## Dostępne nielegalne rozkazy 6502
+## Available Illegal 6502 Instructions
 
 ```none
 ASO   RLN   LSE   RRD   SAX   LAX   DCP   ISB
@@ -20,9 +20,9 @@ ANC   ALR   ARR   ANE   ANX   SBX   LAS   SHA
 SHS   SHX   SHY   NPO   CIM
 ```
 
-## Dostępne rozkazy 65816
+## Available 65816 Instructions
 
-Oczywiście dostępne są rozkazy *6502*, a oprócz nich:
+Naturally, 6502 instructions are available, along with the following:
 
 ```none
 STZ   SEP   REP   TRB   TSB   BRA   COP   MVN
@@ -32,9 +32,9 @@ TSC   TXY   TYX   WAI   WDM   XBA   XCE   INA
 DEA   BRL   JSL   JML
 ```
 
-## Rozszerzanie mnemonika
+## Mnemonic Extensions
 
-Możliwe jest użycie rozszerzenia mnemonika w stylu **XASM** `a:` `z:` `r:` np.:
+It is possible to use **XASM**-style mnemonic extensions `a:`, `z:`, and `r:`, e.g.:
 
 ```
 XASM        MADS
@@ -44,15 +44,15 @@ ldx z:0     lda.z 0
 org r:$40   org $40,*
 ```
 
-Możliwe jest użycie rozszerzenia mnemonika po znaku kropki `.` dla rozkazów typu `LDA` `LDX` `LDY` `STA` `STX` `STY`:
+It is possible to use a mnemonic extension after a dot `.` for instructions like `LDA`, `LDX`, `LDY`, `STA`, `STX`, and `STY`:
 
 ```
-.b lub .z          BYTE
-.a lub .w lub .q   WORD
-.t lub .l          TRIPLE, LONG (24bit)
+.b or .z          BYTE
+.a or .w or .q    WORD
+.t or .l          TRIPLE, LONG (24bit)
 ```
 
-np.
+e.g.
 
 ```
 lda.w #$00   ; A9 00 00
@@ -60,13 +60,13 @@ lda   #$80   ; A9 80
 stx.w $f2    ; 8E F2 00
 ```
 
-Wyjątki stanowią rozkazy n/w, którym nie można zmienić rozmiaru rejestru w adresowaniu absolutnym (niektóre assemblery nie wymagają dla tych rozkazów podania znaku `#`, jednak **MADS** wymaga tego):
+Exceptions are the following instructions, where the register size cannot be changed in absolute addressing (some assemblers do not require the `#` character for these instructions, but **MADS** does):
 
-* `#$xx` dla `SEP` `REP` `COP`
+* `#$xx` for `SEP` `REP` `COP`
 
-* `#$xxxx` dla `PEA`
+* `#$xxxx` for `PEA`
 
-Innym wyjątkiem jest tryb adresowania pośredni długi, który reprezentowany jest przez nawiasy kwadratowe `[]`. Jak wiemy tego typu nawiasy wykorzystywane są też do obliczania wyrażeń, jednak jeśli asembler napotka pierwszy znak `[` uzna to za tryb adresowania pośredni długi i jeśli nie zasygnalizowaliśmy chęci używania *65816* wystąpi błąd z komunikatem **Illegal adressing mode**. Aby *oszukać* assembler wystarczy dać przed kwadratowym nawiasem otwierającym `[` znak `+`.
+Another exception is the long indirect addressing mode, represented by square brackets `[]`. As we know, these brackets are also used for evaluating expressions; however, if the assembler encounters a `[` character first, it will treat it as long indirect addressing mode. If we haven't signaled the intention to use *65816*, an **Illegal addressing mode** error will occur. To "trick" the assembler, simply place a `+` sign before the opening square bracket `[`:
 
 ```
 lda [2+4]     ; lda [6]

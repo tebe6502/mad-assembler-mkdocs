@@ -1,12 +1,12 @@
-## Obszar lokalny
+## Local Area
 
-Głównym zadaniem obszaru lokalnego w **MADS** jest stworzenie nowej przestrzeni nazw dla etykiet.
+The main task of a local area in **MADS** is to create a new namespace for labels.
 
-Wszelkie etykiety zdefiniowane w obszarze lokalnym `.LOCAL` są zasięgu lokalnego, można je też określić jako etykiety globalne zdefiniowane lokalnie o dostępie swobodnym, ponieważ można się do nich odwoływać co nie jest normalne w innych językach programowania.
+Any labels defined in a `.LOCAL` area have local scope; they can also be described as locally defined global labels with free access, because they can be referenced, which is not normal in other programming languages.
 
-Obszary lokalne są addytywne tzn. że może być wiele bloków `.LOCAL` o tej samej nazwie, nie zostanie wygenerowany komunikat błędu _**Label ... declared twice**_.
+Local areas are additive, meaning there can be many `.LOCAL` blocks with the same name, and no error message _**Label ... declared twice**_ will be generated.
 
-Addytywność obszarów lokalnych odbywa się na aktualnym poziomie przestrzeni nazw, jeśli chcemy połączyć się z wybranym obszarem lokalnym w innej przestrzeni nazw, poprzedzamy pełną nazwę prowadzącą do takiego obszaru znakiem `+`, np.:
+The additivity of local areas occurs at the current namespace level; if we want to connect to a selected local area in another namespace, we precede the full name leading to such an area with a `+` character, e.g.:
 
 ```
   .local lvl
@@ -33,13 +33,13 @@ tmp = 7
 
 ```
 
-Dla w/w przykładu zostanie wyświetlona wartość etykiety `TMP` z obszaru lokalnego `LVL` o wartości `3`. Gdyby zabrakło znaku `+` w `.LOCAL +LVL` wówczas wartość `TMP` jaka zostanie wyświetlona to `7`.
+For the above example, the value of the `TMP` label from the `LVL` local area with the value `3` will be displayed. If the `+` character were missing in `.LOCAL +LVL`, then the `TMP` value displayed would be `7`.
 
-W obszarze lokalnym `.LOCAL` istnieje możliwość zdefiniowania etykiet o zasięgu globalnym (patrz rozdział [Etykiety globalne](#globalne)).
+In a `.LOCAL` area, it is possible to define labels with global scope (see chapter [Global labels](#global)).
 
-Jeśli poszukiwana przez assembler etykieta nie wystąpiła w obszarze lokalnym `.LOCAL`, wówczas **MADS** będzie poszukiwał ją w obszarze niższym aż dojdzie do obszaru globalnego. Aby odczytać natychmiastowo wartość etykiety globalnej z poziomu obszaru lokalnego `.LOCAL` (czy też innego obszaru lokalnego) poprzedzamy nazwę etykiety znakiem dwukropka `:`.
+If the label sought by the assembler did not occur in the `.LOCAL` area, then **MADS** will search for it in a lower area until it reaches the global area. To immediately read the value of a global label from a `.LOCAL` area (or another local area), precede the label name with a colon character `:`.
 
-Obszarów lokalnych dotyczą n/w dyrektywy:
+The following directives apply to local areas:
 
 ```
  [name] .LOCAL [,address]
@@ -49,9 +49,9 @@ Obszarów lokalnych dotyczą n/w dyrektywy:
 
 ### [name] .LOCAL [,address]
 
-Deklaracja obszaru lokalnego o nazwie `name` za pomocą dyrektywy `.LOCAL`. Nazwa obszaru nie jest wymagana i nie jest konieczna. Do nazw obszarów lokalnych nie można używać nazw mnemoników i pseudo rozkazów. Jeśli nazwa jest zarezerwowana wystąpi błąd z komunikatem _**Reserved word**_.
+Declaration of a local area named `name` using the `.LOCAL` directive. The area name is not required and is not necessary. Mnemonic names and pseudo-command names cannot be used for local area names. If a name is reserved, an error with the message _**Reserved word**_ will occur.
 
-Po nazwie obszaru lokalnego (lub po dyrektywie `.LOCAL`) możemy podać nowy adres asemblacji bloku lokalnego. Po zakończeniu takiego bloku (`.ENDL`) przywracany jest poprzedni adres asemblacji zwiększony o długość bloku lokalnego.
+After the local area name (or after the `.LOCAL` directive), we can provide a new assembly address for the local block. After completing such a block (`.ENDL`), the previous assembly address is restored, increased by the length of the local block.
 
 ```
 label .local,$4000
@@ -67,7 +67,7 @@ label .local,$4000
 .endl
 ```
 
-Wszelkie definicje etykiet w obszarze `.LOCAL` są typu lokalnego. Aby odwołać się do etykiety globalnej o tej samej nazwie co etykieta lokalna należy poprzedzić ją znakiem dwukropka `:`, np.:
+All label definitions in a `.LOCAL` area are of local type. To refer to a global label with the same name as a local label, precede it with a colon character `:`, e.g.:
 
 ```
 lab equ 1
@@ -82,11 +82,11 @@ lab equ 2
 .endl
 ```
 
-W w/w przykładzie do rejestru `A` zostanie załadowana wartość `2`, natomiast do rejestru `X` wartość `1`.
+In the above example, the value `2` will be loaded into register `A`, while the value `1` will be loaded into register `X`.
 
-Jeśli poszukiwana przez assembler etykieta nie wystąpiła w obszarze `.LOCAL`, wówczas nastąpi jej szukanie w obszarze makra (jeśli jest aktualnie przetwarzane), potem w procedurze (jeśli procedura jest aktualnie przetwarzana), na końcu w głównym programie.
+If the label sought by the assembler did not occur in the `.LOCAL` area, then it will be searched for in the macro area (if currently being processed), then in the procedure (if the procedure is currently being processed), and finally in the main program.
 
-W zadeklarowanym obszarze lokalnym wszystkie definicje etykiet rozróżniane są na podstawie nazwy obszaru lokalnego. Aby dotrzeć do zdefiniowanej etykiety w obszarze lokalnym spoza obszaru lokalnego musimy znać nazwę obszaru i etykiety w nim występującej, np.:
+In a declared local area, all label definitions are distinguished based on the local area name. To reach a defined label in a local area from outside the local area, we must know the name of the area and the label occurring in it, e.g.:
 
 ```
  lda #name.lab1
@@ -100,36 +100,34 @@ lab2 = 2
 .endl
 ```
 
-W adresowaniu takiej struktury `.LOCAL` używamy znaku kropki `.`.
+When addressing such a `.LOCAL` structure, use the period character `.`.
 
-Obszary lokalne możemy zagnieżdżać, możemy je umieszczać w ciele procedur zadeklarowanych przez dyrektywę `.PROC`. Obszary lokalne są addytywne, tzn. może istnieć wiele obszarów lokalnych o tej samej nazwie, wszystkie symbole występujące w tych obszarach należeć będą do wspólnej przestrzeni nazw.
+Local areas can be nested, and they can be placed in the body of procedures declared by the `.PROC` directive. Local areas are additive, i.e., there can be many local areas with the same name; all symbols occurring in these areas will belong to a common namespace.
 
-Długość wygenerowanego kodu w bloku `.LOCAL` można sprawdzić przy pomocy dyrektywy `.LEN` (`.SIZEOF`).
+The length of the generated code in a `.LOCAL` block can be checked using the `.LEN` (`.SIZEOF`) directive.
 
 ### .ENDL
-Dyrektywa `.ENDL` kończy deklarację obszaru lokalnego.
+The `.ENDL` directive ends the local area declaration.
 
-Przykład deklaracji obszaru lokalnego:
+Example of a local area declaration:
 
 ```
  org $2000
 
-tmp ldx #0   <-------------   etykieta w obszarze globalnym
+tmp ldx #0   <-------------   label in the global area
                           |
- lda obszar.pole  <---    |   odwolanie do obszaru lokalnego
+ lda obszar.pole  <---    |   reference to the local area
                      |    |
-.local obszar        |    |   deklaracja obszaru lokalnego
+.local obszar        |    |   local area declaration
                      |    |
  lda tmp   <---      |    |
               |      |    |
- lda :tmp     |      | <---   odwolanie do obszaru globalnego
+ lda :tmp     |      | <---   reference to the global area
               |      |
-tmp nop    <---      |        definicja w obszarze lokalnym
+tmp nop    <---      |        definition in the local area
                      |
-pole lda #0       <---   <--- definicja w obszarze lokalnym
+pole lda #0       <---   <--- definition in the local area
                             |
- lda pole  <----------------- odwolanie w obszarze lokalnym
+ lda pole  <----------------- reference in the local area
 
-.endl                        koniec deklaracji obszaru lokalnego
-```
-
+.endl                        end of local area declaration

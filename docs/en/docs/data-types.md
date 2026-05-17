@@ -1,16 +1,14 @@
-#
+**MADS** provides the ability to declare two data types: structural `.STRUCT` and enumeration `.ENUM`.
 
-**MADS** udostępnia możliwość deklaracji dwóch typów danych: strukturalne `.STRUCT` i wyliczeniowe `.ENUM`.
+## STRUCTURES
 
-## STRUKTURY
+If you have programmed in **C**, you have probably encountered structures before. Generally, in **MADS**, a structure defines a virtual, one-dimensional array with fields of various types: `.BYTE`, `.WORD`, `.LONG`, `.DWORD`, and their multiples. It is virtual because it currently exists only in the assembler's memory.
 
-Jeśli programowaliście w **C**, to pewnie spotkaliście się już ze strukturami. Ogólnie w **MADS** struktura definiuje tablicę wirtualną, jednowymiarową o polach różnego typu `.BYTE` `.WORD` `.LONG` `.DWORD` i ich wielokrotności. Wirtualna ponieważ istnieje ona jak na razie tylko w pamięci assemblera.
+The fields of such a structure contain information about the offset from the beginning of the structure.
 
-Pola takiej struktury zawierają informację o ofsecie do początku struktury.
+### `.STRUCT` Declaration
 
-### Deklaracja `.STRUCT`
-
-Struktur dotyczą n/w dyrektywy:
+The following directives apply to structures:
 
 ```
 name .STRUCT
@@ -20,11 +18,11 @@ name .STRUCT
 
 * `name .STRUCT`
 
-Deklaracja struktury name przy użyciu dyrektywy `.STRUCT`. Nazwa struktury jest wymagana i konieczna, jej brak wygeneruje błąd. Do nazw struktur nie można używać nazw mnemoników i pseudo rozkazów. Jeśli nazwa jest zarezerwowana wystąpi błąd z komunikatem **Reserved word**.
+Declaration of a structure `name` using the `.STRUCT` directive. The structure name is mandatory; its absence will trigger an error. CPU mnemonics and pseudo-commands cannot be used as structure names. If a name is reserved, an error with the message **Reserved word** will occur.
 
 ---
 
-Przykład deklaracji struktury:
+Example of a structure declaration:
 
 ```
 .STRUCT name
@@ -39,10 +37,10 @@ Przykład deklaracji struktury:
 .ENDS          ; lda #name   = 14 (length)
 ```
 
-Pola struktury definiujemy przez podanie nazwy i typu pola `.BYTE` `.WORD` `.LONG` `.DWORD`. Nazwa pola może być poprzedzona *białymi spacjami*. W obszarze ograniczonym dyrektywami `.STRUCT` i `.ENDS` nie ma możliwości używania mnemoników *CPU*, jeśli je użyjemy lub użyjemy innych niedozwolonych znaków wystąpi błąd z komunikatem **Improper syntax lub Illegal instruction**.
+Structure fields are defined by providing a name and a field type: `.BYTE`, `.WORD`, `.LONG`, `.DWORD`. The field name can be preceded by whitespace. In the area delimited by `.STRUCT` and `.ENDS` directives, it is not possible to use *CPU* mnemonics. If used, or if other disallowed characters are used, an error with the message **Improper syntax** or **Illegal instruction** will occur.
 
-Podsumowując, etykieta name zawiera informację o całkowitej długości struktury (w bajtach). Pozostałe etykiety opisujące pola zawierają informację o ofsecie do początku struktury.
-Deklaracji struktur nie można zagnieżdżać, można zagnieżdżać wcześniej zadeklarowane struktury (kolejność wystąpienia w programie nie ma znaczenia), np.:
+In summary, the `name` label contains information about the total length of the structure (in bytes). The other labels describing the fields contain information about the offset from the beginning of the structure.
+Structure declarations cannot be nested, but previously declared structures can be nested (the order of occurrence in the program does not matter), e.g.:
 
 ```
 .STRUCT temp
@@ -66,15 +64,15 @@ tmp  temp
  lda #test.tmp.z
 ```
 
-Do czego może przydać się struktura?
+What can a structure be useful for?
 
-Przypuśćmy, że mamy jakąś tablicę z polami różnego typu, możemy odczytywać pola takiej tablicy przy pomocy z góry określonych wartości offsetów. Jednak gdy dodamy dodatkowe pole do tablicy, czy też zmodyfikujemy ją w inny sposób, będziemy zmuszeni poprawiać kod programu który posługiwał się z góry określonymi wartościami offsetów. Gdy zdefiniujemy taką tablicę przy pomocy struktury będziemy mogli odczytywać jej pola posługując się offsetami zapisanymi w deklaracji struktury, czyli zawsze odczytamy właściwe pole niezależnie od zmian jakie zaszły w tablicy.
+Suppose we have an array with fields of different types; we can read the fields of such an array using predefined offset values. However, if we add an extra field to the array or modify it in another way, we will be forced to correct the program code that used the predefined offset values. When we define such an array using a structure, we will be able to read its fields using the offsets stored in the structure declaration, meaning we will always read the correct field regardless of changes made to the array.
 
-Inny przykład zastosowania struktur został opisany w rozdziale *Symbole zewnętrzne*, przykład zastosowania symboli external i struktur `.STRUCT`.
+Another example of using structures is described in the *External Symbols* chapter, in the example of using external symbols and `.STRUCT` structures.
 
-### Definicja (odwołania)
+### Definition (References)
 
-Definiowanie danych strukturalnych polega na przypisaniu nowej etykiecie konkretnej struktury z użyciem pseudo rozkazu `DTA` lub bez tego pseudo rozkazu. Wynikiem takiego przypisania jest zarezerwowana pamięć, nie jest to już twór wirtualny.
+Defining structural data consists of assigning a specific structure to a new label using the `DTA` pseudo-command or without it. The result of such an assignment is reserved memory; it is no longer a virtual entity.
 
 ```
 label DTA struct_name [count] (data1,data2,data3...) (data1,data2,data3...) ...
@@ -82,12 +80,12 @@ label DTA struct_name [count] (data1,data2,data3...) (data1,data2,data3...) ...
 label struct_name
 ```
 
-`COUNT` określa liczbę z przedziału `0..COUNT`, która definiuje maksymalną wartość indeksu tablicy jednowymiarowej, a przez to także liczbę odłożonych w pamięci danych typu strukturalnego.
-Przykład deklaracji struktury i definicji danych strukturalnych:
+`COUNT` specifies a value in the range `0..COUNT`, which defines the maximum index value of a one-dimensional array, and thus the number of structural data items stored in memory.
+Example of structure declaration and structural data definition:
 
 ```
 ;----------------------;
-; deklaracja struktury ;
+; structure declaration;
 ;----------------------;
 .STRUCT temp
 
@@ -99,36 +97,36 @@ z .word
 .ENDS
 
 ;---------------------;
-; definiowanie danych ;
+; data definition     ;
 ;---------------------;
 
 data dta temp [12] (1,20,200,32000) (19,2,122,42700)
 
 data2 dta temp [0]
 
-data3 temp          // krótszy odpowiednik DATA2
+data3 temp          // shorter equivalent of DATA2
 ```
 
-Po nazwie struktury w nawiasie kwadratowym musi znajdować się wartość z przedziału `0..2147483647`, która definiuje maksymalną wartość indeksu tablicy jednowymiarowej, a jednocześnie liczbę odłożonych w pamięci danych typu strukturalnego.
+The structure name must be followed by a value in square brackets in the range `0..2147483647`, which defines the maximum index value of a one-dimensional array and the number of structural data items stored in memory.
 
-Po nawiasie kwadratowym może wystąpić opcjonalnie lista wartości początkowych (ograniczona nawiasami okrągłymi), jeśli nie wystąpi wówczas domyślnymi wartościami pól struktury są zera. Z kolei jeśli lista wartości początkowych jest mniejsza od liczby pól zadeklarowanych, wówczas pozostałe pola inicjowane są ostatnimi wartościami jakie zostały podane, np.
+The square brackets can optionally be followed by a list of initial values (delimited by parentheses). If it is not present, the default field values of the structure are zero. If the list of initial values is smaller than the number of declared fields, the remaining fields are initialized with the last value provided, e.g.
 
     data dta temp [12] (1,20,200,32000)
 
-Taka deklaracja spowoduje, że wszystkie pola zostaną zaincjowane wartościami `1,20,200,32000`, a nie tylko pierwsze pole `data[0]`.
+Such a declaration will cause all fields to be initialized with the values `1, 20, 200, 32000`, not just the first `data[0]` field.
 
-Jeśli lista wartości początkowych będzie większa lub mniejsza od liczby pól struktury, wówczas wystąpi błąd z komunikatem **Constant expression violates subrange bounds**.
+If the list of initial values is larger or smaller than the number of structure fields, an error with the message **Constant expression violates subrange bounds** will occur.
 
-Aby odwołać się do pól tak nowo powstałych danych należy podać ich nazwę, koniecznie indeks w nawiasie kwadratowym i nazwę pola po kropce, np.:
+To reference the fields of newly created data, you must provide their name, followed by an index in square brackets and the field name after a dot, e.g.:
 
     lda data[4].y
     ldx #data[0].v
 
-Brak nawiasu kwadratowego z indeksem label[index] zakończy się komunikatem błędu **Undeclared label**.
+Missing square brackets with an index `label[index]` will result in the error message **Undeclared label**.
 
-## WYLICZENIA
+## ENUMERATIONS
 
-Wyliczeń dotyczą n/w dyrektywy:
+The following directives apply to enumerations:
 
 ```
 name .ENUM
@@ -149,15 +147,15 @@ Example:
 .ende
 ```
 
-Deklaracja wyliczenia odbywa się przy użyciu dyrektyw `.ENUM` i `.ENDE`. Nazwa wyliczenia jest wymagana i konieczna, jej brak wygeneruje błąd. Do nazw wyliczeń nie można używać nazw mnemoników i pseudo rozkazów. Jeśli nazwa jest zarezerwowana wystąpi błąd z komunikatem **Reserved word**.
+An enumeration is declared using the `.ENUM` and `.ENDE` directives. The enumeration name is mandatory; its absence will trigger an error. CPU mnemonics and pseudo-commands cannot be used as enumeration names. If a name is reserved, an error with the message **Reserved word** will occur.
 
-Wartości kolejnych etykiet są zwiększane automatycznie o 1 zaczynając od domyślnej wartości `0`, wartości etykiet można definiować samodzielnie albo pozostawić to automatowi.
+The values of subsequent labels are automatically incremented by 1, starting from the default value of `0`. Label values can be defined manually or left to the automatic mechanism.
 
-Do etykiet wyliczeniowych odwołujemy się przy pomocy składni:
+Enumeration labels are referenced using the following syntax:
 
     enum_name (field)
 
-lub bezpośrednio podobnie jak w przypadku odwołań do bloków `.LOCAL` `.PROC` czyli po nazwie typu oddzielone znakiem kropki występują kolejne pola, np.:
+or directly, similar to references for `.LOCAL` and `.PROC` blocks, where field names follow the type name separated by a dot, e.g.:
 
 ```
 lda #portb(rom_off)
@@ -165,11 +163,11 @@ lda #portb(rom_off)
 dta portb.rom_on, portb.rom_off
 ```
 
-Wyliczeń możemy użyć do deklaracji pól struktury `.STRUCT`, do alokacji zmiennych dyrektywą `.VAR`, np.:
+Enumerations can be used to declare `.STRUCT` fields or to allocate variables with the `.VAR` directive, e.g.:
 
 ```
-bank portb           // alokacja zmiennej BANK o rozmiarze 1 bajtu
-.var bank portb      // alokacja zmiennej BANK o rozmiarze 1 bajtu
+bank portb           // allocation of a 1-byte variable BANK
+.var bank portb      // allocation of a 1-byte variable BANK
 
 .struct test
  a portb
@@ -177,7 +175,7 @@ bank portb           // alokacja zmiennej BANK o rozmiarze 1 bajtu
 .ends
 ```
 
-Rozmiar zmiennej typu wyliczeniowego zależny jest od maksymalnej wartości jakie przyjmują kolejne etykiety wyliczenia, np.:
+The size of an enumeration variable depends on the maximum value of its labels, e.g.:
 
 ```
 .enum EState
@@ -185,8 +183,8 @@ Rozmiar zmiennej typu wyliczeniowego zależny jest od maksymalnej wartości jaki
 .ende
 ```
 
-Dla w/w przykładu alokacja zmiennej typu `EState` będzie miała rozmiar dwóch bajtów `WORD`.
+In the above example, the allocation of an `EState` variable will be two bytes (`WORD`).
 
-Rozmiar możemy sprawdzić przy pomocy dyrektywy `.LEN` `.SIZEOF`, wynikiem będą wartości `1..4` (1 **BYTE**, 2 **WORD**, 3 **LONG**, 4 **DWORD**) np.:
+The size can be checked using the `.LEN` or `.SIZEOF` directive; the result will be a value from `1` to `4` (1 **BYTE**, 2 **WORD**, 3 **LONG**, 4 **DWORD**), e.g.:
 
     .print .len EState

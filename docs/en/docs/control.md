@@ -1,16 +1,16 @@
-## Kontrola asemblacji
+## Assembly Control
 
-### [Zmiana opcji asemblacji](../pseudo-rozkazy/#opt)
+### [Changing assembly options](pseudo-commands.md#opt)
 
-### [Asemblacja warunkowa](../dyrektywy/#if_else)
+### [Conditional assembly](directives.md#if_else)
 
-### [Przerwanie asemblacji](../dyrektywy/#error)
+### [Interrupting assembly](directives.md#error)
 
-### Asemblacja na stronie zerowej
+### Zero Page Assembly
 
-W przeciwieństwie do dwu-przebiegowych asemblerów takich jak **QA** i **XASM**, **MADS** jest wielo-przebiegowy. Co to daje ?
+Unlike two-pass assemblers such as **QA** and **XASM**, **MADS** is multi-pass. What does this provide?
 
-Weźmy sobie taki przykład:
+Let's take this example:
 
 ```
  org $00
@@ -20,11 +20,11 @@ Weźmy sobie taki przykład:
 tmp lda #$00
 ```
 
-Dwu-przebiegowy assembler nie znając wartości etykiety `TMP` przyjmie domyślnie, że jej wartość będzie dwu-bajtowa, czyli typu `WORD` i wygeneruje rozkaz `LDA W`.
+A two-pass assembler, not knowing the value of the `TMP` label, will assume by default that its value is two bytes, i.e., type `WORD`, and will generate an `LDA W` instruction.
 
-Natomiast **MADS** uprzejmie wygeneruje rozkaz strony zerowej `LDA Z`. I to właściwie główna i najprostsza do wytłumaczenia właściwość większej liczby przebiegów.
+However, **MADS** will kindly generate a zero page instruction `LDA Z`. This is essentially the main and simplest property of having more passes to explain.
 
-Teraz ktoś powie, że woli gdy rozkaz odwołujący się do strony zerowej ma postać `LDA W`. Nie ma sprawy, wystarczy że rozszerzy mnemonik:
+Now, one might say they prefer it when an instruction referencing the zero page takes the form `LDA W`. No problem, just extend the mnemonic:
 
 ```
  org $00
@@ -32,21 +32,21 @@ Teraz ktoś powie, że woli gdy rozkaz odwołujący się do strony zerowej ma po
  lda.w tmp+1
 
 tmp lda #$00
-Są dopuszczalne trzy rozszerzenia mnemonika
+Three mnemonic extensions are permitted
  .b[.z]
  .w[.a][.q]
  .l[.t]
 ```
 
-czyli odpowiednio `BYTE`, `WORD`, `LONG`. Z czego ostatni generuje 24bitową wartość i odnosi się do *65816* i pamięci o ciągłym obszarze. Więcej informacji na temat mnemoników *CPU 6502*, *65816* oraz ich dopuszczalnych rozszerzeń w rodziale [Mnemoniki].
-Innym sposobem na wymuszenie rozkazu strony zerowej jest użycie nawiasów klamrowych `{ }` np.
+representing `BYTE`, `WORD`, and `LONG` respectively. The last one generates a 24-bit value and refers to the *65816* and continuous memory areas. More information about *CPU 6502* and *65816* mnemonics and their allowed extensions can be found in the [Mnemonics](mnemonics.md) chapter.
+Another way to force a zero page instruction is to use curly braces `{ }`, e.g.:
 
 ```
  dta {lda $00},$80    ; lda $80
 ```
 
-W **MADS** możemy robić tak samo, ale po co, ostatni przebieg załatwi sprawę za nas :) Problem stanowi teraz umieszczenie takiego fragmentu kodu w pamięci komputera. Możemy spróbować załadować taki program bezpośrednio na stronę zerową i jeśli obszar docelowy mieści się w granicy `$80..$FF` to pewnie **OS** przeżyje, poniżej tego obszaru będzie trudniej.
-Dlatego **MADS** umożliwia takie coś:
+In **MADS**, we could do the same, but why bother? The last pass will handle it for us :) The problem now is placing such a code snippet in the computer's memory. We can try to load such a program directly onto the zero page, and if the target area is within the range `$80..$FF`, the **OS** will probably survive; below that area, it will be more difficult.
+That is why **MADS** allows this:
 
 ```
  org $20,$3080
@@ -56,17 +56,17 @@ Dlatego **MADS** umożliwia takie coś:
 tmp lda #$00
 ```
 
-Czyli asembluj od adresu `$0020`, ale załaduj pod adres `$3080`. Oczywiście późniejsze przeniesienie kodu pod właściwy adres (w naszym przykładzie `$0020`) należy już do zadań programisty.
+Meaning: assemble from address `$0020`, but load at address `$3080`. Of course, subsequently moving the code to the correct address (in our example `$0020`) is the programmer's task.
 
-Podsumowując:
+In summary:
 
 ```
- org adres1,adres2
+ org address1,address2
 ```
 
-Asembluj od adresu `adres1`, umieść w pamięci od adresu `adres2`. Taki `ORG` zawsze spowoduje stworzenie nowego bloku w pliku, czyli zostaną zapisane dodatkowe cztery bajty nagłówka nowego bloku.
+Assemble from address `address1`, place in memory starting at address `address2`. Such an `ORG` will always cause a new block to be created in the file, meaning an additional four header bytes for the new block will be saved.
 
-Jeśli nie zależy nam na nowym adresie umiejscowienia danych w pamięci, adresem umiejscowienia danych ma być aktualny adres wówczas możemy skorzystać z właściwości bloków `.LOCAL` i `.PROC`, bajty nagłówka nie będą w takim przypadku zapisywane, np.:
+If we do not require a new memory location for the data, and the data should be placed at the current address, we can use the properties of `.LOCAL` and `.PROC` blocks; in this case, header bytes will not be saved, e.g.:
 
 ```none
      1
@@ -87,10 +87,10 @@ Jeśli nie zależy nam na nowym adresie umiejscowienia danych w pamięci, adrese
     16
 ```
 
-Dla w/w przykładu blok programu `TEMP` zostanie zasemblowany z nowym adresem `= $60` i umiejscowiony w pamięci pod adresem `$2003`.
+In the above example, the `TEMP` program block will be assembled with the new address `= $60` and placed in memory at address `$2003`.
 
-Po dyrektywie kończącej blok (`.ENDL`, `.ENDP`, `.END`) przywracamy jest adres asemblacji sprzed bloku plus jeszcze długość tak zasemblowanego bloku, w naszym przykładzie adresem od którego będzie kontynuowana asemblacja po zakończeniu bloku `.LOCAL` będzie adres `$2009`.
-Następnie wykorzystując dyrektywy `.ADR` i `.LEN` można dokonać skopiowania takiego bloku pod właściwy adres, np.:
+After the directive terminating the block (`.ENDL`, `.ENDP`, `.END`), the assembly address from before the block is restored, plus the length of the assembled block. In our example, the address from which assembly will continue after the `.LOCAL` block ends will be `$2009`.
+Subsequently, using the `.ADR` and `.LEN` directives, such a block can be copied to the correct address, e.g.:
 
 ```
       ldy #0
@@ -99,5 +99,4 @@ copy  mva .adr(temp),y temp,y+
       bne copy
 ```
 
-Więcej informacji na temat działania dyrektyw [.ADR](#d_adr) i [.LEN](#d_len).
-
+More information on the functioning of the [.ADR](directives.md#adr) and [.LEN](directives.md#sizeof) directives.

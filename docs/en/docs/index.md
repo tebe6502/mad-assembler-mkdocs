@@ -48,8 +48,7 @@ The latest releases for Windows is available on [Github](https://github.com/tebe
 - added **WDC 65816** directives `.A8` `.A16` `.I8` `.I16` `.AI8` `.IA8` `.AI16` `.IA16` to set the size of `AXY` registers
 - added **WDC 65816** directives `.ASIZE` `.ISIZE` returning the current size of `AXY` registers
 - in **WDC 65816** mode, the command `JMP` is changed to `JML` only when the jump concerns a different 64KB bank than the current one
-<!-- TODO Should be 'Set left margin'-->
-- added command line option `-ml:value` for **'margin-left property'** to change the left margin of the generated listing to a value in the range of 32 to 128 characters
+- added command line option `-ml:value` for **'margin-left property'** (Set left margin) to change the left margin of the generated listing to a value in the range of 32 to 128 characters
 
 ## 2.0.6 <a name="2.0.6"></a> 
 
@@ -107,23 +106,22 @@ adw (tmp),y ptr2 ptr4
 - added relocatable version of **MPT** player `examples_players_player_reloc.asm`
 - fixed implementation of `.DS` directive in **SDX** `blk sparta $xxx` blocks that are not relocatable
 
-<!-- TODO Continue from here -->
 ## 1.9.8 <a name="1.9.8"></a>
 
-- naprawione działanie rozkazów **WDC 65816** `PEA` `PEI` `PER`
-- dodana możliwość podania kodu dla `.RELOC` [.BYTE|WORD] [TYPE]
+- fixed **WDC 65816** commands `PEA`, `PEI`, `PER`
+- added ability to specify code for `.RELOC` [.BYTE|WORD] [TYPE]
 
 ## 1.9.7 <a name="1.9.7"></a>
 
-- dyrektywa `.DEF` definiuje etykiety o zasiegu lokalnym, jeśli poprzedzić ją znakiem `:` to globalne
-- poprawki dla liczb zmiennoprzecinkowych .FL, poprawione kodowane zera, dokonywane zaokrąglenie do 10 miejsc po przecinku
-- dla bloków **Sparta DOS X** `blk reloc` i `blk empty` dodana możliwość określenia innego typu pamięci niż `$00` (main), `$02` (extended), np.:
+- the `.DEF` directive defines labels with local scope; if preceded by `:`, it's global
+- fixes for floating-point numbers `.FL`, corrected zero encoding, rounding to 10 decimal places
+- for **Sparta DOS X** blocks `blk reloc` and `blk empty`, added ability to specify memory types other than `$00` (main), `$02` (extended), e.g.:
 
 ```
 blk reloc $40
 ```
-- poprawka umożliwiająca użycie dyrektywy `.PRINT` po `blk empty`
-- dodana możliwość definiowania wielowymiarowych tablic `.ARRAY`, np.:
+- fix allowing the use of `.PRINT` directive after `blk empty`
+- added ability to define multi-dimensional arrays `.ARRAY`, e.g.:
 
 ```
 .array scr [24][40]
@@ -133,24 +131,24 @@ blk reloc $40
   mva #"!" scr[11][22]
 ```
 
-- dodana możliwość definiowania tablicy `.ARRAY` poprzez dyrektywę `.DS`, np.:
+- added ability to define `.ARRAY` via `.DS` directive, e.g.:
 
 ```
 tmp .ds .array [5][12][4] .word
 ```
 
-- dodana możliwość definiowania tablicy `.ARRAY` poprzez pseudorozkaz `EQU` (=), np.:
+- added ability to define `.ARRAY` via `EQU` (=) pseudo command, e.g.:
 
 ```
 fnt = $e000 .array [128] [8] .byte
 ```
 
-- naprawione działanie makrorozkazu `ADW` w połączeniu z makrorozkazem `SCC` itp.
-- poprawki dla `.REPT`, m.in. komentarz wieloliniowy `/* */` jest teraz właściwie rozpoznawany
+- fixed `ADW` macro command operation in combination with `SCC` macro command, etc.
+- fixes for `.REPT`, including multi-line comment `/* */` being properly recognized
 
 ## 1.9.6 <a name="1.9.6"></a>
 
-- poprawione działanie etykiet anonimowych dla mnemoników łączonych znakiem `:`, np.:
+- improved anonymous labels for mnemonics joined with `:`, e.g.:
 
 ```
        ldx #8
@@ -159,26 +157,26 @@ fnt = $e000 .array [128] [8] .byte
        bne @-
 ```
 
-- dodany pseudo rozkaz `COS` (centre,amp,size[,first,last]) generujący wartości dla funkcji cosinus
-- dodany komunikat błędu **Improper syntax** w przypadku użycia dyrektywy `.DS` w bloku `.STRUCT`
-- naprawione działanie pseudo rozkazu `ORG`, np.:
+- added `COS` (centre,amp,size[,first,last]) pseudo command to generate cosine values
+- added **Improper syntax** error message when using `.DS` directive in a `.STRUCT` block
+- fixed `ORG` pseudo command operation, e.g.:
 
 ```
 opt h-
 ORG [a($ffff),d'atari',c'ble',20,30,40],$8000,$a000
 ```
 
-- addytywne bloki `.LOCAL` otrzymują kolejne adresy, poprzednio adres ustalany był na podstawie pierwszego wystąpienia takiego bloku
-- dodany komunikat ostrzeżenia w przypadku stworzenia kolejnego addytywnego bloku `.LOCAL` o tej samej nazwie **Ambiguous label LOCAL_NAME**
-- dodane mnemoniki `PER` (PEA rell), `PEI` (PEA (zp)) dla **WDC 65816**
-- dodane nowy typ danych M (najstarszy bajt **LONG**) i G (najstarszy bajt **DWORD**) dla pseudorozkazu `DTA`, np.:
+- additive `.LOCAL` blocks receive consecutive addresses; previously the address was set based on the first occurrence of such a block
+- added warning message when creating another additive `.LOCAL` block with the same name: **Ambiguous label LOCAL_NAME**
+- added mnemonics `PER` (PEA rell), `PEI` (PEA (zp)) for **WDC 65816**
+- added new data types M (most significant byte of **LONG**) and G (most significant byte of **DWORD**) for `DTA` pseudo command, e.g.:
 
 ```
 dta m($44556677)   ; -> $55
 dta g($44556677)   ; -> $44
 ```
 
-- dyrektywa `.LEN` `.SIZEOF` rozszerzona o obsługę danych alokowanych poprzez `DTA STRUCT_NAME`, np.:
+- `.LEN` and `.SIZEOF` directives extended to support data allocated via `DTA STRUCT_NAME`, e.g.:
 
 ```
 .STRUCT free_ptr_struct
@@ -191,8 +189,8 @@ free_ptr_t dta free_ptr_struct [3]
 .print .sizeof(free_ptr_t)    ; free_ptr_struct [0..3] = 16 bytes
 ```
 
-- zmiany dla operacji odczytu plików poprzez `ICL`, `INS` itp. plik do odczytu/zapisu będzie poszukiwany najpierw w ścieżce, która prowadzi do obecnie otwartego pliku, następnie ze ścieżki z której został uruchomiony główny asemblowany plik i na końcu ze ścieżek podanych parametrem -i (additional include directories)
-- poprawione rozpoznawanie wielkości znaków gdy aktywowany jest przełącznik `-c` (char sensitive) dla struktur, np.:
+- changes for file read operations via `ICL`, `INS`, etc. The file for read/write will be searched first in the path leading to the currently open file, then in the path from which the main assembled file was run, and finally in the paths specified with the `-i` parameter (additional include directories)
+- improved case sensitivity recognition when the `-c` switch (case sensitive) is activated for structures, e.g.:
 
 ```
 .struct fcb
@@ -205,7 +203,7 @@ data dta fcb [1] (0)
 ```
 
 
-- rozszerzone działanie dyrektywy `.REPT` o możliwość jej zagnieżdżania np.:
+- extended `.REPT` directive to allow nesting, e.g.:
 
 ```
 .rept 2,#*2              ;  1 - $0000
@@ -218,7 +216,7 @@ data dta fcb [1] (0)
                          ;
 .endr
 ```
-- krótsza wersja pętli `#WHILE` bez wyrażenia, pętla trwa dopóki `LABEL <> 0`
+- shorter version of `#WHILE` loop without expression; the loop continues as long as `LABEL <> 0`:
 
 ```
 #while .word label
@@ -296,19 +294,19 @@ hadr2 :4 dta h(line%%1)
 
 ## 1.9.4 <a name="1.9.4"></a>
 
-- dodana normalizacja ścieżek dla plików, tak aby działały pod **Unixami**, znaki `\` zamieniane są na `/`
-- poprawione przekazywanie dyrektyw jako parametrów do procedur i makr, dyrektywy nie były rozpoznawane przy włączonym przełączniku `-c` (case sensitive)
-- poprawione działanie `.USE` `.USING`
-- dodana informacja w postaci ostrzeżenia **WARNING** o etykiecie powodującej nieskończoną ilość przebiegów asemblacji **INFINITE LOOP**
-- dodany zapis dwóch bajtów nagłówka `FF FF` dla pliku zawierającego blok o adresie ładowania `$FFFF`
-- komentarze po mnemonikach nie wymagających argumentu zostaną potraktowane jako błąd, wyjątkiem jest łączenie rozkazów w stylu **xasm** poprzez znak `:`, np.:
+- added path normalization for files to work under **Unix**, `\` characters are replaced with `/`
+- improved passing directives as parameters to procedures and macros; directives were not recognized when the `-c` (case sensitive) switch was on
+- improved `.USE` and `.USING` operation
+- added **WARNING** message for a label causing an infinite number of assembly passes: **INFINITE LOOP**
+- added writing of two header bytes `FF FF` for a file containing a block with load address `$FFFF`
+- comments after mnemonics not requiring an argument will be treated as an error, except for joining commands in **xasm** style via `:`, e.g.:
 
 ```
  pla $00          ->  ERROR: Extra characters on line
  pha:pla $00      ->  OK
 ```
 
-- rozszerzona składnia makr o możliwość używania parametrów w postaci nazw a nie tylko wartości numerycznych-decymalnych, np.:
+- extended macro syntax to allow using names as parameters instead of just decimal numerical values, e.g.:
 
 ```
 .macro SetColor val,reg
@@ -322,7 +320,7 @@ hadr2 :4 dta h(line%%1)
 .endm
 ```
 
-- naprawione definiowanie etykiet dla n/w sytuacji, pierwsza etykieta nie zostanie zignorowana
+- fixed label definition for the following situation; the first label will not be ignored:
 
 ```
 temp  label = 100
@@ -330,11 +328,11 @@ temp  label = 100
 
 ## 1.9.3 <a name="1.9.3"></a>
 
-- poprawione przetwarzanie bloków `.PROC`, które w pewnych okolicznościach mogły zostać pominięte podczas asemblacji
-- poprawiony zapis `BLK EMPTY` dla plików **SDX** jeśli zastosowaliśmy deklarację takiego bloku przez `.DS`
-- poprawki dotyczące testowania końca linii
-- dodane dyrektywy `.FILESIZE`, `.SIZEOF` jako odpowiednik dotychczasowej dyrektywy `.LEN`
-- rozszerzona składnia dla pól struktury `.STRUCT`, np.:
+- improved processing of `.PROC` blocks, which under certain circumstances could be skipped during assembly
+- improved `BLK EMPTY` writing for **SDX** files if the declaration of such a block was made via `.DS`
+- fixes regarding end-of-line testing
+- added `.FILESIZE`, `.SIZEOF` directives as equivalents to the existing `.LEN` directive
+- extended syntax for `.STRUCT` fields, e.g.:
 
 ```
 .struct name
@@ -347,9 +345,9 @@ temp  label = 100
 
 ## 1.9.2 <a name="1.9.2"></a>
 
-- możliwość określenia adresu dla `.ZPVAR = $XX`
-- usprawnione odwołania do etykiet wyliczeniowych `.ENUM`, np. `enum_label(field0, field1)`
-- dodana możliwość generowania bloku dla symboli zewnętrznych BLK UPDATE EXTRN dla plików **DOS-a**, poprzednio tylko dla plików `.RELOC`, np.:
+- ability to specify an address for `.ZPVAR = $XX`
+- improved references to enumeration labels `.ENUM`, e.g. `enum_label(field0, field1)`
+- added ability to generate a block for external symbols `BLK UPDATE EXTRN` for **DOS** files (previously only for `.RELOC` files), e.g.:
 
 ```
 .extrn vbase .word
@@ -360,19 +358,19 @@ sta vbase+$5d
 blk update extrn
 ```
 
-- dodany komunikat błędu **Could not use NAME in this context** w przypadku rozkazów odwołań do bloków `.MACRO` `.ENUM` `.STRUCT`
-- poprawiony błąd który uniemożliwiał użycie `EQU` w nazwie etykiety
-- dodana dyrektywa `.CB +byte,.....`, ostatni bajt ciągu znakowego zapisywany jest w inwersie
-- dodana obsługa segmentów poprzez dyrektywy `.SEGDEF` `.SEGMENT` `.ENDSEG`
-- dodana nowa dyrektywa`#CYCLE #N` generująca kod **6502** o zadanej liczbie cykli `N`
-- dodana obsługa nielegalnych rozkazów **CPU 6502**, przykład w pliku `.\examples\test6502_illegal.asm`
-- uaktualnione pliki konfiguracyjne dla Notepad++ `..\syntax\Notepad++`
-- poprawiony zapis pliku `LST`
-- naprawiona alokacja pamięci dla zmiennych strukturalnych, rozszerzona składnia dla `.STRUCT`
+- added **Could not use NAME in this context** error message for command references to `.MACRO`, `.ENUM`, `.STRUCT` blocks
+- fixed a bug that prevented the use of `EQU` in a label name
+- added `.CB +byte,.....` directive; the last byte of the character string is stored in inverse
+- added segment support via `.SEGDEF`, `.SEGMENT`, `.ENDSEG` directives
+- added new `#CYCLE #N` directive generating **6502** code with a specified number of cycles `N`
+- added support for illegal **6502** CPU instructions; example in `.\examples\test6502_illegal.asm`
+- updated Notepad++ configuration files in `..\syntax\Notepad++`
+- improved `LST` file writing
+- fixed memory allocation for structural variables, extended syntax for `.STRUCT`:
 
 ```
 .struct LABEL
- x,y,z .word     // wiele zmiennych tego samego typu w jednej linii
+ x,y,z .word     // multiple variables of the same type in one line
  .byte a,b
 .ends
 
@@ -389,47 +387,47 @@ blk update extrn
 
 ## 1.9.0 <a name="1.9.0"></a>
 
-- naprawiony zapis linii z komentarzem `/* */` do pliku listingu `*.LST`, poprzednio takie linie nie były zapisywane
-- poprawka dla etykiet deklarowanych z linii komend `-d:label`, poprzednio takie etykiety widziane były tylko w pierwszym przebiegu
-- w przypadku addytywności bloków `.LOCAL` tylko pierwszy adres z takich bloków jest zapisywany
-- poprawki dotyczące parsowania makr, poprzednio etykiety zaczynające się od `END` mogły zostać zinterpretowane jako pseudo rozkaz `END`
-- poprawka odczytu dla pustego pliku relokowalnego, poprzednio występował błąd **Value out of range**
-- poprawki dla `.USING` `.USE`
+- fixed writing lines with `/* */` comments to the `*.LST` listing file; previously such lines were not saved
+- fix for labels declared from the command line `-d:label`; previously such labels were only seen in the first pass
+- in case of additive `.LOCAL` blocks, only the first address from such blocks is saved
+- fixes regarding macro parsing; previously labels starting with `END` could be interpreted as the `END` pseudo command
+- fix for reading an empty relocatable file; previously a **Value out of range** error occurred
+- fixes for `.USING`, `.USE`
 
 ## 1.8.8 - 1.8.9 <a name="1.8.8_1.8.9"></a>
 
-- uaktualniony silnik duchów programowych `..\EXAMPLES\SPRITES\CHARS` o duchy 8x24
-- w przypadku braku podania rozszerzenia pliku i braku istnienia takiego pliku dla `ICL 'filename'` zostanie domyślnie przyjęte rozszerzenie `*.ASM` `ICL 'filename.asm'`
-- poprawione działanie komentarzy `/* */` w blokach `.MACRO` `.REPT`
-- usunięty błąd uniemożliwiający poprawną asemblację bloku `#IF` `#WHILE` dla wyrażeń łączonych przez `.OR` `.AND`
-- przełączniki w linii komend mogą być poprzedzone tylko znakiem `-`, poprzednio także `/` jednak były problemy z działaniem tego znaku na **MacOSX**
-- poprawiony zakres działania dyrektywy `.USING`, dla aktualnej przestrzeni nazw i kolejnych zawierających się w tej przestrzeni nazw
+- updated software sprite engine `..\EXAMPLES\SPRITES\CHARS` with 8x24 sprites
+- if no file extension is provided and the file does not exist for `ICL 'filename'`, the `*.ASM` extension will be assumed by default: `ICL 'filename.asm'`
+- improved `/* */` comments operation in `.MACRO` and `.REPT` blocks
+- fixed a bug preventing correct assembly of `#IF` and `#WHILE` blocks for expressions joined by `.OR` and `.AND`
+- command line switches can only be preceded by the `-` character; previously `/` was also allowed, but there were problems with this character on **MacOSX**
+- corrected scope of the `.USING` directive, for the current namespace and subsequent ones contained within that namespace
 
 ## 1.8.6 - 1.8.7 <a name="1.8.6_1.8.7"></a>
 
-- usprawnione rozpoznawanie komentarzy `/* */` w wyrażeniach
-- domyślny adres dla `.ZPVAR` ustawiony na `$0080`, poprzednio `$0000`
-- dodana nowa dyrektywa `.ELIF` jako krótszy odpowiednik dyrektywy `.ELSEIF`
-- rozszerzone działanie dyrektywy `.LEN` o możliwość podania jako parametru nazwy pliku, zwracana jest wówczas długość takiego pliku
-- usprawnione działanie dyrektywy `.DEF` w wyrażeniach warunku `.IF` `.IFDEF` `IFNDEF`
+- improved `/* */` comment recognition in expressions
+- default address for `.ZPVAR` set to `$0080` (previously `$0000`)
+- added new `.ELIF` directive as a shorter equivalent to `.ELSEIF`
+- extended `.LEN` directive to allow passing a filename as a parameter; the length of that file is then returned
+- improved `.DEF` directive operation in `.IF`, `.IFDEF`, `IFNDEF` condition expressions
 
 ## 1.8.5 <a name="1.8.5"></a>
 
-- dodane makro relokujące moduły **RMT** `...\EXAMPLES\MSX\RMT_PLAYER_RELOCATOR\`
-- dodany test składni dla nie asemblowanych procedur .PROC gdy aktywny jest przełącznik `-x` **Exclude unreferenced procedures**
-- poprawione działanie przełącznika `-d:label[=value]`, podanie wartości dla etykiety jest teraz opcjonalne, domyślnie mads przypisze wartość 1
-- dyrektywy `.DS` `.ALIGN` nie spowodują alokacji zmiennych zdefiniowanych przez `.VAR`
-- alokacja zmiennych `.VAR` przed nowym blokiem `ORG` nie nastąpi jeśli blok `ORG` znajduje się w bloku `.LOCAL` lub `.PROC`
-- poprawione łamanie wierszy znakiem `\` w ciągach ograniczonych nawiasami `()`
-- usunięty błąd powodujący relokowanie adresu dla wyrażenia dyrektywy `.ERROR` `ERT`
-- usunięte zauważone błędy przy parsowaniu parametrów linii komend
-- usunięte zauważone błędy dotyczące optymalizacji długości kodu makro rozkazów `MVA` `MWA` itp.
-- poprawiony kod realizujący zagnieżdżanie bloków `.PROC`
-- poprawiony kod realizujący działanie pseudo rozkazów warunku `IFT ELI ELS EIF`
-- dodany komunikat **'#' is allowed only in repeated lines** dla przypadków użycia licznika pętli `# (.R)` poza pętlą
-- usunięty błąd powodujący błędne alokowanie zmiennych zadeklarowanych przez dyrektywę `.VAR` podczas wykonywania makra
-- w celu ujednolicenia składni odwołania do etykiet typów wyliczeniowych możliwe są tylko poprzez znak kropki `.`, poprzednio także przez `::`
-- możliwe krótsze odwołania do typów wyliczeniowych `enum_label(fields)`, np. :
+- added macro for relocating **RMT** modules `...\EXAMPLES\MSX\RMT_PLAYER_RELOCATOR\`
+- added syntax test for non-assembled `.PROC` procedures when the `-x` switch (**Exclude unreferenced procedures**) is active
+- improved `-d:label[=value]` switch operation; providing a value for the label is now optional, MADS will assign value 1 by default
+- `.DS` and `.ALIGN` directives will not cause allocation of variables defined by `.VAR`
+- `.VAR` variable allocation before a new `ORG` block will not occur if the `ORG` block is inside a `.LOCAL` or `.PROC` block
+- fixed line breaking with the `\` character in strings enclosed in parentheses `()`
+- fixed bug causing address relocation for the `.ERROR` / `ERT` directive expression
+- fixed observed bugs in command line parameter parsing
+- fixed observed bugs regarding optimization of macro command code length (`MVA`, `MWA`, etc.)
+- improved code implementing `.PROC` block nesting
+- improved code implementing `IFT`, `ELI`, `ELS`, `EIF` condition pseudo commands
+- added **'#' is allowed only in repeated lines** message for cases of using the loop counter `#` (`.R`) outside a loop
+- fixed bug causing incorrect allocation of variables declared by the `.VAR` directive during macro execution
+- to unify syntax, references to enumeration type labels are possible only via the dot `.` character (previously also via `::`)
+- shorter references to enumeration types possible: `enum_label(fields)`, e.g.:
 
 ```
 .enum typ
@@ -441,7 +439,7 @@ blk update extrn
  lda #typ(val0|val2)  ; == "lda #typ.val0|typ.val2"
 ```
 
-- rozszerzona składnia dyrektywy `.SAV`, np.:
+- extended `.SAV` directive syntax, e.g.:
 
 ```
 .sav 'filename',offset,length
@@ -451,7 +449,7 @@ blk update extrn
 .sav offset,length
 ```
 
-- rozszerzona składnia dyrektywy `.ARRAY`, w przypadku braku podania maksymalnego indeksu tablicy zostanie on obliczony na podstawie ilości wprowadzonych elementów, elementy można wprowadzać bez konieczności poprzedzenia ich indeksem [expression], np.:
+- extended `.ARRAY` directive syntax; if the maximum array index is not provided, it will be calculated based on the number of elements entered; elements can be entered without having to precede them with an `[expression]` index, e.g.:
 
 ```
 .array temp .byte
@@ -460,10 +458,10 @@ blk update extrn
  [5]:[8] = 10,16        ; [5..6]   = 10,16 ; [8..9] = 10,16
  0,0,\                  ; [14..17] = 0,0,1,1
  1,1
-.enda                   ; 18 elementów, TEMP [0..17]
+.enda                   ; 18 elements, TEMP [0..17]
 ```
 
-- dodana możliwość alokacji zmiennej typu strukturalnego przy pomocy dyrektyw `.VAR` `.ZPVAR`, np.:
+- added ability to allocate a structural type variable using `.VAR` and `.ZPVAR` directives, e.g.:
 
 ```
 .struct Point
@@ -475,7 +473,7 @@ blk update extrn
  .zpvar Point f,g,i
 
 ```
-- dodana możliwość alokacji zmiennej typu wyliczeniowego przy pomocy dyrektyw `.VAR` `.ZPVAR`, np.:
+- added ability to allocate an enumeration type variable using `.VAR` and `.ZPVAR` directives, e.g.:
 
 ```
 .enum Boolean
@@ -487,7 +485,7 @@ blk update extrn
  .zpvar Boolean test
 ```
 
-- dodana możliwość deklaracji pól struktury przy pomocy typów wyliczeniowych, np.:
+- added ability to declare structure fields using enumeration types, e.g.:
 
 ```
 .enum EState
@@ -504,15 +502,15 @@ blk update extrn
 
 ## 1.8.3 - 1.8.4 <a name="1.8.3_1.8.4"></a>
 
-- nowy silnik duchów programowych z minimalnymi wymaganiami pamięci, bez dodatkowych buforów pamięci obrazu `...EXAMPLES\SPRITES\CHARS_NG`
-- nowa wersja pakera **Huffmana** (kompatybilna z **Free Pascal Compiler-em**, `fpc -MDelphi sqz15.pas`) i dekompresora **Huffmana** SQZ15 `...EXAMPLES\COMPRESSION\SQUASH`
-- poprawiony kod generowany dla rozkazów `MVP` `MVN` `PEA` `BRA` (**WDC 65816**)
-- dodane nowe rozkazy `BRL` `JSL` `JML` (**WDC 65816**), jako odpowiedniki rozkazów długich skoków `BRA` `JSR` `JMP`
-- blok aktualizacji etykiet zewnętrznych (external) został rozszerzony o zapis młodszego i starszego bajtu adresu takiej etykiety
-- poprawione działanie dyrektywy `.USE` `.USING`, działa niezależnie od przestrzeni nazw w której zostanie użyta
-- usunięty błąd, który powodował w pewnych sytuacjach pomijanie asemblacji bloku `#IF` `#WHILE`
-- dodana możliwość definiowania zmiennych poprzez dyrektywę `.DS` lub pseudo rozkaz ORG przed blokiem `.RELOC`
-- dodana dodatkowa forma składni dla dyrektywy `.VAR`, z tym że dla takiego przypadku nie ma możliwości określenia adresu umiejscowienia zmiennych w pamięci
+- new software sprite engine with minimal memory requirements, without additional screen memory buffers `...EXAMPLES\SPRITES\CHARS_NG`
+- new version of **Huffman** packer (compatible with **Free Pascal Compiler**, `fpc -MDelphi sqz15.pas`) and **Huffman** decompressor SQZ15 `...EXAMPLES\COMPRESSION\SQUASH`
+- improved code generated for `MVP`, `MVN`, `PEA`, `BRA` (**WDC 65816**)
+- added new `BRL`, `JSL`, `JML` commands (**WDC 65816**) as equivalents for long jump commands `BRA`, `JSR`, `JMP`
+- external label update block extended to save the low and high byte of the address of such a label
+- improved `.USE` and `.USING` directive operation; works independently of the namespace in which it is used
+- fixed a bug that caused skipping assembly of the `#IF` / `#WHILE` block in certain situations
+- added ability to define variables via `.DS` directive or `ORG` pseudo command before a `.RELOC` block
+- added an additional syntax form for the `.VAR` directive, though for this case there is no way to specify the address of variables in memory
 
 ```
  .VAR .TYPE lab1 lab2 lab3 .TYPE lab4 .TYPE lab5 lab6 ...
@@ -520,7 +518,7 @@ blk update extrn
  .var .byte a,b,c .dword i j
 ```
 
-- dodana możliwość definicji pojedyńczych zmiennych typu strukturalnego w krótszy sposób aniżeli dotąd przez `DTA`
+- added ability to define single structural type variables in a shorter way than before via `DTA`
 
 ```
 .struct @point
@@ -534,7 +532,7 @@ pointB  @point    ; pointB dta @point [0] <=> pointB dta @point
 points  dta @point [100]
 ```
 
-- dodana nowa dyrektywa `.ZPVAR` umożliwiająca automatyczne przydzielenie miejsca zmiennym na stronie zerowej
+- added new `.ZPVAR` directive allowing automatic allocation of space for variables on the zero page
 
 ```
  .ZPVAR TYPE label1, label2 label3 = $80  ; LABEL1=$80, LABEL2=LABEL1+TYPE, LABEL3=LABEL2+TYPE
@@ -543,14 +541,14 @@ points  dta @point [100]
  .print .zpvar
 ```
 
-- poprawione działanie dyrektywy `.ERROR` i pseudo rozkazu `ERT`, możliwe jest umieszczenie dodatkowych informacji w wierszu podobnie jak dla `.PRINT` `.ECHO` np.:
+- improved `.ERROR` directive and `ERT` pseudo command operation; it is possible to place additional information in the line similar to `.PRINT` / `.ECHO`, e.g.:
 
 ```
-  ERT *>$6000 , BUUU przekroczyliśmy zakres pamięci o ' , *-$6000 , ' bajtów'
+  ERT *>$6000 , 'OOPS, we exceeded memory range by ' , *-$6000 , ' bytes'
 ```
 
 
-- dodana możliwość zagnieżdżania bloków procedur .PROC, ten sam kod może być wywoływany z różnymi parametrami np.:
+- added ability to nest `.PROC` procedure blocks; the same code can be called with different parameters, e.g.:
 
 ```
 .proc copySrc (.word src+1) .var
@@ -572,31 +570,31 @@ dst sta $ffff,y
   copySrc #$a360
 ```
 
-- dodane nowe dyrektywy `.ENUM` `.ENDE` `.EEND`
+- added new `.ENUM`, `.ENDE`, `.EEND` directives
 
 ```
-.enum dni_tygodnia
+.enum days_of_the_week
 
-  poniedzialek = 1
-  wtorek, sroda = 5, czwartek = 7
-  piatek
-  sobota
-  niedziela
+  monday = 1
+  tuesday, wednesday = 5, thursday = 7
+  friday
+  saturday
+  sunday
 
 .ende
 
-ift dzien==dni_tygodnia::wtorek
-.print 'wtorek'
+ift day==days_of_the_week::tuesday
+.print 'tuesday'
 eif
 ```
 
-- rozszerzona funkcjonalność komentarzy wieloliniowych `/* */` o możliwość umieszczania ich gdziekolwiek
+- extended multi-line comments `/* */` functionality to allow placing them anywhere
 
 ```
-lda #12+ /* komentarz */ 23
+lda #12+ /* comment */ 23
 ```
 
-- umożliwiona relokacja adresów definiowanych dyrektywą `.DEF`
+- enabled relocation of addresses defined with the `.DEF` directive
 
 ```
 .reloc
@@ -604,7 +602,7 @@ lda #12+ /* komentarz */ 23
 lda label
 ```
 
-- dodana możliwość użycia znaków `{ }` do oznaczenia bloku (z wyjątkiem bloków `.MACRO`), znak `{` `}` zostaje rozpoznany na początku nowego wiersza, np.:
+- added ability to use `{ }` characters to mark a block (except for `.MACRO` blocks); the `{` / `}` character is recognized at the beginning of a new line, e.g.:
 
 ```
 #while .word ad+1<=#$bc40+39
@@ -627,42 +625,42 @@ ad  sta $bc40
 
 ## 1.8.2 <a name="1.8.2"></a>
 
-- zniesione ograniczenie długości pliku dla pseudo rozkazu `INS` (poprzednio długość wczytywanego pliku ograniczona była do 65536 bajtów)
-- dodany komunikat błędu **The referenced label ... has not previously been defined properly** w przypadku etykiet, które nie zostały zdefiniowane do końca, np. tylko w pierwszym przebiegu wartością nieokreśloną
-- dodana nowa dyrektywa `.ECHO` jako odpowiednik dyrektywy .PRINT, dodatkowo informacje generowane przez `.PRINT` `.ECHO` zapisywane są teraz także w listingu `*.LST`
-- dodana nowa dyrektywa `.ALIGN` pozwalająca na wyrównanie do zadanego zakresu pamięci, dodatkowo można określić wartość jaką wypełnić pamięć
+- removed file length restriction for `INS` pseudo command (previously the length of the read file was limited to 65536 bytes)
+- added **The referenced label ... has not previously been defined properly** error message for labels that were not fully defined, e.g. only in the first pass with an undefined value
+- added new `.ECHO` directive as an equivalent to the `.PRINT` directive; additionally, information generated by `.PRINT` / `.ECHO` is now also saved in the `*.LST` listing
+- added new `.ALIGN` directive allowing alignment to a specified memory range; additionally, a value to fill memory with can be specified:
 
 ```
 [label] .ALIGN N[,fill]
 ```
 
-- dodany nowy przełącznik `-U` (Warn of unused labels)
+- added new `-U` switch (Warn of unused labels)
 
 
 ## 1.8.1 <a name="1.8.1"></a>
 
-- rozszerzone działanie znaku backslash `\`, umieszczenie go na końcu wiersza oznacza kontynuację aktualnego wiersza od nowego wiersza, np.:
+- extended backslash `\` character operation; placing it at the end of a line means continuing the current line from a new line, e.g.:
 
 ```
 macro_temp \
 
-_____________________________________parametr1_________________________________________________\
-_____________________________________parametr2_________________________________________________\
-_____________________________________parametr3_________________________________________________
+_____________________________________parameter1________________________________________________\
+_____________________________________parameter2________________________________________________\
+_____________________________________parameter3________________________________________________
 
 lda\
  #____________________________________label________________________________________\
  +__________________________________expression___________________________________
 ```
 
-- zmienione testowanie niekończącego wywoływania się makr po którym wystąpi błąd **Infinite loop**
-- naprawiony zapis etykiet do pliku `*.LAB`, błąd powstał po dodaniu addytywności obszarów `LOCAL`
-- poprawione działanie pseudo rozkazu `SIN` (kod zapożyczony z **XASM**)
-- poprawione rozpoznawanie dyrektyw przy włączonym przełączniku -C (Case sensitive)
-- usprawniony odczyt bloków `.REPT` (wskazanie prawidłowej linii z błędem) i `.MACRO`
-- zablokowane użycie `.VAR` w bloku `.REPT`
-- umożliwione zagnieżdżanie oraz wielokrotne uruchamianie (poprzez makra) pętli `.REPT` `:repeat` (poprzednio występował komunikat **Use .REPT directive**)
-- umożliwione przekazywanie parametrów do bloku .REPT, np.
+- changed testing for infinite macro calls, after which an **Infinite loop** error will occur
+- fixed writing labels to the `*.LAB` file; the error occurred after adding additivity of `LOCAL` areas
+- improved `SIN` pseudo command operation (code borrowed from **XASM**)
+- improved directive recognition when the -C switch (Case sensitive) is on
+- improved reading of `.REPT` (pointing to the correct line with the error) and `.MACRO` blocks
+- blocked the use of `.VAR` in a `.REPT` block
+- enabled nesting and multiple runs (via macros) of `.REPT` / `:repeat` loops (previously a **Use .REPT directive** message occurred)
+- enabled passing parameters to the `.REPT` block, e.g.:
 
 ```
 .REPT 10, #
@@ -677,10 +675,10 @@ label:1           ; LABEL0, LABEL1, LABEL2 ... LABEL9
 
 ## 1.7.9 - 1.8.0 <a name="1.7.9_1.8.0"></a>
 - fixed error in `-f` option description, previously **Label at first column**, correct description is **CPU command at first column**
-- przepisana od nowa obsługa dyrektywy `.DS` i opcji `OPT F+` (dodana możliwość użycia bloków RUN i INI)
-- przepisana od nowa obsługa opcji `OPT ?+` (etykiety lokalne w standardzie **MAE**)
-- dodana możliwość upublicznienia w blokach PUBLIC tablic zadeklarowanych przez .ARRAY oraz deklaracji struktur `.STRUCT`
-- dyrektywa generująca kod **6502** dla decyzji `.TEST` zastąpiona została przez dyrektywę `#IF`, dyrektywa `.ENDT` przez `#END`, dodatkowo możliwe jest użycie dyrektywy `#ELSE` np.:
+- rewritten handling of `.DS` directive and `OPT F+` option (added ability to use RUN and INI blocks)
+- rewritten handling of `OPT ?+` option (local labels in **MAE** standard)
+- added ability to publicize arrays declared by `.ARRAY` and `.STRUCT` declarations in PUBLIC blocks
+- the directive generating **6502** code for decision `.TEST` has been replaced by the `#IF` directive, and the `.ENDT` directive by `#END`; additionally, the `#ELSE` directive can be used, e.g.:
 
 ```
  # if .byte i>#8 .and .byte i<#200
@@ -690,7 +688,7 @@ label:1           ; LABEL0, LABEL1, LABEL2 ... LABEL9
  # end
 ```
 
-- dyrektywa generująca kod **6502** dla iteracji `.WHILE` zastąpiona została przez dyrektywę `#WHILE`, dyrektywa `.ENDW` przez `#END`, np.:
+- the directive generating **6502** code for iteration `.WHILE` has been replaced by the `#WHILE` directive, and the `.ENDW` directive by `#END`, e.g.:
 
 ```
  lda 20               ->       lda 20
@@ -699,24 +697,24 @@ label:1           ; LABEL0, LABEL1, LABEL2 ... LABEL9
                       ->       jmp wait
 ```
 
-- dyrektywy `#IF` `#WHILE` akceptują dwa dodatkowe operatory `==` `!=`
-- dodana dyrektywa `.EXITM` jako odpowiednik `.EXIT`
-- dodana dyrektywa `.FI` jako odpowiednik `.ENDIF`
-- dodana dyrektywa `.IFDEF` jako krótszy odpowiednik dyrektyw `.IF` `.DEF`
-- dodana dyrektywa `.IFNDEF` jako krótszy odpowiednik dyrektyw `.IF` `.NOT` `.DEF`
-- umożliwione zostało definiowanie makr w obszarze procedury `.PROC`, podsumowując aktualnie dopuszczalne jest zdefiniowanie makra w obszarze `.LOCAL` `.PROC`
-- wystąpienie jakiegokolwiek ostrzeżenia podczas asemblacji nie zmieni kodu wyjścia (exit_code=0), zmiana podyktowana potrzebą kompatybilności z linuxowym makefile
-- ujednolicony sposób deklaracji etykiet lokalnych i globalnych, "białe znaki" przed nazwą etykiety nie wymuszą zdefiniowania takiej etykiety jako globalnej, umożliwi to tylko dyrektywa `.DEF :LABEL`
-- poprawione makra `@CALL.MAC` `@CALL_2.MAC`, zmienna tymczasowa globalna `?@stack_offset` modyfikowana jest teraz przez dyrektywę `.DEF`
-- rezygnacja z opcji `-E` (Eat White spaces), aktualnie jest ta opcja zawsze włączona
-- poprawione wyświetlanie numeru linii z błędem w aktualnie wykonywanym makrze
-- skrócone nazwy etykiet tworzonych podczas wykonywania makr (łatwiejsza ich identyfikacja w pliku `*.LAB`)
-- poprawione działanie opcji `OPT H-`
-- dodane nowe makro rozkazy `INL` (increse LONG), `IND` (increse DWORD), `DEL` (decrese LONG), `DED` (decrese DWORD)
-- dodane nowe makro rozkazy `CPB` (compare BYTE), `CPW` (compare WORD), `CPL` (compare LONG), `CPD` (compare DWORD)
-- usprawnione i rozszerzone działanie dyrektyw `#TEST` `#WHILE` w oparciu o kod generowany przez makro rozkazy `CPB` `CPW` `CPL` `CPD`, dyrektywy `#TEST` `#WHILE` dla wyrażeń `=#0` `<>#0` generują najkrótszy kod wynikowy
-- dodana optymalizacja długości generowanego kodu dla makro rozkazów `MWA` `MWX` `MWY`
-- dodana nowa opcja OPT R optymalizująca kod makro rozkazów `MWA` `MWX` `MWY` `MVA` `MVX` `MVY` ze względu na zawartość rejestrów, np.:
+- `#IF` / `#WHILE` directives accept two additional operators: `==`, `!=`
+- added `.EXITM` directive as an equivalent to `.EXIT`
+- added `.FI` directive as an equivalent to `.ENDIF`
+- added `.IFDEF` directive as a shorter equivalent to `.IF` / `.DEF` directives
+- added `.IFNDEF` directive as a shorter equivalent to `.IF` / `.NOT` / `.DEF` directives
+- enabled defining macros in the area of a `.PROC` procedure; in summary, it is now permissible to define a macro in the `.LOCAL` / `.PROC` area
+- occurrence of any warning during assembly will not change the exit code (exit_code=0); the change is dictated by the need for compatibility with Linux makefiles
+- unified method of declaring local and global labels; "white spaces" before the label name will not force defining such a label as global; only the `.DEF :LABEL` directive will enable this
+- improved `@CALL.MAC` / `@CALL_2.MAC` macros; global temporary variable `?@stack_offset` is now modified by the `.DEF` directive
+- discontinued `-E` (Eat White spaces) option; currently this option is always on
+- improved display of the line number with the error in the currently executed macro
+- shortened names of labels created during macro execution (easier identification in the `*.LAB` file)
+- improved `OPT H-` option operation
+- added new macro commands: `INL` (increase LONG), `IND` (increase DWORD), `DEL` (decrease LONG), `DED` (decrease DWORD)
+- added new macro commands: `CPB` (compare BYTE), `CPW` (compare WORD), `CPL` (compare LONG), `CPD` (compare DWORD)
+- improved and extended operation of `#IF` / `#WHILE` directives based on code generated by `CPB`, `CPW`, `CPL`, `CPD` macro commands; `#IF` / `#WHILE` directives for expressions `=#0`, `<>#0` generate the shortest object code
+- added optimization of generated code length for `MWA`, `MWX`, `MWY` macro commands
+- added new `OPT R` option optimizing macro command code (`MWA`, `MWX`, `MWY`, `MVA`, `MVX`, `MVY`) based on register contents, e.g.:
 
 ```
                 opt r-        opt r+
@@ -726,18 +724,18 @@ mva #0 $81  ->  sta $80   ->  sta $80
                 sta $81   ->
 ```
 
-- rozszerzona funkcjonalność dyrektywy `.DEF` o możliwość przypisania wartości nowo deklarowanej etykiecie, np.:
+- extended `.DEF` directive functionality to allow assigning a value to a newly declared label, e.g.:
 
 ```
 .def label = 1
 ```
-- rozszerzona funkcjonalność dyrektywy `.DEF` o możliwość zdefiniowania etykiety globalnej niezależnie od aktulnego obszaru lokalnego, np.:
+- extended `.DEF` directive functionality to allow defining a global label regardless of the current local area, e.g.:
 
 ```
 .def :label
 ```
 
-- umożliwiona została addytywność obszarów `.LOCAL`, tzn. może istnieć wiele obszarów lokalnych o tej samej nazwie, symbole zawarte w takich obszarach należeć będą do wspólnej przestrzeni nazw, np.:
+- enabled additivity of `.LOCAL` areas, i.e., there can be multiple local areas with the same name; symbols contained in such areas will belong to a common namespace, e.g.:
 
 ```
 .local namespace
@@ -757,14 +755,14 @@ mva #0 $81  ->  sta $80   ->  sta $80
 
 ## 1.7.8 <a name="1.7.8"></a>
 
-- dodane dyrektywy `.MEND` `.PGEND` `.REND` jako odpowiedniki `.ENDM` `.ENDPG` `.ENDR`
-- obecnie deklaracja makra musi kończyć się dyrektywą `.ENDM` lub `.MEND` (poprzednio dopuszczalne było użycie dyrektywy `.END`)
-- poprawiony sposób wykonywania makr dzięki czemu umożliwione zostało wykonanie dyrektywy `.ENDL` z poziomu wykonywanego makra
-- poprawione zauważone błędy dotyczące starszych bajtów relokowanego adresu oraz bloku aktualizacji symboli publicznych
-- dodana nowa dyrektywa `.USING` `.USE` pozwalająca określić ścieżkę poszukiwań dla nazw etykiet
-- poprawione działanie dyrektyw `.LOCAL` `.DEF`, których błędne działanie objawiało się w szczególnych przypadkach
-- poprawione działanie makro rozkazów skoków (`SNE` `RNE` itp.), których błędne działanie objawiało się w szczególnych przypadkach
-- rozszerzona składnia dyrektywy `.TEST` (kod **6502** dla warunku) o dowolną ilość wyrażeń połączonych przez `.OR` lub `.AND` (brak możliwości zmiany piorytetu wartościowania przy pomocy nawiasów), np.:
+- added `.MEND`, `.PGEND`, `.REND` directives as equivalents to `.ENDM`, `.ENDPG`, `.ENDR`
+- currently macro declaration must end with the `.ENDM` or `.MEND` directive (previously use of the `.END` directive was allowed)
+- improved macro execution method, allowing the execution of the `.ENDL` directive from within a macro
+- fixed observed bugs regarding older bytes of the relocated address and the public symbol update block
+- added new `.USING` / `.USE` directive allowing to specify the search path for label names
+- improved `.LOCAL` / `.DEF` directives operation, whose incorrect operation manifested in special cases
+- improved jump macro commands operation (`SNE`, `RNE`, etc.), whose incorrect operation manifested in special cases
+- extended `.TEST` syntax (**6502** code for condition) to any number of expressions joined by `.OR` or `.AND` (no possibility to change valuation priority using parentheses), e.g.:
 
 ```
 .test .byte k>#10+1 .or .word j>#100 .and .word j<#105 .or .byte k<=#5
@@ -773,7 +771,7 @@ mva #0 $81  ->  sta $80   ->  sta $80
 .endt
 ```
 
-- rozszerzona składnia dyrektywy `.WHILE` (kod **6502** dla pętli) o dowolną ilość wyrażeń połączonych przez `.OR` lub `.AND` (brak możliwości zmiany piorytetu wartościowania przy pomocy nawiasów), np.:
+- extended `.WHILE` syntax (**6502** code for loop) to any number of expressions joined by `.OR` or `.AND` (no possibility to change valuation priority using parentheses), e.g.:
 
 ```
 .while .byte k>#4 .and .byte k<#39
@@ -784,10 +782,10 @@ mva #0 $81  ->  sta $80   ->  sta $80
 
 ## 1.7.6 - 1.7.7 <a name="1.7.6_1.7.7"></a>
 
-- dodany nowy przełącznik `-B:ADDRESS` umożliwiający asemblacje od zadanego adresu
-- dodany nowa opcja `OPT F+-` pozwalająca tworzyć bloki ciągłej pamięci (przydatne dla cartów)
-- dodana obsługa parametrów typu `.LONG` `.DWORD` przekazywanych do procedur `.PROC` typu `.VAR` (poprzednio akceptowanymi typami parametrów był tylko `.BYTE` `.WORD`)
-- dodana nowa dyrektywa `.FL` realizująca zapis liczb rzeczywistych `REAL` w formacie **FP Atari**, np.:
+- added new `-B:ADDRESS` switch allowing assembly from a given address
+- added new `OPT F+-` option allowing to create continuous memory blocks (useful for carts)
+- added support for `.LONG` / `.DWORD` type parameters passed to `.VAR` type `.PROC` procedures (previously only `.BYTE` / `.WORD` were accepted parameter types)
+- added new `.FL` directive implementing storage of `REAL` numbers in **FP Atari** format, e.g.:
 
 ```
 pi .fl 3.1415926535897932384626433832795  ; 40 03 14 15 92 65
@@ -795,8 +793,8 @@ tb .fl 0.5 12.34 -2.30 0.00002
 tb .fl 0.5, 12.34, -2.30, 0.00002
 ```
 
-- umożliwiony został zapis wartości innych typów niż tylko `.BYTE` w bloku `.ARRAY`
-- dodana obsługa typów wielokrotnych dla `.STRUCT`, poprzednio takie typy były akceptowane jednak pamięć nie była właściwie dla nich rezerwowana, np.:
+- enabled storage of types other than just `.BYTE` in the `.ARRAY` block
+- added support for multiple types for `.STRUCT`; previously such types were accepted but memory was not properly reserved for them, e.g.:
 
 ```
 .struct test
@@ -806,7 +804,7 @@ tb .fl 0.5, 12.34, -2.30, 0.00002
 
 buf dta test [0]
 ```
-- poprawione błędy dotyczące generowania kodu relokowalnego zauważone przez **Laoo**, np.:
+- fixed bugs regarding relocatable code generation noticed by **Laoo**, e.g.:
 
 ```
     .reloc
@@ -815,16 +813,16 @@ buf dta test [0]
 temp .long $aabbcc
 ```
 
-- błąd **Addres relocation overload** wystąpi teraz tylko gdy wyrażenie będzie dotyczyć więcej niż jednej etykiety relokowalnej, poprzednio każde wyrażenie z udziałem etykiety relokowalnej powodowało wyświetlenie tego komunikatu błędu
-- blok aktualizacji symboli plublicznych rozszerzony został o możliwość przekazywania stałych różnych typów B-YTE, W-ORD, L-ONG, D-WORD, poprzednio przekazywanym typem był tylko W-ORD
-- zmienione działanie dyrektywy `.VAR` w blokach `.LOCAL` znajdujących się w bloku `.PROC`, zmienne takie zawsze odkładane są na końcu bloku przed dyrektywą `.ENDP`, w pozostałych przypadkach na końcu bloku `.LOCAL` przed dyrektywą `.ENDL`
-- umożliwiona została relokowalność kodu generowanego przez dyrektywy `.WHILE` `.TEST`
-- poprawione działanie testowania wartości typu `.WORD` w kodzie generowanym przez dyrektywy `.WHILE` `.TEST`
-- dodana nowa dyrektywa `.ADR` zwracająca adres etykiety przed zmianą adresu asemblacji
-- dodana nowa dyrektywa `.LEN` zwracająca długość bloków zdefiniowanych przez `.PROC` `.ARRAY`
-- poprawione działanie operacji dzielenia, mnożenia i modulo, poprzednio błędnie był interpretowany piorytet dla tych operacji
-- komentarze z końca linii nie poprzedzone znakiem komentarza będą powodować wystąpienie błędu **Unexpected end of line**
-- dodana możliwość przypisania zmiennej pól zdefiniowanych przez strukture, np.:
+- **Address relocation overload** error will now occur only when the expression involves more than one relocatable label; previously every expression involving a relocatable label caused this error message to be displayed
+- public symbol update block extended to allow passing constants of different types: B-YTE, W-ORD, L-ONG, D-WORD; previously the only passed type was W-ORD
+- changed `.VAR` directive operation in `.LOCAL` blocks located in a `.PROC` block; such variables are always placed at the end of the block before the `.ENDP` directive; in other cases, at the end of the `.LOCAL` block before the `.ENDL` directive
+- enabled relocatability of code generated by `.WHILE` / `.TEST` directives
+- improved testing of `.WORD` type values in code generated by `.WHILE` / `.TEST` directives
+- added new `.ADR` directive returning the label address before the assembly address change
+- added new `.LEN` directive returning the length of blocks defined by `.PROC` / `.ARRAY`
+- fixed operation of division, multiplication, and modulo operations; previously priority for these operations was misinterpreted
+- comments at the end of a line not preceded by a comment character will cause an **Unexpected end of line** error
+- added ability to assign structure-defined fields to a variable, e.g.:
 
 ```
 @point .struct
@@ -837,7 +835,7 @@ b @point
 c @point
 ```
 
-- rozszerzona składnia `.STRUCT` o możliwość dodania nowych pól bez definiowania nazwy pola, np.:
+- extended `.STRUCT` syntax to allow adding new fields without defining a field name, e.g.:
 
 ```
 .struct @id
@@ -849,7 +847,7 @@ c @point
 .ends
 ```
 
-- rozszerzona składnia makro rozkazu `MWA` o możliwość użycia adresowania pośredniego strony zerowej postindeksowanego `Y`, np.:
+- extended `MWA` macro command syntax to allow use of zero page indirect post-indexed by `Y` addressing, e.g.:
 
 ```
 mwa ($80),y $a000,x
@@ -857,19 +855,19 @@ mwa $bc40,y ($f0),y
 mwa ($80),y ($82),y
 ```
 
-- rozszerzona składnia dyrektywy `.EXTRN`, obecnie możliwe jest zapowiedzenie większej ilości etykiet różnych typów w jednym wierszu, zapowiedzenie procedury `.PROC` w takim wierszu musi znajdować się na jego końcu, np.:
+- extended `.EXTRN` directive syntax; it is now possible to announce more labels of different types in one line; announcing a `.PROC` procedure in such a line must be at its end, e.g.:
 
 ```
 .extrn a,b,c,d .byte  x y z .word  line .proc(.byte x,y) .reg
 ```
 
-- rozszerzona składnia dyrektywy `.VAR`, obecnie możliwe jest zadeklarowanie większej ilości etykiet różnych typów w jednym wierszu oraz przypisanie im adresu od którego zostaną odłożone w pamięci, np.:
+- extended `.VAR` directive syntax; it is now possible to declare more labels of different types in one line and assign them an address from which they will be placed in memory, e.g.:
 
 ```
 .var x y z .byte bit :2 .dword = $80
 ```
 
-- rozszerzona składnia dla parametrów procedur przekazywanych przez zmienne `.VAR`, możliwe jest podanie przesunięcia np.:
+- extended syntax for procedure parameters passed via `.VAR` variables; it is possible to provide an offset, e.g.:
 
 ```
 move .proc (.word src+1,dst+1) .var
@@ -880,13 +878,13 @@ dst sta $ffff
      .endp
 ```
 
-- dodana nowa dyrektywa `.NOWARN` wyłączająca wyświetlenie ostrzeżenia dla aktualnie asemblowanego wiersza, np.:
+- added new `.NOWARN` directive disabling warning display for the currently assembled line, e.g.:
 
 ```
 .nowarn PROCNAME
 ```
 
-- dodane nowe makro rozkazy `PHR` `PLR` realizujące odkładanie i zdejmowanie wartości rejestrów z udziałem stosu sprzętowego, np.:
+- added new `PHR` / `PLR` macro commands implementing pushing and pulling register values using the hardware stack, e.g.:
 
 ```
 PHR -> PHA         PLR -> PLA
@@ -896,7 +894,7 @@ PHR -> PHA         PLR -> PLA
        PHA                PLA
 ```
 
-- dodane nowe makro rozkazy `ADB`, `SBB` realizujące dodawanie i odejmowanie wartości typu `.BYTE`, np.:
+- added new `ADB`, `SBB` macro commands implementing addition and subtraction of `.BYTE` type values, e.g.:
 
 ```
 ADB $80 #12 $b000  ->  lda $80
@@ -909,7 +907,7 @@ SBB #200 $a000     ->  lda #200
                        sta $a000
 ```
 
-- dodana możliwość użycia składni C dla liczb szestnastkowych, np.:
+- added ability to use C syntax for hexadecimal numbers, e.g.:
 
 ```
 lda 0x2000
@@ -920,42 +918,42 @@ temp = 0x8000
 
 ## 1.7.5 <a name="1.7.5"></a>
 
-- dyrektywa `.DS` w blokach relokowalnych **SDX** `RELOC` i **MADS** `RELOC` deklaruje od teraz pusty blok
-- dodany nowy przełącznik -F, który umożliwia umieszczanie rozkazów CPU i pseudo rozkazów od pierwszej kolumny w wierszu
-- przepisane od nowa procedury odczytu bloków `.MACRO` `.REPT` oraz procedura realizująca dzielenie wiersza przy pomocy znaku `\`
-- dodane nowe pseudo rozkazy `ADW`, `SBW` realizujące dodawanie i odejmowanie wartości typu `WORD` dla **CPU6502**, np.:
+- the `.DS` directive in **SDX** `RELOC` and **MADS** `RELOC` relocatable blocks now declares an empty block
+- added new `-F` switch, which enables placing CPU commands and pseudo commands from the first column in a line
+- rewritten procedures for reading `.MACRO` / `.REPT` blocks and the procedure implementing line splitting using the `\` character
+- added new `ADW`, `SBW` pseudo commands implementing addition and subtraction of `WORD` type values for **CPU6502**, e.g.:
 
 ```
 adw hlp #40        ; hlp=hlp+40
 adw hlp #20 pom    ; pom=hlp+20
 ```
 
-- rozszerzone działanie dyrektywy `.DEF` o możliwość zdefiniowania etykiety, np.: `.DEF label`
-- zwiększona liczba przebiegów dla deklaracji etykiet przez EQU dla pewnych szczególnych przypadków
+- extended `.DEF` directive operation to allow defining a label, e.g.: `.DEF label`
+- increased number of passes for label declarations via `EQU` for certain special cases
 
 ## 1.7.4 <a name="1.7.4"></a>
 
-- naprawione działanie dyrektywy `.PRINT`, dotąd mogła nie wyświetlić wartości etykiet zaczynającej się na literę `A` `B` `C` `D` `E` `F` `G` `H` `L` `T` `V`
-- zablokowane działanie dyrektywy `.DS` w blokach `.RELOC` **SDX** oraz naprawione jej działanie z instrukcją warunkową `.IF` `IFT`
-- usprawnione przeszukiwanie ścieżek dostępu `-i:path` (można odwoływać się do podkatalogów tam zawartych)
-- w przypadku wystąpienia błędów podczas asemblacji wyświetlane są one wszystkie a nie tylko pierwszy z błędów
-- poprawione zauważone błędy, m.in. użycie makra w pliku `.RELO`C mogło spowodować w pewnych sytuacjach zapis błędnej informacji o relokownych adresach
-- uproszczony został sposób kończenia procedur wykorzystujących stos programowy **MADS**, nie ma potrzeby używania dyrektywy `.EXIT`, a dyrektywa `.ENDP` nie powoduje już dodatkowych działań na stosie programowym
-- dodana nowa dyrektywa `.SYMBOL` jako odpowiednik bloku aktualizacji `BLK UPDATE NEW SYMBOL 'SYMBOL'`, dyrektywę `.SYMBOL` można użyć w dowolnym miejscu programu
-- dodane automatyczne wywoływanie bloków aktualizacji `ADDRESS` `EXTERNAL` `PUBLIC` `SYMBOL` dla `.RELOC` i **SDX**
-- dodane nowe dyrektywy `.BY` `.WO` `.HE` `.EN` `.SB` (zapożyczone z **MAE**)
-- dodany nowy przełącznik `OPT ?-` (domyślnie) etykiety ze znakiem zapytania (?labels) traktowane są jako etykiety tymczasowe, `OPT ?+` etykiety ze znakiem zapytania `?labels` traktowane są jako lokalne i tymczasowe, nazwą obszaru lokalnego jest ostatnio użyta etykieta bez znaku zapytania
-- dodane dyrektywy `.LEND` `.PEND` `.AEND` `.WEND` `.TEND` `.SEND` jako odpowiedniki dyrektyw `.ENDL` `.ENDP` `.ENDW` `ENDW` `.ENDT` `.ENDS`
-- dodane nowe dyrektywy `.GLOBAL` `.GLOBL` jako odpowiednik (zamiennik) dyrektywy `.PUBLIC`
-- dodana optymalizacja skoków warunkowych `JEQ` `JNE` `JPL` `JMI` `JCC` `JCS` `JVC` `JVS` jeśli jest taka możliwość wybierany jest skok krótki typu `BEQ` `BNE` `BPL` `BMI` `BCC` `BCS` `BVC` `BVS`
-- dodany nowy domyślny separator znak spacji dla przekazywanych parametrów do `.PROC` `.MACRO` dotąd był to tylko znak przecinka
-- usprawnienia dotyczące przekazywania parametrów do makr i procedur, np. paramatrem makra może być dyrektywa zwracająca wartość wyrażenia lub symbol licznika pętli `#`
+- fixed `.PRINT` directive operation; until now it might not have displayed label values starting with letters `A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `L`, `T`, `V`
+- blocked `.DS` directive operation in **SDX** `.RELOC` blocks and fixed its operation with the `.IF` / `IFT` conditional instruction
+- improved search for access paths `-i:path` (subdirectories contained there can be referenced)
+- in case of errors during assembly, all of them are displayed instead of only the first error
+- fixed observed bugs, including use of a macro in a `.RELOC` file which could cause incorrect information about relocated addresses to be saved in certain situations
+- simplified method of ending procedures using the **MADS** program stack; there is no need to use the `.EXIT` directive, and the `.ENDP` directive no longer causes additional actions on the program stack
+- added new `.SYMBOL` directive as an equivalent to the update block `BLK UPDATE NEW SYMBOL 'SYMBOL'`; the `.SYMBOL` directive can be used anywhere in the program
+- added automatic calling of `ADDRESS`, `EXTERNAL`, `PUBLIC`, `SYMBOL` update blocks for `.RELOC` and **SDX**
+- added new `.BY`, `.WO`, `.HE`, `.EN`, `.SB` directives (borrowed from **MAE**)
+- added new `OPT ?-` switch (default): labels with a question mark (`?labels`) are treated as temporary labels; `OPT ?+`: labels with a question mark (`?labels`) are treated as local and temporary; the name of the local area is the last used label without a question mark
+- added `.LEND`, `.PEND`, `.AEND`, `.WEND`, `.TEND`, `.SEND` directives as equivalents to `.ENDL`, `.ENDP`, `.ENDW`, `ENDW`, `.ENDT`, `.ENDS`
+- added new `.GLOBAL`, `.GLOBL` directives as an equivalent (replacement) for the `.PUBLIC` directive
+- added optimization of conditional jumps `JEQ`, `JNE`, `JPL`, `JMI`, `JCC`, `JCS`, `JVC`, `JVS`; if possible, a short jump type `BEQ`, `BNE`, `BPL`, `BMI`, `BCC`, `BCS`, `BVC`, `BVS` is chosen
+- added a new default space separator for parameters passed to `.PROC` / `.MACRO`; until now it was only the comma character
+- improvements regarding passing parameters to macros and procedures, e.g. a macro parameter can be a directive returning an expression value or the loop counter symbol `#`:
 
 ```
-:12 makro #
+:12 macro #
 ```
 
-- dodana możliwość użycia znaku spacji jako separatora dla `.VAR` `.EXTRN` np.
+- added ability to use a space character as a separator for `.VAR` / `.EXTRN`, e.g.:
 
 ```
 .EXTRN a b c d .word
@@ -963,14 +961,14 @@ adw hlp #20 pom    ; pom=hlp+20
 .VAR a b c d .byte
 ```
 
-- rozszerzona składnia dla `.VAR` umożliwiająca zaincjowanie zmiennych stałą, np.:
+- extended `.VAR` syntax allowing initializing variables with a constant, e.g.:
 
 ```
 .var i = 10  j = 12 .byte
 .var a , b = 2 .byte
 ```
 
-- dodane nowe dyrektywy `.WHILE` `.ENDW` pozwalające na automatyczne wygenerowanie kodu dla pętli `WHILE`, np.:
+- added new `.WHILE` / `.ENDW` directives allowing automatic generation of code for a `WHILE` loop, e.g.:
 
 ```
         ldx #$ff
@@ -981,7 +979,7 @@ adw hlp #20 pom    ; pom=hlp+20
 .endw
 ```
 
-- dodane nowe dyrektywy `.TEST` `.ENDT` pozwalające na automatyczne wygenerowanie kodu dla warunku, np.:
+- added new `.TEST` / `.ENDT` directives allowing automatic generation of code for a condition, e.g.:
 
 ```
 .test .byte (@>=#'a')
@@ -993,52 +991,52 @@ adw hlp #20 pom    ; pom=hlp+20
 
 ## 1.7.3 <a name="1.7.3"></a>
 
-- dodana możliwość zmiany adresu asemblacji `.PROC` lub `.LOCAL` bez zmiany adresu ładowania
-- usunięto optymalizację kodu dla makro rozkazów `MWA` itp., która mogła powodować w szczególnych przypadkach zapętlenie się **MADS**
-- dodane dyrektywy `.REG` `.VAR` pozwalające określić sposób przekazywania parametrów do procedur (`.REG` przez rejestry **CPU**, `.VAR` przez zmienne)
-- dodana dyrektywa `.VAR` pozwalająca na deklarację zmiennych w blokach `.PROC` `.LOCAL`, zadeklarowane zmiennne są fizycznie odkładane na końcu takiego bloku
-- rozszerzona składnia dla dyrektywy `.EXTRN`, np. `EXTRN label1,label2,label3... TYPE`
-- jesli brak deklaracji etykiet dla stosu programowego **MADS**, przyjmowane są domyślne wartości `@PROC_VARS_ADR=$0500` `@STACK_ADDRESS=$0600` `@STACK_POINTER=$FE`
-- dodany `repeat_counter #`, który można używać zamiennie z dyrektywą `.R`
-- wystapi błąd *^ not relocatable* przy próbie relokacji rozkazu `lda ^label`
-- dodana obsługa symboli publicznych dla stałych `CONSTANT` w blokach `PUBLIC`
-- poprawiona relokowalnosc dla tablic `.ARRAY`, danych stworzonych przez `.STRUCT`, parametrów przekazywanych do procedur przez stała `#`
+- added ability to change the assembly address of `.PROC` or `.LOCAL` without changing the load address
+- removed code optimization for `MWA` macro commands etc., which could cause **MADS** to loop in special cases
+- added `.REG`, `.VAR` directives allowing to specify the method of passing parameters to procedures (`.REG` via **CPU** registers, `.VAR` via variables)
+- added `.VAR` directive allowing declaration of variables in `.PROC` / `.LOCAL` blocks; declared variables are physically placed at the end of such a block
+- extended `.EXTRN` directive syntax, e.g. `EXTRN label1,label2,label3... TYPE`
+- if no label declaration for the **MADS** program stack exists, default values are assumed: `@PROC_VARS_ADR=$0500`, `@STACK_ADDRESS=$0600`, `@STACK_POINTER=$FE`
+- added `repeat_counter #`, which can be used interchangeably with the `.R` directive
+- `^ not relocatable` error will occur when trying to relocate the `lda ^label` command
+- added support for public symbols for `CONSTANT` constants in `PUBLIC` blocks
+- fixed relocatability for `.ARRAY` arrays, data created by `.STRUCT`, parameters passed to procedures via constant `#`
 
 ## 1.7.2 <a name="1.7.2"></a>
 
-- przepisana na nowo obsługa pseudo rozkazów `REQ` `RNE` `RPL` `RMI` `RCC` `RCS` `RVC` `RVS` `SEQ` `SNE` `SPL` `SMI` `SCC` `SCS` `SVC` `SVS`
-- poprawione działanie dyrektywy `.LINK` dla bloków o stałych adresach
-- poprawione testowanie słów zarezerwowanych (można używać nazw zarezerwowanych dla **WDC 65816** gdy używamy tylko **6502**)
-- zmiany w listingu, wyświetla informacje o numerze banku tylko gdy bank > 0
-- dodana obsługa makro rozkazów `MWA` `MWX` `MWY` `MVA` `MVX` `MVY` `ADD` `SUB` `INW` `DEW` (do ich obsługi nie są już potrzebne makra)
+- rewritten handling of `REQ`, `RNE`, `RPL`, `RMI`, `RCC`, `RCS`, `RVC`, `RVS`, `SEQ`, `SNE`, `SPL`, `SMI`, `SCC`, `SCS`, `SVC`, `SVS` pseudo commands
+- fixed `.LINK` directive operation for fixed-address blocks
+- improved reserved words testing (reserved names for **WDC 65816** can be used when using only **6502**)
+- changes in the listing; displays bank number information only when bank > 0
+- added support for `MWA`, `MWX`, `MWY`, `MVA`, `MVX`, `MVY`, `ADD`, `SUB`, `INW`, `DEW` macro commands (macros are no longer needed to handle them)
 
 ## 1.7.1 <a name="1.7.1"></a>
 
-- dodana możliwość używania nazw mnemoników **WDC 65816** w trybie pracy **6502**, w trybie **WDC 65816** wystąpi już błąd **Reserved word**
-- poprawione działanie pseudo rozkazów skoków `SCC` `RNE` itp. w makrach
-- usprawnione wykonywanie wielu makr rozdzielonych znakiem dwukropka `:`
+- added ability to use **WDC 65816** mnemonic names in **6502** mode; in **WDC 65816** mode a **Reserved word** error will occur
+- fixed operation of `SCC`, `RNE`, etc. jump pseudo commands in macros
+- improved execution of multiple macros separated by the colon `:` character
 
 ## 1.7.0 <a name="1.7.0"></a>
 
-- usunięty błąd, który powodował zbyt mała liczbę przebiegów asemblacji
-- dodana obsługa pseudo rozkazów `JEQ` `JNE` `JPL` `JMI` `JCC` `JCS` `JVC` `JVS` (makra nie są już potrzebne do ich obsługi)
+- fixed a bug that caused too few assembly passes
+- added support for `JEQ`, `JNE`, `JPL`, `JMI`, `JCC`, `JCS`, `JVC`, `JVS` pseudo commands (macros are no longer needed to handle them)
 
 ## 1.6.9 <a name="1.6.9"></a>
 
-- rozszerzona składnia dla `.ARRAY` `.PUT`
-- dodany pseudo rozkaz `EXT` pozwalający na deklaracje etykiety external
-- dodane makra `JEQ` `JNE` `JPL` `JMI` `JCC` `JCS`
-- dodane dyrektywy `.PAGES` `.ENDPG`
-- dodana dyrektywa `.END` zastepujaca inne dyrektywy `.END?`
-- przełącznik `-H` zastąpiony został przez `-HC` (generuje plik nagłówkowy dla **CC65**)
-- dodany nowy przełącznik `-HM` generujący plik nagłówkowy dla **MADS** z sortowaniem na etykiety typu `CONSTANTS` `VARIABLES` `PROCEDURES`
-- dodana nowa dyrektywa `.RELOC` generująca kod relokowalny w formacie **MADS**
+- extended syntax for `.ARRAY`, `.PUT`
+- added `EXT` pseudo command allowing declaration of an external label
+- added `JEQ`, `JNE`, `JPL`, `JMI`, `JCC`, `JCS` macros
+- added `.PAGES`, `.ENDPG` directives
+- added `.END` directive replacing other `.END?` directives
+- `-H` switch has been replaced by `-HC` (generates header file for **CC65**)
+- added new `-HM` switch generating a header file for **MADS** with sorting into labels of type `CONSTANTS`, `VARIABLES`, `PROCEDURES`
+- added new `.RELOC` directive generating relocatable code in **MADS** format
 
 ## 1.6.8 <a name="1.6.8"></a>
 
-- dodana nowa dyrektywa `.PUT` oraz rozszerzona składnia dla dyrektywy `.GET` (../EXAMPLES/MSX/MPT_PLAYER/MPT_RELOCATOR.MAC , ../EXAMPLES/MSX/TMC_PLAYER/TMC_RELOCATOR.MAC)
-- dodana obsługa pseudo rozkazów **XASM** `REQ` `RNE` `RPL` `RMI` `RCC` `RCS` `RVC` `RVS` `SEQ` `SNE` `SPL` `SMI` `SCC` `SCS` `SVC` `SVS`
-- dodana możliwość łączenia dowolnej liczby znanych **MADS** mnemoników przy pomocy znaku `:` (styl **XASM**), np.:
+- added new `.PUT` directive and extended syntax for the `.GET` directive (../EXAMPLES/MSX/MPT_PLAYER/MPT_RELOCATOR.MAC , ../EXAMPLES/MSX/TMC_PLAYER/TMC_RELOCATOR.MAC)
+- added support for **XASM** pseudo commands `REQ`, `RNE`, `RPL`, `RMI`, `RCC`, `RCS`, `RVC`, `RVS`, `SEQ`, `SNE`, `SPL`, `SMI`, `SCC`, `SCS`, `SVC`, `SVS`
+- added ability to join any number of known **MADS** mnemonics using the `:` character (**XASM** style), e.g.:
 
 ```
 lda:cmp:req 20
@@ -1047,22 +1045,22 @@ ldx:ldy:lda:iny label
 
 ## 1.6.6 - 1.6.7 <a name="1.6.6_1.6.7"></a>
 
-- źródło **MADS** kompatybilne z **Free Pascal Compiler**, po kompilacji możliwe jest jego używanie na innych platformach systemowych, jak np. **Linux**, **Mac OS**, **OS/2** itp.
-- od teraz **MADS** sam dobiera odpowiednią liczbę przebiegów asemblacji, przełącznik `/3` nie jest już potrzebny
-- poprawiony i rozbudowany został mechanizm przekazywania parametrów do **MADS** (rozdział *Przełączniki assemblera*)
-- poprawione zostało wywołanie makra w linii rozdzielanej znakiem `\` oraz usprawnione rozpoznawanie i wykonywanie linii rozdzielanych znakami `\`
-- poprawiony błąd, w którym **MADS** mylił dyrektywę `.ENDM` z pseudorozkazem `IFT`
-- poprawione działanie instrukcji warunkowych `.ELSEIF` `.ELSE`
-- poprawione testowanie poprawności instrukcji warunkowych w makrach
-- obsługa procedur `.PROC` została rozbudowana o nowe makra i mechanizmy, dzięki którym podobna jest w działaniu jak i łatwości użycia do procedur z języków wyższego poziomu
-- dla procedur `.PROC` z zadeklarowanymi parametrami potrzebna jest teraz dodatkowa deklaracja `@PROC_VARS_ADR`
-- brak ograniczeń w liczbie parametrów przekazywanych do procedur, jedynym ograniczeniem jest dostępna pamięć
-- dodany nowy przełącznik `/d:label=value` pozwalający zdefiniować nową etykietę **MADS** z poziomu linii poleceń
-- dodany nowy przełącznik `/x` **Exclude unreferenced procedures** pozwalający pominąć podczas asemblacji nie używane w programie procedury zadeklarowane dyrektywą `.PROC`
-- nowa opcja `OPT T+` (track sep, rep) śledząca zmiany rozmiaru rejestrów `A` `X` `Y` dokonywane przez rozkazy `SEP`, `REP` **WDC 65816**
-- nowe biblioteki w katalogu `..\EXAMPLES\LIBRARIES`
-- w deklaracji obszaru lokalnego `.LOCAL` nie jest wymagane podanie nazwy obszaru
-- nowe operatory `-=` `+=` `++` `--` pozwalające zmniejszyć/zwiększyć wartość etykiety tymczasowej, np.:
+- **MADS** source compatible with **Free Pascal Compiler**; after compilation it can be used on other operating platforms, such as **Linux**, **Mac OS**, **OS/2**, etc.
+- from now on **MADS** itself chooses the appropriate number of assembly passes; the `/3` switch is no longer needed
+- improved and expanded mechanism for passing parameters to **MADS** (section *Assembler switches*)
+- fixed macro call in a line split with the `\` character and improved recognition and execution of lines split with `\` characters
+- fixed a bug in which **MADS** confused the `.ENDM` directive with the `IFT` pseudo command
+- fixed operation of `.ELSEIF`, `.ELSE` conditional instructions
+- fixed correctness testing of conditional instructions in macros
+- `.PROC` procedure support has been expanded with new macros and mechanisms, making its operation and ease of use similar to procedures from higher-level languages
+- for `.PROC` procedures with declared parameters, an additional `@PROC_VARS_ADR` declaration is now needed
+- no limit on the number of parameters passed to procedures; the only limit is available memory
+- added new `/d:label=value` switch allowing definition of a new **MADS** label from the command line
+- added new `/x` switch (**Exclude unreferenced procedures**) allowing to skip procedures declared with the `.PROC` directive not used in the program during assembly
+- new `OPT T+` option (track sep, rep) tracking `A`, `X`, `Y` register size changes made by `SEP`, `REP` **WDC 65816** commands
+- new libraries in the `..\EXAMPLES\LIBRARIES` directory
+- in the `.LOCAL` area declaration, providing an area name is not required
+- new `-=`, `+=`, `++`, `--` operators allowing to decrease/increase the value of a temporary label, e.g.:
 
 ```
 ?label --      ->   ?label=?label-1
@@ -1071,9 +1069,9 @@ ldx:ldy:lda:iny label
 ?ofset -= 5    ->   ?ofset=?ofset-5
 ```
 
-- rozszerzona o znak przecinka składnia deklaracji parametrów procedur, np.:
+- extended syntax for procedure parameter declaration with the comma character, e.g.:
 
 ```
-.proc nazwa (.byte a,b,c .word d,e)
+.proc name (.byte a,b,c .word d,e)
 .endp
 ```

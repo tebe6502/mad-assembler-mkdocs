@@ -1,20 +1,20 @@
-## Procedury
+## Procedures
 
-**MADS** wprowadza nowe możliwości w obsłudze procedur z parametrami. Nowe możliwości upodabniają ten mechanizm do tych znanych z języków wysokiego poziomu i są tak samo łatwe w użyciu dla programisty.
+**MADS** introduces new capabilities for handling procedures with parameters. These new features make the mechanism similar to those known from high-level languages and are just as easy for the programmer to use.
 
-Aktualnie dołączone do **MADS**-a deklaracje makr (`@CALL.MAC`, `@PULL.MAC`, `@EXIT.MAC`) umożliwiają obsługę stosu programowego o wielkości 256 bajtów, czyli tej samej wielkości jak stos sprzętowy, udostępniają mechanizm zdejmowania ze stosu programowego i odkładania na stos programowy parametrów potrzebnych podczas wywoływania procedur, jak i wychodzenia z takich procedur. **MADS** uwzględnia możliwość rekurencji takich procedur.
+The macro declarations currently included with **MADS** (`@CALL.MAC`, `@PULL.MAC`, `@EXIT.MAC`) enable support for a software stack of 256 bytes—the same size as the hardware stack. They provide a mechanism for pulling parameters from and pushing parameters to the software stack as required during procedure calls and exits. **MADS** accounts for the possibility of recursion for such procedures.
 
-Programista nie jest zaangażowany w ten mechanizm, może skupić uwagę na swoim programie. Musi tylko pamiętać o potrzebie zdefiniowania odpowiednich etykiet i dołączeniu odpowiednich makr podczas asemblacji programu.
+The programmer is not involved in this mechanism and can focus on their program. They only need to remember to define the appropriate labels and include the relevant macros during program assembly.
 
-Dodatkowo istnieje możliwość pominięcia "mechanizmu" stosu programowego **MADS**-a i skorzystanie z klasycznego sposobu ich przekazywania, za pomocą rejestrów *CPU* (dyrektywa `.REG`) lub przez zmienne (dyrektywa `.VAR`).
+Additionally, it is possible to bypass the **MADS** software stack 'mechanism' and use the classic method of passing parameters via *CPU* registers (using the `.REG` directive) or through variables (using the `.VAR` directive).
 
-Inną właściwością procedur `.PROC` jest możliwość pominięcia ich podczas asemblacji jeśli nie wystąpiło żadne odwołanie do nich, czyli zostały zdefiniowane ale nie są wykorzystane. Wystąpi wówczas komunikat ostrzeżenia _**Unreferenced procedure ????**_. Pominięcie takiej procedury podczas asemblacji możliwe jest poprzez podanie parametru do **MADS**-a w linii poleceń `-x 'Exclude unreferenced procedures'`.
+Another property of `.PROC` procedures is the ability to omit them during assembly if no reference to them has occurred—i.e., they are defined but not used. In such cases, an *Unreferenced procedure ????* warning message will appear. Omitting such a procedure during assembly is possible by passing the `-x 'Exclude unreferenced procedures'` parameter to **MADS** on the command line.
 
-Wszelkie etykiety zdefiniowane w obszarze procedury `.PROC` są zasięgu lokalnego, można je też określić jako etykiety globalne zdefiniowane lokalnie o dostępie swobodnym, ponieważ można się do nich odwoływać co nie jest normalne w innych językach programowania.
+Any labels defined within the `.PROC` procedure scope are local. They can also be considered globally defined local labels with free access, as they can be referenced from outside—which is not typical in other programming languages.
 
-W obszarze procedury `.PROC` istnieje możliwość zdefiniowania etykiet o zasięgu globalnym (patrz rozdział [Etykiety globalne](#globalne)).
+Within the .PROC procedure area, it is possible to define labels with global scope (see the [Global labels](labels.md#global) chapter).
 
-Jeśli chcemy dostać się do etykiet zdefiniowanych w procedurze spoza obszaru procedury, wówczas adresujemy z użyciem znaku kropki `.`, np.:
+If you want to access labels defined within a procedure from outside the procedure scope, you address them using the dot character `.`, e.g.:
 
 ```
  lda test.pole
@@ -26,29 +26,29 @@ pole nop
 .endp
 ```
 
-Jeśli poszukiwana przez assembler etykieta nie wystąpiła w obszarze procedury `.PROC`, wówczas **MADS** będzie poszukiwał ją w obszarze niższym aż dojdzie do obszaru globalnego. Aby odczytać natychmiastowo wartość etykiety globalnej z poziomu procedury `.PROC` (czy też innego obszaru lokalnego) poprzedzamy nazwę etykiety znakiem dwukropka `:`.
+If a label sought by the assembler does not occur within the `.PROC` procedure scope, **MADS** will search for it in lower scopes until it reaches the global scope. To immediately read the value of a global label from within a `.PROC` procedure (or any other local area), precede the label name with a colon `:`.
 
-**MADS** wymaga dla procedur wykorzystujących stos programowy, trzech globalnych definicji etykiet o konkretnych nazwach (adres stosu, wskaźnik stosu, adres parametrów procedury):
+**MADS** requires for procedures using the software stack, three global label definitions with specific names (stack address, stack pointer, procedure parameters address):
 
  - @PROC_VARS_ADR
  - @STACK_ADDRESS
  - @STACK_POINTER
 
-Brak definicji w/w etykiet i próba użycia bloku `.PROC` wykorzystującego stos programowy spowoduje że **MADS** przyjmie swoje domyślne wartości tych etykiet: `@PROC_VARS_ADR = $0500`, `@STACK_ADDRESS = $0600`, `@STACK_POINTER = $FE`
+Failure to define the above labels while attempting to use a `.PROC` block that utilizes the software stack will cause **MADS** to assume its default values for these labels: `@PROC_VARS_ADR = $0500`, `@STACK_ADDRESS = $0600`, `@STACK_POINTER = $FE`
 
-**MADS** dla procedur wykorzystujących stos programowy wymaga także deklaracji makr o konkretnych nazwach. Dołączone do **MADS**-a deklaracje tych makr znajdują się w plikach:
+For procedures using the software stack, **MADS** also requires macro declarations with specific names. The declarations for these macros included with **MADS** can be found in the following files:
 
  - @CALL    ..\EXAMPLES\MACROS\@CALL.MAC
  - @PUSH    ..\EXAMPLES\MACROS\@CALL.MAC
  - @PULL    ..\EXAMPLES\MACROS\@PULL.MAC
  - @EXIT    ..\EXAMPLES\MACROS\@EXIT.MAC
 
-W/w makra realizują przekazywanie i odkładanie na programowy stos parametrów, oraz zdejmowanie i odkładanie parametrów dla procedur wykorzystujących stos programowy i wywoływanych z poziomu innych procedur wykorzystujących stos programowy.
+The aforementioned macros handle passing and pushing parameters onto the software stack, as well as pulling and pushing parameters for procedures using the software stack that are called from within other procedures also using the software stack.
 
 
-### Deklaracja procedury
+### Procedure Declaration
 
-Procedur dotyczą n/w dyrektywy:
+The following directives apply to procedures:
 
 ```
  name .PROC [(.TYPE PAR1 .TYPE PAR2 ...)] [.REG] [.VAR]
@@ -58,20 +58,20 @@ Procedur dotyczą n/w dyrektywy:
 
 #### name .PROC [(.TYPE Par1,Par2 .TYPE Par3 ...)] [.REG] [.VAR]
 
-Deklaracja procedury name przy użyciu dyrektywy `.PROC`. Nazwa procedury jest wymagana i konieczna, jej brak wygeneruje błąd. Do nazw procedur nie można używać nazw mnemoników i pseudo rozkazów. Jeśli nazwa jest zarezerwowana wystąpi błąd z komunikatem _**Reserved word**_.
+Declaration of procedure `name` using the `.PROC` directive. The procedure name is required and mandatory; its absence will generate an error. Names of mnemonics and pseudo-instructions cannot be used as procedure names. If a name is reserved, an error with the message *Reserved word* will occur.
 
-Jeśli chcemy wykorzystać jeden z mechanizmów **MADS**-a do przekazywania parametrów do procedur, musimy je wcześniej zadeklarować. Deklaracja parametrów procedury mieści się pomiędzy nawiasami okrągłymi `( )`. Dostępne są cztery typy parametrów:
+If we want to use one of the **MADS** mechanisms for passing parameters to procedures, we must declare them beforehand. The declaration of procedure parameters is enclosed in parentheses `( )`. Four parameter types are available:
 
- - .BYTE  (8-bit)  relokowalne
- - .WORD  (16-bit) relokowalne
- - .LONG  (24-bit) nierelokowalne
- - .DWORD (32-bit) nierelokowalne
+ - .BYTE  (8-bit)  relocatable
+ - .WORD  (16-bit) relocatable
+ - .LONG  (24-bit) non-relocatable
+ - .DWORD (32-bit) non-relocatable
 
-> _W obecnej wersji **MADS**-a nie ma możliwości przekazywania parametrów za pomocą struktur `.STRUCT`._
+> _In the current version of **MADS**, it is not possible to pass parameters using `.STRUCT` structures._
 
-Bezpośrednio po deklaracji typu, oddzielona minimum jedną spacją, następuje nazwa parametru. Jeśli deklarujemy więcej parametrów tego samego typu możemy rozdzielić ich nazwy znakiem przecinka ','.
+Immediately following the type declaration, separated by at least one space, is the parameter name. If declaring multiple parameters of the same type, their names can be separated by a comma `,`.
 
-Przykład deklaracji procedury wykorzystującej stos programowy:
+Example of a procedure declaration using the software stack:
 
 ```
 name .PROC ( .WORD par1 .BYTE par2 )
@@ -79,9 +79,9 @@ name .PROC ( .BYTE par1,par2 .LONG par3 )
 name .PROC ( .DWORD p1,p2,p3,p4,p5,p6,p7,p8 )
 ```
 
-Dodatkowo używając dyrektyw `.REG` lub `.VAR` mamy możliwość określenia sposobu i metody przekazywania parametrów do procedur **MADS**-a. Przez rejestry *CPU* (`.REG`) lub przez zmienne (`.VAR`). Dyrektywy określające sposób przekazywania parametrów umieszczamy na końcu naszej deklaracji procedury `.PROC`
+Additionally, by using the `.REG` or `.VAR` directives, we can specify the way and method of passing parameters to **MADS** procedures: via *CPU* registers (`.REG`) or via variables (`.VAR`). Directives specifying the parameter passing method are placed at the end of our `.PROC` procedure declaration.
 
-Przykład deklaracji procedury wykorzystującej rejestry *CPU*:
+Example of a procedure declaration using *CPU* registers:
 
 ```
 name .PROC ( .BYTE x,y,a ) .REG
@@ -89,9 +89,9 @@ name .PROC ( .WORD xa .BYTE y ) .REG
 name .PROC ( .LONG axy ) .REG
 ```
 
-Dyrektywa `.REG` wymaga aby nazwy parametrów składały się z liter `A`, `X`, `Y` lub ich kombinacji. Litery te odpowiadają nazwom rejestrów *CPU* i wpływają na kolejność użycia rejestrów. Ograniczeniem w liczbie przekazywanych parametrów jest ilość rejestrów *CPU*, przez co możemy przekazać do procedury w sumie maksimum 3 bajty. Zaletą takiego sposobu jest natomiast szybkość i małe zużycie pamięci *RAM*.
+The `.REG` directive requires parameter names to consist of the letters `A`, `X`, `Y`, or combinations thereof. These letters correspond to the *CPU* registers and determine the order in which registers are used. The number of parameters that can be passed is limited by the number of *CPU* registers, meaning a total of at most 3 bytes can be passed to the procedure. The advantage of this method, however, is speed and low *RAM* usage.
 
-Przykład deklaracji procedury wykorzystującej zmienne:
+Example of a procedure declaration using variables:
 
 ```
 name .PROC ( .BYTE x1,x2,y1,y2 ) .VAR
@@ -99,11 +99,11 @@ name .PROC ( .WORD inputPointer, outputPointer ) .VAR
 name .PROC ( .WORD src+1, dst+1 ) .VAR
 ```
 
-Dla `.VAR` nazwy parametrów wskazują nazwy zmiennych do których będą ładowane przekazywane parametry. Metoda ta jest wolniejsza od `.REG` jednak nadal szybsza od metody ze stosem programowym.
+For `.VAR`, the parameter names indicate the names of variables into which the passed parameters will be loaded. This method is slower than `.REG` but still faster than the software stack method.
 
-Procedurę opuszczamy w standardowy sposób, czyli przy pomocy rozkazu `RTS`. Dodanie rozkazu `RTS` w ciele procedury przy wyjściu z każdej ścieżki jest obowiązkiem programującego, a nie assemblera.
+You exit a procedure in the standard way, i.e., using the `RTS` instruction. Adding an `RTS` instruction within the procedure body at every exit path is the programmer's responsibility, not the assembler's.
 
-Podobnie jak w przypadku bloku `.LOCAL` mamy możliwość określenia nowego adresu asemblacji dla bloku `.PROC`, np.:
+As with a `.LOCAL` block, we can specify a new assembly address for a `.PROC` block, e.g.:
 
 ```
 .PROC label,$8000
@@ -113,7 +113,7 @@ Podobnie jak w przypadku bloku `.LOCAL` mamy możliwość określenia nowego adr
 .ENDP
 ```
 
-W przypadku procedur wykorzystujących stos programowy po zakończeniu procedury przez `.ENDP` **MADS** wywołuje makro `@EXIT`, którego zadaniem jest modyfikacja wskaźnika stosu programowego `@STACK_POINTER`, jest to konieczne dla prawidłowego działania stosu programowego. Użytkownik może sam zaprojektować swoje makro `@EXIT`, albo skorzystać z dołączonego do **MADS**-a (plik ..\EXAMPLES\MACROS\@EXIT.MAC), ma ono obecnie następującą postać:
+For procedures utilizing the software stack, after the procedure ends with `.ENDP`, **MADS** calls the `@EXIT` macro, which is responsible for modifying the `@STACK_POINTER` software stack pointer. This is necessary for the software stack to function correctly. The user can design their own `@EXIT` macro or use the one included with **MADS** (file `..\EXAMPLES\MACROS\@EXIT.MAC`), which currently takes the following form:
 
 ```
 .macro @EXIT
@@ -141,56 +141,56 @@ W przypadku procedur wykorzystujących stos programowy po zakończeniu procedury
 .endm
 ```
 
-Makro `@EXIT` nie powinno zmieniać zawartości rejestrów *CPU* jeśli chcemy zachować możliwość zwrócenie wyniku działania procedury `.PROC` poprzez rejestry *CPU*.
+The `@EXIT` macro should not change the contents of *CPU* registers if we wish to retain the ability to return the result of the `.PROC` procedure via *CPU* registers.
 
 #### .ENDP
 
-Dyrektywa `.ENDP` kończy deklarację bloku procedury.
+The `.ENDP` directive ends the procedure block declaration.
 
 
-### Wywołanie procedury
+### Procedure Call
 
-Procedurę wywołujemy poprzez jej nazwę (identycznie jak makro), po niej mogą wystąpić parametry, rozdzielone separatorem w postaci znaku przecinka `,` lub spacji `' '` (nie ma możliwości zadeklarowania innych separatorów).
+A procedure is called by its name (just like a macro), followed by parameters separated by a comma `,` or a space `' '` (no other separators can be declared).
 
-Jeśli typ parametru nie będzie zgadzał się z typem zadeklarowanym w deklaracji procedury wystąpi komunikat błędu _**Incompatible types**_.
+If the parameter type does not match the type declared in the procedure declaration, an *Incompatible types* error message will occur.
 
-Jeśli przekazana liczba parametrów różni się od liczby zadeklarowanych parametrów w deklaracji procedury to wystąpi komunikat błędu _**Improper number of actual parameters**_. Wyjątkiem jest procedura do której parametry przekazywane są przez rejestry *CPU* (`.REG`) lub zmienne (`.VAR`), w takich przypadkach możemy pominąć parametry, w domyśle są one już załadowane do odpowiednich rejestrów czy też zmiennych.
+If the number of passed parameters differs from the number of parameters declared in the procedure declaration, an *Improper number of actual parameters* error message will occur. An exception is a procedure where parameters are passed via *CPU* registers (`.REG`) or variables (`.VAR`); in such cases, parameters can be omitted, as they are assumed to be already loaded into the appropriate registers or variables.
 
-Możliwe są trzy sposoby przekazania parametru:
+Three ways of passing a parameter are possible:
 
-- '#' przez wartość
-- ' ' przez wartość spod adresu (bez znaku poprzedzającego)
-- '@' przez akumulator (parametry typu .BYTE)
-- "string" przez ciąg znakowy, np. "label,x"
+- '#' by value
+- ' ' by value from an address (without a preceding character)
+- '@' via the accumulator (for `.BYTE` type parameters)
+- "string" via a character string, e.g., "label,x"
 
-Przykład wywołania procedury:
+Example of a procedure call:
 
 ```
- name @ , #$166 , $A400  ; dla stosu programowego
- name , @ , #$3f         ; dla .REG lub .VAR
- name "(hlp),y" "tab,y"	 ; dla .VAR lub dla stosu programowego (stos programowy korzysta z regX)
+ name @ , #$166 , $A400  ; for the software stack
+ name , @ , #$3f         ; for .REG or .VAR
+ name "(hlp),y" "tab,y"	 ; for .VAR or for the software stack (the software stack uses regX)
 ```
 
-**MADS** po napotkaniu wywołania procedury, która korzysta ze stosu programowego wymusza wykonanie makra `@CALL`. Jeśli jednak procedura nie korzysta ze stosu programowego, zamiast makra `@CALL` zostanie wygenerowany zwykły rozkaz `JSR PROCEDURE`.
+Upon encountering a call to a procedure that uses the software stack, **MADS** forces the execution of the `@CALL` macro. However, if the procedure does not use the software stack, a standard `JSR PROCEDURE` instruction will be generated instead of the `@CALL` macro.
 
-Do makra `@CALL` **MADS** przekazuje parametry wyliczone na podstawie deklaracji procedury (rozbija każdy parametr na trzy składowe: tryb adresacji, typ parametru, wartość parametru).
+**MADS** passes parameters to the `@CALL` macro calculated based on the procedure declaration (it breaks each parameter down into three components: addressing mode, parameter type, and parameter value).
 
 ```
 @CALL_INIT 3\ @PUSH_INIT 3\ @CALL '@','B',0\ @CALL '#','W',358\ @CALL ' ',W,"$A400"\ @CALL_END PROC_NAME
 ```
 
-Makro `@CALL` odłoży na stos zawartość akumulatora, następnie wartość $166 (358 dec), następnie wartość spod adresu $A400. Więcej informacji na temat sposobu przekazywania parametrów do makr (znaczenia apostrofów `' '` i `" "`) w rozdziale [Wywołanie makra](../skladnia/#wywoanie-makra).
+The `@CALL` macro will push the accumulator's contents onto the stack, followed by the value `$166` (358 decimal), and then the value from address `$A400`. For more information on passing parameters to macros (and the meaning of single `' '` and double `" "` quotes), see the [Macro call](macros.md#macro-call) chapter.
 
-Parametr przekazywany przez akumulator `@` powinien być zawsze pierwszym parametrem przekazywanym do procedury, jeśli wystąpi w innym miejscu zawartość akumulatora zostanie zmodyfikowana (domyślne makro `@CALL` nakłada takie ograniczenie). Oczywiście użytkownik może to zmienić pisząc swoją wersję makra `@CALL`. W przypadku procedur `.REG` lub `.VAR` kolejność wystąpienia parametru `@` nie ma znaczenia.
+A parameter passed via the accumulator `@` should always be the first parameter passed to the procedure; if it appears elsewhere, the accumulator's contents will be modified (the default `@CALL` macro imposes this limitation). Of course, the user can change this by writing their own version of the `@CALL` macro. In the case of `.REG` or `.VAR` procedures, the order of the `@` parameter does not matter.
 
-Wyjście z procedury `.PROC` następuje poprzez rozkaz `RTS`. Po powrocie z procedury **MADS** wywołuje makro `@EXIT` które zawiera program modyfikujący wartość wskaźnika stosu `@STACK_POINTER`, jest to niezbędne w celu prawidłowego działania stosu programowego. Od wskaźnika stosu odejmowana jest liczba bajtów które zostały przekazane do procedury, liczba bajtów przekazywana jest do makra jako parametr.
+Exit from a `.PROC` procedure occurs via the `RTS` instruction. Upon returning from the procedure, **MADS** calls the `@EXIT` macro, which contains code to modify the `@STACK_POINTER` stack pointer; this is essential for the software stack to function correctly. The number of bytes passed to the procedure is subtracted from the stack pointer; this byte count is passed to the macro as a parameter.
 
-Dodanie rozkazu `RTS` w ciele procedury przy wyjściu z każdej ścieżki jest obowiązkiem programującego, a nie assemblera.
+Adding an `RTS` instruction within the procedure body at every exit path is the programmer's responsibility, not the assembler's.
 
 
-### Parametry procedury
+### Procedure Parameters
 
-Odwołania do parametrów procedury z poziomu procedury nie wymagają dodatkowych operacji ze strony programisty, np.:
+Referencing procedure parameters from within the procedure does not require additional actions from the programmer, e.g.:
 
 ```
 @stack_address equ $400
@@ -215,9 +215,9 @@ name .PROC (.WORD par1,par2)
  icl '@exit.mac'
 ```
 
-**MADS** w momencie napotkania deklaracji `.PROC` z parametrami, dokonuje automatycznej definicji tych parametrów przypisując im wartości na podstawie `@PROC_VARS_ADR`. W w/w przykładzie **MADS** dokona automatycznej definicji parametrów `PAR1 = @PROC_VARS_ADR`, `PAR2 = @PROC_VARS_ADR + 2`.
+Upon encountering a `.PROC` declaration with parameters, **MADS** automatically defines these parameters, assigning them values based on `@PROC_VARS_ADR`. In the example above, **MADS** will automatically define parameters `PAR1 = @PROC_VARS_ADR` and `PAR2 = @PROC_VARS_ADR + 2`.
 
-Programista odwołuje się do tych parametrów po nazwie jaka została im nadana w deklaracji procedury, czyli podobnie jak ma to miejsce w językach wyższego poziomu. W **MADS** istnieje możliwość dostępu do parametrów procedury spoza procedury co nie jest już normalne w językach wyższego poziomu. Możemy odczytać z w/w przykładu zawartość `PAR1`, np.:
+The programmer references these parameters by the name given in the procedure declaration, similar to high-level languages. In **MADS**, it is possible to access procedure parameters from outside the procedure, which is not typical in high-level languages. From the example above, we can read the contents of `PAR1`, e.g.:
 
 ```
  lda name.par1
@@ -226,7 +226,6 @@ Programista odwołuje się do tych parametrów po nazwie jaka została im nadana
  sta $a000+1
 ```
 
-Wartość `PAR1` została przepisane pod adres $A000, wartość PAR1+1 pod adres $A000+1. Oczywiście możemy tego dokonać tylko bezpośrednio po zakończeniu tej konkretnej procedury. Trzeba pamiętać że parametry takich procedur odkładane są pod wspólnym adresem `@PROC_VARS_ADR`, więc z każdym nowym wywołaniem procedury wykorzystującej stos programowy zawartość obszaru `<@PROC_VARS_ADR .. @PROC_VARS_ADR + $FF>` ulega zmianom.
+The value of `PAR1` has been copied to address `$A000`, and the value of `PAR1+1` to address `$A000+1`. Of course, this can only be done immediately after that specific procedure finishes. Keep in mind that parameters for such procedures are stored at the common address `@PROC_VARS_ADR`, so with each new call to a procedure utilizing the software stack, the contents of the area `<@PROC_VARS_ADR .. @PROC_VARS_ADR + $FF>` change.
 
-Jeśli procedura ma zadeklarowane parametry typu `.REG` programista powinien zatroszczyć się o to aby je zapamiętać czy też właściwie wykorzystać zanim zostaną zmodyfikowane przez kod procedury. W przypadku parametrów typu `.VAR` nie trzeba się o nic martwić ponieważ parametry zostały zapisane do konkretnych komórek pamięci skąd zawsze możemy je odczytać.
-
+If a procedure has parameters declared as type `.REG`, the programmer should ensure they are saved or properly utilized before being modified by the procedure code. For parameters of type `.VAR`, there is no cause for concern, as parameters are saved to specific memory cells from which they can always be read.

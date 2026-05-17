@@ -1,58 +1,58 @@
 #
 
-## Komentarze
+## Comments
 
-Znaki komentarza jednoliniowego powinniśmy poprzedzać znakiem `;` lub `*`. Do oznaczania komentarza jednoliniowego najbezpieczniej jest jednak używać średnika `;` ponieważ znak `*` ma też inne znaczenia, może oznaczać operację mnożenia, czy też aktualny adres podczas asemblacji. Średnik natomiast dedykowany jest tylko i wyłącznie do oznaczania komentarzy.
+Single-line comment characters should be preceded by the `;` or `*` sign. However, for marking single-line comments, it is safest to use the semicolon `;` because the `*` character has other meanings—it can represent a multiplication operation or the current address during assembly. The semicolon, on the other hand, is dedicated solely to marking comments.
 
-Do oznaczenia komentarza jednoliniowego możliwe jest też użycie znaków `//`, a dla wieloliniowego znaków `/* */`.
+It is also possible to use `//` for single-line comments and `/* */` for multi-line comments.
 
 ```
- * to jest komentarz
-                 ; to jest komentarz
- lda #0      ; to jest komentarz
- dta  1 , 3     * BŁĘDNY KOMENTARZ, ZOSTANIE ŹLE ZINTERPRETOWANY
+ * this is a comment
+                 ; this is a comment
+ lda #0      ; this is a comment
+ dta  1 , 3     * INVALID COMMENT, WILL BE MISINTERPRETED
 
- org $2000 + 1      BŁĘDNY KOMENTARZ, ZOSTANIE ŹLE ZINTERPRETOWANY
+ org $2000 + 1      INVALID COMMENT, WILL BE MISINTERPRETED
 
- nop // to jest komentarz
+ nop // this is a comment
 
- // to jest komentarz
+ // this is a comment
 
- dta 1,2, /* komentarz */ 3,4
+ dta 1,2, /* comment */ 3,4
 
- lda /* komentarz */ #0
+ lda /* comment */ #0
 
 /*
   ...
-  to jest komentarz wieloliniowy
+  this is a multi-line comment
   ...
 */
 
 /*************************************
-  to tez jest komentarz wieloliniowy
+  this is also a multi-line comment
 **************************************/
 ```
 
-Znaki oznaczające komentarz wieloliniowy `/* */` i znaki oznaczające komentarz jednoliniowy `//` można stosować bez ograniczeń.
+Multi-line comment characters `/* */` and single-line comment characters `//` can be used without restrictions.
 
-## Łączenie wierszy
+## Line Joining
 
-Dowolną ilość wierszy listingu możemy połączyć (rozdzielić) w jeden wiersz używając znaku `\`, np.:
+Any number of listing lines can be combined (separated) into a single line using the `\` character, e.g.:
 
 ```
   lda 20\ cmp 20\ beq *-2
 
   lda 20   \ cmp  20   \   beq *-2
 
-  lda #0  \lop  sta $a000,y  \ iny  \ bne lop     ; komentarz tylko na końcu takiego wiersza
+  lda #0  \lop  sta $a000,y  \ iny  \ bne lop     ; comment only at the end of such a line
 ```
 
-Jeśli po znaku `\` nie umieścimy znaku spacji, wówczas mnemonik czy inny ciąg znakowy może zostać zinterpretowany jako etykieta, należy pamiętać że znak `\` oznacza początek nowej linii.
+If a space character is not placed after the `\` character, the mnemonic or other character string may be interpreted as a label. Remember that the `\` sign signifies the start of a new line.
 
-**MADS** kończy przetwarzać taki wiersz, aż do napotkania komentarza lub napotkania końca ciągu znakowego, dlatego komentarze możemy umieszczać tylko na końcu takiego wielo-wiersza.
+**MADS** finishes processing such a line upon encountering a comment or the end of the character string; therefore, comments can only be placed at the end of such a multi-line.
 
-> **UWAGA:**
-> _Umieszczenie znaku `\` na końcu wiersza oznacza dla **MADS** chęć kontynuowania aktualnego wiersza od następnego wiersza, np.:_
+> **NOTE:**
+> _Placing the `\` character at the end of a line indicates to **MADS** the intention to continue the current line on the next line, e.g.:_
 
 ```
  lda\
@@ -60,11 +60,11 @@ Jeśli po znaku `\` nie umieścimy znaku spacji, wówczas mnemonik czy inny cią
  12
 ```
 
-Dla w/w przykładu otrzymamy rozkaz `LDA #12`.
+In the above example, we will get the `LDA #12` instruction.
 
-## Łączenie mnemoników
+## Mnemonic Chaining
 
-Możliwość łączenia dwóch mnemoników za pomocą znaku dwukropka `:` znana jest już z **XASM**. W **MADS** ta możliwość została rozszerzona o łączenie dowolnej liczby znanych **MADS** mnemoników, np.:
+The ability to chain two mnemonics using the colon `:` character is already known from **XASM**. In **MADS**, this capability has been extended to chaining any number of mnemonics known to **MADS**, e.g.:
 
 ```
  lda:cmp:req 20
@@ -72,17 +72,17 @@ Możliwość łączenia dwóch mnemoników za pomocą znaku dwukropka `:` znana 
  lda:iny:sta:iny $600,y
 ```
 
-## Wyrażenia
+## Expressions
 
-Termin wyrażenie oznacza sekwencję operatorów i operandów (argumentów), która określa operacje, tj. rodzaj i kolejność obliczeń. Wyrażeniem złożonym nazywa się takie wyrażenie, w którym występuje dwa lub więcej operatorów. Operatory, które oddziaływują tylko na jeden operand, nazywa się jednoargumentowymi (unarnymi). Operatory dwuargumentowe nazywa się binarnymi.
+The term "expression" refers to a sequence of operators and operands (arguments) that defines operations, i.e., the type and order of calculations. A complex expression is one in which two or more operators occur. Operators that act on only one operand are called unary. Operators with two arguments are called binary.
 
-Wartościowanie wyrażenia przebiega w porządku, określonym pierwszeństwem operatorów i w kierunku, określonym przez kierunek wiązania operatorów.
+The evaluation of an expression proceeds in the order defined by operator precedence and in the direction defined by operator associativity.
 
-### Liczby
+### Numbers
 
-**MADS** akceptuje zapis liczb w formacie decymalnym, hexadecymalnym, binarnym oraz w kodach **ATASCII** i **INTERNAL**.
+**MADS** accepts numbers in decimal, hexadecimal, and binary formats, as well as in **ATASCII** and **INTERNAL** codes.
 
-#### zapis decymalny
+#### decimal notation
 
 ```JavaScript
     -100
@@ -90,7 +90,7 @@ Wartościowanie wyrażenia przebiega w porządku, określonym pierwszeństwem op
     1743
 ```
 
-#### zapis hexadecymalny
+#### hexadecimal notation
 
 ```JavaScript
     $100
@@ -102,7 +102,7 @@ Wartościowanie wyrażenia przebiega w porządku, określonym pierwszeństwem op
     0xaabbccdd
 ```
 
-#### zapis binarny
+#### binary notation
 
 ```JavaScript
     %0001001010
@@ -110,7 +110,7 @@ Wartościowanie wyrażenia przebiega w porządku, określonym pierwszeństwem op
     %001000
 ```
 
-#### zapis kodami ATASCII:
+#### ATASCII code notation:
 
 ```JavaScript
     'a'
@@ -118,7 +118,7 @@ Wartościowanie wyrażenia przebiega w porządku, określonym pierwszeństwem op
     'W'*
 ```
 
-#### zapis kodami INTERNAL:
+#### INTERNAL code notation:
 
 ```JavaScript
     "B"
@@ -126,20 +126,20 @@ Wartościowanie wyrażenia przebiega w porządku, określonym pierwszeństwem op
     "."*
 ```
 
-Tylko pierwszy znak ciągu *ATASCII*, *INTERNAL* jest znaczący. Znak `*` za apostrofem zamykającym powoduje `invers` znaku.
+Only the first character of an *ATASCII* or *INTERNAL* string is significant. A `*` character after the closing quote causes an `inverse` of the character.
 
 ---
 
-Dodatkowo możliwe są jeszcze dwie operacje `+` `-` dla ciągów znakowych, które powodują zwiększenie/zmniejszenie kodów znaków ograniczonych apostrofami.
+Additionally, two operations, `+` and `-`, are possible for character strings, which increase or decrease the character codes delimited by quotes.
 
 ```JavaScript
     "FDttrteSFSD"-12
     'FDSFdsldksla'+2
 ```
 
-### Operatory
+### Operators
 
-#### binarne
+#### binary
 
     +   Addition
     -   Subtraction
@@ -163,7 +163,7 @@ Dodatkowo możliwe są jeszcze dwie operacje `+` `-` dla ciągów znakowych, kt�
     ||  Logical or
 
 
-#### jednoargumentowe
+#### unary
 
     +  Plus (does nothing)
     -  Minus (changes sign)
@@ -176,7 +176,7 @@ Dodatkowo możliwe są jeszcze dwie operacje `+` `-` dla ciągów znakowych, kt�
     :  Extracts global variable value
 
 
-#### kolejność wykonywania
+#### precedence order
 
     first []             (brackets)
     + - ~ < >            (unary)

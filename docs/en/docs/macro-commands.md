@@ -1,4 +1,4 @@
-## Makro rozkazy
+## Macro Commands
 
  [REQ, RNE, RPL, RMI, RCC, RCS, RVC, RVS](#req)
 
@@ -22,12 +22,12 @@
 
  [CPB, CPW, CPL, CPD](#cpb)
 
-Zadaniem makro rozkazów jest skrócenie czasu pisania programu i samego listingu. Makro rozkazy zastępują grupy często powtarzających się mnemoników.
+The purpose of macro commands is to reduce programming time and shorten the listing itself. Macro commands replace groups of frequently repeated mnemonics.
 
 <a name="req"></a>
 ### REQ, RNE, RPL, RMI, RCC, RCS, RVC, RVS
 
-W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników *6502*, odpowiednio `BEQ`, `BNE`, `BPL`, `BMI`, `BCC`, `BCS`, `BVC`, `BVS`. Posiadają dodatkową właściwość jaką jest skok do poprzednio asemblowanej instrukcji, np.:
+The above macro commands refer by their names to the corresponding *6502* mnemonics: `BEQ`, `BNE`, `BPL`, `BMI`, `BCC`, `BCS`, `BVC`, and `BVS`, respectively. They have an additional property of jumping to the previously assembled instruction, e.g.:
 
 ```
    lda:cmp:req 20           ->      lda 20
@@ -44,7 +44,7 @@ W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników *6502*,
 <a name="seq"></a>
 ### SEQ, SNE, SPL, SMI, SCC, SCS, SVC, SVS
 
-W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników *6502*, odpowiednio `BEQ`, `BNE`, `BPL`, `BMI`, `BCC`, `BCS`, `BVC`, `BVS`. Posiadają dodatkową właściwość jaką jest skok do następnej asemblowanej instrukcji, np.:
+The above macro commands refer by their names to the corresponding *6502* mnemonics: `BEQ`, `BNE`, `BPL`, `BMI`, `BCC`, `BCS`, `BVC`, and `BVS`, respectively. They have an additional property of jumping to the next assembled instruction, e.g.:
 
 ```
    lda #40         ->       lda #40
@@ -59,19 +59,19 @@ W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników *6502*,
 <a name="jeq"></a>
 ### JEQ, JNE, JPL, JMI, JCC, JCS, JVC, JVS
 
-W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników *6502*, odpowiednio `BEQ`, `BNE`, `BPL`, `BMI`, `BCC`, `BCS`, `BVC`, `BVS`. Posiadają dodatkową właściwość jaką jest skok warunkowy pod wskazany adres, z ich pomocą możemy skakać nie tylko w zakresie -128..+127 bajtów ale w całym zakresie **64kB** np.:
+The above macro commands refer by their names to the corresponding *6502* mnemonics: `BEQ`, `BNE`, `BPL`, `BMI`, `BCC`, `BCS`, `BVC`, and `BVS`, respectively. They have an additional property of conditional jumping to a specified address. With their help, we can jump not only in the range of -128..+127 bytes but in the entire **64kB** range, e.g.:
 
 ```
  jne dest   ->  beq *+4
             ->  jmp dest
 ```
 
-Jeśli skok jest krótki (zakres -128..+127) wówczas **MADS** użyje krótkiego skoku, odpowiednio `BEQ`, `BNE`, `BPL`, `BMI`, `BCC`, `BCS`, `BVC`, `BVS`.
+If the jump is short (range -128..+127), **MADS** will use a short jump: `BEQ`, `BNE`, `BPL`, `BMI`, `BCC`, `BCS`, `BVC`, or `BVS`, respectively.
 
-<a name="addq"></a>
+<a name="add"></a>
 ### ADD, SUB
 
-W/w makro rozkazy realizują odpowiednio zwiększenie/zmniejszenie bajtu pamięci bez zapisywania wyniku (wynik w akumulatorze *CPU*).
+The above macro commands perform an increment/decrement of a memory byte respectively, without saving the result (the result remains in the *CPU* accumulator).
 
 ```
   ADD -> CLC         SUB -> SEC
@@ -81,7 +81,7 @@ W/w makro rozkazy realizują odpowiednio zwiększenie/zmniejszenie bajtu pamięc
 <a name="adb"></a>
 ### ADB, SBB
 
-W/w makro rozkazy realizują odpowiednio zwiększenie/zmniejszenie bajtu pamięci z zapisaniem wyniku.
+The above macro commands perform an increment/decrement of a memory byte respectively, and save the result.
 
 ```
   ADB SRC #$40 -> LDA SRC       ADB A B C  -> LDA A
@@ -98,7 +98,7 @@ W/w makro rozkazy realizują odpowiednio zwiększenie/zmniejszenie bajtu pamięc
 <a name="adw"></a>
 ### ADW, SBW
 
-W/w makro rozkazy realizują odpowiednio zwiększenie/zmniejszenie słowa pamięci z zapisaniem wyniku.
+The above macro commands perform an increment/decrement of a memory word respectively, and save the result.
 
 ```
   ADW SRC #$40 -> CLC             ADW A B C  -> CLC
@@ -129,7 +129,7 @@ W/w makro rozkazy realizują odpowiednio zwiększenie/zmniejszenie słowa pamię
 <a name="phr"></a>
 ### PHR, PLR
 
-W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników *6502*, odpowiednio `PHA`, `PLA`, realizują odkładanie na stosie i zdejmowanie ze stosu rejestrów `A`, `X`, `Y`.
+The above macro commands refer by their names to the corresponding *6502* mnemonics: `PHA` and `PLA`, respectively. They perform pushing and pulling of the `A`, `X`, and `Y` registers to/from the stack.
 
 ```
   PHR  -> PHA         PLR  -> PLA
@@ -142,9 +142,9 @@ W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników *6502*,
 <a name="inw"></a>
 ### INW, INL, IND, DEW, DEL, DED
 
-Makro rozkazy `INW`, `INL`, `IND` realizują zwiększenie odpowiednio słowa pamięci (`.WORD`), długiego słowa pamięci (`.LONG`), podwójnego słowa pamięci (`.DWORD`).
+Macro commands `INW`, `INL`, and `IND` increment a memory word (`.WORD`), long word (`.LONG`), and double word (`.DWORD`), respectively.
 
-Makro rozkazy `DEW`, `DEL`, `DED` realizują zmniejszenie odpowiednio słowa pamięci (`.WORD`), długiego słowa pamięci (`.LONG`), podwójnego słowa pamięci (`.DWORD`) i wykorzystują w tym celu akumulator *CPU* (zawartość akumulatora ulega zmianie po wykonaniu makro rozkazów `DEW`, `DEL`, `DED`).
+Macro commands `DEW`, `DEL`, and `DED` decrement a memory word (`.WORD`), long word (`.LONG`), and double word (`.DWORD`), respectively. They use the *CPU* accumulator for this purpose (the accumulator's content changes after executing `DEW`, `DEL`, or `DED`).
 
 ```
     inw dest  ->       inc dest    ->   inc dest
@@ -161,7 +161,7 @@ Makro rozkazy `DEW`, `DEL`, `DED` realizują zmniejszenie odpowiednio słowa pam
 <a name="mva"></a>
 ### MVA, MVX, MVY
 
-Makro rozkazy `MVA`, `MVX`, `MVY` służą do przenoszenia bajtów (`.BYTE`) pamięci przy pomocy rejestrów *CPU* odpowiednio `A`, `X`, `Y`. Użycie opcji `OPT R+` pozwala na potencjalne skrócenie kodu wynikowego dla następujących po sobie makro rozkazów `MVA`, `MVX`, `MVY`.
+Macro commands `MVA`, `MVX`, and `MVY` are used to move memory bytes (`.BYTE`) using the *CPU* registers `A`, `X`, and `Y`, respectively. Using the `OPT R+` option allows for potential reduction of the resulting code for consecutive `MVA`, `MVX`, or `MVY` macro commands.
 
 ```
     lda src    ->  mva src dst
@@ -177,7 +177,7 @@ Makro rozkazy `MVA`, `MVX`, `MVY` służą do przenoszenia bajtów (`.BYTE`) pam
 <a name="mwa"></a>
 ### MWA, MWX, MWY
 
-Makro rozkazy `MWA`, `MWX`, `MWY` służą do przenoszenia słów (`.WORD`) pamięci przy pomocy rejestrów *CPU* odpowiednio `A`, `X`, `Y`. Użycie opcji `OPT R+` pozwala na potencjalne skrócenie kodu wynikowego dla następujących po sobie makro rozkazów `MWA`, `MWX`, `MWY`.
+Macro commands `MWA`, `MWX`, and `MWY` are used to move memory words (`.WORD`) using the *CPU* registers `A`, `X`, and `Y`, respectively. Using the `OPT R+` option allows for potential reduction of the resulting code for consecutive `MWA`, `MWX`, or `MWY` macro commands.
 
 ```
     ldx <adr    ->  mwx #adr dst
@@ -200,7 +200,7 @@ Makro rozkazy `MWA`, `MWX`, `MWY` służą do przenoszenia słów (`.WORD`) pami
 <a name="cpb"></a>
 ### CPB, CPW, CPL, CPD
 
-Makro rozkazy `CPB`, `CPW`, `CPL`, `CPD` realizują porównanie wartości odpowiednich typów, odpowiednio `.BYTE`, `.WORD`, `.LONG`, `.DWORD`.
+Macro commands `CPB`, `CPW`, `CPL`, and `CPD` perform a comparison of values of the respective types: `.BYTE`, `.WORD`, `.LONG`, and `.DWORD`.
 
 ```
  cpw temp #$4080
