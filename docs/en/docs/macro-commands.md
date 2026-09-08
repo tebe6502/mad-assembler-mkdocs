@@ -62,7 +62,7 @@ The above macro commands refer by their names to the corresponding *6502* mnemon
 The above macro commands refer by their names to the corresponding *6502* mnemonics: `BEQ`, `BNE`, `BPL`, `BMI`, `BCC`, `BCS`, `BVC`, and `BVS`, respectively. They have an additional property of conditional jumping to a specified address. With their help, we can jump not only in the range of -128..+127 bytes but in the entire **64kB** range, e.g.:
 
 ```
- jne dest   ->  beq *+4
+ jne dest   ->  beq *+5
             ->  jmp dest
 ```
 
