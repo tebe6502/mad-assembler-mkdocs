@@ -239,7 +239,7 @@ Dyrektywa `.VAR` służy do deklaracji i inicjacji zmiennych w głównym bloku p
 
  .var a,b,c,d .byte = $a000      ; 4 zmienne typu .BYTE o adresach kolejno $A000, $A001, $A002, $A003
 
- .var .byte a,b,c,d = $a0        ; 4 zmienne typu bajt, ostatnia zmiennna 'D' o wartości $A0
+ .var .byte a,b,c,d = $a0        ; 4 zmienne typu bajt, ostatnia zmienna 'D' o wartości $A0
                                  ; !!! dla takiego zapisu nie ma możliwości określenia adresu alokacji zmiennych
 
   .proc name
@@ -267,7 +267,7 @@ Tak zadeklarowane zmienne zostaną fizycznie alokowane dopiero na końcu bloku w
 
 <a name="zpvar"></a>
 ### .ZPVAR var1, var2... (.BYTE|.WORD|.LONG|.DWORD) [=address]
-Dyrektywa `.ZPVAR` służy do deklaracji zmiennych strony zerowej w głównym bloku programu oraz w blokach `.PROC` i `.LOCAL`. Próba przypisania wartości (zaincjowania) takiej zmiennej spowoduje wygenerowanie komunikatu ostrzeżenia _**Uninitialized variable**_. **MADS** nie wykorzystuje informacji na temat takich zmiennych w dalszych operacjach z udziałem pseudo i makro rozkazów. Dopuszczalne typy zmiennych to `.BYTE`, `.WORD`, `.LONG`, `.DWORD` i ich wielokrotności, a także typy zadeklarowane przez `.STRUCT` i `.ENUM` np.:
+Dyrektywa `.ZPVAR` służy do deklaracji zmiennych strony zerowej w głównym bloku programu oraz w blokach `.PROC` i `.LOCAL`. Próba przypisania wartości (zainicjowania) takiej zmiennej spowoduje wygenerowanie komunikatu ostrzeżenia _**Uninitialized variable**_. **MADS** nie wykorzystuje informacji na temat takich zmiennych w dalszych operacjach z udziałem pseudo i makro rozkazów. Dopuszczalne typy zmiennych to `.BYTE`, `.WORD`, `.LONG`, `.DWORD` i ich wielokrotności, a także typy zadeklarowane przez `.STRUCT` i `.ENUM` np.:
 
 ```
  .zpvar a b c d  .word = $80    ; 4 zmienne typu .WORD o adresie początkowym $0080
@@ -287,7 +287,7 @@ Dyrektywa `.ZPVAR` służy do deklaracji zmiennych strony zerowej w głównym bl
 
 Tak zadeklarowanym zmiennym strony zerowej zostaną przypisane adresy dopiero na końcu bloku w którym zostały zadeklarowane, po dyrektywie `.ENDP`, `.ENDL` (`.END`). Wyjątek stanowi blok `.PROC` gdzie zmiennym zadeklarowanym przez `.ZPVAR` adresy przypisywane są przed dyrektywą `.ENDP` niezależnie czy w bloku procedury wystąpiły jakiekolwiek dodatkowe bloki `.LOCAL` ze zmiennymi deklarowanymi przez `.ZPVAR`.
 
-Przy pierwszym użyciu dyrektywy `.ZPVAR` należy zaincjować adres jaki będzie przypisywany kolejnym zmiennym (domyślnym adresem jest $0080).
+Przy pierwszym użyciu dyrektywy `.ZPVAR` należy zainicjować adres jaki będzie przypisywany kolejnym zmiennym (domyślnym adresem jest $0080).
 
 ```
  .zpvar = $40

@@ -191,7 +191,7 @@ Symbole publiczne udostępniają zmienne i procedury występujące w bloku relok
 
 Symbole publiczne mogą być używane w blokach relokowalnych `.RELOC` jak i w zwykłych blokach **DOS**.
 
-**MADS** sam rozpoznaje czy podana do upublicznienia etykieta jest zmienną, stałą czy też procedurą zadeklarowną przez `.PROC`, nie jest wymagana żadna dodatkowa informacja jak w przypadku symboli zewnętrznych.
+**MADS** sam rozpoznaje czy podana do upublicznienia etykieta jest zmienną, stałą czy też procedurą zadeklarowaną przez `.PROC`, nie jest wymagana żadna dodatkowa informacja jak w przypadku symboli zewnętrznych.
 
 Symbole publiczne deklarujemy używając n/w dyrektyw:
 

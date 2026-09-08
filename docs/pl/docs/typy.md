@@ -115,7 +115,7 @@ Po nawiasie kwadratowym może wystąpić opcjonalnie lista wartości początkowy
 
     data dta temp [12] (1,20,200,32000)
 
-Taka deklaracja spowoduje, że wszystkie pola zostaną zaincjowane wartościami `1,20,200,32000`, a nie tylko pierwsze pole `data[0]`.
+Taka deklaracja spowoduje, że wszystkie pola zostaną zainicjowane wartościami `1,20,200,32000`, a nie tylko pierwsze pole `data[0]`.
 
 Jeśli lista wartości początkowych będzie większa lub mniejsza od liczby pól struktury, wówczas wystąpi błąd z komunikatem **Constant expression violates subrange bounds**.
 
