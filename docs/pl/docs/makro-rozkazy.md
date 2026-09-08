@@ -62,7 +62,7 @@ W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników *6502*,
 W/w makro rozkazy swoimi nazwami nawiązują do odpowiednich mnemoników *6502*, odpowiednio `BEQ`, `BNE`, `BPL`, `BMI`, `BCC`, `BCS`, `BVC`, `BVS`. Posiadają dodatkową właściwość jaką jest skok warunkowy pod wskazany adres, z ich pomocą możemy skakać nie tylko w zakresie -128..+127 bajtów ale w całym zakresie **64kB** np.:
 
 ```
- jne dest   ->  beq *+4
+ jne dest   ->  beq *+5
             ->  jmp dest
 ```
 
