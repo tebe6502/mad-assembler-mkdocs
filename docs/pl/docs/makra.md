@@ -35,14 +35,14 @@ Dopuszczalna jest lista z etykietami nazw argumentów jakie będą przekazywane 
 .endm
 ```
 
-Na końcu deklaracji makra może wystąpić deklaracja separatora i zarazem trybu przekazywania parametrów do makra (pojedyńczy apostrof bez zmian, podwójny apostrof z rozbijaniem parametrów na tryb adresacji i argument).
+Na końcu deklaracji makra może wystąpić deklaracja separatora i zarazem trybu przekazywania parametrów do makra (pojedynczy apostrof bez zmian, podwójny apostrof z rozbijaniem parametrów na tryb adresacji i argument).
 Domyślnym separatorem, rozdzielającym parametry przekazywane do makra jest znak przecinka `,` oraz spacji `' '`.
 
 ```
 name .MACRO 'separator'
 ```
 
-Pomiędzy pojedyńczymi apostrofami `' '` możemy umieścić znak separatora, który będzie używany do oddzielenia parametrów przy wywołaniu makra (tylko do tego mogą służyć pojedyńcze apostrofy).
+Pomiędzy pojedynczymi apostrofami `' '` możemy umieścić znak separatora, który będzie używany do oddzielenia parametrów przy wywołaniu makra (tylko do tego mogą służyć pojedyncze apostrofy).
 
 ```
 name .MACRO "separator"
@@ -67,9 +67,9 @@ Makro `TEST` ma zadeklarowany separator-spację przy użyciu apostrofu `"`, czyl
  test '#' 12 ' ' 200 '#' 0
 ```
 
-UAWAGA #1: Parametry ze znakiem operatora `<`, `>` zostają obliczone i dopiero ich wynik jest przekazywany do makra (podstawiany pod parametr).
+UWAGA #1: Parametry ze znakiem operatora `<`, `>` zostają obliczone i dopiero ich wynik jest przekazywany do makra (podstawiany pod parametr).
 
-UAWAGA #2: Jeśli parametrem makra jest licznik pętli `#`, `.R` (!!! pojedyńczy znak `#` lub dyrektywa `.R` a nie wyrażenie z udziałem tego znaku, tej dyrektywy !!!) wówczas do makra przekazywana jest wartość licznika pętli (podstawiana pod parametr).
+UWAGA #2: Jeśli parametrem makra jest licznik pętli `#`, `.R` (!!! pojedynczy znak `#` lub dyrektywa `.R` a nie wyrażenie z udziałem tego znaku, tej dyrektywy !!!) wówczas do makra przekazywana jest wartość licznika pętli (podstawiana pod parametr).
 
 Tą właściwość możemy wykorzystać do stworzenia "samopiszącego" się kodu, kiedy potrzebujemy tworzyć nowe etykiety typu "label0", "label1", "label2", "label3" ... itd. , np.:
 
@@ -144,9 +144,9 @@ Liczba parametrów uzależniona jest od wolnej pamięci komputera *PC*. Jeśli p
  macro_name [Par1, Par2, Par3, 'Par4', "string1", "string2" ...]
 ```
 
-Parametrem może być wartość, wyrażenie lub ciąg znaków ograniczony apostrofem pojedyńczym `' '` lub podwójnym `" "`.
+Parametrem może być wartość, wyrażenie lub ciąg znaków ograniczony apostrofem pojedynczym `' '` lub podwójnym `" "`.
 
-* apostrofy pojedyńcze `' '` zostaną przekazane do makra razem ze znakami znajdującymi się pomiędzy nimi
+* apostrofy pojedyncze `' '` zostaną przekazane do makra razem ze znakami znajdującymi się pomiędzy nimi
 * apostrofy podwójne `" "` oznaczają ciąg znaków i tylko ciąg znaków znajdujący się pomiędzy apostrofami zostanie przekazany do makra
 
 Wszelkie definicje etykiet w obrębie makra mają zasięg lokalny.

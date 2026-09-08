@@ -111,7 +111,7 @@ text 'atari'
 - `.DB` `.DW` usunięte
 - `.DBYTE` (MSB/LSB) odkłada słowo w odwrotnej kolejności (starszy/młodszy)
 - dodane dyrektywy `.WGET` **WORD**, `.LGET` **LONG**, `.DGET` **DWORD**
-- poprawione działanie makro rozkazków `ADW` i `SBW`, np.:
+- poprawione działanie makro rozkazów `ADW` i `SBW`, np.:
 ```
 adw (tmp),y #1 posx
 adw (tmp),y ptr2 ptr4
@@ -527,7 +527,7 @@ blk update extrn
  .var .byte a,b,c .dword i j
 ```
 
-- dodana możliwość definicji pojedyńczych zmiennych typu strukturalnego w krótszy sposób aniżeli dotąd przez `DTA`
+- dodana możliwość definicji pojedynczych zmiennych typu strukturalnego w krótszy sposób aniżeli dotąd przez `DTA`
 
 ```
 .struct @point
@@ -772,7 +772,7 @@ mva #0 $81  ->  sta $80   ->  sta $80
 - dodana nowa dyrektywa `.USING` `.USE` pozwalająca określić ścieżkę poszukiwań dla nazw etykiet
 - poprawione działanie dyrektyw `.LOCAL` `.DEF`, których błędne działanie objawiało się w szczególnych przypadkach
 - poprawione działanie makro rozkazów skoków (`SNE` `RNE` itp.), których błędne działanie objawiało się w szczególnych przypadkach
-- rozszerzona składnia dyrektywy `.TEST` (kod **6502** dla warunku) o dowolną ilość wyrażeń połączonych przez `.OR` lub `.AND` (brak możliwości zmiany piorytetu wartościowania przy pomocy nawiasów), np.:
+- rozszerzona składnia dyrektywy `.TEST` (kod **6502** dla warunku) o dowolną ilość wyrażeń połączonych przez `.OR` lub `.AND` (brak możliwości zmiany priorytetu wartościowania przy pomocy nawiasów), np.:
 
 ```
 .test .byte k>#10+1 .or .word j>#100 .and .word j<#105 .or .byte k<=#5
@@ -917,7 +917,7 @@ SBB #200 $a000     ->  lda #200
                        sta $a000
 ```
 
-- dodana możliwość użycia składni C dla liczb szestnastkowych, np.:
+- dodana możliwość użycia składni C dla liczb szesnastkowych, np.:
 
 ```
 lda 0x2000
@@ -1006,11 +1006,11 @@ adw hlp #20 pom    ; pom=hlp+20
 - dodane dyrektywy `.REG` `.VAR` pozwalające określić sposób przekazywania parametrów do procedur (`.REG` przez rejestry **CPU**, `.VAR` przez zmienne)
 - dodana dyrektywa `.VAR` pozwalająca na deklarację zmiennych w blokach `.PROC` `.LOCAL`, zadeklarowane zmiennne są fizycznie odkładane na końcu takiego bloku
 - rozszerzona składnia dla dyrektywy `.EXTRN`, np. `EXTRN label1,label2,label3... TYPE`
-- jesli brak deklaracji etykiet dla stosu programowego **MADS**, przyjmowane są domyślne wartości `@PROC_VARS_ADR=$0500` `@STACK_ADDRESS=$0600` `@STACK_POINTER=$FE`
+- jeśli brak deklaracji etykiet dla stosu programowego **MADS**, przyjmowane są domyślne wartości `@PROC_VARS_ADR=$0500` `@STACK_ADDRESS=$0600` `@STACK_POINTER=$FE`
 - dodany `repeat_counter #`, który można używać zamiennie z dyrektywą `.R`
-- wystapi błąd *^ not relocatable* przy próbie relokacji rozkazu `lda ^label`
+- wystąpi błąd *^ not relocatable* przy próbie relokacji rozkazu `lda ^label`
 - dodana obsługa symboli publicznych dla stałych `CONSTANT` w blokach `PUBLIC`
-- poprawiona relokowalnosc dla tablic `.ARRAY`, danych stworzonych przez `.STRUCT`, parametrów przekazywanych do procedur przez stała `#`
+- poprawiona relokowalność dla tablic `.ARRAY`, danych stworzonych przez `.STRUCT`, parametrów przekazywanych do procedur przez stała `#`
 
 ## 1.7.2
 
@@ -1037,7 +1037,7 @@ adw hlp #20 pom    ; pom=hlp+20
 - dodany pseudo rozkaz `EXT` pozwalający na deklaracje etykiety external
 - dodane makra `JEQ` `JNE` `JPL` `JMI` `JCC` `JCS`
 - dodane dyrektywy `.PAGES` `.ENDPG`
-- dodana dyrektywa `.END` zastepujaca inne dyrektywy `.END?`
+- dodana dyrektywa `.END` zastepująca inne dyrektywy `.END?`
 - przełącznik `-H` zastąpiony został przez `-HC` (generuje plik nagłówkowy dla **CC65**)
 - dodany nowy przełącznik `-HM` generujący plik nagłówkowy dla **MADS** z sortowaniem na etykiety typu `CONSTANTS` `VARIABLES` `PROCEDURES`
 - dodana nowa dyrektywa `.RELOC` generująca kod relokowalny w formacie **MADS**

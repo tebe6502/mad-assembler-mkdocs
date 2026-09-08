@@ -77,7 +77,7 @@ lda #" "
 ## Linki
 
 * **MADS**
-   * [Wątek Atari Age Wątek](https://forums.atariage.com/topic/114443-mad-assembler-mads)
+   * [Wątek Atari Age](https://forums.atariage.com/topic/114443-mad-assembler-mads)
    * [Wątek Atari Area](http://www.atari.org.pl/forum/viewtopic.php?id=8450)
    * [Kolorowanie](http://www.atari.org.pl/forum/viewtopic.php?pid=210234)
 * **XASM**
